@@ -1,0 +1,24 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace Quản_lý_vudaco.services.Entity
+{
+    public class KhauHao
+    {
+        public int ID { get; set; }
+        public string SoChungTu { get; set; }
+        public string NguoiTao { get; set; }
+        public DateTime NgayTao { get; set; }
+        public string MaKhauHao { get; set; }
+        public string TenKhauHao { get; set; }
+        public double NguyenGia { get; set; }
+        public int ThoiGianSuDung { get; set; }
+        public double GiaTriKhauHaoThang { get; set; }
+        public int Loai { get; set; }
+        public string GhiChu { get; set; }
+        public Nullable<DateTime> NgayTinhCuoi { get; set; }
+    }
+}

@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.35130.168
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "API", "API\API.csproj", "{841C0B09-D363-4BB9-B34A-D90FD8650829}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QuanLyVUDACO", "QuanLyVuDACO\QuanLyVUDACO.csproj", "{7DD91276-A0EA-40DF-A2CF-22F243FDB238}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{841C0B09-D363-4BB9-B34A-D90FD8650829}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{841C0B09-D363-4BB9-B34A-D90FD8650829}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{841C0B09-D363-4BB9-B34A-D90FD8650829}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{841C0B09-D363-4BB9-B34A-D90FD8650829}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7DD91276-A0EA-40DF-A2CF-22F243FDB238}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7DD91276-A0EA-40DF-A2CF-22F243FDB238}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7DD91276-A0EA-40DF-A2CF-22F243FDB238}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7DD91276-A0EA-40DF-A2CF-22F243FDB238}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {A75A0B1C-1AF6-487B-8040-1BEF509D92B3}
+	EndGlobalSection
+EndGlobal
