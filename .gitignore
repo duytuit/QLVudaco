@@ -20,3 +20,6 @@ Properties/
 *.log
 *.tmp
 *.db
+
+# Connected Services
+Connected Services/
