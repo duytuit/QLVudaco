@@ -130,6 +130,7 @@ namespace Quản_lý_vudaco
             this.lblTK = new System.Windows.Forms.ToolStripStatusLabel();
             this.toolStripStatusLabel2 = new System.Windows.Forms.ToolStripStatusLabel();
             this.lblThoiGian = new System.Windows.Forms.ToolStripStatusLabel();
+            this.ucNhomQuyen = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.panelCha)).BeginInit();
             this.panelCha.SuspendLayout();
@@ -169,6 +170,7 @@ namespace Quản_lý_vudaco
             // 
             this.mnHeThong.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.ucDanhSachTaiKhoan,
+            this.ucNhomQuyen,
             this.ucNhanVien,
             this.thoátPhiênĐăngNhậpToolStripMenuItem,
             this.ucXoa,
@@ -181,7 +183,7 @@ namespace Quản_lý_vudaco
             // 
             this.ucDanhSachTaiKhoan.Image = ((System.Drawing.Image)(resources.GetObject("ucDanhSachTaiKhoan.Image")));
             this.ucDanhSachTaiKhoan.Name = "ucDanhSachTaiKhoan";
-            this.ucDanhSachTaiKhoan.Size = new System.Drawing.Size(197, 22);
+            this.ucDanhSachTaiKhoan.Size = new System.Drawing.Size(201, 26);
             this.ucDanhSachTaiKhoan.Text = "Danh sách tài khoản";
             this.ucDanhSachTaiKhoan.Click += new System.EventHandler(this.danhSáchTàiKhoảnToolStripMenuItem_Click);
             // 
@@ -189,7 +191,7 @@ namespace Quản_lý_vudaco
             // 
             this.ucNhanVien.Image = ((System.Drawing.Image)(resources.GetObject("ucNhanVien.Image")));
             this.ucNhanVien.Name = "ucNhanVien";
-            this.ucNhanVien.Size = new System.Drawing.Size(197, 22);
+            this.ucNhanVien.Size = new System.Drawing.Size(201, 26);
             this.ucNhanVien.Text = "Nhân viên";
             this.ucNhanVien.Click += new System.EventHandler(this.ucNhanVien_Click);
             // 
@@ -197,7 +199,7 @@ namespace Quản_lý_vudaco
             // 
             this.thoátPhiênĐăngNhậpToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("thoátPhiênĐăngNhậpToolStripMenuItem.Image")));
             this.thoátPhiênĐăngNhậpToolStripMenuItem.Name = "thoátPhiênĐăngNhậpToolStripMenuItem";
-            this.thoátPhiênĐăngNhậpToolStripMenuItem.Size = new System.Drawing.Size(197, 22);
+            this.thoátPhiênĐăngNhậpToolStripMenuItem.Size = new System.Drawing.Size(201, 26);
             this.thoátPhiênĐăngNhậpToolStripMenuItem.Text = "Thoát phiên đăng nhập";
             this.thoátPhiênĐăngNhậpToolStripMenuItem.Click += new System.EventHandler(this.thoátPhiênĐăngNhậpToolStripMenuItem_Click);
             // 
@@ -205,7 +207,7 @@ namespace Quản_lý_vudaco
             // 
             this.ucXoa.Image = ((System.Drawing.Image)(resources.GetObject("ucXoa.Image")));
             this.ucXoa.Name = "ucXoa";
-            this.ucXoa.Size = new System.Drawing.Size(197, 22);
+            this.ucXoa.Size = new System.Drawing.Size(201, 26);
             this.ucXoa.Text = "Xoá dữ liệu";
             this.ucXoa.Click += new System.EventHandler(this.ucXoa_Click);
             // 
@@ -213,7 +215,7 @@ namespace Quản_lý_vudaco
             // 
             this.thoátToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("thoátToolStripMenuItem.Image")));
             this.thoátToolStripMenuItem.Name = "thoátToolStripMenuItem";
-            this.thoátToolStripMenuItem.Size = new System.Drawing.Size(197, 22);
+            this.thoátToolStripMenuItem.Size = new System.Drawing.Size(201, 26);
             this.thoátToolStripMenuItem.Text = "Thoát";
             this.thoátToolStripMenuItem.Click += new System.EventHandler(this.thoátToolStripMenuItem_Click);
             // 
@@ -580,7 +582,7 @@ namespace Quản_lý_vudaco
             // 
             this.ucCongNoKhachHang.Image = ((System.Drawing.Image)(resources.GetObject("ucCongNoKhachHang.Image")));
             this.ucCongNoKhachHang.Name = "ucCongNoKhachHang";
-            this.ucCongNoKhachHang.Size = new System.Drawing.Size(223, 26);
+            this.ucCongNoKhachHang.Size = new System.Drawing.Size(219, 22);
             this.ucCongNoKhachHang.Text = "Công nợ khách hàng";
             this.ucCongNoKhachHang.Click += new System.EventHandler(this.ucCongNoKhachHang_Click);
             // 
@@ -588,7 +590,7 @@ namespace Quản_lý_vudaco
             // 
             this.ucCongNoNhaCungCap.Image = ((System.Drawing.Image)(resources.GetObject("ucCongNoNhaCungCap.Image")));
             this.ucCongNoNhaCungCap.Name = "ucCongNoNhaCungCap";
-            this.ucCongNoNhaCungCap.Size = new System.Drawing.Size(223, 26);
+            this.ucCongNoNhaCungCap.Size = new System.Drawing.Size(219, 22);
             this.ucCongNoNhaCungCap.Text = "Công nợ nhà cung cấp";
             this.ucCongNoNhaCungCap.Click += new System.EventHandler(this.coToolStripMenuItem_Click);
             // 
@@ -599,7 +601,7 @@ namespace Quản_lý_vudaco
             this.ucCongNoLaiXe});
             this.côngNợNhânViênToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("côngNợNhânViênToolStripMenuItem.Image")));
             this.côngNợNhânViênToolStripMenuItem.Name = "côngNợNhânViênToolStripMenuItem";
-            this.côngNợNhânViênToolStripMenuItem.Size = new System.Drawing.Size(223, 26);
+            this.côngNợNhânViênToolStripMenuItem.Size = new System.Drawing.Size(219, 22);
             this.côngNợNhânViênToolStripMenuItem.Text = "Công nợ nhân viên";
             // 
             // ucCongNoGiaoNhan
@@ -620,27 +622,27 @@ namespace Quản_lý_vudaco
             // 
             this.ucCongNoDoiTru.Image = ((System.Drawing.Image)(resources.GetObject("ucCongNoDoiTru.Image")));
             this.ucCongNoDoiTru.Name = "ucCongNoDoiTru";
-            this.ucCongNoDoiTru.Size = new System.Drawing.Size(223, 26);
+            this.ucCongNoDoiTru.Size = new System.Drawing.Size(219, 22);
             this.ucCongNoDoiTru.Text = "Bù trừ công nợ";
             this.ucCongNoDoiTru.Click += new System.EventHandler(this.ucCongNoDoiTru_Click);
             // 
             // cácKhoảnVayNgânHàngToolStripMenuItem
             // 
             this.cácKhoảnVayNgânHàngToolStripMenuItem.Name = "cácKhoảnVayNgânHàngToolStripMenuItem";
-            this.cácKhoảnVayNgânHàngToolStripMenuItem.Size = new System.Drawing.Size(223, 26);
+            this.cácKhoảnVayNgânHàngToolStripMenuItem.Size = new System.Drawing.Size(219, 22);
             this.cácKhoảnVayNgânHàngToolStripMenuItem.Text = "Các khoản vay ngân hàng";
             // 
             // ucCongNoNhaCungCapV2
             // 
             this.ucCongNoNhaCungCapV2.Name = "ucCongNoNhaCungCapV2";
-            this.ucCongNoNhaCungCapV2.Size = new System.Drawing.Size(223, 26);
+            this.ucCongNoNhaCungCapV2.Size = new System.Drawing.Size(219, 22);
             this.ucCongNoNhaCungCapV2.Text = "Công nợ nhà cung cấp mới";
             this.ucCongNoNhaCungCapV2.Click += new System.EventHandler(this.ucCongNoNhaCungCapV2_Click);
             // 
             // ucCongNoKhachHangV2
             // 
             this.ucCongNoKhachHangV2.Name = "ucCongNoKhachHangV2";
-            this.ucCongNoKhachHangV2.Size = new System.Drawing.Size(223, 26);
+            this.ucCongNoKhachHangV2.Size = new System.Drawing.Size(219, 22);
             this.ucCongNoKhachHangV2.Text = "Công nợ khách hàng mới";
             this.ucCongNoKhachHangV2.Click += new System.EventHandler(this.côngNợKháchHàngMớiToolStripMenuItem_Click);
             // 
@@ -984,6 +986,13 @@ namespace Quản_lý_vudaco
             this.lblThoiGian.Size = new System.Drawing.Size(16, 17);
             this.lblThoiGian.Text = "...";
             // 
+            // ucNhomQuyen
+            // 
+            this.ucNhomQuyen.Name = "ucNhomQuyen";
+            this.ucNhomQuyen.Size = new System.Drawing.Size(201, 26);
+            this.ucNhomQuyen.Text = "Nhóm Quyền";
+            this.ucNhomQuyen.Click += new System.EventHandler(this.ucNhomQuyen_Click);
+            // 
             // frmMain
             // 
             this.ClientSize = new System.Drawing.Size(1616, 783);
@@ -1112,6 +1121,7 @@ namespace Quản_lý_vudaco
         private System.Windows.Forms.ToolStripMenuItem ucBangTheoDoiDebit_CoFile_NCC;
         private System.Windows.Forms.ToolStripMenuItem ucCongNoNhaCungCapV2;
         private System.Windows.Forms.ToolStripMenuItem ucCongNoKhachHangV2;
+        private System.Windows.Forms.ToolStripMenuItem ucNhomQuyen;
     }
 }
 

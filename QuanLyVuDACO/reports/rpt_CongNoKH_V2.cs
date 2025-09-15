@@ -32,18 +32,18 @@ namespace Quản_lý_vudaco.reports
             xrTableCell44.Text = _DauKy.ToString("#,##");
             xrTableCell38.Text = _ThanhToan.ToString("#,##");
             lblHoTen.Text = _ten;
-            if (_dt.Rows.Count > 0)
-            {
-                for (int i = 0; i < _dt.Rows.Count; i++)
-                {
-                    tong += double.Parse("0"+_dt.Rows[i]["ThanhTien"].ToString());
-                    if(_dt.Rows[i]["ThanhTien_ChiHo"].ToString()!="")
-                        chiho += double.Parse("0"+_dt.Rows[i]["ThanhTien_ChiHo"].ToString());
-                }
-               
-                xrTableCell37.Text = (tong + chiho).ToString("#,##");
-            }
-            xrTableCell42.Text = (_DauKy + tong + chiho - _ThanhToan).ToString("#,##");
+            //if (_dt.Rows.Count > 0)
+            //{
+            //    for (int i = 0; i < _dt.Rows.Count; i++)
+            //    {
+            //        tong += double.Parse("0"+_dt.Rows[i]["ThanhTien"].ToString());
+            //        if(_dt.Rows[i]["ThanhTien_ChiHo"].ToString()!="")
+            //            chiho += double.Parse("0"+_dt.Rows[i]["ThanhTien_ChiHo"].ToString());
+            //    }
+            //   
+            //    xrTableCell37.Text = (tong + chiho).ToString("#,##");
+            //}
+            //xrTableCell42.Text = (_DauKy + tong + chiho - _ThanhToan).ToString("#,##");
         }
 
         private void xrTableCell37_BeforePrint(object sender, System.Drawing.Printing.PrintEventArgs e)

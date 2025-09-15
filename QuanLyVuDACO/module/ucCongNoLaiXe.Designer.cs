@@ -45,25 +45,25 @@ namespace Quản_lý_vudaco.module
             this.panelControl2 = new DevExpress.XtraEditors.PanelControl();
             this.gridControl1 = new DevExpress.XtraGrid.GridControl();
             this.bandedGridView1 = new DevExpress.XtraGrid.Views.BandedGrid.BandedGridView();
+            this.gridBand1 = new DevExpress.XtraGrid.Views.BandedGrid.GridBand();
             this.colSTT = new DevExpress.XtraGrid.Views.BandedGrid.BandedGridColumn();
             this.bandedGridColumn7 = new DevExpress.XtraGrid.Views.BandedGrid.BandedGridColumn();
             this.bandedGridColumn1 = new DevExpress.XtraGrid.Views.BandedGrid.BandedGridColumn();
             this.bandedGridColumn2 = new DevExpress.XtraGrid.Views.BandedGrid.BandedGridColumn();
             this.repositoryItemCT = new DevExpress.XtraEditors.Repository.RepositoryItemHyperLinkEdit();
+            this.gridBand2 = new DevExpress.XtraGrid.Views.BandedGrid.GridBand();
             this.bandedGridColumn8 = new DevExpress.XtraGrid.Views.BandedGrid.BandedGridColumn();
             this.bandedGridColumn3 = new DevExpress.XtraGrid.Views.BandedGrid.BandedGridColumn();
+            this.gridBand3 = new DevExpress.XtraGrid.Views.BandedGrid.GridBand();
             this.bandedGridColumn10 = new DevExpress.XtraGrid.Views.BandedGrid.BandedGridColumn();
             this.bandedGridColumn4 = new DevExpress.XtraGrid.Views.BandedGrid.BandedGridColumn();
+            this.gridBand4 = new DevExpress.XtraGrid.Views.BandedGrid.GridBand();
+            this.bandedGridColumn5 = new DevExpress.XtraGrid.Views.BandedGrid.BandedGridColumn();
+            this.bandedGridColumn11 = new DevExpress.XtraGrid.Views.BandedGrid.BandedGridColumn();
+            this.gridBand5 = new DevExpress.XtraGrid.Views.BandedGrid.GridBand();
             this.bandedGridColumn9 = new DevExpress.XtraGrid.Views.BandedGrid.BandedGridColumn();
             this.bandedGridColumn6 = new DevExpress.XtraGrid.Views.BandedGrid.BandedGridColumn();
             this.splashScreenManager1 = new DevExpress.XtraSplashScreen.SplashScreenManager(this, typeof(global::Quản_lý_vudaco.frmWait), true, true, typeof(System.Windows.Forms.UserControl), true);
-            this.bandedGridColumn5 = new DevExpress.XtraGrid.Views.BandedGrid.BandedGridColumn();
-            this.bandedGridColumn11 = new DevExpress.XtraGrid.Views.BandedGrid.BandedGridColumn();
-            this.gridBand1 = new DevExpress.XtraGrid.Views.BandedGrid.GridBand();
-            this.gridBand2 = new DevExpress.XtraGrid.Views.BandedGrid.GridBand();
-            this.gridBand3 = new DevExpress.XtraGrid.Views.BandedGrid.GridBand();
-            this.gridBand4 = new DevExpress.XtraGrid.Views.BandedGrid.GridBand();
-            this.gridBand5 = new DevExpress.XtraGrid.Views.BandedGrid.GridBand();
             ((System.ComponentModel.ISupportInitialize)(this.panelControl1)).BeginInit();
             this.panelControl1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.cboNhanVienGiaoNhan.Properties)).BeginInit();
@@ -257,6 +257,17 @@ namespace Quản_lý_vudaco.module
             this.bandedGridView1.OptionsView.ShowFooter = true;
             this.bandedGridView1.OptionsView.ShowGroupPanel = false;
             // 
+            // gridBand1
+            // 
+            this.gridBand1.Caption = "THÔNG TIN CHUNG";
+            this.gridBand1.Columns.Add(this.colSTT);
+            this.gridBand1.Columns.Add(this.bandedGridColumn7);
+            this.gridBand1.Columns.Add(this.bandedGridColumn1);
+            this.gridBand1.Columns.Add(this.bandedGridColumn2);
+            this.gridBand1.Name = "gridBand1";
+            this.gridBand1.VisibleIndex = 0;
+            this.gridBand1.Width = 435;
+            // 
             // colSTT
             // 
             this.colSTT.Caption = "STT";
@@ -296,6 +307,15 @@ namespace Quản_lý_vudaco.module
             this.repositoryItemCT.NullText = "Chi tiết";
             this.repositoryItemCT.Click += new System.EventHandler(this.repositoryItemCT_Click);
             // 
+            // gridBand2
+            // 
+            this.gridBand2.Caption = "ĐẦU KỲ";
+            this.gridBand2.Columns.Add(this.bandedGridColumn8);
+            this.gridBand2.Columns.Add(this.bandedGridColumn3);
+            this.gridBand2.Name = "gridBand2";
+            this.gridBand2.VisibleIndex = 1;
+            this.gridBand2.Width = 308;
+            // 
             // bandedGridColumn8
             // 
             this.bandedGridColumn8.Caption = "Tạm ứng";
@@ -320,6 +340,15 @@ namespace Quản_lý_vudaco.module
             this.bandedGridColumn3.Visible = true;
             this.bandedGridColumn3.Width = 171;
             // 
+            // gridBand3
+            // 
+            this.gridBand3.Caption = "PHÁT SINH TRONG KỲ";
+            this.gridBand3.Columns.Add(this.bandedGridColumn10);
+            this.gridBand3.Columns.Add(this.bandedGridColumn4);
+            this.gridBand3.Name = "gridBand3";
+            this.gridBand3.VisibleIndex = 2;
+            this.gridBand3.Width = 258;
+            // 
             // bandedGridColumn10
             // 
             this.bandedGridColumn10.Caption = "Tạm ứng";
@@ -343,6 +372,48 @@ namespace Quản_lý_vudaco.module
             new DevExpress.XtraGrid.GridColumnSummaryItem(DevExpress.Data.SummaryItemType.Sum, "PhatSinh_PhiCuoc", "{0:#,##}")});
             this.bandedGridColumn4.Visible = true;
             this.bandedGridColumn4.Width = 142;
+            // 
+            // gridBand4
+            // 
+            this.gridBand4.Caption = "THANH TOÁN TRONG KỲ";
+            this.gridBand4.Columns.Add(this.bandedGridColumn5);
+            this.gridBand4.Columns.Add(this.bandedGridColumn11);
+            this.gridBand4.Name = "gridBand4";
+            this.gridBand4.VisibleIndex = 3;
+            this.gridBand4.Width = 220;
+            // 
+            // bandedGridColumn5
+            // 
+            this.bandedGridColumn5.Caption = "Tạm ứng";
+            this.bandedGridColumn5.DisplayFormat.FormatString = "#,##";
+            this.bandedGridColumn5.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Numeric;
+            this.bandedGridColumn5.FieldName = "DaThu_TamUng";
+            this.bandedGridColumn5.Name = "bandedGridColumn5";
+            this.bandedGridColumn5.Summary.AddRange(new DevExpress.XtraGrid.GridSummaryItem[] {
+            new DevExpress.XtraGrid.GridColumnSummaryItem(DevExpress.Data.SummaryItemType.Sum, "DaThu_TamUng", "{0:#,##}")});
+            this.bandedGridColumn5.Visible = true;
+            this.bandedGridColumn5.Width = 108;
+            // 
+            // bandedGridColumn11
+            // 
+            this.bandedGridColumn11.Caption = "Thu cước";
+            this.bandedGridColumn11.DisplayFormat.FormatString = "#,##";
+            this.bandedGridColumn11.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Numeric;
+            this.bandedGridColumn11.FieldName = "DaThu_ThuCuoc";
+            this.bandedGridColumn11.Name = "bandedGridColumn11";
+            this.bandedGridColumn11.Summary.AddRange(new DevExpress.XtraGrid.GridSummaryItem[] {
+            new DevExpress.XtraGrid.GridColumnSummaryItem(DevExpress.Data.SummaryItemType.Sum, "DaThu_ThuCuoc", "{0:#,##}")});
+            this.bandedGridColumn11.Visible = true;
+            this.bandedGridColumn11.Width = 112;
+            // 
+            // gridBand5
+            // 
+            this.gridBand5.Caption = "NỢ CUỐI KỲ";
+            this.gridBand5.Columns.Add(this.bandedGridColumn9);
+            this.gridBand5.Columns.Add(this.bandedGridColumn6);
+            this.gridBand5.Name = "gridBand5";
+            this.gridBand5.VisibleIndex = 4;
+            this.gridBand5.Width = 309;
             // 
             // bandedGridColumn9
             // 
@@ -371,77 +442,6 @@ namespace Quản_lý_vudaco.module
             // splashScreenManager1
             // 
             this.splashScreenManager1.ClosingDelay = 500;
-            // 
-            // bandedGridColumn5
-            // 
-            this.bandedGridColumn5.Caption = "Tạm ứng";
-            this.bandedGridColumn5.DisplayFormat.FormatString = "#,##";
-            this.bandedGridColumn5.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Numeric;
-            this.bandedGridColumn5.FieldName = "DaThu_TamUng";
-            this.bandedGridColumn5.Name = "bandedGridColumn5";
-            this.bandedGridColumn5.Summary.AddRange(new DevExpress.XtraGrid.GridSummaryItem[] {
-            new DevExpress.XtraGrid.GridColumnSummaryItem(DevExpress.Data.SummaryItemType.Sum, "DaThu_TamUng", "{0:#,##}")});
-            this.bandedGridColumn5.Visible = true;
-            this.bandedGridColumn5.Width = 108;
-            // 
-            // bandedGridColumn11
-            // 
-            this.bandedGridColumn11.Caption = "Thu cước";
-            this.bandedGridColumn11.DisplayFormat.FormatString = "#,##";
-            this.bandedGridColumn11.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Numeric;
-            this.bandedGridColumn11.FieldName = "DaThu_ThuCuoc";
-            this.bandedGridColumn11.Name = "bandedGridColumn11";
-            this.bandedGridColumn11.Summary.AddRange(new DevExpress.XtraGrid.GridSummaryItem[] {
-            new DevExpress.XtraGrid.GridColumnSummaryItem(DevExpress.Data.SummaryItemType.Sum, "DaThu_ThuCuoc", "{0:#,##}")});
-            this.bandedGridColumn11.Visible = true;
-            this.bandedGridColumn11.Width = 112;
-            // 
-            // gridBand1
-            // 
-            this.gridBand1.Caption = "THÔNG TIN CHUNG";
-            this.gridBand1.Columns.Add(this.colSTT);
-            this.gridBand1.Columns.Add(this.bandedGridColumn7);
-            this.gridBand1.Columns.Add(this.bandedGridColumn1);
-            this.gridBand1.Columns.Add(this.bandedGridColumn2);
-            this.gridBand1.Name = "gridBand1";
-            this.gridBand1.VisibleIndex = 0;
-            this.gridBand1.Width = 435;
-            // 
-            // gridBand2
-            // 
-            this.gridBand2.Caption = "ĐẦU KỲ";
-            this.gridBand2.Columns.Add(this.bandedGridColumn8);
-            this.gridBand2.Columns.Add(this.bandedGridColumn3);
-            this.gridBand2.Name = "gridBand2";
-            this.gridBand2.VisibleIndex = 1;
-            this.gridBand2.Width = 308;
-            // 
-            // gridBand3
-            // 
-            this.gridBand3.Caption = "PHÁT SINH TRONG KỲ";
-            this.gridBand3.Columns.Add(this.bandedGridColumn10);
-            this.gridBand3.Columns.Add(this.bandedGridColumn4);
-            this.gridBand3.Name = "gridBand3";
-            this.gridBand3.VisibleIndex = 2;
-            this.gridBand3.Width = 258;
-            // 
-            // gridBand4
-            // 
-            this.gridBand4.Caption = "THANH TOÁN TRONG KỲ";
-            this.gridBand4.Columns.Add(this.bandedGridColumn5);
-            this.gridBand4.Columns.Add(this.bandedGridColumn11);
-            this.gridBand4.Name = "gridBand4";
-            this.gridBand4.VisibleIndex = 3;
-            this.gridBand4.Width = 220;
-            // 
-            // gridBand5
-            // 
-            this.gridBand5.Caption = "NỢ CUỐI KỲ";
-            this.gridBand5.Columns.Add(this.bandedGridColumn9);
-            this.gridBand5.Columns.Add(this.bandedGridColumn6);
-            this.gridBand5.Name = "gridBand5";
-            this.gridBand5.VisibleIndex = 4;
-            this.gridBand5.Width = 309;
             // 
             // ucCongNoLaiXe
             // 

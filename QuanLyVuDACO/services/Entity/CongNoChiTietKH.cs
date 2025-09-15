@@ -14,6 +14,7 @@ namespace Quản_lý_vudaco.services.Entity
         public double GiaMua { get; set; }
         public double GiaBan { get; set; }
         public string GhiChu { get; set; }
+        public string SoLuong { get; set; }
         public int IDCP { get; set; }
         public string MaNhaCungCap { get; set; }
         public string DoiTru { get; set; }

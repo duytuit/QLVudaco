@@ -240,7 +240,7 @@ namespace Quản_lý_vudaco.Forms
                             check = true;
                             DataRow row = dt_view.NewRow();
                             row["TenNhaCungCap"] = nhacungcap["TenNhaCungCap"].ToString();
-                            row["MaNhaCungCap"] = _MaKH;
+                            row["MaNhaCungCap"] = nhacungcap["MaNhaCungCap"].ToString();
                             row["SoFile"] = gridView1.GetRowCellValue(i, "SoFile").ToString();
                             row["SoTien"] = gridView1.GetRowCellValue(i, "SoTra")?.ToString();
                             row["Type"] = gridView1.GetRowCellValue(i, "Type")?.ToString();
@@ -253,7 +253,7 @@ namespace Quản_lý_vudaco.Forms
             }
             if (check == true)
             {
-                frmChiNCC frm1 = new frmChiNCC(dt_view);
+                frmChiNCC_V2 frm1 = new frmChiNCC_V2(dt_view);
                 frm1.ShowDialog();
                 LoadData();
              

@@ -36,8 +36,14 @@ namespace Quản_lý_vudaco.services
         public List<CongNoChiTietKH> CongNoChiTietKH(DateTime TuNgay, DateTime? DenNgay = null, string makh = null, int dauky = 0)
         {
             List<CongNoChiTietKH> list = new List<CongNoChiTietKH>();
-            string sql = $@"select ttf.MaKhachHang,fd.*,fdct.*,ttf.SoToKhai,ttf.SoBill,ttf.SoCont,ttf.TenSales from FileDebitChiTiet fdct left join FileDebit fd on fd.IDDeBit = fdct.IDDeBit
-            left join ThongTinFile ttf on ttf.IDLoHang = fd.IDLoHang 
+            string sql = $@"select ttf.MaKhachHang,fd.*,fdct.*,ttf.SoToKhai,ttf.SoBill,ttf.SoCont,ttf.TenSales,a.LoaiXe_KH,
+                     a.BienSoXe,
+                     ttf.SoLuong,
+                     a.LoaiXe_NCC,
+                     a.LuongHangVe,
+                     a.MaDieuXe
+            from FileDebitChiTiet fdct left join FileDebit fd on fd.IDDeBit = fdct.IDDeBit
+            left join ThongTinFile ttf on ttf.IDLoHang = fd.IDLoHang left join BangDieuXe a on a.SoFile = fd.SoFile 
             where fd.SoFile is not null";
             if (TuNgay != DateTime.MinValue && DenNgay.HasValue)
             {
@@ -67,7 +73,7 @@ namespace Quản_lý_vudaco.services
                     NguoiLap = item["NguoiLap"].ToString(),
                     SoHoaDon = item["SoHoaDon"].ToString(),
                     NgayHoaDon = item["NgayHoaDon"] != DBNull.Value ? Convert.ToDateTime(item["NgayHoaDon"]) : DateTime.MinValue,
-                    MaDieuXe = item["SoFile"].ToString(),
+                    MaDieuXe = item["MaDieuXe"].ToString(),
                     IDDeBitCT = item["IDDeBitCT"] != DBNull.Value ? Convert.ToInt32(item["IDDeBitCT"]) : 0,
                     TenDichVu = item["TenDichVu"].ToString(),
                     SoTien = item["SoTien"] != DBNull.Value ? Convert.ToDouble(item["SoTien"]) : 0,
@@ -82,6 +88,9 @@ namespace Quản_lý_vudaco.services
                     SoCont = item["SoCont"].ToString(),
                     NoiDung = item["TenDichVu"].ToString(),
                     TenSales = item["TenSales"].ToString(),
+                    LoaiXe_KH = item["LoaiXe_KH"].ToString(),
+                    LoaiXe_NCC = item["LoaiXe_NCC"].ToString(),
+                    SoLuong = item["SoLuong"].ToString(),
                     Key = "debitchitietkh",
                     ID = int.Parse(item["IDDeBitCT"].ToString()),
                 };
@@ -110,6 +119,7 @@ namespace Quản_lý_vudaco.services
                      a.SoFile,
                      a.ThoiGianDuyet,
                      a.TienAn,
+                     ttf.SoLuong,
                      a.QuaDem,
                      a.TienLuat,
                      a.TienVe,
@@ -159,7 +169,7 @@ namespace Quản_lý_vudaco.services
                     LoaiXe_KH = item["LoaiXe_KH"].ToString(),
                     LoaiXe_NCC = item["LoaiXe_NCC"].ToString(),
                     LuongHangVe = item["LuongHangVe"] != DBNull.Value ? Convert.ToInt32(item["LuongHangVe"]) : 0,
-                    MaDieuXe = item["MaDieuXe"].ToString() + "/" + item["SoFile"].ToString(),
+                    MaDieuXe = item["MaDieuXe"].ToString(),
                     MaKhachHang = item["MaKhachHang"].ToString(),
                     TenKhachHang = item["TenKhachHang"].ToString(),
                     MaNhaCungCap = item["MaNhaCungCap"].ToString(),
@@ -193,6 +203,7 @@ namespace Quản_lý_vudaco.services
                     SoBill = item["SoBill"].ToString(),
                     SoCont = item["SoCont"].ToString(),
                     TenSales = item["TenSales"].ToString(),
+                    SoLuong = item["SoLuong"].ToString(),
                     Key = "bangdieuxekh",
                     ID = int.Parse(item["IDBangPhi"].ToString()),
                 };
@@ -204,7 +215,8 @@ namespace Quản_lý_vudaco.services
 	                 ttf.SoCont,
                      ttf.TenSales,
                      a.LoaiXe_KH,
-                     a.BienSoXe
+                     a.BienSoXe,
+                     ttf.SoLuong
                      from FileDebit_KoHoaDon_KH fd LEFT JOIN BangDieuXe a ON fd.MaDieuXe = a.MaDieuXe LEFT JOIN ThongTinFile ttf ON ttf.SoFile = a.SoFile where fd.MaKhachHang IS NOT NULL AND LTRIM(RTRIM(fd.MaKhachHang)) <> ''";
             if (TuNgay != DateTime.MinValue && DenNgay.HasValue)
             {
@@ -252,6 +264,7 @@ namespace Quản_lý_vudaco.services
                     SoBill = item["SoBill"].ToString(),
                     SoCont = item["SoCont"].ToString(),
                     TenSales = item["TenSales"].ToString(),
+                    SoLuong = item["SoLuong"].ToString(),
                     NoiDung = item["TenDichVu"].ToString(),
                     Key = "FileDebit_KoHoaDon_KH_kh",
                     ID = int.Parse(item["IDDeBit"].ToString()),

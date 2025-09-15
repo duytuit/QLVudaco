@@ -502,6 +502,13 @@ namespace Quản_lý_vudaco
                         tabPage.Controls.Add(frm);
                         break;
                     }
+                case "ucNhomQuyen":
+                    {
+                        module.ucNhomQuyen frm = new module.ucNhomQuyen();
+                        frm.Dock = System.Windows.Forms.DockStyle.Fill;
+                        tabPage.Controls.Add(frm);
+                        break;
+                    }
                 default:
                     break;
             }
@@ -769,6 +776,11 @@ namespace Quản_lý_vudaco
         }
 
         private void côngNợKháchHàngMớiToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            danhSáchTàiKhoảnToolStripMenuItem_Click(sender, e);
+        }
+
+        private void ucNhomQuyen_Click(object sender, EventArgs e)
         {
             danhSáchTàiKhoảnToolStripMenuItem_Click(sender, e);
         }

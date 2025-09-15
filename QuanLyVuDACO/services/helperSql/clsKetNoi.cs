@@ -105,6 +105,78 @@ public class clsKetNoi : IDisposable
         }
     }
 
+    public int UpsertFromObjectByColumn<T>(
+     string tableName,
+     T obj,
+     string[] keyColumns,
+     bool returnInsertedId = false)
+    {
+        if (string.IsNullOrWhiteSpace(tableName))
+            throw new ArgumentException("Tên bảng không được để trống.", nameof(tableName));
+        if (keyColumns == null || keyColumns.Length == 0)
+            throw new ArgumentException("Phải truyền ít nhất một cột khóa.", nameof(keyColumns));
+
+        var type = typeof(T);
+        var props = type.GetProperties();
+
+        var columns = new List<string>();
+        var values = new List<string>();
+        var insertParameters = new List<SqlParameter>();
+        var updateParameters = new List<SqlParameter>();
+        var updateCols = new List<string>();
+
+        foreach (var prop in props)
+        {
+            var name = prop.Name;
+            var value = prop.GetValue(obj) ?? DBNull.Value;
+            bool isKey = keyColumns.Any(k => k.Equals(name, StringComparison.OrdinalIgnoreCase));
+
+            // Bỏ qua cột IDENTITY khi insert
+            if (name.Equals("id", StringComparison.OrdinalIgnoreCase))
+                continue;
+
+            // UPDATE: tất cả trừ cột khóa
+            if (!isKey)
+            {
+                updateCols.Add($"{name} = @{name}");
+                updateParameters.Add(new SqlParameter("@" + name, value));
+            }
+
+            // INSERT: thêm tất cả trừ ID
+            columns.Add(name);
+            values.Add("@" + name);
+            insertParameters.Add(new SqlParameter("@" + name, value));
+        }
+
+        // WHERE condition từ keyColumns
+        var whereConditions = keyColumns.Select(k => $"{k} = @{k}").ToArray();
+
+        string sql = $@"
+        IF EXISTS (SELECT 1 FROM {tableName} WHERE {string.Join(" AND ", whereConditions)})
+            UPDATE {tableName} SET {string.Join(", ", updateCols)} WHERE {string.Join(" AND ", whereConditions)}
+        ELSE
+            INSERT INTO {tableName} ({string.Join(",", columns)}) VALUES ({string.Join(",", values)})
+        ";
+
+        if (returnInsertedId)
+            sql += "; SELECT CAST(SCOPE_IDENTITY() AS INT);";
+
+        using (var cmd = new SqlCommand(sql, con, _tran))
+        {
+            // Add tất cả params (bao gồm cả keyColumns)
+            cmd.Parameters.AddRange(insertParameters.ToArray());
+
+            if (returnInsertedId)
+            {
+                object result = cmd.ExecuteScalar();
+                return result != null ? Convert.ToInt32(result) : 0;
+            }
+            else
+            {
+                return cmd.ExecuteNonQuery();
+            }
+        }
+    }
 
     public DataTable LoadTable(string sql)
     {
