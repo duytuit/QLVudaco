@@ -42,7 +42,9 @@ namespace Quản_lý_vudaco.module
             this.colLuu = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colXoa = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colMenu = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.gridColumn1 = new DevExpress.XtraGrid.Columns.GridColumn();
             this.panelControl2 = new DevExpress.XtraEditors.PanelControl();
+            this.btnQuyen = new DevExpress.XtraEditors.SimpleButton();
             this.txtGhichu = new DevExpress.XtraEditors.TextEdit();
             this.labelControl2 = new DevExpress.XtraEditors.LabelControl();
             this.lbTenNhom = new DevExpress.XtraEditors.LabelControl();
@@ -56,7 +58,8 @@ namespace Quản_lý_vudaco.module
             this.colGhichu = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colNguoiCapNhat = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colThoiGianCapNhat = new DevExpress.XtraGrid.Columns.GridColumn();
-            this.btnQuyen = new DevExpress.XtraEditors.SimpleButton();
+            this.gridColumn2 = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.gridColumn3 = new DevExpress.XtraGrid.Columns.GridColumn();
             this.tableLayoutPanel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.panelControl1)).BeginInit();
             this.panelControl1.SuspendLayout();
@@ -140,10 +143,13 @@ namespace Quản_lý_vudaco.module
             this.colXem,
             this.colLuu,
             this.colXoa,
-            this.colMenu});
+            this.colMenu,
+            this.gridColumn1});
             this.gridView1.GridControl = this.gridControl1;
             this.gridView1.Name = "gridView1";
+            this.gridView1.OptionsView.ShowAutoFilterRow = true;
             this.gridView1.OptionsView.ShowGroupPanel = false;
+            this.gridView1.CellValueChanging += new DevExpress.XtraGrid.Views.Base.CellValueChangedEventHandler(this.gridView1_CellValueChanging);
             // 
             // STT
             // 
@@ -159,6 +165,7 @@ namespace Quản_lý_vudaco.module
             this.colTenQuyen.AppearanceHeader.Options.UseTextOptions = true;
             this.colTenQuyen.AppearanceHeader.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
             this.colTenQuyen.Caption = "Tên Quyền";
+            this.colTenQuyen.FieldName = "TenQuyen";
             this.colTenQuyen.Name = "colTenQuyen";
             this.colTenQuyen.Visible = true;
             this.colTenQuyen.VisibleIndex = 1;
@@ -167,7 +174,7 @@ namespace Quản_lý_vudaco.module
             // colALL
             // 
             this.colALL.Caption = "ALL";
-            this.colALL.FieldName = "ALL";
+            this.colALL.FieldName = "All";
             this.colALL.Name = "colALL";
             this.colALL.Visible = true;
             this.colALL.VisibleIndex = 2;
@@ -209,6 +216,12 @@ namespace Quản_lý_vudaco.module
             this.colMenu.VisibleIndex = 3;
             this.colMenu.Width = 133;
             // 
+            // gridColumn1
+            // 
+            this.gridColumn1.Caption = "Quyền";
+            this.gridColumn1.FieldName = "Quyen";
+            this.gridColumn1.Name = "gridColumn1";
+            // 
             // panelControl2
             // 
             this.panelControl2.Controls.Add(this.btnQuyen);
@@ -222,6 +235,15 @@ namespace Quản_lý_vudaco.module
             this.panelControl2.Name = "panelControl2";
             this.panelControl2.Size = new System.Drawing.Size(444, 137);
             this.panelControl2.TabIndex = 0;
+            // 
+            // btnQuyen
+            // 
+            this.btnQuyen.Location = new System.Drawing.Point(15, 101);
+            this.btnQuyen.Name = "btnQuyen";
+            this.btnQuyen.Size = new System.Drawing.Size(71, 23);
+            this.btnQuyen.TabIndex = 5;
+            this.btnQuyen.Text = "UpQuyền";
+            this.btnQuyen.Click += new System.EventHandler(this.btnQuyen_Click);
             // 
             // txtGhichu
             // 
@@ -289,7 +311,9 @@ namespace Quản_lý_vudaco.module
             this.colTenNhom,
             this.colGhichu,
             this.colNguoiCapNhat,
-            this.colThoiGianCapNhat});
+            this.colThoiGianCapNhat,
+            this.gridColumn2,
+            this.gridColumn3});
             this.gridView2.GridControl = this.gridControl2;
             this.gridView2.Name = "gridView2";
             this.gridView2.OptionsView.ShowGroupPanel = false;
@@ -301,6 +325,7 @@ namespace Quản_lý_vudaco.module
             this.colSTT.Name = "colSTT";
             this.colSTT.Visible = true;
             this.colSTT.VisibleIndex = 0;
+            this.colSTT.Width = 48;
             // 
             // colTenNhom
             // 
@@ -308,6 +333,7 @@ namespace Quản_lý_vudaco.module
             this.colTenNhom.Name = "colTenNhom";
             this.colTenNhom.Visible = true;
             this.colTenNhom.VisibleIndex = 1;
+            this.colTenNhom.Width = 368;
             // 
             // colGhichu
             // 
@@ -315,6 +341,7 @@ namespace Quản_lý_vudaco.module
             this.colGhichu.Name = "colGhichu";
             this.colGhichu.Visible = true;
             this.colGhichu.VisibleIndex = 2;
+            this.colGhichu.Width = 294;
             // 
             // colNguoiCapNhat
             // 
@@ -322,6 +349,7 @@ namespace Quản_lý_vudaco.module
             this.colNguoiCapNhat.Name = "colNguoiCapNhat";
             this.colNguoiCapNhat.Visible = true;
             this.colNguoiCapNhat.VisibleIndex = 3;
+            this.colNguoiCapNhat.Width = 136;
             // 
             // colThoiGianCapNhat
             // 
@@ -329,15 +357,23 @@ namespace Quản_lý_vudaco.module
             this.colThoiGianCapNhat.Name = "colThoiGianCapNhat";
             this.colThoiGianCapNhat.Visible = true;
             this.colThoiGianCapNhat.VisibleIndex = 4;
+            this.colThoiGianCapNhat.Width = 148;
             // 
-            // btnQuyen
+            // gridColumn2
             // 
-            this.btnQuyen.Location = new System.Drawing.Point(15, 101);
-            this.btnQuyen.Name = "btnQuyen";
-            this.btnQuyen.Size = new System.Drawing.Size(71, 23);
-            this.btnQuyen.TabIndex = 5;
-            this.btnQuyen.Text = "UpQuyền";
-            this.btnQuyen.Click += new System.EventHandler(this.btnQuyen_Click);
+            this.gridColumn2.Caption = "Sửa";
+            this.gridColumn2.Fixed = DevExpress.XtraGrid.Columns.FixedStyle.Right;
+            this.gridColumn2.Name = "gridColumn2";
+            this.gridColumn2.Visible = true;
+            this.gridColumn2.VisibleIndex = 6;
+            // 
+            // gridColumn3
+            // 
+            this.gridColumn3.Caption = "Xóa";
+            this.gridColumn3.Fixed = DevExpress.XtraGrid.Columns.FixedStyle.Right;
+            this.gridColumn3.Name = "gridColumn3";
+            this.gridColumn3.Visible = true;
+            this.gridColumn3.VisibleIndex = 5;
             // 
             // ucNhomQuyen
             // 
@@ -349,6 +385,7 @@ namespace Quản_lý_vudaco.module
             this.Controls.Add(this.tableLayoutPanel1);
             this.Name = "ucNhomQuyen";
             this.Size = new System.Drawing.Size(909, 615);
+            this.Load += new System.EventHandler(this.ucNhomQuyen_Load);
             this.tableLayoutPanel1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.panelControl1)).EndInit();
             this.panelControl1.ResumeLayout(false);
@@ -401,5 +438,8 @@ namespace Quản_lý_vudaco.module
         private DevExpress.XtraGrid.Columns.GridColumn colXoa;
         private DevExpress.XtraGrid.Columns.GridColumn colMenu;
         private DevExpress.XtraEditors.SimpleButton btnQuyen;
+        private DevExpress.XtraGrid.Columns.GridColumn gridColumn1;
+        private DevExpress.XtraGrid.Columns.GridColumn gridColumn2;
+        private DevExpress.XtraGrid.Columns.GridColumn gridColumn3;
     }
 }
