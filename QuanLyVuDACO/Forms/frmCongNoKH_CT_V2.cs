@@ -219,26 +219,30 @@ namespace Quản_lý_vudaco.Forms
         public void ExportToExcel(List<CongNoChiTietKH> list, string filepath)
         {
             var _khachhang = list;
+            var _khachhang_temp = list.OrderBy(x => x.NgayHachToan).ToList();
             var groupedData = list
             .GroupBy(x => x.SoFile)
             .Select(g => new
             {
                 SoFile = g.Key,
-                NgayHachToan = g.Min(x => x.NgayHachToan), // lấy ngày nhỏ nhất hoặc bạn muốn First
+                NgayHachToan = g.Min(x => x.NgayHachToan),
                 LoaiXe_KH = string.Join(", ", g.Select(x => x.LoaiXe_KH).Distinct()),
                 BienSoXe = string.Join(", ", g.Select(x => x.BienSoXe).Distinct()),
                 TuyenVC = string.Join(", ", g.Select(x => x.TuyenVC ?? x.TenDichVu).Distinct()),
-                SoLuong = g.Sum(x => 1),                         // vì mỗi dòng bạn đang để = 1
-                DonGia = g.Sum(x => x.SoTien),
+                
+                SoLuong = g.Count(),
+                DonGia = g.First().SoTien,         // hoặc Average nếu muốn
                 TienThueGTGT = g.Sum(x => (x.SoTien * x.VAT) / 100),
+
                 ThanhTien = g.Sum(x => x.LaPhiChiHo == 0 ? x.ThanhTien : 0),
                 ChiHo = g.Sum(x => x.LaPhiChiHo == 1 ? x.ThanhTien : 0),
                 TongCong = g.Sum(x => x.ThanhTien),
+
                 SoBill = string.Join(", ", g.Select(x => x.SoBill).Distinct()),
                 SoToKhai = string.Join(", ", g.Select(x => x.SoToKhai).Distinct()),
                 SoHoaDon = string.Join(", ", g.Select(x => x.SoHoaDon).Distinct())
             })
-            .OrderBy(x => x.NgayHachToan)   // hoặc sắp xếp theo SoFile
+            .OrderBy(x => x.NgayHachToan)
             .ToList();
             using (var wb = new XLWorkbook())
             {
