@@ -218,6 +218,7 @@ namespace Quản_lý_vudaco.Forms
         }
         public void ExportToExcel(List<CongNoChiTietKH> list, string filepath)
         {
+            var _khachhang = list;
             var _khachhang_temp = list.OrderBy(x => x.NgayHachToan).ToList();
 
             using (var wb = new XLWorkbook())
@@ -328,9 +329,9 @@ namespace Quản_lý_vudaco.Forms
                     ws.Cell(row, 8).Value = item.SoTien;
                     ws.Cell(row, 9).Value = item.VAT +"%";
                     ws.Cell(row, 10).Value = (item.SoTien * item.VAT) / 100;
-                    ws.Cell(row, 11).Value = list.Where(y => y.IDKey == item.ID && y.KeyName == item.Key && y.Type == 5 && y.LaPhiChiHo == 0).Sum(y => y.ThanhTien);
-                    ws.Cell(row, 12).Value = list.Where(y => y.IDKey == item.ID && y.KeyName == item.Key && y.Type == 5 && y.LaPhiChiHo == 1).Sum(y => y.ThanhTien);
-                    ws.Cell(row, 13).Value = list.Where(y => y.IDKey == item.ID && y.KeyName == item.Key && y.Type == 5 && y.LaPhiChiHo == 0).Sum(y => y.ThanhTien) + list.Where(y => y.IDKey == item.ID && y.KeyName == item.Key && y.Type == 5 && y.LaPhiChiHo == 1).Sum(y => y.ThanhTien);
+                    ws.Cell(row, 11).Value = _khachhang.Where(y => y.IDKey == item.ID && y.KeyName == item.Key && y.Type == 5 && y.LaPhiChiHo == 0).Sum(y => y.ThanhTien);
+                    ws.Cell(row, 12).Value = _khachhang.Where(y => y.IDKey == item.ID && y.KeyName == item.Key && y.Type == 5 && y.LaPhiChiHo == 1).Sum(y => y.ThanhTien);
+                    ws.Cell(row, 13).Value = _khachhang.Where(y => y.IDKey == item.ID && y.KeyName == item.Key && y.Type == 5 && y.LaPhiChiHo == 0).Sum(y => y.ThanhTien) + _khachhang.Where(y => y.IDKey == item.ID && y.KeyName == item.Key && y.Type == 5 && y.LaPhiChiHo == 1).Sum(y => y.ThanhTien);
                     ws.Cell(row, 14).Value = item.SoFile;
                     ws.Cell(row, 15).Value = item.SoBill + "/" + item.SoToKhai + "/";
                     ws.Cell(row, 16).Value = item.SoHoaDon;
