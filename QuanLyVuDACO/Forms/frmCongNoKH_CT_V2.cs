@@ -208,7 +208,7 @@ namespace Quản_lý_vudaco.Forms
                 {
                     using (var _khachhang = new khachhang())
                     {
-                        var _khachhang_ct = _khachhang.CongNoChiTietKH(_TuNgay, _DenNgay, _MaKH).OrderBy(x => x.NgayHachToan).ToList();
+                        var _khachhang_ct = _khachhang.CongNoChiTietKH(_TuNgay, _DenNgay, _MaKH);
                         ExportToExcel(_khachhang_ct,sfd.FileName);
                     }
                     MessageBox.Show("Xuất Excel thành công!");
@@ -218,6 +218,8 @@ namespace Quản_lý_vudaco.Forms
         }
         public void ExportToExcel(List<CongNoChiTietKH> list, string filepath)
         {
+            var _khachhang_temp = list.OrderBy(x => x.NgayHachToan).ToList();
+
             using (var wb = new XLWorkbook())
             {
                 var ws = wb.Worksheets.Add("Tháng 8");
@@ -312,28 +314,27 @@ namespace Quản_lý_vudaco.Forms
                 ws.Range(headerRow1, 1, headerRow2, 17).Style.Alignment.WrapText = true;
                 // ==== DỮ LIỆU MẪU ====
                 int startRow = 15;
-                for (int i = 0; i < list.Count; i++)
+                for (int i = 0; i < _khachhang_temp.Count; i++)
                 {
                     int row = startRow + i;
-                    var item = list[i];
+                    var item = _khachhang_temp[i];
                     ws.Cell(row, 1).Value = i + 1; // STT
-                    ws.Cell(row, 2).Value = item.TenKhachHang;
-                    ws.Cell(row, 3).Value = "HD" + (1000 + i);
-                    ws.Cell(row, 4).Value = "KH" + (i + 1);
-                    ws.Cell(row, 5).Value = "Khách hàng " + (i + 1);
-                    ws.Cell(row, 6).Value = "Sản phẩm " + (i + 1);
-                    ws.Cell(row, 7).Value = 10 + i;
-                    ws.Cell(row, 8).Value = 20000;
-                    ws.Cell(row, 9).Value = 20000;
-                    ws.Cell(row, 10).Value = 0.1;
-                    ws.Cell(row, 11).Value = 0.1;
-                    ws.Cell(row, 12).Value = "Nguyễn Văn A";
-                    ws.Cell(row, 13).Value = "Phòng Kế Toán";
-                    ws.Cell(row, 14).Value = "Ghi chú";
-                    ws.Cell(row, 15).Value = "Ghi chú";
-                    ws.Cell(row, 16).Value = "Ghi chú";
-                    ws.Cell(row, 17).Value = "Ghi chú";
-                  //  ws.Cell(row, 9).FormulaA1 = $"G{row}*H{row}"; // Thành tiền
+                    ws.Cell(row, 2).Value =  item.NgayHachToan;
+                    ws.Cell(row, 3).Value = item.LoaiXe_KH;
+                    ws.Cell(row, 4).Value = item.BienSoXe;
+                    ws.Cell(row, 5).Value = item?.TuyenVC ?? item?.TenDichVu ?? "";
+                    ws.Cell(row, 6).Value = "Chuyến";
+                    ws.Cell(row, 7).Value = 1;
+                    ws.Cell(row, 8).Value = item.SoTien;
+                    ws.Cell(row, 9).Value = item.VAT +"%";
+                    ws.Cell(row, 10).Value = (item.SoTien * item.VAT) / 100;
+                    ws.Cell(row, 11).Value = list.Where(y => y.IDKey == item.ID && y.KeyName == item.Key && y.Type == 5 && y.LaPhiChiHo == 0).Sum(y => y.ThanhTien);
+                    ws.Cell(row, 12).Value = list.Where(y => y.IDKey == item.ID && y.KeyName == item.Key && y.Type == 5 && y.LaPhiChiHo == 1).Sum(y => y.ThanhTien);
+                    ws.Cell(row, 13).Value = list.Where(y => y.IDKey == item.ID && y.KeyName == item.Key && y.Type == 5 && y.LaPhiChiHo == 0).Sum(y => y.ThanhTien) + list.Where(y => y.IDKey == item.ID && y.KeyName == item.Key && y.Type == 5 && y.LaPhiChiHo == 1).Sum(y => y.ThanhTien);
+                    ws.Cell(row, 14).Value = item.SoFile;
+                    ws.Cell(row, 15).Value = item.SoBill + "/" + item.SoToKhai + "/";
+                    ws.Cell(row, 16).Value = item.SoHoaDon;
+                    ws.Cell(row, 17).Value = "";
                 }
 
                 int dataStartRow = 15;
@@ -347,14 +348,14 @@ namespace Quản_lý_vudaco.Forms
 
 
                 // ghi chữ "TỔNG CỘNG"
-                ws.Range(totalRow, 1, totalRow, 6).Merge();
+                ws.Range(totalRow, 1, totalRow, 7).Merge();
                 ws.Cell(totalRow, 1).Value = "TỔNG CỘNG";
-                ws.Range(totalRow, 1, totalRow, 6).Style.Font.Bold = true;
-                ws.Range(totalRow, 1, totalRow, 6).Style.Alignment.Horizontal = XLAlignmentHorizontalValues.Center;
+                ws.Range(totalRow, 1, totalRow, 7).Style.Font.Bold = true;
+                ws.Range(totalRow, 1, totalRow, 7).Style.Alignment.Horizontal = XLAlignmentHorizontalValues.Center;
 
                 // công thức SUM cho các cột cần cộng
                 ws.Cell(totalRow, 8).FormulaA1 = $"SUM(H{dataStartRow}:H{dataEndRow})";   // ĐƠN GIÁ
-                ws.Cell(totalRow, 9).FormulaA1 = $"SUM(I{dataStartRow}:I{dataEndRow})";   // THUẾ SUẤT
+               // ws.Cell(totalRow, 9).FormulaA1 = $"SUM(I{dataStartRow}:I{dataEndRow})";   // THUẾ SUẤT
                 ws.Cell(totalRow, 10).FormulaA1 = $"SUM(J{dataStartRow}:J{dataEndRow})";  // TIỀN THUẾ GTGT
                 ws.Cell(totalRow, 11).FormulaA1 = $"SUM(K{dataStartRow}:K{dataEndRow})";  // THÀNH TIỀN
                 ws.Cell(totalRow, 12).FormulaA1 = $"SUM(L{dataStartRow}:L{dataEndRow})";  // CHI HỘ
@@ -369,21 +370,21 @@ namespace Quản_lý_vudaco.Forms
                 fullRange.Style.Border.OutsideBorder = XLBorderStyleValues.Thin;
                 fullRange.Style.Border.InsideBorder = XLBorderStyleValues.Thin;
 
-                double tongCong = ws.Cell(totalRow, 11).GetDouble();
+                double tongCong = ws.Cell(totalRow, 13).GetDouble();
                 dataEndRow = ws.LastRowUsed().RowNumber();
                 // Lấy giá trị tổng cộng ở cột 13 (cột M)
                 int textRow = dataEndRow + 1;
                 // Thêm tiêu đề "Số tiền bằng chữ"
-                ws.Range(textRow, 1, textRow, 6).Merge();
+                ws.Range(textRow, 1, textRow, 7).Merge();
                 ws.Cell(textRow, 1).Value = "Số tiền bằng chữ:";
-                ws.Range(textRow, 1, textRow, 6).Style.Font.Bold = true;
-                ws.Range(textRow, 1, textRow, 6).Style.Alignment.Horizontal = XLAlignmentHorizontalValues.Center;
+                ws.Range(textRow, 1, textRow, 7).Style.Font.Bold = true;
+                ws.Range(textRow, 1, textRow, 7).Style.Alignment.Horizontal = XLAlignmentHorizontalValues.Center;
 
 
-                ws.Range(textRow, 7, textRow, 17).Merge();
-                ws.Cell(textRow, 7).Value = NumberToVietnameseWords(tongCong) + "./.";
-                ws.Range(textRow, 7, textRow, 17).Style.Font.Bold = true;
-                ws.Range(textRow, 7, textRow, 17).Style.Alignment.Horizontal = XLAlignmentHorizontalValues.Left;
+                ws.Range(textRow, 8, textRow, 17).Merge();
+                ws.Cell(textRow, 8).Value = NumberToVietnameseWords(tongCong) + "./.";
+                ws.Range(textRow, 8, textRow, 17).Style.Font.Bold = true;
+                ws.Range(textRow, 8, textRow, 17).Style.Alignment.Horizontal = XLAlignmentHorizontalValues.Left;
                 fullRange = ws.Range(textRow, 1, textRow, 17);
                 fullRange.Style.Border.OutsideBorder = XLBorderStyleValues.Thin;
                 fullRange.Style.Border.InsideBorder = XLBorderStyleValues.Thin;
