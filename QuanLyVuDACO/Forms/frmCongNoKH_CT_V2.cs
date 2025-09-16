@@ -332,7 +332,7 @@ namespace Quản_lý_vudaco.Forms
                     ws.Cell(row, 10).Value = (item.SoTien * item.VAT) / 100;
                     ws.Cell(row, 11).Value = (item.LaPhiChiHo == 0) ? item.ThanhTien : 0;
                     ws.Cell(row, 12).Value = (item.LaPhiChiHo == 1) ? item.ThanhTien : 0;
-                    ws.Cell(currentRow, 13).FormulaA1 = $"K{currentRow}+L{currentRow}";
+                    ws.Cell(row, 13).Value = item.ThanhTien;
                     ws.Cell(row, 14).Value = item.SoFile;
                     ws.Cell(row, 15).Value = item.SoBill + "/" + item.SoToKhai + "/";
                     ws.Cell(row, 16).Value = item.SoHoaDon;
