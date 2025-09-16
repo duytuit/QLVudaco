@@ -219,8 +219,27 @@ namespace Quản_lý_vudaco.Forms
         public void ExportToExcel(List<CongNoChiTietKH> list, string filepath)
         {
             var _khachhang = list;
-            var _khachhang_temp = list.OrderBy(x => x.NgayHachToan).ToList();
-
+            var groupedData = list
+            .GroupBy(x => x.SoFile)
+            .Select(g => new
+            {
+                SoFile = g.Key,
+                NgayHachToan = g.Min(x => x.NgayHachToan), // lấy ngày nhỏ nhất hoặc bạn muốn First
+                LoaiXe_KH = string.Join(", ", g.Select(x => x.LoaiXe_KH).Distinct()),
+                BienSoXe = string.Join(", ", g.Select(x => x.BienSoXe).Distinct()),
+                TuyenVC = string.Join(", ", g.Select(x => x.TuyenVC ?? x.TenDichVu).Distinct()),
+                SoLuong = g.Sum(x => 1),                         // vì mỗi dòng bạn đang để = 1
+                DonGia = g.Sum(x => x.SoTien),
+                TienThueGTGT = g.Sum(x => (x.SoTien * x.VAT) / 100),
+                ThanhTien = g.Sum(x => x.LaPhiChiHo == 0 ? x.ThanhTien : 0),
+                ChiHo = g.Sum(x => x.LaPhiChiHo == 1 ? x.ThanhTien : 0),
+                TongCong = g.Sum(x => x.ThanhTien),
+                SoBill = string.Join(", ", g.Select(x => x.SoBill).Distinct()),
+                SoToKhai = string.Join(", ", g.Select(x => x.SoToKhai).Distinct()),
+                SoHoaDon = string.Join(", ", g.Select(x => x.SoHoaDon).Distinct())
+            })
+            .OrderBy(x => x.NgayHachToan)   // hoặc sắp xếp theo SoFile
+            .ToList();
             using (var wb = new XLWorkbook())
             {
                 var ws = wb.Worksheets.Add("Tháng 8");
@@ -316,33 +335,39 @@ namespace Quản_lý_vudaco.Forms
                 // ==== DỮ LIỆU MẪU ====
                 int startRow = 15;
                 int currentRow = startRow;
-                for (int i = 0; i < _khachhang_temp.Count; i++)
+                for (int i = 0; i < groupedData.Count; i++)
                 {
                     int row = startRow + i;
-                    var item = _khachhang_temp[i];
+                    var item = groupedData[i];
+
                     ws.Cell(row, 1).Value = i + 1; // STT
-                    ws.Cell(row, 2).Value =  item.NgayHachToan;
+                    ws.Cell(row, 2).Value = item.NgayHachToan;
                     ws.Cell(row, 3).Value = item.LoaiXe_KH;
                     ws.Cell(row, 4).Value = item.BienSoXe;
-                    ws.Cell(row, 5).Value = item?.TuyenVC ?? item?.TenDichVu ?? "";
+                    ws.Cell(row, 5).Value = item.TuyenVC;
                     ws.Cell(row, 6).Value = "Chuyến";
-                    ws.Cell(row, 7).Value = 1;
-                    ws.Cell(row, 8).Value = item.SoTien;
+                    ws.Cell(row, 7).Value = item.SoLuong;
+
+                    ws.Cell(row, 8).Value = item.DonGia;
                     ws.Cell(row, 8).Style.NumberFormat.Format = "#,##0";
-                    ws.Cell(row, 9).Value = item.VAT +"%";
-                    ws.Cell(row, 10).Value = (item.SoTien * item.VAT) / 100;
+
+                    ws.Cell(row, 9).Value = ""; // vì thuế suất khác nhau thì khó group (nếu cố định thì gán %)
+                    ws.Cell(row, 10).Value = item.TienThueGTGT;
                     ws.Cell(row, 10).Style.NumberFormat.Format = "#,##0";
-                    ws.Cell(row, 11).Value = (item.LaPhiChiHo == 0) ? item.ThanhTien : 0;
+
+                    ws.Cell(row, 11).Value = item.ThanhTien;
                     ws.Cell(row, 11).Style.NumberFormat.Format = "#,##0";
-                    ws.Cell(row, 12).Value = (item.LaPhiChiHo == 1) ? item.ThanhTien : 0;
+
+                    ws.Cell(row, 12).Value = item.ChiHo;
                     ws.Cell(row, 12).Style.NumberFormat.Format = "#,##0";
-                    ws.Cell(row, 13).Value = item.ThanhTien;
+
+                    ws.Cell(row, 13).Value = item.TongCong;
                     ws.Cell(row, 13).Style.NumberFormat.Format = "#,##0";
+
                     ws.Cell(row, 14).Value = item.SoFile;
-                    ws.Cell(row, 15).Value = item.SoBill + "/" + item.SoToKhai + "/";
+                    ws.Cell(row, 15).Value = item.SoBill + "/" + item.SoToKhai;
                     ws.Cell(row, 16).Value = item.SoHoaDon;
                     ws.Cell(row, 17).Value = "";
-                   // ws.Cell(currentRow, 10).FormulaA1 = $"H{currentRow}*I{currentRow}"; // TIỀN THUẾ GTGT
                 }
 
                 int dataStartRow = 15;
