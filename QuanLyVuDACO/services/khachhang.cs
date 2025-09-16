@@ -43,7 +43,7 @@ namespace Quản_lý_vudaco.services
                      a.LuongHangVe,
                      a.MaDieuXe
             from FileDebitChiTiet fdct left join FileDebit fd on fd.IDDeBit = fdct.IDDeBit
-            left join ThongTinFile ttf on ttf.IDLoHang = fd.IDLoHang left join BangDieuXe a on a.SoFile = fd.SoFile 
+            left join ThongTinFile ttf on ttf.IDLoHang = fd.IDLoHang left join FileGia fg on fg.IDLoHang = ttf.IDLoHang left join BangDieuXe a on a.MaDieuXe = fg.MaDieuXe
             where fd.SoFile is not null";
             if (TuNgay != DateTime.MinValue && DenNgay.HasValue)
             {

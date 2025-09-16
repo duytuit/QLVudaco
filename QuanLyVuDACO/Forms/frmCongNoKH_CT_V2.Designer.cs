@@ -59,11 +59,12 @@ namespace Quản_lý_vudaco.Forms
             this.bandedGridColumn9 = new DevExpress.XtraGrid.Views.BandedGrid.BandedGridColumn();
             this.bandedGridColumn10 = new DevExpress.XtraGrid.Views.BandedGrid.BandedGridColumn();
             this.bandedGridColumn12 = new DevExpress.XtraGrid.Views.BandedGrid.BandedGridColumn();
+            this.collaphieuchiho = new DevExpress.XtraGrid.Views.BandedGrid.BandedGridColumn();
             this.panelControl1 = new DevExpress.XtraEditors.PanelControl();
             this.btnIn = new DevExpress.XtraEditors.SimpleButton();
             this.btnPhieuThu = new DevExpress.XtraEditors.SimpleButton();
             this.splashScreenManager1 = new DevExpress.XtraSplashScreen.SplashScreenManager(this, typeof(global::Quản_lý_vudaco.frmWait), true, true);
-            this.collaphieuchiho = new DevExpress.XtraGrid.Views.BandedGrid.BandedGridColumn();
+            this.btnExcel = new DevExpress.XtraEditors.SimpleButton();
             ((System.ComponentModel.ISupportInitialize)(this.panelControl2)).BeginInit();
             this.panelControl2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.panelControl3)).BeginInit();
@@ -403,8 +404,15 @@ namespace Quản_lý_vudaco.Forms
             this.bandedGridColumn12.Name = "bandedGridColumn12";
             this.bandedGridColumn12.Visible = true;
             // 
+            // collaphieuchiho
+            // 
+            this.collaphieuchiho.Caption = "laphieuchiho";
+            this.collaphieuchiho.FieldName = "LaPhiChiHo";
+            this.collaphieuchiho.Name = "collaphieuchiho";
+            // 
             // panelControl1
             // 
+            this.panelControl1.Controls.Add(this.btnExcel);
             this.panelControl1.Controls.Add(this.btnIn);
             this.panelControl1.Controls.Add(this.btnPhieuThu);
             this.panelControl1.Dock = System.Windows.Forms.DockStyle.Top;
@@ -441,11 +449,17 @@ namespace Quản_lý_vudaco.Forms
             // 
             this.splashScreenManager1.ClosingDelay = 500;
             // 
-            // collaphieuchiho
+            // btnExcel
             // 
-            this.collaphieuchiho.Caption = "laphieuchiho";
-            this.collaphieuchiho.FieldName = "LaPhiChiHo";
-            this.collaphieuchiho.Name = "collaphieuchiho";
+            this.btnExcel.Dock = System.Windows.Forms.DockStyle.Right;
+            this.btnExcel.ImageOptions.Image = ((System.Drawing.Image)(resources.GetObject("simpleButton1.ImageOptions.Image")));
+            this.btnExcel.Location = new System.Drawing.Point(1475, 2);
+            this.btnExcel.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.btnExcel.Name = "btnExcel";
+            this.btnExcel.Size = new System.Drawing.Size(128, 33);
+            this.btnExcel.TabIndex = 2;
+            this.btnExcel.Text = "Excel Chi Tiết";
+            this.btnExcel.Click += new System.EventHandler(this.btnExcel_Click);
             // 
             // frmCongNoKH_CT_V2
             // 
@@ -504,5 +518,6 @@ namespace Quản_lý_vudaco.Forms
         private DevExpress.XtraGrid.Views.BandedGrid.GridBand gridBand3;
         private DevExpress.XtraGrid.Views.BandedGrid.BandedGridColumn bandedGridColumn12;
         private DevExpress.XtraGrid.Views.BandedGrid.BandedGridColumn collaphieuchiho;
+        private DevExpress.XtraEditors.SimpleButton btnExcel;
     }
 }
