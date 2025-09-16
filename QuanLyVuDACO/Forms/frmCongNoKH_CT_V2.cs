@@ -328,11 +328,16 @@ namespace Quản_lý_vudaco.Forms
                     ws.Cell(row, 6).Value = "Chuyến";
                     ws.Cell(row, 7).Value = 1;
                     ws.Cell(row, 8).Value = item.SoTien;
+                    ws.Cell(row, 8).Style.NumberFormat.Format = "#,##0";
                     ws.Cell(row, 9).Value = item.VAT +"%";
                     ws.Cell(row, 10).Value = (item.SoTien * item.VAT) / 100;
+                    ws.Cell(row, 10).Style.NumberFormat.Format = "#,##0";
                     ws.Cell(row, 11).Value = (item.LaPhiChiHo == 0) ? item.ThanhTien : 0;
+                    ws.Cell(row, 11).Style.NumberFormat.Format = "#,##0";
                     ws.Cell(row, 12).Value = (item.LaPhiChiHo == 1) ? item.ThanhTien : 0;
+                    ws.Cell(row, 12).Style.NumberFormat.Format = "#,##0";
                     ws.Cell(row, 13).Value = item.ThanhTien;
+                    ws.Cell(row, 13).Style.NumberFormat.Format = "#,##0";
                     ws.Cell(row, 14).Value = item.SoFile;
                     ws.Cell(row, 15).Value = item.SoBill + "/" + item.SoToKhai + "/";
                     ws.Cell(row, 16).Value = item.SoHoaDon;
@@ -358,11 +363,16 @@ namespace Quản_lý_vudaco.Forms
 
                 // công thức SUM cho các cột cần cộng
                 ws.Cell(totalRow, 8).FormulaA1 = $"SUM(H{dataStartRow}:H{dataEndRow})";   // ĐƠN GIÁ
-               // ws.Cell(totalRow, 9).FormulaA1 = $"SUM(I{dataStartRow}:I{dataEndRow})";   // THUẾ SUẤT
+                ws.Cell(totalRow, 8).Style.NumberFormat.Format = "#,##0"; // format có dấu phẩy
+                // ws.Cell(totalRow, 9).FormulaA1 = $"SUM(I{dataStartRow}:I{dataEndRow})";   // THUẾ SUẤT
                 ws.Cell(totalRow, 10).FormulaA1 = $"SUM(J{dataStartRow}:J{dataEndRow})";  // TIỀN THUẾ GTGT
+                ws.Cell(totalRow, 10).Style.NumberFormat.Format = "#,##0";
                 ws.Cell(totalRow, 11).FormulaA1 = $"SUM(K{dataStartRow}:K{dataEndRow})";  // THÀNH TIỀN
+                ws.Cell(totalRow, 11).Style.NumberFormat.Format = "#,##0";
                 ws.Cell(totalRow, 12).FormulaA1 = $"SUM(L{dataStartRow}:L{dataEndRow})";  // CHI HỘ
+                ws.Cell(totalRow, 12).Style.NumberFormat.Format = "#,##0";
                 ws.Cell(totalRow, 13).FormulaA1 = $"SUM(M{dataStartRow}:M{dataEndRow})";  // TỔNG CỘNG
+                ws.Cell(totalRow, 13).Style.NumberFormat.Format = "#,##0";
 
                 // style cho dòng tổng
                 var totalRange = ws.Range(totalRow, 1, totalRow, 17);
