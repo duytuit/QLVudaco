@@ -281,7 +281,7 @@ namespace Quản_lý_vudaco.module
             // bandedGridColumn10
             // 
             this.bandedGridColumn10.Caption = "Khách hàng";
-            this.bandedGridColumn10.FieldName = "MaKhachHang";
+            this.bandedGridColumn10.FieldName = "TenVietTat";
             this.bandedGridColumn10.Name = "bandedGridColumn10";
             this.bandedGridColumn10.Summary.AddRange(new DevExpress.XtraGrid.GridSummaryItem[] {
             new DevExpress.XtraGrid.GridColumnSummaryItem(DevExpress.Data.SummaryItemType.Custom, "TenVietTat", "TỔNG CỘNG")});

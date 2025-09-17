@@ -144,25 +144,29 @@ namespace Quản_lý_vudaco.module
                                 .Union(kh_tt_dv_tk.Select(x => x.MaKhachHang))
                                 .Union(kh_tt_ch_tk.Select(x => x.MaKhachHang))
                                 .Distinct(StringComparer.OrdinalIgnoreCase);
+                        var kh = _khachhang.GetAllkh();
 
-                        var result = allKeys
-                            .Select(maKH => new
+                        var result = kh
+                            .Select(k => new
                             {
-                                MaKhachHang = maKH,
-                                KHDVDK = kh_dv_dk.FirstOrDefault(x => x.MaKhachHang == maKH)?.KHDVDK ?? 0,
-                                KHCHDK = kh_ch_dk.FirstOrDefault(x => x.MaKhachHang == maKH)?.KHCHDK ?? 0,
-                                KHTTDVDK = kh_tt_dv_dk.FirstOrDefault(x => x.MaKhachHang == maKH)?.KHTTDVDK ?? 0,
-                                KHTTCHDK = kh_tt_ch_dk.FirstOrDefault(x => x.MaKhachHang == maKH)?.KHTTCHDK ?? 0,
-                                KHDVTK = kh_dv_tk.FirstOrDefault(x => x.MaKhachHang == maKH)?.KHDVTK ?? 0,
-                                KHCHTK = kh_ch_tk.FirstOrDefault(x => x.MaKhachHang == maKH)?.KHCHTK ?? 0,
-                                KHTTDVTK = kh_tt_dv_tk.FirstOrDefault(x => x.MaKhachHang == maKH)?.KHTTDVTK ?? 0,
-                                KHTTCHTK = kh_tt_ch_tk.FirstOrDefault(x => x.MaKhachHang == maKH)?.KHTTCHTK ?? 0,
+                                MaKhachHang = k.MaKhachHang,
+                                TenVietTat = k.TenVietTat,
+                                KHDVDK = kh_dv_dk.FirstOrDefault(x => x.MaKhachHang == k.MaKhachHang)?.KHDVDK ?? 0,
+                                KHCHDK = kh_ch_dk.FirstOrDefault(x => x.MaKhachHang == k.MaKhachHang)?.KHCHDK ?? 0,
+                                KHTTDVDK = kh_tt_dv_dk.FirstOrDefault(x => x.MaKhachHang == k.MaKhachHang)?.KHTTDVDK ?? 0,
+                                KHTTCHDK = kh_tt_ch_dk.FirstOrDefault(x => x.MaKhachHang == k.MaKhachHang)?.KHTTCHDK ?? 0,
+                                KHDVTK = kh_dv_tk.FirstOrDefault(x => x.MaKhachHang == k.MaKhachHang)?.KHDVTK ?? 0,
+                                KHCHTK = kh_ch_tk.FirstOrDefault(x => x.MaKhachHang == k.MaKhachHang)?.KHCHTK ?? 0,
+                                KHTTDVTK = kh_tt_dv_tk.FirstOrDefault(x => x.MaKhachHang == k.MaKhachHang)?.KHTTDVTK ?? 0,
+                                KHTTCHTK = kh_tt_ch_tk.FirstOrDefault(x => x.MaKhachHang == k.MaKhachHang)?.KHTTCHTK ?? 0,
                             })
                             .ToList();
-                     
+
+
                         // Convert sang DataTable
                         DataTable dt = new DataTable();
                         dt.Columns.Add("MaKhachHang", typeof(string));
+                        dt.Columns.Add("TenVietTat", typeof(string));
                         dt.Columns.Add("KHDVDK", typeof(decimal));
                         dt.Columns.Add("KHCHDK", typeof(decimal));
                         dt.Columns.Add("KHDVTK", typeof(decimal));
@@ -177,9 +181,12 @@ namespace Quản_lý_vudaco.module
                         {
                             double DVCK = (item.KHDVDK + item.KHDVTK) - (item.KHTTDVDK + item.KHTTDVTK);
                             double CHCK = (item.KHCHDK + item.KHCHTK) - (item.KHTTCHDK + item.KHTTCHTK);
-                            double ConLai = (item.KHDVDK + item.KHCHDK) - (item.KHTTDVDK + item.KHTTCHDK) + (item.KHDVTK + item.KHCHTK) - (item.KHTTDVTK + item.KHTTCHTK);
+                            double ConLai = (item.KHDVDK + item.KHCHDK) - (item.KHTTDVDK + item.KHTTCHDK)
+                                          + (item.KHDVTK + item.KHCHTK) - (item.KHTTDVTK + item.KHTTCHTK);
+
                             dt.Rows.Add(
                                 item.MaKhachHang,
+                                item.TenVietTat,
                                 item.KHDVDK,
                                 item.KHCHDK,
                                 item.KHDVTK,
