@@ -33,6 +33,37 @@ namespace Quản_lý_vudaco.services
                 return _db.GetSingleRecord("DanhSachKhachHang", makh, "MaKhachHang");
             }
         }
+        public List<khachangDto> GetAllkh()
+        {
+            using (var _db = new clsKetNoi())
+            {
+                string sql = @"SELECT * FROM DanhSachKhachHang";
+                DataTable table = cls.LoadTable(sql);
+
+                var list = new List<khachangDto>();
+                foreach (DataRow row in table.Rows)
+                {
+                    var kh = new khachangDto
+                    {
+                        ID = Convert.ToInt32(row["ID"]),
+                        MaKhachHang = row["MaKhachHang"].ToString(),
+                        TenKhachHang = row["TenKhachHang"].ToString(),
+                        DiaChi = row["DiaChi"].ToString(),
+                        MaSoThue = row["MaSoThue"].ToString(),
+                        SoDienThoai = row["SoDienThoai"].ToString(),
+                        Email = row["Email"].ToString(),
+                        STK = row["STK"].ToString(),
+                        SoNgayDuocNo = row["SoNgayDuocNo"] == DBNull.Value ? 0 : Convert.ToInt32(row["SoNgayDuocNo"]),
+                        NoToiDa = row["NoToiDa"] == DBNull.Value ? 0 : Convert.ToDecimal(row["NoToiDa"]),
+                        LaNhaCungCap = row["LaNhaCungCap"] != DBNull.Value && Convert.ToBoolean(row["LaNhaCungCap"]),
+                        GhiChu = row["GhiChu"].ToString(),
+                        TenVietTat = row["TenVietTat"].ToString()
+                    };
+                    list.Add(kh);
+                }
+                return list;
+            }
+        }
         public List<CongNoChiTietKH> CongNoChiTietKH(DateTime TuNgay, DateTime? DenNgay = null, string makh = null, int dauky = 0)
         {
             List<CongNoChiTietKH> list = new List<CongNoChiTietKH>();
