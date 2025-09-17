@@ -131,7 +131,10 @@ namespace Quản_lý_vudaco.Forms
                             NangHaTTDK = g.Where(x => x.Type == 1).Sum(x => x.ThanhTien),
                         })
                         .FirstOrDefault(); // chỉ lấy 1 NCC
-                    double du_no = (ncc_du_no_dau_ky.DichVuTTDK + ncc_du_no_dau_ky.NangHaTTDK) - (ncc_du_no_dau_ky.DichVuDk + ncc_du_no_dau_ky.NangHaDk);
+                    double du_no = ((ncc_du_no_dau_ky?.DichVuTTDK ?? 0)
+                              + (ncc_du_no_dau_ky?.NangHaTTDK ?? 0))
+                             - ((ncc_du_no_dau_ky?.DichVuDk ?? 0)
+                              + (ncc_du_no_dau_ky?.NangHaDk ?? 0));
                     var ncc_ct = _ncc.CongNoChiTietNcc(_TuNgay, _DenNgay, _MaKH);
                     var ncc_dv_nh = ncc_ct.Where(x => new[] { 0, 3 }.Contains(x.Type)).Select(x => new
                                    {

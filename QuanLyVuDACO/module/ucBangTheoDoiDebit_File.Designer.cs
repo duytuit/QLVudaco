@@ -916,6 +916,8 @@ namespace Quản_lý_vudaco.module
             this.colSoToKhai.FieldName = "SoToKhai";
             this.colSoToKhai.MinWidth = 21;
             this.colSoToKhai.Name = "colSoToKhai";
+            this.colSoToKhai.Visible = true;
+            this.colSoToKhai.VisibleIndex = 8;
             this.colSoToKhai.Width = 103;
             // 
             // colSoBill
@@ -924,6 +926,8 @@ namespace Quản_lý_vudaco.module
             this.colSoBill.FieldName = "SoBill";
             this.colSoBill.MinWidth = 21;
             this.colSoBill.Name = "colSoBill";
+            this.colSoBill.Visible = true;
+            this.colSoBill.VisibleIndex = 7;
             this.colSoBill.Width = 103;
             // 
             // gridColumn9
@@ -933,7 +937,7 @@ namespace Quản_lý_vudaco.module
             this.gridColumn9.MinWidth = 21;
             this.gridColumn9.Name = "gridColumn9";
             this.gridColumn9.Visible = true;
-            this.gridColumn9.VisibleIndex = 7;
+            this.gridColumn9.VisibleIndex = 9;
             this.gridColumn9.Width = 103;
             // 
             // repositoryItemThem

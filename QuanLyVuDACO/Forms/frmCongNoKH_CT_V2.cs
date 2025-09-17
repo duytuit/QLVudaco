@@ -209,14 +209,15 @@ namespace Quản_lý_vudaco.Forms
                     using (var _khachhang = new khachhang())
                     {
                         var _khachhang_ct = _khachhang.CongNoChiTietKH(_TuNgay, _DenNgay, _MaKH);
-                        ExportToExcel(_khachhang_ct,sfd.FileName);
+                        DataRow kh = _khachhang.GetDetailkh(_MaKH);
+                        ExportToExcel(_khachhang_ct,sfd.FileName, kh);
                     }
                     MessageBox.Show("Xuất Excel thành công!");
                 }
             }
 
         }
-        public void ExportToExcel(List<CongNoChiTietKH> list, string filepath)
+        public void ExportToExcel(List<CongNoChiTietKH> list, string filepath,DataRow kh)
         {
             var _khachhang = list;
             var _khachhang_temp = list.OrderBy(x => x.NgayHachToan).ToList();
@@ -246,18 +247,18 @@ namespace Quản_lý_vudaco.Forms
             .ToList();
             using (var wb = new XLWorkbook())
             {
-                var ws = wb.Worksheets.Add("Tháng 8");
+                var ws = wb.Worksheets.Add("bảng kê chi tiết");
 
                 // ==== TIÊU ĐỀ ====
                 ws.Range("A1:Q1").Merge();
-                ws.Cell("A1").Value = "BẢNG KÊ CHI TIẾT THÁNG 08/2025";
+                ws.Cell("A1").Value = "BẢNG KÊ CHI TIẾT";
                 ws.Cell("A1").Style
                     .Font.SetBold()
                     .Font.SetFontSize(16)
                     .Alignment.SetHorizontal(XLAlignmentHorizontalValues.Center);
-
+                string tg = string.Format("Từ ngày {0} - Đến ngày {1}", _TuNgay.ToString("dd/MM/yyyy"), _DenNgay.ToString("dd/MM/yyyy"));
                 ws.Range("A2:Q2").Merge();
-                ws.Cell("A2").Value = "Từ ngày 01/08/2025 đến ngày 31/08/2025";
+                ws.Cell("A2").Value = tg;
                 ws.Cell("A2").Style
                     .Font.SetBold()
                     .Alignment.SetHorizontal(XLAlignmentHorizontalValues.Center);
@@ -278,9 +279,9 @@ namespace Quản_lý_vudaco.Forms
                 cell_benmua.Clear();
                 cell_benmua.GetRichText().AddText("Đơn vị mua hàng: ")
                     .SetBold();
-                cell_benmua.GetRichText().AddText("CÔNG TY TNHH CHARTER LINK LOGISTICS VIỆT NAM");
-                ws.Cell("A10").Value = "Địa chỉ: Tầng 5, Tòa nhà Phúc Hải, số 94 phố Trần Phú, Phường Gia Viên, Thành phố Hải Phòng, Việt Nam";
-                ws.Cell("A11").Value = "Mã số thuế: 0202216347";
+                cell_benmua.GetRichText().AddText(kh["TenKhachHang"].ToString());
+                ws.Cell("A10").Value = "Địa chỉ: "+kh["DiaChi"].ToString();
+                ws.Cell("A11").Value = "Mã số thuế: "+kh["MaSoThue"].ToString();
 
 
                 // ==== HEADER BẢNG ====

@@ -1585,7 +1585,7 @@ namespace Quản_lý_vudaco.services
 
             string sql = $@"select nhct.IDCPCT,nhct.IDLoHang,nhct.GhiChu_ChiHo,nhct.MaNhaCungCap,nh.NgayTaoBangKe,ttf.SoFile,ttf.SoBill,ttf.SoToKhai,nhct.SoTien_ChiHo as ThanhTien,ttf.SoCont,pch.TenChiHo from BangPhoiNangHa_ChiTiet nhct left join BangPhoiNangHa nh on nh.IDLoHang = nhct.IDLoHang
             left join ThongTinFile ttf on ttf.IDLoHang = nhct.IDLoHang left join DanhMuc_PhiChiHo pch on pch.MaChiHo = nhct.MaChiHo
-            where nhct.MaNhaCungCap IS NOT NULL AND LTRIM(RTRIM(nhct.MaNhaCungCap)) <> ''";
+            where nhct.MaNhaCungCap IS NOT NULL AND LTRIM(RTRIM(nhct.MaNhaCungCap)) <> '' AND nh.NgayTaoBangKe >= '2025-09-01'";
 
             if (TuNgay != DateTime.MinValue && DenNgay.HasValue)
             {
@@ -1635,7 +1635,7 @@ namespace Quản_lý_vudaco.services
             sql = $@"select fd.*,fdct.*,ttf.SoToKhai,ttf.SoBill,ttf.SoCont from FileDebitNccChiTiet fdct left join FileDebitNcc fd on fd.IDDeBit = fdct.IDDeBit
             left join ThongTinFile ttf on ttf.IDLoHang = fd.IDLoHang 
             where fd.SoFile is not null
-             AND fdct.MaNhaCungCap IS NOT NULL AND LTRIM(RTRIM(fdct.MaNhaCungCap)) <> ''";
+             AND fdct.MaNhaCungCap IS NOT NULL AND LTRIM(RTRIM(fdct.MaNhaCungCap)) <> '' AND fd.ThoiGianLap >= '2025-09-01'";
             if (TuNgay != DateTime.MinValue && DenNgay.HasValue)
             {
                 sql += $@" and fd.ThoiGianLap >= '{TuNgay:yyyy-MM-dd}' and fd.ThoiGianLap <= '{DenNgay:yyyy-MM-dd}'";
@@ -1693,7 +1693,7 @@ namespace Quản_lý_vudaco.services
                             ON ttf.IDLoHang = fg.IDLoHang
                         WHERE fg.SoFile IS NOT NULL
                           AND fgct.MaNhaCungCap IS NOT NULL
-                          AND LTRIM(RTRIM(fgct.MaNhaCungCap)) <> '' AND fd.SoFile IS NULL";
+                          AND LTRIM(RTRIM(fgct.MaNhaCungCap)) <> '' AND fd.SoFile IS NULL AND fg.ThoiGianLap >= '2025-09-01'";
             if (TuNgay != DateTime.MinValue && DenNgay.HasValue)
             {
                 sql += $@" and fg.ThoiGianLap >= '{TuNgay:yyyy-MM-dd}' and fg.ThoiGianLap <= '{DenNgay:yyyy-MM-dd}'";
@@ -1781,7 +1781,7 @@ namespace Quản_lý_vudaco.services
                      )
                      AND ISNULL(a.CuocMua, 0) > 0
                      AND fd.MaDieuXe IS NULL and a.MaNhaCungCap IS NOT NULL
-                          AND LTRIM(RTRIM(a.MaNhaCungCap)) <> ''";
+                          AND LTRIM(RTRIM(a.MaNhaCungCap)) <> '' AND a.Ngay >= '2025-09-01'";
             if (TuNgay != DateTime.MinValue && DenNgay.HasValue)
             {
                 sql += $@" and a.Ngay >= '{TuNgay:yyyy-MM-dd}' and a.Ngay <= '{DenNgay:yyyy-MM-dd}'";
@@ -1865,7 +1865,7 @@ namespace Quản_lý_vudaco.services
                      LEFT JOIN FileDebitNccChiTiet fdct ON fd.IDDeBit = fdct.IDDeBit
 	                 LEFT JOIN ThongTinFile ttf ON ttf.IDLoHang = fd.IDLoHang
                      LEFT JOIN BangDieuXe dx ON dx.MaDieuXe = fd.MaDieuXe
-                     WHERE fdct.MaNhaCungCap IS NOT NULL AND LTRIM(RTRIM(fdct.MaNhaCungCap)) <> '' AND fd.MaDieuXe IS NOT NULL AND LTRIM(RTRIM(fd.MaDieuXe)) <> ''";
+                     WHERE fdct.MaNhaCungCap IS NOT NULL AND LTRIM(RTRIM(fdct.MaNhaCungCap)) <> '' AND fd.MaDieuXe IS NOT NULL AND LTRIM(RTRIM(fd.MaDieuXe)) <> '' AND fd.ThoiGianLap >= '2025-09-01'";
             if (TuNgay != DateTime.MinValue && DenNgay.HasValue)
             {
                 sql += $@"and fd.ThoiGianLap >= '{TuNgay:yyyy-MM-dd}' and fd.ThoiGianLap <= '{DenNgay:yyyy-MM-dd}'";
@@ -1939,7 +1939,7 @@ namespace Quản_lý_vudaco.services
                     pmct.NoiDung
                     from PhieuMua pm
                     LEFT JOIN PhieuMuaCT pmct ON pmct.IDPhieuMua = pm.IDPhieuMua
-                    where pm.MaNhaCC IS NOT NULL AND LTRIM(RTRIM(pm.MaNhaCC)) <> ''";
+                    where pm.MaNhaCC IS NOT NULL AND LTRIM(RTRIM(pm.MaNhaCC)) <> '' AND pm.NgayMua >= '2025-09-01'";
             if (TuNgay != DateTime.MinValue && DenNgay.HasValue)
             {
                 sql += $@" and pm.NgayMua >= '{TuNgay:yyyy-MM-dd}' and pm.NgayMua <= '{DenNgay:yyyy-MM-dd}'";
@@ -1986,7 +1986,7 @@ namespace Quản_lý_vudaco.services
 
                 list.Add(obj);
             }
-            sql = $@"select * from FileDebit_KoHoaDon_KH where MaNhaCungCap IS NOT NULL AND LTRIM(RTRIM(MaNhaCungCap)) <> ''";
+            sql = $@"select * from FileDebit_KoHoaDon_KH where MaNhaCungCap IS NOT NULL AND LTRIM(RTRIM(MaNhaCungCap)) <> '' AND NgayTao >= '2025-09-01'";
             if (TuNgay != DateTime.MinValue && DenNgay.HasValue)
             {
                 sql += $@" and NgayTao >= '{TuNgay:yyyy-MM-dd}' and NgayTao <= '{DenNgay:yyyy-MM-dd}'";
@@ -2036,7 +2036,7 @@ namespace Quản_lý_vudaco.services
                 list.Add(obj);
             }
             sql = $@"select pct.IDCTNCC,pct.IDName,pct.KeyName,pc.MaChi,pc.SoChungTu,pct.SoFile,pct.MaDieuXe,pct.SoTien,pct.ThanhTien,pct.VAT,pct.LaVanChuyen,pct.MaDoiTuong,pct.TenDoiTuong,pc.NgayHachToan,pc.DienGiai,pc.HinhThucTT,pc.ChuTaiKhoan from PhieuChi_NCC_CT pct left join PhieuChi_NCC pc on pct.SoChungTu = pc.SoChungTu where pc.MaChi = N'006' and pc.LyDoChi = N'Chi trả tiền nhà cung cấp' and pct.MaDoiTuong IS NOT NULL
-                          AND LTRIM(RTRIM(pct.MaDoiTuong)) <> ''";
+                          AND LTRIM(RTRIM(pct.MaDoiTuong)) <> '' AND pc.NgayHachToan >= '2025-09-01'";
             if (TuNgay != DateTime.MinValue && DenNgay.HasValue)
             {
                 sql += $@" and pc.NgayHachToan >= '{TuNgay:yyyy-MM-dd}' and pc.NgayHachToan <= '{DenNgay:yyyy-MM-dd}'";
@@ -2079,7 +2079,7 @@ namespace Quản_lý_vudaco.services
                 list.Add(obj);
             }
             sql = $@"select pct.IDCT,pc.MaChi,pc.SoChungTu,pct.SoFile,pct.MaDieuXe,pct.SoTien,pct.ThanhTien,pct.VAT,pct.MaDoiTuong,pct.TenDoiTuong,pc.NgayHachToan,pc.DienGiai,pc.HinhThucTT,pc.ChuTaiKhoan,pc.LyDoChi from PhieuChi_CT pct left join PhieuChi pc on pct.SoChungTu = pc.SoChungTu where pc.MaChi = N'006' and pc.LyDoChi = N'Chi tạm ứng tiền cho nhà cung cấp' and pct.MaDoiTuong IS NOT NULL
-                          AND LTRIM(RTRIM(pct.MaDoiTuong)) <> ''";
+                          AND LTRIM(RTRIM(pct.MaDoiTuong)) <> '' AND pc.NgayHachToan >= '2025-09-01'";
             if (TuNgay != DateTime.MinValue && DenNgay.HasValue)
             {
                 sql += $@" and pc.NgayHachToan >= '{TuNgay:yyyy-MM-dd}' and pc.NgayHachToan <= '{DenNgay:yyyy-MM-dd}'";
