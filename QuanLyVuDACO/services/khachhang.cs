@@ -41,7 +41,8 @@ namespace Quản_lý_vudaco.services
                      ttf.SoLuong,
                      a.LoaiXe_NCC,
                      a.LuongHangVe,
-                     a.MaDieuXe
+                     a.MaDieuXe,
+                     a.TuyenVC
             from FileDebitChiTiet fdct left join FileDebit fd on fd.IDDeBit = fdct.IDDeBit
             left join ThongTinFile ttf on ttf.IDLoHang = fd.IDLoHang left join FileGia fg on fg.IDLoHang = ttf.IDLoHang left join BangDieuXe a on a.MaDieuXe = fg.MaDieuXe
             where fd.SoFile is not null";
@@ -91,6 +92,8 @@ namespace Quản_lý_vudaco.services
                     LoaiXe_KH = item["LoaiXe_KH"].ToString(),
                     LoaiXe_NCC = item["LoaiXe_NCC"].ToString(),
                     SoLuong = item["SoLuong"].ToString(),
+                    TuyenVC = item["TuyenVC"].ToString(),
+                    BienSoXe = item["BienSoXe"].ToString(),
                     Key = "debitchitietkh",
                     ID = int.Parse(item["IDDeBitCT"].ToString()),
                 };

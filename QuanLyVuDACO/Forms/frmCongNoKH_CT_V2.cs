@@ -222,29 +222,15 @@ namespace Quản_lý_vudaco.Forms
             var _khachhang = list;
             var _khachhang_temp = list.OrderBy(x => x.NgayHachToan).ToList();
             var groupedData = list
-            .GroupBy(x => x.SoFile)
-            .Select(g => new
-            {
-                SoFile = g.Key,
-                NgayHachToan = g.Min(x => x.NgayHachToan),
-                LoaiXe_KH = string.Join(", ", g.Select(x => x.LoaiXe_KH).Distinct()),
-                BienSoXe = string.Join(", ", g.Select(x => x.BienSoXe).Distinct()),
-                TuyenVC = string.Join(", ", g.Select(x => x.TuyenVC ?? x.TenDichVu).Distinct()),
-                
-                SoLuong = g.Count(),
-                DonGia = g.First().SoTien,         // hoặc Average nếu muốn
-                TienThueGTGT = g.Sum(x => (x.SoTien * x.VAT) / 100),
-
-                ThanhTien = g.Sum(x => x.LaPhiChiHo == 0 ? x.ThanhTien : 0),
-                ChiHo = g.Sum(x => x.LaPhiChiHo == 1 ? x.ThanhTien : 0),
-                TongCong = g.Sum(x => x.ThanhTien),
-
-                SoBill = string.Join(", ", g.Select(x => x.SoBill).Distinct()),
-                SoToKhai = string.Join(", ", g.Select(x => x.SoToKhai).Distinct()),
-                SoHoaDon = string.Join(", ", g.Select(x => x.SoHoaDon).Distinct())
-            })
-            .OrderBy(x => x.NgayHachToan)
-            .ToList();
+                .Where(x=>x.Type==0)
+                .GroupBy(x => x.SoFile)
+                .OrderBy(g => g.Min(x => x.NgayHachToan)) // sắp xếp theo ngày nhỏ nhất trong nhóm
+                .Select(g => new
+                {
+                    SoFile = g.Key,
+                    Items = g.ToList()
+                })
+                .ToList();
             using (var wb = new XLWorkbook())
             {
                 var ws = wb.Worksheets.Add("bảng kê chi tiết");
@@ -340,39 +326,53 @@ namespace Quản_lý_vudaco.Forms
                 // ==== DỮ LIỆU MẪU ====
                 int startRow = 15;
                 int currentRow = startRow;
+                int row = startRow;
+
                 for (int i = 0; i < groupedData.Count; i++)
                 {
-                    int row = startRow + i;
-                    var item = groupedData[i];
+                    var group = groupedData[i];
 
+                    // Lấy bản ghi đầu tiên trong group (để lấy thông tin chung)
+                    var first = group.Items.First();
+
+                    // Tính tổng và count
+                    int soLuong = group.Items.Where(x=>x.Type==0).ToList().Count;
+                    double tongDonGia = group.Items.Where(x => x.Type == 0).Sum(x => x.SoTien);
+                    // Thuế GTGT = cộng dồn từng dòng (ThanhTien * VAT)/100
+                    double tongTienThue = group.Items.Where(x => x.Type == 0).Sum(x => (x.SoTien * x.VAT) / 100);
+                    double tongThanhTien = group.Items.Where(x => x.Type == 0).Where(x => x.LaPhiChiHo == 0).Sum(x => x.ThanhTien);
+                    double tongChiHo = group.Items.Where(x => x.Type == 0).Where(x => x.LaPhiChiHo == 1).Sum(x => x.ThanhTien);
+                    double _tongCong = group.Items.Where(x => x.Type == 0).Sum(x => x.ThanhTien);
+                   
                     ws.Cell(row, 1).Value = i + 1; // STT
-                    ws.Cell(row, 2).Value = item.NgayHachToan;
-                    ws.Cell(row, 3).Value = item.LoaiXe_KH;
-                    ws.Cell(row, 4).Value = item.BienSoXe;
-                    ws.Cell(row, 5).Value = item.TuyenVC;
+                    ws.Cell(row, 2).Value = first.NgayHachToan; 
+                    ws.Cell(row, 3).Value = first.LoaiXe_KH;
+                    ws.Cell(row, 4).Value = first.BienSoXe;
+                    ws.Cell(row, 5).Value = first.TuyenVC;
                     ws.Cell(row, 6).Value = "Chuyến";
-                    ws.Cell(row, 7).Value = item.SoLuong;
+                    ws.Cell(row, 7).Value = soLuong; // count
 
-                    ws.Cell(row, 8).Value = item.DonGia;
+                    ws.Cell(row, 8).Value = tongDonGia;
                     ws.Cell(row, 8).Style.NumberFormat.Format = "#,##0";
 
-                    ws.Cell(row, 9).Value = ""; // vì thuế suất khác nhau thì khó group (nếu cố định thì gán %)
-                    ws.Cell(row, 10).Value = item.TienThueGTGT;
+                    ws.Cell(row, 9).Value = ""; // thuế suất, nếu cố định thì gán %
+                    ws.Cell(row, 10).Value = tongTienThue;
                     ws.Cell(row, 10).Style.NumberFormat.Format = "#,##0";
 
-                    ws.Cell(row, 11).Value = item.ThanhTien;
+                    ws.Cell(row, 11).Value = tongThanhTien;
                     ws.Cell(row, 11).Style.NumberFormat.Format = "#,##0";
 
-                    ws.Cell(row, 12).Value = item.ChiHo;
+                    ws.Cell(row, 12).Value = tongChiHo;
                     ws.Cell(row, 12).Style.NumberFormat.Format = "#,##0";
 
-                    ws.Cell(row, 13).Value = item.TongCong;
+                    ws.Cell(row, 13).Value = _tongCong;
                     ws.Cell(row, 13).Style.NumberFormat.Format = "#,##0";
 
-                    ws.Cell(row, 14).Value = item.SoFile;
-                    ws.Cell(row, 15).Value = item.SoBill + "/" + item.SoToKhai;
-                    ws.Cell(row, 16).Value = item.SoHoaDon;
+                    ws.Cell(row, 14).Value = group.SoFile;
+                    ws.Cell(row, 15).Value = first.SoBill + "/" + first.SoToKhai;
+                    ws.Cell(row, 16).Value = first.SoHoaDon;
                     ws.Cell(row, 17).Value = "";
+                    row++;
                 }
 
                 int dataStartRow = 15;
@@ -520,7 +520,7 @@ namespace Quản_lý_vudaco.Forms
                         DienGiai = x.DienGiai,
                         SoToKhai = x.SoToKhai,
                         SoBill = x.SoBill,
-                        TuyenVC = x.TuyenVC,
+                        TuyenVC = string.IsNullOrEmpty(x.TuyenVC) ? x.TenDichVu : x.TuyenVC,
                         NoiDung = x.NoiDung,
                         MaKhachHang = x.MaKhachHang,
                         BienSoXe = x.BienSoXe,
