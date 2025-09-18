@@ -334,12 +334,77 @@ namespace Quản_lý_vudaco.module
 
         private void repositoryItemHyperSua_Click(object sender, EventArgs e)
         {
+            try
+            {
+                // Lấy id role đang chọn trong grid chính
+                var id = Convert.ToInt32(gridControl2.GetFocusedRowCellValue("id"));
+                if (id <= 0) return;
 
+                _IdNhom = id;
+
+                using (var _db = new clsKetNoi())
+                {
+                    // Lấy thông tin Roles
+                    string sqlRole = $@"SELECT TOP 1 * FROM Roles WHERE id = '{id}'";
+                    DataTable dtRole = _db.LoadTable(sqlRole);
+                    if (dtRole.Rows.Count > 0)
+                    {
+                        txtTenNhom.Text = dtRole.Rows[0]["name"].ToString();
+                        txtGhichu.Text = dtRole.Rows[0]["note"].ToString();
+                    }
+
+                    // Lấy danh sách quyền RolePermission
+                    string sqlPerm = @"
+                SELECT rp.*, p.TenQuyen
+                FROM RolePermission rp
+                INNER JOIN Permissions p ON rp.permission_id = p.id
+                WHERE rp.role_id = @role_id";
+
+                    DataTable dt = _db.LoadTable(sqlPerm, new { role_id = _IdNhom });
+
+                    // Chuẩn hóa DataTable để đưa vào gridcontrol
+                    DataTable dtGrid = new DataTable();
+                    dtGrid.Columns.Add("TenQuyen", typeof(string));
+                    dtGrid.Columns.Add("Quyen", typeof(string));
+                    dtGrid.Columns.Add("Menu", typeof(bool));
+                    dtGrid.Columns.Add("Xem", typeof(bool));
+                    dtGrid.Columns.Add("Luu", typeof(bool));
+                    dtGrid.Columns.Add("Xoa", typeof(bool));
+
+                    foreach (DataRow item in dt.Rows)
+                    {
+                        DataRow row = dtGrid.NewRow();
+                        row["TenQuyen"] = item["TenQuyen"].ToString();
+                        row["Quyen"] = item["permission_id"].ToString();
+                        row["Menu"] = Convert.ToBoolean(item["Menu"]);
+                        row["Xem"] = Convert.ToBoolean(item["Xem"]);
+                        row["Luu"] = Convert.ToBoolean(item["Luu"]);
+                        row["Xoa"] = Convert.ToBoolean(item["Xoa"]);
+                        dtGrid.Rows.Add(row);
+                    }
+
+                    // Gán vào gridcontrol
+                    gridControl1.DataSource = dtGrid;
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Lỗi khi load dữ liệu role: " + ex.Message);
+            }
         }
 
         private void repositoryItemHyperXoa_Click(object sender, EventArgs e)
         {
-
+            if (MessageBox.Show("Bạn có chắc chắn muốn xoá không (Y/N)", "Thông báo", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+            {
+                int _ID = int.Parse(gridView1.GetFocusedRowCellValue("id").ToString());
+                using (var _db = new clsKetNoi())
+                {
+                    _db.DeleteById("Roles", _ID, "id");
+                    //_db.DeleteById("RolePermission", _ID, "ID");
+                }
+                LoadData();
+            }
         }
     }
 }
