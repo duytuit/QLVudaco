@@ -173,6 +173,7 @@ namespace Quản_lý_vudaco.module
             DataTable dt = new DataTable();
             dt.Columns.Add("TenQuyen");
             dt.Columns.Add("Quyen");
+            dt.Columns.Add("ID", typeof(int));
             dt.Columns.Add("All", typeof(bool));
             dt.Columns.Add("Menu", typeof(bool));
             dt.Columns.Add("Xem", typeof(bool));
@@ -187,6 +188,7 @@ namespace Quản_lý_vudaco.module
                 foreach (DataRow item in table.Rows)
                 {
                     DataRow row = dt.NewRow();
+                    row["ID"] = item["ID"];
                     row["TenQuyen"] = item["TenQuyen"].ToString();
                     row["Quyen"] = item["Quyen"].ToString();
                     row["All"] = false;
@@ -260,12 +262,12 @@ namespace Quản_lý_vudaco.module
                         // Cập nhật RolePermission theo grid
                         for (int i = 0; i < gridView1.RowCount; i++)
                         {
-                            var permissionId = gridView1.GetRowCellValue(i, "Quyen")?.ToString();
+                            var permissionId = gridView1.GetRowCellValue(i, "ID")?.ToString();
                             if (string.IsNullOrEmpty(permissionId)) continue;
 
                             var rolePermission = new
                             {
-                                permission_id = permissionId,
+                                permission_id = int.Parse(permissionId),
                                 role_id = _IdNhom,
                                 Menu = Convert.ToBoolean(gridView1.GetRowCellValue(i, "Menu")),
                                 Xem = Convert.ToBoolean(gridView1.GetRowCellValue(i, "Xem")),
@@ -294,12 +296,12 @@ namespace Quản_lý_vudaco.module
                         // Insert RolePermission cho role mới
                         for (int i = 0; i < gridView1.RowCount; i++)
                         {
-                            var permissionId = gridView1.GetRowCellValue(i, "Quyen")?.ToString();
+                            var permissionId = gridView1.GetRowCellValue(i, "ID")?.ToString();
                             if (string.IsNullOrEmpty(permissionId)) continue;
 
                             var rolePermission = new
                             {
-                                permission_id = permissionId,
+                                permission_id = int.Parse(permissionId),
                                 role_id = _IdNhom,
                                 Menu = Convert.ToBoolean(gridView1.GetRowCellValue(i, "Menu")),
                                 Xem = Convert.ToBoolean(gridView1.GetRowCellValue(i, "Xem")),
