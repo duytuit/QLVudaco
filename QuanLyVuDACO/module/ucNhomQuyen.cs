@@ -16,6 +16,7 @@ namespace Quản_lý_vudaco.module
 {
     public partial class ucNhomQuyen : DevExpress.XtraEditors.XtraUserControl
     {
+        private static int _IdNhom;
         public ucNhomQuyen()
         {
             InitializeComponent();
@@ -164,6 +165,11 @@ namespace Quản_lý_vudaco.module
 
         private void ucNhomQuyen_Load(object sender, EventArgs e)
         {
+            LoadData();
+        }
+
+        private void LoadData()
+        {
             DataTable dt = new DataTable();
             dt.Columns.Add("TenQuyen");
             dt.Columns.Add("Quyen");
@@ -190,6 +196,9 @@ namespace Quản_lý_vudaco.module
                     row["Xoa"] = Convert.ToBoolean(item["Xoa"]);
                     dt.Rows.Add(row);
                 }
+                sql = $@"SELECT * FROM Roles";
+                table = _db.LoadTable(sql);
+                gridControl1.DataSource = table;
             }
             gridControl1.DataSource = dt;
         }
@@ -228,7 +237,89 @@ namespace Quản_lý_vudaco.module
 
         private void btnCapNhat_Click(object sender, EventArgs e)
         {
+            using (var _db = new clsKetNoi())
+            {
+                try
+                {
+                    _db.BeginTransaction();
 
+                    if (_IdNhom > 0)
+                    {
+                        // Cập nhật Roles
+                        var nhom = new
+                        {
+                            id = _IdNhom,
+                            name = txtTenNhom.Text,
+                            note = txtGhichu.Text,
+                            status = 1,
+                            updated_at = DateTime.Now,
+                            updated_by = frmMain._TK
+                        };
+                        _db.UpsertFromObject("Roles", nhom, "id");
+
+                        // Cập nhật RolePermission theo grid
+                        for (int i = 0; i < gridView1.RowCount; i++)
+                        {
+                            var permissionId = gridView1.GetRowCellValue(i, "Quyen")?.ToString();
+                            if (string.IsNullOrEmpty(permissionId)) continue;
+
+                            var rolePermission = new
+                            {
+                                permission_id = permissionId,
+                                role_id = _IdNhom,
+                                Menu = Convert.ToBoolean(gridView1.GetRowCellValue(i, "Menu")),
+                                Xem = Convert.ToBoolean(gridView1.GetRowCellValue(i, "Xem")),
+                                Luu = Convert.ToBoolean(gridView1.GetRowCellValue(i, "Luu")),
+                                Xoa = Convert.ToBoolean(gridView1.GetRowCellValue(i, "Xoa"))
+                            };
+
+                            // update hoặc insert theo cặp (permission_id, role_id)
+                            _db.UpsertFromObjectByColumn("RolePermission", rolePermission, new[] { "permission_id", "role_id" });
+                        }
+                    }
+                    else
+                    {
+                        // Thêm mới Roles
+                        var nhom = new
+                        {
+                            id = 0,
+                            name = txtTenNhom.Text,
+                            note = txtGhichu.Text,
+                            status = 1,
+                            updated_at = DateTime.Now,
+                            updated_by = frmMain._TK
+                        };
+                        _IdNhom = _db.UpsertFromObject("Roles", nhom, "id", true);
+
+                        // Insert RolePermission cho role mới
+                        for (int i = 0; i < gridView1.RowCount; i++)
+                        {
+                            var permissionId = gridView1.GetRowCellValue(i, "Quyen")?.ToString();
+                            if (string.IsNullOrEmpty(permissionId)) continue;
+
+                            var rolePermission = new
+                            {
+                                permission_id = permissionId,
+                                role_id = _IdNhom,
+                                Menu = Convert.ToBoolean(gridView1.GetRowCellValue(i, "Menu")),
+                                Xem = Convert.ToBoolean(gridView1.GetRowCellValue(i, "Xem")),
+                                Luu = Convert.ToBoolean(gridView1.GetRowCellValue(i, "Luu")),
+                                Xoa = Convert.ToBoolean(gridView1.GetRowCellValue(i, "Xoa"))
+                            };
+
+                            _db.UpsertFromObjectByColumn("RolePermission", rolePermission, new[] { "permission_id", "role_id" });
+                        }
+                    }
+
+                    _db.CommitTransaction();
+                    LoadData();
+                }
+                catch (Exception ex)
+                {
+                    _db.RollbackTransaction();
+                    MessageBox.Show("Lỗi: " + ex.Message);
+                }
+            }
         }
 
         private void repositoryItemHyperSua_Click(object sender, EventArgs e)
