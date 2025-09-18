@@ -379,8 +379,9 @@ namespace Quản_lý_vudaco.Forms
                     // Nối TenDichVu + ThanhTien
                     var dichVuStr = string.Join("; ", group.Items
                         .Where(x => x.Type == 0)
+                        .Where(x => x.LaPhiChiHo == 1)
                         .Select(x => $"{x.TenDichVu}: {x.ThanhTien:#,##0}"));
-                    ws.Cell(row, 17).Value = dichVuStr; 
+                    ws.Cell(row, 17).Value = dichVuStr;
                     // Nối GhiChu
                     var GhiChuStr = string.Join("; ", group.Items
                         .Where(x => x.Type == 0)
