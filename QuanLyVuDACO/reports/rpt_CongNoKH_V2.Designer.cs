@@ -51,7 +51,6 @@ namespace Quản_lý_vudaco.reports
             this.xrTableCell26 = new DevExpress.XtraReports.UI.XRTableCell();
             this.xrTableCell27 = new DevExpress.XtraReports.UI.XRTableCell();
             this.xrTableCell52 = new DevExpress.XtraReports.UI.XRTableCell();
-            this.xrTableCell28 = new DevExpress.XtraReports.UI.XRTableCell();
             this.xrTableCell29 = new DevExpress.XtraReports.UI.XRTableCell();
             this.xrTableCell30 = new DevExpress.XtraReports.UI.XRTableCell();
             this.xrTableCell31 = new DevExpress.XtraReports.UI.XRTableCell();
@@ -79,7 +78,6 @@ namespace Quản_lý_vudaco.reports
             this.xrTableCell10 = new DevExpress.XtraReports.UI.XRTableCell();
             this.xrTableCell8 = new DevExpress.XtraReports.UI.XRTableCell();
             this.xrTableCell9 = new DevExpress.XtraReports.UI.XRTableCell();
-            this.xrTableCell45 = new DevExpress.XtraReports.UI.XRTableCell();
             this.xrTableCell7 = new DevExpress.XtraReports.UI.XRTableCell();
             this.xrTableCell6 = new DevExpress.XtraReports.UI.XRTableCell();
             this.xrTableCell5 = new DevExpress.XtraReports.UI.XRTableCell();
@@ -164,7 +162,6 @@ namespace Quản_lý_vudaco.reports
             this.xrTableCell26,
             this.xrTableCell27,
             this.xrTableCell52,
-            this.xrTableCell28,
             this.xrTableCell29,
             this.xrTableCell30,
             this.xrTableCell31,
@@ -280,27 +277,17 @@ namespace Quản_lý_vudaco.reports
             this.xrTableCell52.Name = "xrTableCell52";
             this.xrTableCell52.StylePriority.UseTextAlignment = false;
             this.xrTableCell52.TextAlignment = DevExpress.XtraPrinting.TextAlignment.MiddleLeft;
-            this.xrTableCell52.Weight = 1.0327703589194734D;
-            // 
-            // xrTableCell28
-            // 
-            this.xrTableCell28.ExpressionBindings.AddRange(new DevExpress.XtraReports.UI.ExpressionBinding[] {
-            new DevExpress.XtraReports.UI.ExpressionBinding("BeforePrint", "Text", "[IDDeBit]")});
-            this.xrTableCell28.Multiline = true;
-            this.xrTableCell28.Name = "xrTableCell28";
-            this.xrTableCell28.StylePriority.UseTextAlignment = false;
-            this.xrTableCell28.TextAlignment = DevExpress.XtraPrinting.TextAlignment.MiddleLeft;
-            this.xrTableCell28.Weight = 0.72541514702289067D;
+            this.xrTableCell52.Weight = 1.933345519144325D;
             // 
             // xrTableCell29
             // 
             this.xrTableCell29.ExpressionBindings.AddRange(new DevExpress.XtraReports.UI.ExpressionBinding[] {
-            new DevExpress.XtraReports.UI.ExpressionBinding("BeforePrint", "Text", "[DienGiai]")});
+            new DevExpress.XtraReports.UI.ExpressionBinding("BeforePrint", "Text", "[TenDichVu]")});
             this.xrTableCell29.Multiline = true;
             this.xrTableCell29.Name = "xrTableCell29";
             this.xrTableCell29.StylePriority.UseTextAlignment = false;
             this.xrTableCell29.TextAlignment = DevExpress.XtraPrinting.TextAlignment.MiddleLeft;
-            this.xrTableCell29.Weight = 1.3452726336127221D;
+            this.xrTableCell29.Weight = 1.275761570570723D;
             // 
             // xrTableCell30
             // 
@@ -311,7 +298,7 @@ namespace Quản_lý_vudaco.reports
             this.xrTableCell30.StylePriority.UseTextAlignment = false;
             this.xrTableCell30.TextAlignment = DevExpress.XtraPrinting.TextAlignment.MiddleRight;
             this.xrTableCell30.TextFormatString = "{0:#,##}";
-            this.xrTableCell30.Weight = 0.97268608806190071D;
+            this.xrTableCell30.Weight = 0.99909698714908945D;
             // 
             // xrTableCell31
             // 
@@ -322,7 +309,7 @@ namespace Quản_lý_vudaco.reports
             this.xrTableCell31.StylePriority.UseTextAlignment = false;
             this.xrTableCell31.TextAlignment = DevExpress.XtraPrinting.TextAlignment.MiddleRight;
             this.xrTableCell31.TextFormatString = "{0:#,##}";
-            this.xrTableCell31.Weight = 1.0561980469633765D;
+            this.xrTableCell31.Weight = 0.92413236333754489D;
             // 
             // xrTableCell32
             // 
@@ -333,7 +320,7 @@ namespace Quản_lý_vudaco.reports
             this.xrTableCell32.StylePriority.UseTextAlignment = false;
             this.xrTableCell32.TextAlignment = DevExpress.XtraPrinting.TextAlignment.MiddleRight;
             this.xrTableCell32.TextFormatString = "{0:#,##}";
-            this.xrTableCell32.Weight = 0.99893074097375856D;
+            this.xrTableCell32.Weight = 0.99457608466790148D;
             // 
             // xrTableCell33
             // 
@@ -344,7 +331,7 @@ namespace Quản_lý_vudaco.reports
             this.xrTableCell33.StylePriority.UseTextAlignment = false;
             this.xrTableCell33.TextAlignment = DevExpress.XtraPrinting.TextAlignment.MiddleRight;
             this.xrTableCell33.TextFormatString = "{0:#,##}";
-            this.xrTableCell33.Weight = 1.0249864793643133D;
+            this.xrTableCell33.Weight = 1.0297302718769792D;
             // 
             // xrTableCell34
             // 
@@ -352,7 +339,7 @@ namespace Quản_lý_vudaco.reports
             this.xrTableCell34.Name = "xrTableCell34";
             this.xrTableCell34.StylePriority.UseTextAlignment = false;
             this.xrTableCell34.TextAlignment = DevExpress.XtraPrinting.TextAlignment.MiddleRight;
-            this.xrTableCell34.Weight = 1.1181435267485365D;
+            this.xrTableCell34.Weight = 1.1177597105743833D;
             // 
             // ReportHeader
             // 
@@ -420,7 +407,7 @@ namespace Quản_lý_vudaco.reports
             this.xrTableCell43.StylePriority.UseTextAlignment = false;
             this.xrTableCell43.Text = "Dư nợ đầu kỳ (0)";
             this.xrTableCell43.TextAlignment = DevExpress.XtraPrinting.TextAlignment.MiddleCenter;
-            this.xrTableCell43.Weight = 12.880873756306805D;
+            this.xrTableCell43.Weight = 12.976246368949433D;
             // 
             // xrTableCell44
             // 
@@ -430,7 +417,7 @@ namespace Quản_lý_vudaco.reports
             this.xrTableCell44.StylePriority.UseFont = false;
             this.xrTableCell44.StylePriority.UseTextAlignment = false;
             this.xrTableCell44.TextAlignment = DevExpress.XtraPrinting.TextAlignment.MiddleRight;
-            this.xrTableCell44.Weight = 2.7293035120345861D;
+            this.xrTableCell44.Weight = 2.633930899391959D;
             // 
             // xrTable1
             // 
@@ -466,7 +453,6 @@ namespace Quản_lý_vudaco.reports
             this.xrTableCell10,
             this.xrTableCell8,
             this.xrTableCell9,
-            this.xrTableCell45,
             this.xrTableCell7,
             this.xrTableCell6,
             this.xrTableCell5,
@@ -558,58 +544,49 @@ namespace Quản_lý_vudaco.reports
             this.xrTableCell9.Multiline = true;
             this.xrTableCell9.Name = "xrTableCell9";
             this.xrTableCell9.Text = "ghi chú";
-            this.xrTableCell9.Weight = 1.0391910363015231D;
-            // 
-            // xrTableCell45
-            // 
-            this.xrTableCell45.Multiline = true;
-            this.xrTableCell45.Name = "xrTableCell45";
-            this.xrTableCell45.StylePriority.UseTextAlignment = false;
-            this.xrTableCell45.Text = "IDDeBit";
-            this.xrTableCell45.TextAlignment = DevExpress.XtraPrinting.TextAlignment.MiddleCenter;
-            this.xrTableCell45.Weight = 0.7299225619895815D;
+            this.xrTableCell9.Weight = 1.9431358744260017D;
             // 
             // xrTableCell7
             // 
             this.xrTableCell7.Multiline = true;
             this.xrTableCell7.Name = "xrTableCell7";
             this.xrTableCell7.Text = "Nội Dung\r\n(6)";
-            this.xrTableCell7.Weight = 1.3536358080773505D;
+            this.xrTableCell7.Weight = 1.2841411991083185D;
             // 
             // xrTableCell6
             // 
             this.xrTableCell6.Multiline = true;
             this.xrTableCell6.Name = "xrTableCell6";
             this.xrTableCell6.Text = "Số tiền\r\n(7)";
-            this.xrTableCell6.Weight = 0.97873380629655915D;
+            this.xrTableCell6.Weight = 1.0056596001279499D;
             // 
             // xrTableCell5
             // 
             this.xrTableCell5.Multiline = true;
             this.xrTableCell5.Name = "xrTableCell5";
             this.xrTableCell5.Text = "VAT\r\n(8)";
-            this.xrTableCell5.Weight = 1.0627648447634219D;
+            this.xrTableCell5.Weight = 0.93020260431975277D;
             // 
             // xrTableCell4
             // 
             this.xrTableCell4.Multiline = true;
             this.xrTableCell4.Name = "xrTableCell4";
             this.xrTableCell4.Text = "Tổng cộng\r\n (9)";
-            this.xrTableCell4.Weight = 1D;
+            this.xrTableCell4.Weight = 1.0011108167847489D;
             // 
             // xrTableCell1
             // 
             this.xrTableCell1.Multiline = true;
             this.xrTableCell1.Name = "xrTableCell1";
             this.xrTableCell1.Text = "Chi hộ \r\n(10)";
-            this.xrTableCell1.Weight = 1.0364925243287342D;
+            this.xrTableCell1.Weight = 1.0364855790869094D;
             // 
             // xrTableCell2
             // 
             this.xrTableCell2.Multiline = true;
             this.xrTableCell2.Name = "xrTableCell2";
             this.xrTableCell2.Text = "KH ứng trước\r\n(11)";
-            this.xrTableCell2.Weight = 1.1251012138261611D;
+            this.xrTableCell2.Weight = 1.1251053679894958D;
             // 
             // lblNgay
             // 
@@ -678,7 +655,7 @@ namespace Quản_lý_vudaco.reports
             this.xrTableCell36.StylePriority.UseTextAlignment = false;
             this.xrTableCell36.Text = "Đã thu (13)";
             this.xrTableCell36.TextAlignment = DevExpress.XtraPrinting.TextAlignment.MiddleCenter;
-            this.xrTableCell36.Weight = 12.880875225737592D;
+            this.xrTableCell36.Weight = 12.97625161464298D;
             // 
             // xrTableCell38
             // 
@@ -688,7 +665,7 @@ namespace Quản_lý_vudaco.reports
             this.xrTableCell38.StylePriority.UseFont = false;
             this.xrTableCell38.StylePriority.UseTextAlignment = false;
             this.xrTableCell38.TextAlignment = DevExpress.XtraPrinting.TextAlignment.MiddleRight;
-            this.xrTableCell38.Weight = 2.7332398500218051D;
+            this.xrTableCell38.Weight = 2.6378634611164173D;
             // 
             // xrTableRow5
             // 
@@ -707,7 +684,7 @@ namespace Quản_lý_vudaco.reports
             this.xrTableCell41.StylePriority.UseTextAlignment = false;
             this.xrTableCell41.Text = "Dư nợ cuối kỳ = (0 + (12) - (13)";
             this.xrTableCell41.TextAlignment = DevExpress.XtraPrinting.TextAlignment.MiddleCenter;
-            this.xrTableCell41.Weight = 12.880875225737592D;
+            this.xrTableCell41.Weight = 12.97625161464298D;
             // 
             // xrTableCell42
             // 
@@ -717,7 +694,7 @@ namespace Quản_lý_vudaco.reports
             this.xrTableCell42.StylePriority.UseFont = false;
             this.xrTableCell42.StylePriority.UseTextAlignment = false;
             this.xrTableCell42.TextAlignment = DevExpress.XtraPrinting.TextAlignment.MiddleRight;
-            this.xrTableCell42.Weight = 2.7332398500218051D;
+            this.xrTableCell42.Weight = 2.6378634611164173D;
             // 
             // xrTable4
             // 
@@ -752,7 +729,7 @@ namespace Quản_lý_vudaco.reports
             this.xrTableCell35.StylePriority.UseTextAlignment = false;
             this.xrTableCell35.Text = "Tổng công nợ phải thu (12) =  (9) + (10)";
             this.xrTableCell35.TextAlignment = DevExpress.XtraPrinting.TextAlignment.MiddleCenter;
-            this.xrTableCell35.Weight = 12.240092152378818D;
+            this.xrTableCell35.Weight = 12.330723856283216D;
             // 
             // xrTableCell37
             // 
@@ -760,7 +737,7 @@ namespace Quản_lý_vudaco.reports
             this.xrTableCell37.Name = "xrTableCell37";
             this.xrTableCell37.StylePriority.UseTextAlignment = false;
             this.xrTableCell37.TextAlignment = DevExpress.XtraPrinting.TextAlignment.MiddleRight;
-            this.xrTableCell37.Weight = 2.6019041350080157D;
+            this.xrTableCell37.Weight = 2.5112724311036185D;
             this.xrTableCell37.BeforePrint += new System.Drawing.Printing.PrintEventHandler(this.xrTableCell37_BeforePrint);
             // 
             // xrTableCell39
@@ -814,7 +791,7 @@ namespace Quản_lý_vudaco.reports
             this.xrTableCell46.StylePriority.UseTextAlignment = false;
             this.xrTableCell46.Text = "Tổng cộng";
             this.xrTableCell46.TextAlignment = DevExpress.XtraPrinting.TextAlignment.MiddleCenter;
-            this.xrTableCell46.Weight = 12.714476691965656D;
+            this.xrTableCell46.Weight = 12.806996686846363D;
             // 
             // xrTableCell47
             // 
@@ -830,7 +807,7 @@ namespace Quản_lý_vudaco.reports
             this.xrTableCell47.Summary = xrSummary2;
             this.xrTableCell47.TextAlignment = DevExpress.XtraPrinting.TextAlignment.MiddleRight;
             this.xrTableCell47.TextFormatString = "{0:#,##}";
-            this.xrTableCell47.Weight = 0.86498833009750886D;
+            this.xrTableCell47.Weight = 0.89012941198840889D;
             // 
             // xrTableCell48
             // 
@@ -846,7 +823,7 @@ namespace Quản_lý_vudaco.reports
             this.xrTableCell48.Summary = xrSummary3;
             this.xrTableCell48.TextAlignment = DevExpress.XtraPrinting.TextAlignment.MiddleRight;
             this.xrTableCell48.TextFormatString = "{0:#,##}";
-            this.xrTableCell48.Weight = 0.94100251787710676D;
+            this.xrTableCell48.Weight = 0.82334144110549867D;
             // 
             // lblTong
             // 
@@ -934,7 +911,6 @@ namespace Quản_lý_vudaco.reports
         private DevExpress.XtraReports.UI.XRTableCell xrTableCell25;
         private DevExpress.XtraReports.UI.XRTableCell xrTableCell26;
         private DevExpress.XtraReports.UI.XRTableCell xrTableCell27;
-        private DevExpress.XtraReports.UI.XRTableCell xrTableCell28;
         private DevExpress.XtraReports.UI.XRTableCell xrTableCell29;
         private DevExpress.XtraReports.UI.XRTableCell xrTableCell30;
         private DevExpress.XtraReports.UI.XRTableCell xrTableCell31;
@@ -987,7 +963,6 @@ namespace Quản_lý_vudaco.reports
         private DevExpress.XtraReports.UI.XRTableCell xrTableCell39;
         private DevExpress.XtraReports.UI.XRTableCell xrTableCell40;
         private DevExpress.XtraReports.UI.XRTableCell xrTableCell52;
-        private DevExpress.XtraReports.UI.XRTableCell xrTableCell45;
         private DevExpress.XtraReports.UI.XRTableRow xrTableRow8;
         private DevExpress.XtraReports.UI.XRTableCell xrTableCell36;
         private DevExpress.XtraReports.UI.XRTableCell xrTableCell38;

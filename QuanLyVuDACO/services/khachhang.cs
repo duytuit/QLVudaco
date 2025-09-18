@@ -67,27 +67,42 @@ namespace Quản_lý_vudaco.services
         public List<CongNoChiTietKH> CongNoChiTietKH(DateTime TuNgay, DateTime? DenNgay = null, string makh = null, int dauky = 0)
         {
             List<CongNoChiTietKH> list = new List<CongNoChiTietKH>();
-            string sql = $@"select ttf.MaKhachHang,fd.*,fdct.*,ttf.SoToKhai,ttf.SoBill,ttf.SoCont,ttf.TenSales,a.LoaiXe_KH,
-                     a.BienSoXe,
-                     ttf.SoLuong,
-                     a.LoaiXe_NCC,
-                     a.LuongHangVe,
-                     a.MaDieuXe,
-                     a.TuyenVC
-            from FileDebitChiTiet fdct left join FileDebit fd on fd.IDDeBit = fdct.IDDeBit
-            left join ThongTinFile ttf on ttf.IDLoHang = fd.IDLoHang left join FileGia fg on fg.IDLoHang = ttf.IDLoHang left join BangDieuXe a on a.MaDieuXe = fg.MaDieuXe
-            where fd.SoFile is not null";
+            string sql = $@"
+                SELECT 
+                    ttf.MaKhachHang,
+                    fd.*,
+                    fdct.*,
+                    ttf.SoToKhai,
+                    ttf.SoBill,
+                    ttf.SoCont,
+                    ttf.TenSales,
+                    COALESCE(a1.LoaiXe_KH, a2.LoaiXe_KH) AS LoaiXe_KH,
+                    COALESCE(a1.BienSoXe, a2.BienSoXe) AS BienSoXe,
+                    ttf.SoLuong,
+                    COALESCE(a1.LoaiXe_NCC, a2.LoaiXe_NCC) AS LoaiXe_NCC,
+                    COALESCE(a1.LuongHangVe, a2.LuongHangVe) AS LuongHangVe,
+                    COALESCE(a1.MaDieuXe, a2.MaDieuXe) AS MaDieuXe,
+                    COALESCE(a1.TuyenVC, a2.TuyenVC) AS TuyenVC,
+                    COALESCE(a1.GhiChu, a2.GhiChu) AS GhiChu
+                FROM FileDebitChiTiet fdct
+                LEFT JOIN FileDebit fd ON fd.IDDeBit = fdct.IDDeBit
+                LEFT JOIN ThongTinFile ttf ON ttf.IDLoHang = fd.IDLoHang
+                LEFT JOIN FileGia fg ON fg.IDLoHang = ttf.IDLoHang
+                LEFT JOIN BangDieuXe a1 ON a1.SoFile = fg.SoFile
+                LEFT JOIN BangDieuXe a2 ON a2.MaDieuXe = fg.MaDieuXe
+                WHERE fd.SoFile IS NOT NULL";
+
             if (TuNgay != DateTime.MinValue && DenNgay.HasValue)
             {
-                sql += $@" and fd.ThoiGianLap >= '{TuNgay:yyyy-MM-dd}' and fd.ThoiGianLap <= '{DenNgay:yyyy-MM-dd}'";
+                sql += $@" AND fd.ThoiGianLap >= '{TuNgay:yyyy-MM-dd}' AND fd.ThoiGianLap <= '{DenNgay:yyyy-MM-dd}'";
             }
             if (dauky == 1 && TuNgay != DateTime.MinValue) // đầu kỳ
             {
-                sql += $@" and fd.ThoiGianLap < '{TuNgay:yyyy-MM-dd}'";
+                sql += $@" AND fd.ThoiGianLap < '{TuNgay:yyyy-MM-dd}'";
             }
             if (!string.IsNullOrEmpty(makh))
             {
-                sql += $@" and ttf.MaKhachHang = N'{makh}'";
+                sql += $@" AND ttf.MaKhachHang = N'{makh}'";
             }
 
             DataTable  table = cls.LoadTable(sql);
@@ -120,6 +135,7 @@ namespace Quản_lý_vudaco.services
                     SoCont = item["SoCont"].ToString(),
                     NoiDung = item["TenDichVu"].ToString(),
                     TenSales = item["TenSales"].ToString(),
+                    GhiChu = item["GhiChu"].ToString(),
                     LoaiXe_KH = item["LoaiXe_KH"].ToString(),
                     LoaiXe_NCC = item["LoaiXe_NCC"].ToString(),
                     SoLuong = item["SoLuong"].ToString(),

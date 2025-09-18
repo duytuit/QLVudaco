@@ -186,11 +186,12 @@ namespace Quản_lý_vudaco.Forms
             this.gridBand2.Columns.Add(this.bandedGridColumn14);
             this.gridBand2.Columns.Add(this.gridColumn3);
             this.gridBand2.Columns.Add(this.bandedGridColumn11);
+            this.gridBand2.Columns.Add(this.bandedGridColumn12);
             this.gridBand2.Columns.Add(this.gridColumn4);
             this.gridBand2.Columns.Add(this.gridColumn7);
             this.gridBand2.Name = "gridBand2";
             this.gridBand2.VisibleIndex = 1;
-            this.gridBand2.Width = 1558;
+            this.gridBand2.Width = 1396;
             // 
             // gridColumn2
             // 
@@ -230,7 +231,7 @@ namespace Quản_lý_vudaco.Forms
             this.bandedGridColumn11.FieldName = "TuyenVC";
             this.bandedGridColumn11.Name = "bandedGridColumn11";
             this.bandedGridColumn11.Visible = true;
-            this.bandedGridColumn11.Width = 326;
+            this.bandedGridColumn11.Width = 289;
             // 
             // gridColumn4
             // 
@@ -245,7 +246,6 @@ namespace Quản_lý_vudaco.Forms
             this.gridColumn7.Caption = "Diễn giải";
             this.gridColumn7.FieldName = "DienGiai";
             this.gridColumn7.Name = "gridColumn7";
-            this.gridColumn7.Visible = true;
             this.gridColumn7.Width = 432;
             // 
             // gridBand4
@@ -426,6 +426,7 @@ namespace Quản_lý_vudaco.Forms
             this.bandedGridColumn12.FieldName = "NoiDung";
             this.bandedGridColumn12.Name = "bandedGridColumn12";
             this.bandedGridColumn12.Visible = true;
+            this.bandedGridColumn12.Width = 307;
             // 
             // collaphieuchiho
             // 

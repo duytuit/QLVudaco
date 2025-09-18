@@ -13,8 +13,10 @@ namespace Quản_lý_vudaco.module
 {
     public partial class ucKhachHang : DevExpress.XtraEditors.XtraUserControl
     {
-        public ucKhachHang()
+        public readonly string _permission;
+        public ucKhachHang(string permission)
         {
+            _permission = permission;
             InitializeComponent();
             STT.UnboundType = DevExpress.Data.UnboundColumnType.Integer;
             gridView1.CustomUnboundColumnData += GridView1_CustomUnboundColumnData;

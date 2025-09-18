@@ -140,21 +140,21 @@ namespace Quản_lý_vudaco
             {
                 case "ucDanhSachTaiKhoan":
                     {
-                        module.ucDanhSachTaiKhoan frm = new module.ucDanhSachTaiKhoan();
+                        module.ucDanhSachTaiKhoan frm = new module.ucDanhSachTaiKhoan(tabPage.Name);
                         frm.Dock = System.Windows.Forms.DockStyle.Fill;
                         tabPage.Controls.Add(frm);
                         break;
                     }
                 case "ucKhachHang":
                     {
-                        module.ucKhachHang frm = new module.ucKhachHang();
+                        module.ucKhachHang frm = new module.ucKhachHang(tabPage.Name);
                         frm.Dock = System.Windows.Forms.DockStyle.Fill;
                         tabPage.Controls.Add(frm);
                         break;
                     }
                 case "ucNhaCungCap":
                     {
-                        module.ucNhaCungCap frm = new module.ucNhaCungCap();
+                        module.ucNhaCungCap frm = new module.ucNhaCungCap(tabPage.Name);
                         frm.Dock = System.Windows.Forms.DockStyle.Fill;
                         tabPage.Controls.Add(frm);
                         break;
