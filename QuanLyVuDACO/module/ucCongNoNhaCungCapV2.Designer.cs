@@ -282,7 +282,7 @@ namespace Quản_lý_vudaco.module
             // colMaNhaCungCap
             // 
             this.colMaNhaCungCap.Caption = "Nhà Cung Cấp";
-            this.colMaNhaCungCap.FieldName = "MaNhaCungCap";
+            this.colMaNhaCungCap.FieldName = "TenVietTat";
             this.colMaNhaCungCap.Name = "colMaNhaCungCap";
             this.colMaNhaCungCap.Visible = true;
             this.colMaNhaCungCap.Width = 167;

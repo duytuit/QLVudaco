@@ -225,5 +225,20 @@ namespace Quản_lý_vudaco.module
 
             }
         }
+
+        private void btnCapNhat_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void repositoryItemHyperSua_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void repositoryItemHyperXoa_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }
