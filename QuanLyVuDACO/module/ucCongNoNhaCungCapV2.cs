@@ -126,35 +126,27 @@ namespace Quản_lý_vudaco.module
                                              NangHaTT = g.Sum(x => x.ThanhTien), // ví dụ tính tổng
                                           })
                                          .ToList();
-
-                        var allKeys = ncc_dv_dk.Select(x => x.MaNhaCungCap)
-                                .Union(ncc_nh_dk.Select(x => x.MaNhaCungCap))
-                                .Union(ncc_dv_tt_dk.Select(x => x.MaNhaCungCap))
-                                .Union(ncc_nh_tt_dk.Select(x => x.MaNhaCungCap))
-                                .Union(ncc_dv.Select(x => x.MaNhaCungCap))
-                                .Union(ncc_nh.Select(x => x.MaNhaCungCap))
-                                .Union(ncc_dv_tt.Select(x => x.MaNhaCungCap))
-                                .Union(ncc_nh_tt.Select(x => x.MaNhaCungCap))
-                                .Distinct();
-
-                        var result = allKeys
-                            .Select(maNcc => new
+                        var ncc = _ncc.GetAllncc();
+                        var result = ncc
+                            .Select(k => new
                             {
-                                MaNhaCungCap = maNcc,
-                                DichVuDk = ncc_dv_dk.FirstOrDefault(x => x.MaNhaCungCap == maNcc)?.DichVuDk ?? 0,
-                                NangHaDk = ncc_nh_dk.FirstOrDefault(x => x.MaNhaCungCap == maNcc)?.NangHaDk ?? 0,
-                                DichVuTTDK = ncc_dv_tt_dk.FirstOrDefault(x => x.MaNhaCungCap == maNcc)?.DichVuTTDK ?? 0,
-                                NangHaTTDK = ncc_nh_tt_dk.FirstOrDefault(x => x.MaNhaCungCap == maNcc)?.NangHaTTDK ?? 0,
-                                DichVuTK = ncc_dv.FirstOrDefault(x => x.MaNhaCungCap == maNcc)?.DichVuTK ?? 0,
-                                NangHaTK = ncc_nh.FirstOrDefault(x => x.MaNhaCungCap == maNcc)?.NangHaTK ?? 0,
-                                DichVuTT = ncc_dv_tt.FirstOrDefault(x => x.MaNhaCungCap == maNcc)?.DichVuTT ?? 0,
-                                NangHaTT = ncc_nh_tt.FirstOrDefault(x => x.MaNhaCungCap == maNcc)?.NangHaTT ?? 0
+                                MaNhaCungCap = k.MaNhaCungCap,
+                                TenVietTat = k.TenVietTat, // nếu có cột này trong bảng NCC
+                                DichVuDk = ncc_dv_dk.FirstOrDefault(x => x.MaNhaCungCap == k.MaNhaCungCap)?.DichVuDk ?? 0,
+                                NangHaDk = ncc_nh_dk.FirstOrDefault(x => x.MaNhaCungCap == k.MaNhaCungCap)?.NangHaDk ?? 0,
+                                DichVuTTDK = ncc_dv_tt_dk.FirstOrDefault(x => x.MaNhaCungCap == k.MaNhaCungCap)?.DichVuTTDK ?? 0,
+                                NangHaTTDK = ncc_nh_tt_dk.FirstOrDefault(x => x.MaNhaCungCap == k.MaNhaCungCap)?.NangHaTTDK ?? 0,
+                                DichVuTK = ncc_dv.FirstOrDefault(x => x.MaNhaCungCap == k.MaNhaCungCap)?.DichVuTK ?? 0,
+                                NangHaTK = ncc_nh.FirstOrDefault(x => x.MaNhaCungCap == k.MaNhaCungCap)?.NangHaTK ?? 0,
+                                DichVuTT = ncc_dv_tt.FirstOrDefault(x => x.MaNhaCungCap == k.MaNhaCungCap)?.DichVuTT ?? 0,
+                                NangHaTT = ncc_nh_tt.FirstOrDefault(x => x.MaNhaCungCap == k.MaNhaCungCap)?.NangHaTT ?? 0
                             })
                             .ToList();
 
                         // Convert sang DataTable
                         DataTable dt = new DataTable();
                         dt.Columns.Add("MaNhaCungCap", typeof(string));
+                        dt.Columns.Add("TenVietTat", typeof(string));
                         dt.Columns.Add("DichVuDk", typeof(decimal));
                         dt.Columns.Add("DichVuTTDK", typeof(decimal));
                         dt.Columns.Add("NangHaDk", typeof(decimal));
@@ -171,11 +163,11 @@ namespace Quản_lý_vudaco.module
                         {
                             double DichVuCK = (item.DichVuTK + item.DichVuDk) - (item.DichVuTT + item.DichVuTTDK);
                             double NangHaCK = (item.NangHaTK + item.NangHaDk) - (item.NangHaTT + item.NangHaTTDK);
-
                             double ConLai = DichVuCK + NangHaCK;
 
                             dt.Rows.Add(
                                 item.MaNhaCungCap,
+                                item.TenVietTat,
                                 item.DichVuDk,
                                 item.DichVuTTDK,
                                 item.NangHaDk,

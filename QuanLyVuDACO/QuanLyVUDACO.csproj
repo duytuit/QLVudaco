@@ -1056,6 +1056,7 @@
     <Compile Include="services\Entity\FileDebit_KoHoaDon_NCC.cs" />
     <Compile Include="services\Entity\khachangDto.cs" />
     <Compile Include="services\Entity\KhauHao.cs" />
+    <Compile Include="services\Entity\nhacungcapDto.cs" />
     <Compile Include="services\Entity\PhanBoKhauHaoCT.cs" />
     <Compile Include="services\Entity\PhanBoKhauHao.cs" />
     <Compile Include="services\helperSql\clsKetNoi.cs" />

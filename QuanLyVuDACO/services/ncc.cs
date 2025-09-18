@@ -1044,6 +1044,38 @@ namespace Quản_lý_vudaco.services
             }
             return dt1;
         }
+        public List<nhacungcapDto> GetAllncc()
+        {
+            using (var _db = new clsKetNoi())
+            {
+                string sql = @"SELECT * FROM DanhSachNhaCungCap";
+                DataTable table = cls.LoadTable(sql);
+
+                var list = new List<nhacungcapDto>();
+                foreach (DataRow row in table.Rows)
+                {
+                    var ncc = new nhacungcapDto
+                    {
+                        ID = Convert.ToInt32(row["ID"]),
+                        MaNhaCungCap = row["MaNhaCungCap"]?.ToString(),
+                        TenNhaCungCap = row["TenNhaCungCap"]?.ToString(),
+                        DiaChi = row["DiaChi"]?.ToString(),
+                        MaSoThue = row["MaSoThue"]?.ToString(),
+                        SoDienThoai = row["SoDienThoai"]?.ToString(),
+                        Email = row["Email"]?.ToString(),
+                        STK = row["STK"]?.ToString(),
+                        SoNgayDuocNo = row["SoNgayDuocNo"] == DBNull.Value ? 0 : Convert.ToInt32(row["SoNgayDuocNo"]),
+                        NoToiDa = row["NoToiDa"] == DBNull.Value ? 0 : Convert.ToDecimal(row["NoToiDa"]),
+                        LaKhachHang = row["LaKhachHang"] != DBNull.Value && Convert.ToBoolean(row["LaKhachHang"]),
+                        GhiChu = row["GhiChu"]?.ToString(),
+                        TenVietTat = row["TenVietTat"]?.ToString()
+                    };
+                    list.Add(ncc);
+                }
+                return list;
+            }
+        }
+
         public DataTable ChiTietNoiDungTaoDebit_Sua(int IDDebit)
         {
             string sql = $@"
