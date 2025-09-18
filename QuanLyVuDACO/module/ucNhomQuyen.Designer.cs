@@ -44,6 +44,7 @@ namespace Quản_lý_vudaco.module
             this.colXoa = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colMenu = new DevExpress.XtraGrid.Columns.GridColumn();
             this.gridColumn1 = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.gridColumn4 = new DevExpress.XtraGrid.Columns.GridColumn();
             this.panelControl2 = new DevExpress.XtraEditors.PanelControl();
             this.btnQuyen = new DevExpress.XtraEditors.SimpleButton();
             this.txtGhichu = new DevExpress.XtraEditors.TextEdit();
@@ -63,7 +64,6 @@ namespace Quản_lý_vudaco.module
             this.repositoryItemHyperSua = new DevExpress.XtraEditors.Repository.RepositoryItemHyperLinkEdit();
             this.gridColumn3 = new DevExpress.XtraGrid.Columns.GridColumn();
             this.repositoryItemHyperXoa = new DevExpress.XtraEditors.Repository.RepositoryItemHyperLinkEdit();
-            this.gridColumn4 = new DevExpress.XtraGrid.Columns.GridColumn();
             this.tableLayoutPanel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.panelControl1)).BeginInit();
             this.panelControl1.SuspendLayout();
@@ -229,6 +229,12 @@ namespace Quản_lý_vudaco.module
             this.gridColumn1.FieldName = "Quyen";
             this.gridColumn1.Name = "gridColumn1";
             // 
+            // gridColumn4
+            // 
+            this.gridColumn4.Caption = "ID";
+            this.gridColumn4.FieldName = "ID";
+            this.gridColumn4.Name = "gridColumn4";
+            // 
             // panelControl2
             // 
             this.panelControl2.Controls.Add(this.btnQuyen);
@@ -341,6 +347,7 @@ namespace Quản_lý_vudaco.module
             // colTenNhom
             // 
             this.colTenNhom.Caption = "Tên Nhóm";
+            this.colTenNhom.FieldName = "name";
             this.colTenNhom.Name = "colTenNhom";
             this.colTenNhom.Visible = true;
             this.colTenNhom.VisibleIndex = 1;
@@ -349,6 +356,7 @@ namespace Quản_lý_vudaco.module
             // colGhichu
             // 
             this.colGhichu.Caption = "Ghi Chú";
+            this.colGhichu.FieldName = "note";
             this.colGhichu.Name = "colGhichu";
             this.colGhichu.Visible = true;
             this.colGhichu.VisibleIndex = 2;
@@ -357,6 +365,7 @@ namespace Quản_lý_vudaco.module
             // colNguoiCapNhat
             // 
             this.colNguoiCapNhat.Caption = "Người cập nhật lần cuối";
+            this.colNguoiCapNhat.FieldName = "updated_by";
             this.colNguoiCapNhat.Name = "colNguoiCapNhat";
             this.colNguoiCapNhat.Visible = true;
             this.colNguoiCapNhat.VisibleIndex = 3;
@@ -365,6 +374,7 @@ namespace Quản_lý_vudaco.module
             // colThoiGianCapNhat
             // 
             this.colThoiGianCapNhat.Caption = "Thời gian cập nhật lần cuối";
+            this.colThoiGianCapNhat.FieldName = "updated_at";
             this.colThoiGianCapNhat.Name = "colThoiGianCapNhat";
             this.colThoiGianCapNhat.Visible = true;
             this.colThoiGianCapNhat.VisibleIndex = 4;
@@ -377,7 +387,7 @@ namespace Quản_lý_vudaco.module
             this.gridColumn2.Fixed = DevExpress.XtraGrid.Columns.FixedStyle.Right;
             this.gridColumn2.Name = "gridColumn2";
             this.gridColumn2.Visible = true;
-            this.gridColumn2.VisibleIndex = 6;
+            this.gridColumn2.VisibleIndex = 5;
             // 
             // repositoryItemHyperSua
             // 
@@ -394,7 +404,7 @@ namespace Quản_lý_vudaco.module
             this.gridColumn3.Fixed = DevExpress.XtraGrid.Columns.FixedStyle.Right;
             this.gridColumn3.Name = "gridColumn3";
             this.gridColumn3.Visible = true;
-            this.gridColumn3.VisibleIndex = 5;
+            this.gridColumn3.VisibleIndex = 6;
             // 
             // repositoryItemHyperXoa
             // 
@@ -403,12 +413,6 @@ namespace Quản_lý_vudaco.module
             this.repositoryItemHyperXoa.Name = "repositoryItemHyperXoa";
             this.repositoryItemHyperXoa.NullText = "Xóa";
             this.repositoryItemHyperXoa.Click += new System.EventHandler(this.repositoryItemHyperXoa_Click);
-            // 
-            // gridColumn4
-            // 
-            this.gridColumn4.Caption = "ID";
-            this.gridColumn4.FieldName = "ID";
-            this.gridColumn4.Name = "gridColumn4";
             // 
             // ucNhomQuyen
             // 

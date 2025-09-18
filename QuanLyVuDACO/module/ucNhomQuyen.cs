@@ -239,6 +239,12 @@ namespace Quản_lý_vudaco.module
 
         private void btnCapNhat_Click(object sender, EventArgs e)
         {
+            if (string.IsNullOrWhiteSpace(txtTenNhom.Text))
+            {
+                XtraMessageBox.Show("Vui lòng nhập tên nhóm!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                txtTenNhom.Focus();
+                return;
+            }
             using (var _db = new clsKetNoi())
             {
                 try
@@ -287,7 +293,7 @@ namespace Quản_lý_vudaco.module
                             id = 0,
                             name = txtTenNhom.Text,
                             note = txtGhichu.Text,
-                            status = 1,
+                            status = 0,
                             updated_at = DateTime.Now,
                             updated_by = frmMain._TK
                         };
@@ -315,6 +321,8 @@ namespace Quản_lý_vudaco.module
 
                     _db.CommitTransaction();
                     LoadData();
+                    _IdNhom = 0;
+                    txtTenNhom.Text = "";
                 }
                 catch (Exception ex)
                 {
