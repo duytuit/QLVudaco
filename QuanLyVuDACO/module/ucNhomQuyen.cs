@@ -323,6 +323,8 @@ namespace Quản_lý_vudaco.module
                     LoadData();
                     _IdNhom = 0;
                     txtTenNhom.Text = "";
+                    txtGhichu.Text = "";
+                    XtraMessageBox.Show("Lưu thành công!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
                 catch (Exception ex)
                 {
@@ -337,7 +339,7 @@ namespace Quản_lý_vudaco.module
             try
             {
                 // Lấy id role đang chọn trong grid chính
-                var id = Convert.ToInt32(gridControl2.GetFocusedRowCellValue("id"));
+                int id = int.Parse(gridView2.GetFocusedRowCellValue("id").ToString());
                 if (id <= 0) return;
 
                 _IdNhom = id;
@@ -354,18 +356,27 @@ namespace Quản_lý_vudaco.module
                     }
 
                     // Lấy danh sách quyền RolePermission
-                    string sqlPerm = @"
-                SELECT rp.*, p.TenQuyen
-                FROM RolePermission rp
-                INNER JOIN Permissions p ON rp.permission_id = p.id
-                WHERE rp.role_id = @role_id";
+                    string sqlPerm = $@"
+                    SELECT 
+                        p.ID, 
+                        p.TenQuyen,
+                        p.Quyen,
+                        ISNULL(rp.Menu, 0) AS Menu,
+                        ISNULL(rp.Xem, 0) AS Xem,
+                        ISNULL(rp.Luu, 0) AS Luu,
+                        ISNULL(rp.Xoa, 0) AS Xoa
+                    FROM Permissions p
+                    LEFT JOIN RolePermission rp 
+                        ON p.ID = rp.permission_id AND rp.role_id = '{id}'";
 
-                    DataTable dt = _db.LoadTable(sqlPerm, new { role_id = _IdNhom });
+                    DataTable dt = _db.LoadTable(sqlPerm);
 
                     // Chuẩn hóa DataTable để đưa vào gridcontrol
                     DataTable dtGrid = new DataTable();
+                    dtGrid.Columns.Add("ID", typeof(string));
                     dtGrid.Columns.Add("TenQuyen", typeof(string));
                     dtGrid.Columns.Add("Quyen", typeof(string));
+                    dtGrid.Columns.Add("All", typeof(bool));
                     dtGrid.Columns.Add("Menu", typeof(bool));
                     dtGrid.Columns.Add("Xem", typeof(bool));
                     dtGrid.Columns.Add("Luu", typeof(bool));
@@ -374,8 +385,10 @@ namespace Quản_lý_vudaco.module
                     foreach (DataRow item in dt.Rows)
                     {
                         DataRow row = dtGrid.NewRow();
+                        row["ID"] = item["ID"].ToString();
                         row["TenQuyen"] = item["TenQuyen"].ToString();
-                        row["Quyen"] = item["permission_id"].ToString();
+                        row["Quyen"] = item["Quyen"].ToString();
+                        row["All"] = false;
                         row["Menu"] = Convert.ToBoolean(item["Menu"]);
                         row["Xem"] = Convert.ToBoolean(item["Xem"]);
                         row["Luu"] = Convert.ToBoolean(item["Luu"]);
