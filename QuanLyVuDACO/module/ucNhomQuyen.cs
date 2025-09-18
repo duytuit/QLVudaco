@@ -200,7 +200,7 @@ namespace Quản_lý_vudaco.module
                 }
                 sql = $@"SELECT * FROM Roles";
                 table = _db.LoadTable(sql);
-                gridControl1.DataSource = table;
+                gridControl2.DataSource = table;
             }
             gridControl1.DataSource = dt;
         }
