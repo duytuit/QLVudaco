@@ -83,7 +83,7 @@ namespace Quản_lý_vudaco.services
                     COALESCE(a1.LuongHangVe, a2.LuongHangVe) AS LuongHangVe,
                     COALESCE(a1.MaDieuXe, a2.MaDieuXe) AS MaDieuXe,
                     COALESCE(a1.TuyenVC, a2.TuyenVC) AS TuyenVC,
-                    COALESCE(a1.GhiChu, a2.GhiChu) AS GhiChu
+                    COALESCE(a1.GhiChu, a2.GhiChu) AS GhiChu_dx
                 FROM FileDebitChiTiet fdct
                 LEFT JOIN FileDebit fd ON fd.IDDeBit = fdct.IDDeBit
                 LEFT JOIN ThongTinFile ttf ON ttf.IDLoHang = fd.IDLoHang
@@ -135,7 +135,7 @@ namespace Quản_lý_vudaco.services
                     SoCont = item["SoCont"].ToString(),
                     NoiDung = item["TenDichVu"].ToString(),
                     TenSales = item["TenSales"].ToString(),
-                    GhiChu = item["GhiChu"].ToString(),
+                    GhiChu = item["GhiChu"].ToString() + item["GhiChu_dx"].ToString(),
                     LoaiXe_KH = item["LoaiXe_KH"].ToString(),
                     LoaiXe_NCC = item["LoaiXe_NCC"].ToString(),
                     SoLuong = item["SoLuong"].ToString(),
