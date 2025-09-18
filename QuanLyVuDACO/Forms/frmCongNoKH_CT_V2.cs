@@ -296,9 +296,10 @@ namespace Quản_lý_vudaco.Forms
                 ws.Range(headerRow1, 15, headerRow2, 15).Merge().Value = "Số bill/booking (hoặc Số tờ khai)";
                 ws.Range(headerRow1, 16, headerRow2, 16).Merge().Value = "Số HĐ";
                 ws.Range(headerRow1, 17, headerRow2, 17).Merge().Value = "ND chi hộ";
+                ws.Range(headerRow1, 18, headerRow2, 18).Merge().Value = "Ghi chú";
 
                 // format chung cho header
-                var headerRange = ws.Range(headerRow1, 1, headerRow2, 17);
+                var headerRange = ws.Range(headerRow1, 1, headerRow2, 18);
                 headerRange.Style.Alignment.Horizontal = XLAlignmentHorizontalValues.Center;
                 headerRange.Style.Alignment.Vertical = XLAlignmentVerticalValues.Center;
                 headerRange.Style.Font.Bold = true;
@@ -323,9 +324,10 @@ namespace Quản_lý_vudaco.Forms
                 ws.Column(15).Width = 30; // Số bill/booking (hoặc Số tờ khai)
                 ws.Column(16).Width = 15; // Số HĐ
                 ws.Column(17).Width = 28; // ND chi hộ
+                ws.Column(18).Width = 28; // Ghi chú
 
                 // Cho phép xuống dòng trong ô nếu text dài
-                ws.Range(headerRow1, 1, headerRow2, 17).Style.Alignment.WrapText = true;
+                ws.Range(headerRow1, 1, headerRow2, 18).Style.Alignment.WrapText = true;
                 // ==== DỮ LIỆU MẪU ====
                 int startRow = 15;
                 int currentRow = startRow;

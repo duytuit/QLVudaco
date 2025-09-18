@@ -43,6 +43,7 @@ namespace Quản_lý_vudaco.Forms
             this.bandedGridColumn14 = new DevExpress.XtraGrid.Views.BandedGrid.BandedGridColumn();
             this.gridColumn3 = new DevExpress.XtraGrid.Views.BandedGrid.BandedGridColumn();
             this.bandedGridColumn11 = new DevExpress.XtraGrid.Views.BandedGrid.BandedGridColumn();
+            this.bandedGridColumn12 = new DevExpress.XtraGrid.Views.BandedGrid.BandedGridColumn();
             this.gridColumn4 = new DevExpress.XtraGrid.Views.BandedGrid.BandedGridColumn();
             this.gridColumn7 = new DevExpress.XtraGrid.Views.BandedGrid.BandedGridColumn();
             this.gridBand4 = new DevExpress.XtraGrid.Views.BandedGrid.GridBand();
@@ -60,7 +61,6 @@ namespace Quản_lý_vudaco.Forms
             this.bandedGridColumn2 = new DevExpress.XtraGrid.Views.BandedGrid.BandedGridColumn();
             this.bandedGridColumn9 = new DevExpress.XtraGrid.Views.BandedGrid.BandedGridColumn();
             this.bandedGridColumn10 = new DevExpress.XtraGrid.Views.BandedGrid.BandedGridColumn();
-            this.bandedGridColumn12 = new DevExpress.XtraGrid.Views.BandedGrid.BandedGridColumn();
             this.collaphieuchiho = new DevExpress.XtraGrid.Views.BandedGrid.BandedGridColumn();
             this.panelControl1 = new DevExpress.XtraEditors.PanelControl();
             this.btnExcel = new DevExpress.XtraEditors.SimpleButton();
@@ -191,7 +191,7 @@ namespace Quản_lý_vudaco.Forms
             this.gridBand2.Columns.Add(this.gridColumn7);
             this.gridBand2.Name = "gridBand2";
             this.gridBand2.VisibleIndex = 1;
-            this.gridBand2.Width = 1396;
+            this.gridBand2.Width = 1107;
             // 
             // gridColumn2
             // 
@@ -230,8 +230,15 @@ namespace Quản_lý_vudaco.Forms
             this.bandedGridColumn11.Caption = "Tuyến VC / Tên Dịch Vụ";
             this.bandedGridColumn11.FieldName = "TuyenVC";
             this.bandedGridColumn11.Name = "bandedGridColumn11";
-            this.bandedGridColumn11.Visible = true;
             this.bandedGridColumn11.Width = 289;
+            // 
+            // bandedGridColumn12
+            // 
+            this.bandedGridColumn12.Caption = "Nội Dung";
+            this.bandedGridColumn12.FieldName = "NoiDung";
+            this.bandedGridColumn12.Name = "bandedGridColumn12";
+            this.bandedGridColumn12.Visible = true;
+            this.bandedGridColumn12.Width = 307;
             // 
             // gridColumn4
             // 
@@ -419,14 +426,6 @@ namespace Quản_lý_vudaco.Forms
             new DevExpress.XtraGrid.GridColumnSummaryItem(DevExpress.Data.SummaryItemType.Sum, "SoThu_ChiHo", "{0:#,##}")});
             this.bandedGridColumn10.Visible = true;
             this.bandedGridColumn10.Width = 82;
-            // 
-            // bandedGridColumn12
-            // 
-            this.bandedGridColumn12.Caption = "Nội Dung";
-            this.bandedGridColumn12.FieldName = "NoiDung";
-            this.bandedGridColumn12.Name = "bandedGridColumn12";
-            this.bandedGridColumn12.Visible = true;
-            this.bandedGridColumn12.Width = 307;
             // 
             // collaphieuchiho
             // 
