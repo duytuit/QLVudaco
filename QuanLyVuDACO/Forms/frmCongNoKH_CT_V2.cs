@@ -376,7 +376,16 @@ namespace Quản_lý_vudaco.Forms
                     ws.Cell(row, 14).Value = group.SoFile;
                     ws.Cell(row, 15).Value = first.SoBill + "/" + first.SoToKhai;
                     ws.Cell(row, 16).Value = first.SoHoaDon;
-                    ws.Cell(row, 17).Value = "";
+                    // Nối TenDichVu + ThanhTien
+                    var dichVuStr = string.Join("; ", group.Items
+                        .Where(x => x.Type == 0)
+                        .Select(x => $"{x.TenDichVu}: {x.ThanhTien:#,##0}"));
+                    ws.Cell(row, 17).Value = dichVuStr; 
+                    // Nối GhiChu
+                    var GhiChuStr = string.Join("; ", group.Items
+                        .Where(x => x.Type == 0)
+                        .Select(x => $"{x.GhiChu}"));
+                    ws.Cell(row, 18).Value = GhiChuStr;
                     row++;
                 }
 
