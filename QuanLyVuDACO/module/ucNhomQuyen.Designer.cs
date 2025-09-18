@@ -60,9 +60,10 @@ namespace Quản_lý_vudaco.module
             this.colNguoiCapNhat = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colThoiGianCapNhat = new DevExpress.XtraGrid.Columns.GridColumn();
             this.gridColumn2 = new DevExpress.XtraGrid.Columns.GridColumn();
-            this.gridColumn3 = new DevExpress.XtraGrid.Columns.GridColumn();
             this.repositoryItemHyperSua = new DevExpress.XtraEditors.Repository.RepositoryItemHyperLinkEdit();
+            this.gridColumn3 = new DevExpress.XtraGrid.Columns.GridColumn();
             this.repositoryItemHyperXoa = new DevExpress.XtraEditors.Repository.RepositoryItemHyperLinkEdit();
+            this.gridColumn4 = new DevExpress.XtraGrid.Columns.GridColumn();
             this.tableLayoutPanel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.panelControl1)).BeginInit();
             this.panelControl1.SuspendLayout();
@@ -149,7 +150,8 @@ namespace Quản_lý_vudaco.module
             this.colLuu,
             this.colXoa,
             this.colMenu,
-            this.gridColumn1});
+            this.gridColumn1,
+            this.gridColumn4});
             this.gridView1.GridControl = this.gridControl1;
             this.gridView1.Name = "gridView1";
             this.gridView1.OptionsView.ShowAutoFilterRow = true;
@@ -377,6 +379,14 @@ namespace Quản_lý_vudaco.module
             this.gridColumn2.Visible = true;
             this.gridColumn2.VisibleIndex = 6;
             // 
+            // repositoryItemHyperSua
+            // 
+            this.repositoryItemHyperSua.AutoHeight = false;
+            this.repositoryItemHyperSua.Image = ((System.Drawing.Image)(resources.GetObject("repositoryItemHyperSua.Image")));
+            this.repositoryItemHyperSua.Name = "repositoryItemHyperSua";
+            this.repositoryItemHyperSua.NullText = "Sửa";
+            this.repositoryItemHyperSua.Click += new System.EventHandler(this.repositoryItemHyperSua_Click);
+            // 
             // gridColumn3
             // 
             this.gridColumn3.Caption = "Xóa";
@@ -386,14 +396,6 @@ namespace Quản_lý_vudaco.module
             this.gridColumn3.Visible = true;
             this.gridColumn3.VisibleIndex = 5;
             // 
-            // repositoryItemHyperSua
-            // 
-            this.repositoryItemHyperSua.AutoHeight = false;
-            this.repositoryItemHyperSua.Image = ((System.Drawing.Image)(resources.GetObject("repositoryItemHyperSua.Image")));
-            this.repositoryItemHyperSua.Name = "repositoryItemHyperSua";
-            this.repositoryItemHyperSua.NullText = "Sửa";
-            this.repositoryItemHyperSua.Click += new System.EventHandler(this.repositoryItemHyperSua_Click);
-            // 
             // repositoryItemHyperXoa
             // 
             this.repositoryItemHyperXoa.AutoHeight = false;
@@ -401,6 +403,12 @@ namespace Quản_lý_vudaco.module
             this.repositoryItemHyperXoa.Name = "repositoryItemHyperXoa";
             this.repositoryItemHyperXoa.NullText = "Xóa";
             this.repositoryItemHyperXoa.Click += new System.EventHandler(this.repositoryItemHyperXoa_Click);
+            // 
+            // gridColumn4
+            // 
+            this.gridColumn4.Caption = "ID";
+            this.gridColumn4.FieldName = "ID";
+            this.gridColumn4.Name = "gridColumn4";
             // 
             // ucNhomQuyen
             // 
@@ -472,5 +480,6 @@ namespace Quản_lý_vudaco.module
         private DevExpress.XtraGrid.Columns.GridColumn gridColumn3;
         private DevExpress.XtraEditors.Repository.RepositoryItemHyperLinkEdit repositoryItemHyperSua;
         private DevExpress.XtraEditors.Repository.RepositoryItemHyperLinkEdit repositoryItemHyperXoa;
+        private DevExpress.XtraGrid.Columns.GridColumn gridColumn4;
     }
 }
