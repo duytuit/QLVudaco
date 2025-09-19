@@ -19,6 +19,7 @@ namespace Quản_lý_vudaco
         }
         public static string _TK = "",_HoTen="";
         public static int _Luu = 0;
+        public static dynamic Permission;
         private void ucBangTheoDoiSoFile_Click(object sender, EventArgs e)
         {
             danhSáchTàiKhoảnToolStripMenuItem_Click(sender, e);
@@ -44,6 +45,10 @@ namespace Quản_lý_vudaco
             }
             if (_TK == "")
                 Application.Exit();
+
+        }
+        private void GetPermission()
+        {
 
         }
         private bool KiemTraTrungTab(string name)
