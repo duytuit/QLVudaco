@@ -138,5 +138,10 @@ namespace Quản_lý_vudaco.module
                 ucDanhSachTaiKhoan_Load(sender, e);
             }
         }
+
+        private void checkedComboBoxRole_EditValueChanged(object sender, EventArgs e)
+        {
+
+        }
     }
 }

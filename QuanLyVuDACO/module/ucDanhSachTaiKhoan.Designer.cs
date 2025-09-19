@@ -53,9 +53,11 @@ namespace Quản_lý_vudaco.module
             this.gridColumn3 = new DevExpress.XtraGrid.Columns.GridColumn();
             this.gridColumn4 = new DevExpress.XtraGrid.Columns.GridColumn();
             this.gridColumn5 = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.gridColumn6 = new DevExpress.XtraGrid.Columns.GridColumn();
             this.repositoryItemNhanVien = new DevExpress.XtraEditors.Repository.RepositoryItemLookUpEdit();
             this.filteringUIContext1 = new DevExpress.Utils.Filtering.FilteringUIContext(this.components);
-            this.gridColumn6 = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.labelControl4 = new DevExpress.XtraEditors.LabelControl();
+            this.checkedComboBoxRole = new DevExpress.XtraEditors.CheckedComboBoxEdit();
             ((System.ComponentModel.ISupportInitialize)(this.panelControl1)).BeginInit();
             this.panelControl1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.panelControl4)).BeginInit();
@@ -72,6 +74,7 @@ namespace Quản_lý_vudaco.module
             ((System.ComponentModel.ISupportInitialize)(this.gridView1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.repositoryItemNhanVien)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.filteringUIContext1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.checkedComboBoxRole.Properties)).BeginInit();
             this.SuspendLayout();
             // 
             // panelControl1
@@ -87,6 +90,8 @@ namespace Quản_lý_vudaco.module
             // 
             // panelControl4
             // 
+            this.panelControl4.Controls.Add(this.checkedComboBoxRole);
+            this.panelControl4.Controls.Add(this.labelControl4);
             this.panelControl4.Controls.Add(this.cboNhanVien);
             this.panelControl4.Controls.Add(this.chkSuDung);
             this.panelControl4.Controls.Add(this.txtMK);
@@ -120,16 +125,16 @@ namespace Quản_lý_vudaco.module
             // chkSuDung
             // 
             this.chkSuDung.EditValue = true;
-            this.chkSuDung.Location = new System.Drawing.Point(399, 38);
+            this.chkSuDung.Location = new System.Drawing.Point(709, 38);
             this.chkSuDung.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.chkSuDung.Name = "chkSuDung";
             this.chkSuDung.Properties.Caption = "Được phép sử dụng";
-            this.chkSuDung.Size = new System.Drawing.Size(318, 20);
+            this.chkSuDung.Size = new System.Drawing.Size(171, 20);
             this.chkSuDung.TabIndex = 2;
             // 
             // txtMK
             // 
-            this.txtMK.Location = new System.Drawing.Point(399, 5);
+            this.txtMK.Location = new System.Drawing.Point(415, 5);
             this.txtMK.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.txtMK.Name = "txtMK";
             this.txtMK.Size = new System.Drawing.Size(260, 20);
@@ -315,6 +320,12 @@ namespace Quản_lý_vudaco.module
             this.gridColumn5.VisibleIndex = 2;
             this.gridColumn5.Width = 333;
             // 
+            // gridColumn6
+            // 
+            this.gridColumn6.Caption = "gridColumn6";
+            this.gridColumn6.FieldName = "MaNhanVien";
+            this.gridColumn6.Name = "gridColumn6";
+            // 
             // repositoryItemNhanVien
             // 
             this.repositoryItemNhanVien.AutoHeight = false;
@@ -326,11 +337,25 @@ namespace Quản_lý_vudaco.module
             this.repositoryItemNhanVien.TextEditStyle = DevExpress.XtraEditors.Controls.TextEditStyles.Standard;
             this.repositoryItemNhanVien.ValueMember = "MaNhanVien";
             // 
-            // gridColumn6
+            // labelControl4
             // 
-            this.gridColumn6.Caption = "gridColumn6";
-            this.gridColumn6.FieldName = "MaNhanVien";
-            this.gridColumn6.Name = "gridColumn6";
+            this.labelControl4.Location = new System.Drawing.Point(343, 38);
+            this.labelControl4.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.labelControl4.Name = "labelControl4";
+            this.labelControl4.Size = new System.Drawing.Size(60, 13);
+            this.labelControl4.TabIndex = 4;
+            this.labelControl4.Text = "Nhóm quyền";
+            // 
+            // checkedComboBoxRole
+            // 
+            this.checkedComboBoxRole.EditValue = "";
+            this.checkedComboBoxRole.Location = new System.Drawing.Point(415, 38);
+            this.checkedComboBoxRole.Name = "checkedComboBoxRole";
+            this.checkedComboBoxRole.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
+            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
+            this.checkedComboBoxRole.Size = new System.Drawing.Size(260, 20);
+            this.checkedComboBoxRole.TabIndex = 6;
+            this.checkedComboBoxRole.EditValueChanged += new System.EventHandler(this.checkedComboBoxRole_EditValueChanged);
             // 
             // ucDanhSachTaiKhoan
             // 
@@ -359,6 +384,7 @@ namespace Quản_lý_vudaco.module
             ((System.ComponentModel.ISupportInitialize)(this.gridView1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.repositoryItemNhanVien)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.filteringUIContext1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.checkedComboBoxRole.Properties)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -390,5 +416,7 @@ namespace Quản_lý_vudaco.module
         private DevExpress.XtraEditors.Repository.RepositoryItemLookUpEdit repositoryItemNhanVien;
         private DevExpress.XtraEditors.LookUpEdit cboNhanVien;
         private DevExpress.XtraGrid.Columns.GridColumn gridColumn6;
+        private DevExpress.XtraEditors.LabelControl labelControl4;
+        private DevExpress.XtraEditors.CheckedComboBoxEdit checkedComboBoxRole;
     }
 }
