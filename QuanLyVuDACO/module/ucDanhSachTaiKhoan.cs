@@ -30,8 +30,31 @@ namespace Quản_lý_vudaco.module
         private void ucDanhSachTaiKhoan_Load(object sender, EventArgs e)
         {
             cboNhanVien.Properties.DataSource = client.dsNhanVien();
-           // repositoryItemNhanVien.DataSource = client.dsNhanVien();
             gridControl1.DataSource = client.DsTaiKhoan();
+
+            using (var _db = new clsKetNoi())
+            {
+                // Lấy danh sách Roles
+                string sqlRole = @"SELECT * FROM Roles";
+                DataTable dtRole = _db.LoadTable(sqlRole);
+
+                // Xóa item cũ
+                checkedComboBoxRole.Properties.Items.Clear();
+
+                // Đổ roles vào CheckedComboBoxEdit
+                foreach (DataRow row in dtRole.Rows)
+                {
+                    checkedComboBoxRole.Properties.Items.Add(
+                        row["id"],                 // Value
+                        row["name"].ToString(),    // Text hiển thị
+                        CheckState.Unchecked,
+                        true
+                    );
+                }
+
+              
+            }
+
             btnThemMoi_Click(sender, e);
         }
         private void AnButton(bool luu, bool sua, bool xoa)
@@ -72,6 +95,36 @@ namespace Quản_lý_vudaco.module
                     //context.DanhSachTaiKhoan.Add(table1);
                     //context.SaveChanges();
                     client.DsTaiKhoan_Them(table1);
+                    using (var _db = new clsKetNoi())
+                    {
+                        // lấy tài khoản vừa mới tạo
+                        DataRow user = _db.GetSingleRecord("DanhSachTaiKhoan", txtTK.Text, "TaiKhoan",true);
+                        if (user != null)
+                        {
+                            _db.DeleteById("Role_TaiKhoan", int.Parse(user["IDTaiKhoan"].ToString()), "user_id");
+                            // Duyệt danh sách role được chọn
+                            foreach (DevExpress.XtraEditors.Controls.CheckedListBoxItem item in checkedComboBoxRole.Properties.Items)
+                            {
+                                if (item.CheckState == CheckState.Checked)
+                                {
+                                    // Lấy RoleId
+                                    var roleId = item.Value;
+
+                                    var Role_TaiKhoan_New = new
+                                    {
+                                        role_id = roleId,
+                                        user_id = user["IDTaiKhoan"],
+                                        created_at = DateTime.Now,
+                                        updated_at = DateTime.Now,
+                                        updated_by = frmMain._TK
+                                    };
+
+                                    _db.UpsertFromObjectByColumn("Role_TaiKhoan", Role_TaiKhoan_New,new[] { "user_id", "role_id" });
+
+                                }
+                            }
+                        }
+                    }
                     ucDanhSachTaiKhoan_Load(sender, e);
                 }    
             }    
@@ -86,6 +139,36 @@ namespace Quản_lý_vudaco.module
                 txtMK.Text = gridView1.GetFocusedRowCellValue("MatKhau").ToString().Trim();
                 cboNhanVien.EditValue=(gridView1.GetFocusedRowCellValue("MaNhanVien")==null)?"": gridView1.GetFocusedRowCellValue("MaNhanVien").ToString();
                 chkSuDung.Checked = bool.Parse(gridView1.GetFocusedRowCellValue("TrangThai").ToString().Trim());
+                using (var _db = new clsKetNoi())
+                {
+                    // 👉 Giả sử đang chọn user đầu tiên trong grid (bạn có thể thay đổi theo logic)
+                    foreach (DevExpress.XtraEditors.Controls.CheckedListBoxItem item in checkedComboBoxRole.Properties.Items)
+                    {
+                        item.CheckState = CheckState.Unchecked;
+                    }
+                    if (gridView1.GetFocusedRowCellValue("IDTaiKhoan") != null)
+                    {
+                        var userId = gridView1.GetFocusedRowCellValue("IDTaiKhoan");
+
+                        // Lấy các role đã gán cho user này
+                        string sqlUserRoles = $@"SELECT role_id FROM Role_TaiKhoan WHERE user_id = {userId}";
+                        DataTable dtUserRoles = _db.LoadTable(sqlUserRoles);
+                        // Xóa item cũ
+                        // Duyệt danh sách role đã có và check vào combobox
+                        foreach (DataRow roleRow in dtUserRoles.Rows)
+                        {
+                            var roleId = roleRow["role_id"].ToString();
+
+                            foreach (DevExpress.XtraEditors.Controls.CheckedListBoxItem item in checkedComboBoxRole.Properties.Items)
+                            {
+                                if (item.Value.ToString() == roleId)
+                                {
+                                    item.CheckState = CheckState.Checked;
+                                }
+                            }
+                        }
+                    }
+                }
                 AnButton(false, true, true);
             }
             catch (Exception)
@@ -120,6 +203,38 @@ namespace Quản_lý_vudaco.module
                     p.IDTaiKhoan = _ID;
                     p.MaNhanVien = (cboNhanVien.EditValue == null) ? "" : cboNhanVien.EditValue.ToString();
                     client.DsTaiKhoan_Sua(p);
+                    using (var _db = new clsKetNoi())
+                    {
+                        // lấy tài khoản vừa mới tạo
+                        DataRow user = _db.GetSingleRecord("DanhSachTaiKhoan", _ID, "IDTaiKhoan", true);
+                        if (user != null)
+                        {
+                          
+                            _db.DeleteById("Role_TaiKhoan", int.Parse(user["IDTaiKhoan"].ToString()), "user_id");
+                           
+                            // Duyệt danh sách role được chọn
+                            foreach (DevExpress.XtraEditors.Controls.CheckedListBoxItem item in checkedComboBoxRole.Properties.Items)
+                            {
+                                if (item.CheckState == CheckState.Checked)
+                                {
+                                    // Lấy RoleId
+                                    var roleId = item.Value;
+
+                                    var Role_TaiKhoan_New = new
+                                    {
+                                        role_id = roleId,
+                                        user_id = user["IDTaiKhoan"],
+                                        created_at = DateTime.Now,
+                                        updated_at = DateTime.Now,
+                                        updated_by = frmMain._TK
+                                    };
+
+                                    _db.UpsertFromObjectByColumn("Role_TaiKhoan", Role_TaiKhoan_New, new[] { "user_id", "role_id" });
+
+                                }
+                            }
+                        }
+                    }
                     ucDanhSachTaiKhoan_Load(sender, e);
                 }
             }
@@ -135,6 +250,14 @@ namespace Quản_lý_vudaco.module
                 ServiceReference1.DanhSachTaiKhoan p = new ServiceReference1.DanhSachTaiKhoan();
                 p.IDTaiKhoan = _ID;
                 client.DsTaiKhoan_Xoa(p);
+                using (var _db = new clsKetNoi())
+                {
+                    DataRow user = _db.GetSingleRecord("DanhSachTaiKhoan", _ID, "IDTaiKhoan", true);
+                    if (user != null)
+                    {
+                        _db.DeleteById("Role_TaiKhoan", int.Parse(user["IDTaiKhoan"].ToString()), "user_id");
+                    }
+                }
                 ucDanhSachTaiKhoan_Load(sender, e);
             }
         }

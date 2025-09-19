@@ -83,6 +83,7 @@ namespace Quản_lý_vudaco.module
                                        .ToList();
                         // thanh toán đầu kỳ
                         var kh_tt_dv_dk = kh_dk.Where(x => x.Type == 5 && x.LaPhiChiHo == 0) //
+                                     .Where(x => x.Key != null)
                                      .GroupBy(x => x.MaKhachHang) // group theo Ma Khach Hang
                                      .Select(g => new
                                      {
@@ -92,6 +93,7 @@ namespace Quản_lý_vudaco.module
                                      .ToList();
                         // thanh toán đầu kỳ
                         var kh_tt_ch_dk = kh_dk.Where(x => x.Type == 5 && x.LaPhiChiHo == 1) //
+                                     .Where(x => x.Key != null)
                                      .GroupBy(x => x.MaKhachHang) // group theo Ma Khach Hang
                                      .Select(g => new
                                      {
@@ -120,6 +122,7 @@ namespace Quản_lý_vudaco.module
 
                         // thanh toán trong kỳ
                         var kh_tt_dv_tk = kh_tk.Where(x => x.Type == 5 && x.LaPhiChiHo == 0) //
+                                          .Where(x=>x.Key != null)
                                           .GroupBy(x => x.MaKhachHang) // group theo Ma Khach Hang
                                           .Select(g => new
                                           {
@@ -128,6 +131,7 @@ namespace Quản_lý_vudaco.module
                                             })
                                           .ToList();
                         var kh_tt_ch_tk = kh_tk.Where(x => x.Type == 5 && x.LaPhiChiHo == 1) //
+                                         .Where(x => x.Key != null)
                                          .GroupBy(x => x.MaKhachHang) // group theo Ma Khach Hang
                                          .Select(g => new
                                          {

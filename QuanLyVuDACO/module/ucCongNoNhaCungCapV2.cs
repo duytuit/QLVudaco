@@ -76,6 +76,7 @@ namespace Quản_lý_vudaco.module
                                         .ToList();
                         // thanh toán đầu kỳ
                         var ncc_dv_tt_dk = ncc_dk.Where(x => x.Type == 2) // phí dịch vụ
+                                          .Where(x => x.Key != null)
                                           .GroupBy(x => x.MaNhaCungCap) // group theo MaNhaCungCap
                                           .Select(g => new
                                           {
@@ -84,6 +85,7 @@ namespace Quản_lý_vudaco.module
                                           })
                                           .ToList();
                         var ncc_nh_tt_dk = ncc_dk.Where(x => x.Type == 1) // phí nâng hạ
+                                         .Where(x => x.Key != null)
                                          .GroupBy(x => x.MaNhaCungCap) // group theo MaNhaCungCap
                                          .Select(g => new
                                          {
@@ -112,6 +114,7 @@ namespace Quản_lý_vudaco.module
                         // thanh toán trong kỳ
                         var ncc_dv_tt = ncc_tk.Where(x => x.Type == 2) // phí dịch vụ
                                           .GroupBy(x => x.MaNhaCungCap) // group theo MaNhaCungCap
+                                          .Where(x => x.Key != null)
                                           .Select(g => new
                                           {
                                               MaNhaCungCap = g.Key,
@@ -119,6 +122,7 @@ namespace Quản_lý_vudaco.module
                                             })
                                           .ToList();
                         var ncc_nh_tt = ncc_tk.Where(x => x.Type == 1) // phí nâng hạ
+                                         .Where(x => x.Key != null)
                                          .GroupBy(x => x.MaNhaCungCap) // group theo MaNhaCungCap
                                          .Select(g => new
                                          {
