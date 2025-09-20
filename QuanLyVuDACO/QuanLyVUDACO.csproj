@@ -1049,6 +1049,9 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resource1.resx</DependentUpon>
     </Compile>
+    <Compile Include="services\common\ControlHelper.cs" />
+    <Compile Include="services\common\LoggingMiddleware.cs" />
+    <Compile Include="services\common\MiddlewarePipeline.cs" />
     <Compile Include="services\Entity\CongNoChiTietKH.cs" />
     <Compile Include="services\Entity\CongNoChiTietNcc.cs" />
     <Compile Include="services\Entity\FileDebit.cs" />

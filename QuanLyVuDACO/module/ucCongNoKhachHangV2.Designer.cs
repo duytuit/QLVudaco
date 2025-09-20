@@ -290,6 +290,7 @@ namespace Quản_lý_vudaco.module
             // 
             // bandedGridColumn1
             // 
+            this.bandedGridColumn1.Caption = "chi tiết";
             this.bandedGridColumn1.ColumnEdit = this.repositoryItemCT;
             this.bandedGridColumn1.Name = "bandedGridColumn1";
             this.bandedGridColumn1.Visible = true;
@@ -449,7 +450,6 @@ namespace Quản_lý_vudaco.module
             // 
             // bandedGridColumn8
             // 
-            this.bandedGridColumn8.Caption = "bandedGridColumn8";
             this.bandedGridColumn8.ColumnEdit = this.repositoryItemCT;
             this.bandedGridColumn8.FieldName = "MaKhachHang";
             this.bandedGridColumn8.Name = "bandedGridColumn8";

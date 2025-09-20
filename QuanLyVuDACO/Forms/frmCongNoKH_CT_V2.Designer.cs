@@ -67,6 +67,8 @@ namespace Quản_lý_vudaco.Forms
             this.btnIn = new DevExpress.XtraEditors.SimpleButton();
             this.btnPhieuThu = new DevExpress.XtraEditors.SimpleButton();
             this.splashScreenManager1 = new DevExpress.XtraSplashScreen.SplashScreenManager(this, typeof(global::Quản_lý_vudaco.frmWait), true, true);
+            this.bandedGridColumn15 = new DevExpress.XtraGrid.Views.BandedGrid.BandedGridColumn();
+            this.bandedGridColumn16 = new DevExpress.XtraGrid.Views.BandedGrid.BandedGridColumn();
             ((System.ComponentModel.ISupportInitialize)(this.panelControl2)).BeginInit();
             this.panelControl2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.panelControl3)).BeginInit();
@@ -141,7 +143,9 @@ namespace Quản_lý_vudaco.Forms
             this.bandedGridColumn12,
             this.collaphieuchiho,
             this.bandedGridColumn13,
-            this.bandedGridColumn14});
+            this.bandedGridColumn14,
+            this.bandedGridColumn15,
+            this.bandedGridColumn16});
             this.bandedGridView1.DetailHeight = 284;
             this.bandedGridView1.GridControl = this.gridControl1;
             this.bandedGridView1.Name = "bandedGridView1";
@@ -156,10 +160,12 @@ namespace Quản_lý_vudaco.Forms
             // gridBand1
             // 
             this.gridBand1.Columns.Add(this.colSTT);
+            this.gridBand1.Columns.Add(this.bandedGridColumn15);
+            this.gridBand1.Columns.Add(this.bandedGridColumn16);
             this.gridBand1.Columns.Add(this.gridColumn1);
             this.gridBand1.Name = "gridBand1";
             this.gridBand1.VisibleIndex = 0;
-            this.gridBand1.Width = 129;
+            this.gridBand1.Width = 218;
             // 
             // colSTT
             // 
@@ -484,6 +490,22 @@ namespace Quản_lý_vudaco.Forms
             // 
             this.splashScreenManager1.ClosingDelay = 500;
             // 
+            // bandedGridColumn15
+            // 
+            this.bandedGridColumn15.Caption = "ID";
+            this.bandedGridColumn15.FieldName = "ID";
+            this.bandedGridColumn15.Name = "bandedGridColumn15";
+            this.bandedGridColumn15.Visible = true;
+            this.bandedGridColumn15.Width = 38;
+            // 
+            // bandedGridColumn16
+            // 
+            this.bandedGridColumn16.Caption = "Key";
+            this.bandedGridColumn16.FieldName = "Key";
+            this.bandedGridColumn16.Name = "bandedGridColumn16";
+            this.bandedGridColumn16.Visible = true;
+            this.bandedGridColumn16.Width = 51;
+            // 
             // frmCongNoKH_CT_V2
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -544,5 +566,7 @@ namespace Quản_lý_vudaco.Forms
         private DevExpress.XtraGrid.Views.BandedGrid.GridBand gridBand4;
         private DevExpress.XtraGrid.Views.BandedGrid.GridBand gridBand5;
         private DevExpress.XtraGrid.Views.BandedGrid.GridBand gridBand3;
+        private DevExpress.XtraGrid.Views.BandedGrid.BandedGridColumn bandedGridColumn15;
+        private DevExpress.XtraGrid.Views.BandedGrid.BandedGridColumn bandedGridColumn16;
     }
 }

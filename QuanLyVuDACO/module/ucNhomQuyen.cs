@@ -367,7 +367,7 @@ namespace Quản_lý_vudaco.module
                         ISNULL(rp.Xoa, 0) AS Xoa
                     FROM Permissions p
                     LEFT JOIN RolePermission rp 
-                        ON p.ID = rp.permission_id AND rp.role_id = '{id}'";
+                        ON p.ID = rp.permission_id AND rp.role_id = '{id}' ORDER BY Menu DESC, Xem DESC, Luu DESC, Xoa DESC";
 
                     DataTable dt = _db.LoadTable(sqlPerm);
 

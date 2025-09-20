@@ -50,6 +50,7 @@ namespace Quản_lý_vudaco
                             else
                             {
                                 frmMain._TK = txtTK.Text;
+                                frmMain._ID = item.IDTaiKhoan;
                                 frmMain._HoTen = item.HoVaTen;
                                 this.Hide();
                             }    

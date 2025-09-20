@@ -1,6 +1,9 @@
 ﻿using ClosedXML.Excel;
 using DevExpress.XtraEditors;
+using DevExpress.XtraGrid.Views.BandedGrid;
+using DevExpress.XtraGrid.Views.Grid;
 using Quản_lý_vudaco.services;
+using Quản_lý_vudaco.services.common;
 using Quản_lý_vudaco.services.Entity;
 using System;
 using System.Collections.Generic;
@@ -23,6 +26,16 @@ namespace Quản_lý_vudaco.module
             bandedGridView1.CustomUnboundColumnData += GridView1_CustomUnboundColumnData;
             cboKH.Properties.AllowNullInput = DevExpress.Utils.DefaultBoolean.True;
             cboKH.Properties.NullText = "";
+            string className = this.GetType().Name;
+            bool hasPermission = frmMain.Permission.Rows.Cast<DataRow>().Any(r => r["Quyen"].ToString() == className && bool.Parse(r["Xem"].ToString()) == true);
+            if (hasPermission == true || frmMain._TK.ToLower() == "admin" || frmMain._TK.ToLower() == "phanhuyen")
+            {
+                bandedGridColumn1.Visible = true;
+            }
+            else
+            {
+                bandedGridColumn1.Visible = false;
+            }
         }
         private void GridView1_CustomUnboundColumnData(object sender, DevExpress.XtraGrid.Views.Base.CustomColumnDataEventArgs e)
         {
@@ -35,6 +48,7 @@ namespace Quản_lý_vudaco.module
             dtpDenNgay.Text = DateTime.Now.ToString("dd/MM/yyyy");
             cboKH.Properties.DataSource = client.dsKH();
             btnXem_Click(sender, e);
+         
         }
         private string NormalizeKey(string key)
         {
@@ -83,7 +97,7 @@ namespace Quản_lý_vudaco.module
                                        .ToList();
                         // thanh toán đầu kỳ
                         var kh_tt_dv_dk = kh_dk.Where(x => x.Type == 5 && x.LaPhiChiHo == 0) //
-                                     .Where(x => x.Key != null)
+                                     .Where(x => x.IDKey > 0)
                                      .GroupBy(x => x.MaKhachHang) // group theo Ma Khach Hang
                                      .Select(g => new
                                      {
@@ -93,7 +107,7 @@ namespace Quản_lý_vudaco.module
                                      .ToList();
                         // thanh toán đầu kỳ
                         var kh_tt_ch_dk = kh_dk.Where(x => x.Type == 5 && x.LaPhiChiHo == 1) //
-                                     .Where(x => x.Key != null)
+                                     .Where(x => x.IDKey > 0)
                                      .GroupBy(x => x.MaKhachHang) // group theo Ma Khach Hang
                                      .Select(g => new
                                      {
@@ -122,7 +136,7 @@ namespace Quản_lý_vudaco.module
 
                         // thanh toán trong kỳ
                         var kh_tt_dv_tk = kh_tk.Where(x => x.Type == 5 && x.LaPhiChiHo == 0) //
-                                          .Where(x=>x.Key != null)
+                                          .Where(x => x.IDKey > 0)
                                           .GroupBy(x => x.MaKhachHang) // group theo Ma Khach Hang
                                           .Select(g => new
                                           {
@@ -131,7 +145,7 @@ namespace Quản_lý_vudaco.module
                                             })
                                           .ToList();
                         var kh_tt_ch_tk = kh_tk.Where(x => x.Type == 5 && x.LaPhiChiHo == 1) //
-                                         .Where(x => x.Key != null)
+                                         .Where(x => x.IDKey > 0)
                                          .GroupBy(x => x.MaKhachHang) // group theo Ma Khach Hang
                                          .Select(g => new
                                          {

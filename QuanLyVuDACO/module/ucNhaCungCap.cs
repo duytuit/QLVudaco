@@ -13,10 +13,8 @@ namespace Quản_lý_vudaco.module
 {
     public partial class ucNhaCungCap : DevExpress.XtraEditors.XtraUserControl
     {
-        public readonly string _permission;
-        public ucNhaCungCap(string permission)
+        public ucNhaCungCap()
         {
-            _permission = permission;
             InitializeComponent();
             colSTT.UnboundType = DevExpress.Data.UnboundColumnType.Integer;
             gridView1.CustomUnboundColumnData += GridView1_CustomUnboundColumnData;

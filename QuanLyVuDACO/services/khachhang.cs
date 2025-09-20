@@ -66,6 +66,32 @@ namespace Quản_lý_vudaco.services
         }
         public List<CongNoChiTietKH> CongNoChiTietKH(DateTime TuNgay, DateTime? DenNgay = null, string makh = null, int dauky = 0)
         {
+
+                   // --1.FileDebitChiTiet: join với FileDebit
+                   // CREATE NONCLUSTERED INDEX IDX_FDCT_IDDeBit
+                   // ON FileDebitChiTiet(IDDeBit);
+                   //
+                   //             --2.FileDebit: join với FDCT + filter SoFile + ThoiGianLap
+                   // CREATE NONCLUSTERED INDEX IDX_FD_IDDeBit_SoFile_ThoiGianLap
+                   // ON FileDebit(IDDeBit)
+                   // INCLUDE(SoFile, ThoiGianLap);
+                   //
+                   //             CREATE NONCLUSTERED INDEX IDX_FD_SoFile_NotNull
+                   // ON FileDebit(SoFile)
+                   // WHERE SoFile IS NOT NULL;
+                   //
+                   //             --3.ThongTinFile: join với FileDebit
+                   //           CREATE NONCLUSTERED INDEX IDX_TTF_IDLoHang
+                   //           ON ThongTinFile(IDLoHang)
+                   // INCLUDE(MaKhachHang, SoToKhai, SoBill, SoCont, TenSales, SoLuong);
+                   //
+                   //             --4.FileGia: join với ThongTinFile + BangDieuXe
+                   // CREATE NONCLUSTERED INDEX IDX_FG_IDLoHang_MaDieuXe_SoFile
+                   // ON FileGia(IDLoHang, MaDieuXe, SoFile);
+                   //
+                   //             CREATE NONCLUSTERED INDEX IDX_BDX_FullCovering
+                   // ON BangDieuXe(MaDieuXe, SoFile)
+                   // INCLUDE(LoaiXe_KH, BienSoXe, LoaiXe_NCC, LuongHangVe, TuyenVC, GhiChu, IDBangPhi);
             List<CongNoChiTietKH> list = new List<CongNoChiTietKH>();
             string sql = $@"
                 SELECT 
@@ -76,20 +102,24 @@ namespace Quản_lý_vudaco.services
                     ttf.SoBill,
                     ttf.SoCont,
                     ttf.TenSales,
-                    COALESCE(a1.LoaiXe_KH, a2.LoaiXe_KH) AS LoaiXe_KH,
-                    COALESCE(a1.BienSoXe, a2.BienSoXe) AS BienSoXe,
+                    bx.LoaiXe_KH,
+                    bx.BienSoXe,
                     ttf.SoLuong,
-                    COALESCE(a1.LoaiXe_NCC, a2.LoaiXe_NCC) AS LoaiXe_NCC,
-                    COALESCE(a1.LuongHangVe, a2.LuongHangVe) AS LuongHangVe,
-                    COALESCE(a1.MaDieuXe, a2.MaDieuXe) AS MaDieuXe,
-                    COALESCE(a1.TuyenVC, a2.TuyenVC) AS TuyenVC,
-                    COALESCE(a1.GhiChu, a2.GhiChu) AS GhiChu_dx
+                    bx.LoaiXe_NCC,
+                    bx.LuongHangVe,
+                    bx.MaDieuXe,
+                    bx.TuyenVC,
+                    bx.GhiChu AS GhiChu_dx
                 FROM FileDebitChiTiet fdct
                 LEFT JOIN FileDebit fd ON fd.IDDeBit = fdct.IDDeBit
                 LEFT JOIN ThongTinFile ttf ON ttf.IDLoHang = fd.IDLoHang
                 LEFT JOIN FileGia fg ON fg.IDLoHang = ttf.IDLoHang
-                LEFT JOIN BangDieuXe a1 ON a1.SoFile = fg.SoFile
-                LEFT JOIN BangDieuXe a2 ON a2.MaDieuXe = fg.MaDieuXe
+                OUTER APPLY (
+                    SELECT TOP 1 *
+                    FROM BangDieuXe bdx
+                    WHERE bdx.MaDieuXe = fg.MaDieuXe OR bdx.SoFile = fg.SoFile
+                    ORDER BY CASE WHEN bdx.MaDieuXe = fg.MaDieuXe THEN 1 ELSE 2 END
+                ) bx
                 WHERE fd.SoFile IS NOT NULL";
 
             if (TuNgay != DateTime.MinValue && DenNgay.HasValue)

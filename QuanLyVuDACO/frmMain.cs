@@ -16,10 +16,16 @@ namespace Quản_lý_vudaco
         public frmMain()
         {
             InitializeComponent();
+            var allItems = GetAllMenuItems(menuStrip1);
+            foreach (var item in allItems)
+            {
+                item.Enabled = false;
+            }
         }
         public static string _TK = "",_HoTen="";
         public static int _Luu = 0;
-        public static dynamic Permission;
+        public static int _ID = 0;
+        public static DataTable Permission;
         private void ucBangTheoDoiSoFile_Click(object sender, EventArgs e)
         {
             danhSáchTàiKhoảnToolStripMenuItem_Click(sender, e);
@@ -45,11 +51,39 @@ namespace Quản_lý_vudaco
             }
             if (_TK == "")
                 Application.Exit();
+            GetPermission();
 
         }
         private void GetPermission()
         {
+            using (var _db = new clsKetNoi())
+            {
+                // 1. Lấy quyền từ database
+                string sql = $@"select p.*,s.Quyen from RolePermission p left join Permissions s on p.permission_id = s.ID 
+                                left join Role_TaiKhoan ru on ru.role_id = p.role_id where ru.user_id = {_ID}";
+                Permission = _db.LoadTable(sql);
+            }
 
+            // 2. Áp dụng quyền lên menu
+            if (_TK.ToLower() == "admin" || _TK.ToLower() == "phanhuyen")
+            {
+                // Admin full quyền
+                var allItems = GetAllMenuItems(menuStrip1);
+                foreach (var item in allItems)
+                    item.Enabled = true;
+            }
+            else
+            {
+                // User bình thường: áp dụng quyền từ Permission
+                var allItems = GetAllMenuItems(menuStrip1);
+
+                foreach (var item in allItems)
+                {
+                    // Giả sử Permission có cột MenuName tương ứng với item.Name
+                    bool hasPermission = Permission.Rows.Cast<DataRow>().Any(r => r["Quyen"].ToString() == item.Name && bool.Parse(r["Menu"].ToString()) == true);
+                    item.Enabled = hasPermission;
+                }
+            }
         }
         private bool KiemTraTrungTab(string name)
         {
@@ -145,21 +179,21 @@ namespace Quản_lý_vudaco
             {
                 case "ucDanhSachTaiKhoan":
                     {
-                        module.ucDanhSachTaiKhoan frm = new module.ucDanhSachTaiKhoan(tabPage.Name);
+                        module.ucDanhSachTaiKhoan frm = new module.ucDanhSachTaiKhoan();
                         frm.Dock = System.Windows.Forms.DockStyle.Fill;
                         tabPage.Controls.Add(frm);
                         break;
                     }
                 case "ucKhachHang":
                     {
-                        module.ucKhachHang frm = new module.ucKhachHang(tabPage.Name);
+                        module.ucKhachHang frm = new module.ucKhachHang();
                         frm.Dock = System.Windows.Forms.DockStyle.Fill;
                         tabPage.Controls.Add(frm);
                         break;
                     }
                 case "ucNhaCungCap":
                     {
-                        module.ucNhaCungCap frm = new module.ucNhaCungCap(tabPage.Name);
+                        module.ucNhaCungCap frm = new module.ucNhaCungCap();
                         frm.Dock = System.Windows.Forms.DockStyle.Fill;
                         tabPage.Controls.Add(frm);
                         break;
@@ -596,12 +630,19 @@ namespace Quản_lý_vudaco
         private void thoátPhiênĐăngNhậpToolStripMenuItem_Click(object sender, EventArgs e)
         {
             _TK = "";
+            Permission.Clear();
+            var allItems = GetAllMenuItems(menuStrip1);
+            foreach (var item in allItems)
+            {
+                item.Enabled = false;
+            }
             for (int i = xtraTabControl1.TabPages.Count-1; i >=1; i--)
             {
                 xtraTabControl1.TabPages.RemoveAt(i);
             }
             xtraTabControl1.SelectedTabPageIndex = xtraTabControl1.TabPages.Count - 1;
             frmMain_Load(sender, e);
+
         }
 
         private void ucCongNoKhachHang_Click(object sender, EventArgs e)
@@ -793,6 +834,37 @@ namespace Quản_lý_vudaco
         private void ucBangTheoDoiDebit_Click(object sender, EventArgs e)
         {
             danhSáchTàiKhoảnToolStripMenuItem_Click(sender, e);
+        }
+        public List<ToolStripMenuItem> GetAllMenuItems(MenuStrip menuStrip)
+        {
+            List<ToolStripMenuItem> allItems = new List<ToolStripMenuItem>();
+
+            foreach (ToolStripItem item in menuStrip.Items)
+            {
+                if (item is ToolStripMenuItem menuItem)
+                {
+                    allItems.Add(menuItem);
+                    // Lấy tất cả item con
+                    AddDropDownItems(menuItem, allItems);
+                }
+            }
+
+            return allItems;
+        }
+
+        private void AddDropDownItems(ToolStripMenuItem parent, List<ToolStripMenuItem> list)
+        {
+            foreach (ToolStripItem subItem in parent.DropDownItems)
+            {
+                if (subItem is ToolStripMenuItem subMenuItem)
+                {
+                    list.Add(subMenuItem);
+                    if (subMenuItem.HasDropDownItems)
+                    {
+                        AddDropDownItems(subMenuItem, list); // đệ quy
+                    }
+                }
+            }
         }
     }
 }

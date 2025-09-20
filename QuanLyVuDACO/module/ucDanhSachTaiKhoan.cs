@@ -13,10 +13,8 @@ namespace Quản_lý_vudaco.module
 {
     public partial class ucDanhSachTaiKhoan : DevExpress.XtraEditors.XtraUserControl
     {
-        public readonly string _permission;
-        public ucDanhSachTaiKhoan(string permission)
+        public ucDanhSachTaiKhoan()
         {
-            _permission = permission;
             InitializeComponent();
         }
 

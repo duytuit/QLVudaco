@@ -8,18 +8,22 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using MyHelper = Quản_lý_vudaco.services.common.ControlHelper;
 
 namespace Quản_lý_vudaco.module
 {
     public partial class ucKhachHang : DevExpress.XtraEditors.XtraUserControl
     {
-        public readonly string _permission;
-        public ucKhachHang(string permission)
+        public ucKhachHang()
         {
-            _permission = permission;
             InitializeComponent();
             STT.UnboundType = DevExpress.Data.UnboundColumnType.Integer;
             gridView1.CustomUnboundColumnData += GridView1_CustomUnboundColumnData;
+            var allButtons = MyHelper.GetAllButtons(this);
+            foreach (var btn in allButtons)
+            {
+                btn.Enabled = false;
+            }
         }
         private void GridView1_CustomUnboundColumnData(object sender, DevExpress.XtraGrid.Views.Base.CustomColumnDataEventArgs e)
         {

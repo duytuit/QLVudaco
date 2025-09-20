@@ -1,4 +1,5 @@
 ﻿using Quản_lý_vudaco.Forms;
+using Quản_lý_vudaco.services.common;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,10 +16,14 @@ namespace Quản_lý_vudaco
         [STAThread]
         static void Main()
         {
+            var pipeline = new MiddlewarePipeline()
+                  .Use(new LoggingMiddleware());
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new frmMain());
-            //Application.Run(new frmQuy_ThuHoanUng());
+            pipeline.Execute(() =>
+            {
+                Application.Run(new frmMain());
+            });
         }
     }
 }
