@@ -1,5 +1,6 @@
 ﻿using ClosedXML.Excel;
 using DevExpress.XtraEditors;
+using DevExpress.XtraGrid.Views.Grid.ViewInfo;
 using DevExpress.XtraReports.UI;
 using Quản_lý_vudaco.services;
 using Quản_lý_vudaco.services.Entity;
@@ -469,6 +470,7 @@ namespace Quản_lý_vudaco.Forms
             dt_view.Columns.Add("GhiChu");
             dt_view.Columns.Add("LaPhiChiHo");
             dt_view.Columns.Add("DiaChi");
+            dt_view.Columns.Add("NgayHachToan",typeof(DateTime));
             dt_view.Columns.Add("ThuDichVu", typeof(double));
             dt_view.Columns.Add("ThuChiHo", typeof(double));
             dt_view.Columns.Add("Tong", typeof(double));
@@ -501,6 +503,7 @@ namespace Quản_lý_vudaco.Forms
                             row["Tong"] = bandedGridView1.GetRowCellValue(i, "NoCuoiKi")?.ToString();
                             row["ID"] = bandedGridView1.GetRowCellValue(i, "ID")?.ToString();
                             row["Key"] = bandedGridView1.GetRowCellValue(i, "Key")?.ToString();
+                            row["NgayHachToan"] = bandedGridView1.GetRowCellValue(i, "NgayHachToan")?.ToString();
                             dt_view.Rows.Add(row);
                         }
                        
@@ -569,6 +572,47 @@ namespace Quản_lý_vudaco.Forms
                 MessageBox.Show(ex.Message);
             }
         }
+        bool headerCheckBoxState = false;
+        Rectangle headerCheckBoxRect;
+        private void bandedGridView1_CustomDrawColumnHeader(object sender, DevExpress.XtraGrid.Views.Grid.ColumnHeaderCustomDrawEventArgs e)
+        {
+            if (e.Column != null && e.Column.FieldName == "Chon")
+            {
+                e.Info.InnerElements.Clear(); // xóa nội dung mặc định
+                e.Info.Appearance.DrawString(e.Cache, e.Info.Caption, e.Bounds);
+
+                // Vị trí checkbox trong header
+                headerCheckBoxRect = new Rectangle(e.Bounds.X + e.Bounds.Width / 2 + 14, e.Bounds.Y + 4, 16, 16);
+                ControlPaint.DrawCheckBox(e.Graphics, headerCheckBoxRect,
+                headerCheckBoxState ? ButtonState.Checked : ButtonState.Normal);
+
+                e.Handled = true;
+            }
+        }
+
+        private void bandedGridView1_MouseDown(object sender, MouseEventArgs e)
+        {
+            GridHitInfo hitInfo = bandedGridView1.CalcHitInfo(e.Location);
+
+            if (hitInfo.InColumn && hitInfo.Column != null && hitInfo.Column.FieldName == "Chon")
+            {
+                if (headerCheckBoxRect.Contains(e.Location))
+                {
+                    // Toggle trạng thái checkbox header
+                    headerCheckBoxState = !headerCheckBoxState;
+
+                    // Cập nhật toàn bộ dòng
+                    for (int i = 0; i < bandedGridView1.RowCount; i++)
+                    {
+                        bandedGridView1.SetRowCellValue(i, "Chon", headerCheckBoxState);
+                    }
+
+                    // Vẽ lại header
+                    bandedGridView1.InvalidateColumnHeader(bandedGridView1.Columns["Chon"]);
+                }
+            }
+        }
+
         ServiceReference1.WebService1SoapClient client = new ServiceReference1.WebService1SoapClient();
         private void frmCongNoKH_CT_V2_Load(object sender, EventArgs e)
         {

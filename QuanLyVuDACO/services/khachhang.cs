@@ -355,6 +355,44 @@ namespace Quản_lý_vudaco.services
 
                 list.Add(obj);
             }
+            sql = $@"select b.SoPhieu,b.NgayBan,b.DoiTuong,b.MaNhaCC,b.NguoiBanHang,b.MaThu,b.DienGiai,a.* from PhieuBanCT a left join PhieuBan b on a.IDPhieuBan = b.IDPhieuBan
+                     where b.MaNhaCC IS NOT NULL AND LTRIM(RTRIM(b.MaNhaCC)) <> '' and b.DoiTuong = N'KH'";
+            if (TuNgay != DateTime.MinValue && DenNgay.HasValue)
+            {
+                DateTime _DenNgay = DenNgay.Value.AddDays(1);
+                sql += $@" and b.NgayBan >= '{TuNgay:yyyy-MM-dd}' and b.NgayBan <= '{_DenNgay:yyyy-MM-dd}'";
+            }
+            if (dauky == 1 && TuNgay != DateTime.MinValue) // đầu kỳ
+            {
+                sql += $@" and b.NgayBan < '{TuNgay:yyyy-MM-dd}'";
+            }
+            if (!string.IsNullOrEmpty(makh))
+            {
+                sql += $@" and b.MaNhaCC = N'{makh}'";
+            }
+            table = cls.LoadTable(sql);
+            foreach (DataRow item in table.Rows)
+            {
+                var obj = new CongNoChiTietKH
+                {
+                    SoChungTu = item["SoPhieu"].ToString(),
+                    NgayHachToan = item["NgayBan"] != DBNull.Value ? Convert.ToDateTime(item["NgayBan"]) : DateTime.MinValue,
+                    MaThu = item["MaThu"].ToString(),
+                    NoiDung = item["DienGiai"].ToString() + " " + item["NoiDung"].ToString(),
+                    DienGiai = item["DienGiai"].ToString() + " " + item["NoiDung"].ToString(),
+                    LaPhiChiHo = 1,
+                    MaKhachHang = item["MaNhaCC"].ToString(),
+                    TongTien = item["ThanhTienVAT"] != DBNull.Value ? Convert.ToDouble(item["ThanhTienVAT"]) : 0,
+                    SoTien = item["SoTien"] != DBNull.Value ? Convert.ToDouble(item["SoTien"]) : 0,
+                    ThanhTien = item["ThanhTienVAT"] != DBNull.Value ? Convert.ToDouble(item["ThanhTienVAT"]) : 0,
+                    VAT = item["VAT"] != DBNull.Value ? Convert.ToDouble(item["VAT"]) : 0,
+                    // Type = 4, // 4: Chi hộ khách hàng
+                    ID = int.Parse(item["IDPhieuBanCT"].ToString()),
+                    Key = "PhieuBanCT"
+                };
+
+                list.Add(obj);
+            }
             sql = $@"select pct.IDCT,pc.MaChi,pc.SoChungTu,pct.SoFile,pct.MaDieuXe,pct.SoTien,pct.ThanhTien,pct.VAT,pct.MaDoiTuong,pct.TenDoiTuong,pc.NgayHachToan,pc.DienGiai,pc.HinhThucTT,pc.ChuTaiKhoan,pc.LyDoChi from PhieuChi_CT pct left join PhieuChi pc on pct.SoChungTu = pc.SoChungTu where pc.MaChi = N'003' and pc.LyDoChi = N'Chi hộ khách hàng' and pct.MaDoiTuong IS NOT NULL
                           AND LTRIM(RTRIM(pct.MaDoiTuong)) <> ''";
             if (TuNgay != DateTime.MinValue && DenNgay.HasValue)
@@ -402,11 +440,11 @@ namespace Quản_lý_vudaco.services
             if (TuNgay != DateTime.MinValue && DenNgay.HasValue)
             {
                 DateTime _DenNgay = DenNgay.Value.AddDays(1);
-                sql += $@" and B.NgayHachToan >= '{TuNgay:yyyy-MM-dd}' and B.NgayHachToan <= '{_DenNgay:yyyy-MM-dd}'";
+                sql += $@" and A.NgayHachToan >= '{TuNgay:yyyy-MM-dd}' and A.NgayHachToan <= '{_DenNgay:yyyy-MM-dd}'";
             }
             if (dauky == 1 && TuNgay != DateTime.MinValue) // đầu kỳ
             {
-                sql += $@" and B.NgayHachToan < '{TuNgay:yyyy-MM-dd}'";
+                sql += $@" and A.NgayHachToan < '{TuNgay:yyyy-MM-dd}'";
             }
             if (!string.IsNullOrEmpty(makh))
             {

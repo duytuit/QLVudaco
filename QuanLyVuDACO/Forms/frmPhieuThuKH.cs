@@ -88,7 +88,7 @@ namespace Quản_lý_vudaco.Forms
                         LyDoThu = "Thu công nợ khách hàng",
                         MaThu = "004",
                         MaQuy = cboLoaiQuy.EditValue == null ? string.Empty : cboLoaiQuy.EditValue.ToString().Trim(),
-                        NgayHachToan = Convert.ToDateTime(dtpNgay.Text),
+                        NgayHachToan = DateTime.Now,
                         NguoiNhan = frmMain._HoTen,
                         NguoiTao = frmMain._TK,
                         SoChungTu = client.TaoSoChungTu_Thu(arr),
@@ -122,7 +122,8 @@ namespace Quản_lý_vudaco.Forms
                             LaPhieuChiHo = LaPhiChiHo,
                             MaDieuXe = gridView1.GetRowCellValue(i, "MaDieuXe").ToString(),
                             IDKey = int.Parse(gridView1.GetRowCellValue(i, "ID").ToString()),
-                            KeyName = gridView1.GetRowCellValue(i, "Key").ToString()
+                            KeyName = gridView1.GetRowCellValue(i, "Key").ToString(),
+                            NgayHachToan = Convert.ToDateTime(gridView1.GetRowCellValue(i, "NgayHachToan").ToString()),
                         };
                         _appDB.UpsertFromObject("PhieuThu_CT", phieuchitiet, "IDCT", true);
                     }

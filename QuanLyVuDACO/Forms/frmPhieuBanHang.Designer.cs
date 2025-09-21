@@ -44,7 +44,6 @@ namespace Quản_lý_vudaco.Forms
             this.labelControl9 = new DevExpress.XtraEditors.LabelControl();
             this.labelControl8 = new DevExpress.XtraEditors.LabelControl();
             this.labelControl2 = new DevExpress.XtraEditors.LabelControl();
-            this.cboKH = new DevExpress.XtraEditors.LookUpEdit();
             this.cboNhanVien = new DevExpress.XtraEditors.LookUpEdit();
             this.btnLuu = new DevExpress.XtraEditors.SimpleButton();
             this.btnXoa = new DevExpress.XtraEditors.SimpleButton();
@@ -68,12 +67,15 @@ namespace Quản_lý_vudaco.Forms
             this.repositoryItemXe = new DevExpress.XtraEditors.Repository.RepositoryItemLookUpEdit();
             this.gridColumn16 = new DevExpress.XtraGrid.Columns.GridColumn();
             this.gridColumn9 = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.cboKH = new DevExpress.XtraEditors.GridLookUpEdit();
+            this.gridLookUpEdit1View = new DevExpress.XtraGrid.Views.Grid.GridView();
+            this.gridColumn2 = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.gridColumn3 = new DevExpress.XtraGrid.Columns.GridColumn();
             ((System.ComponentModel.ISupportInitialize)(this.groupControl1)).BeginInit();
             this.groupControl1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.cboDanhSachThu.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtDienGiai.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtNguoiBan.Properties)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.cboKH.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.cboNhanVien.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridControl1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataSet1BindingSource)).BeginInit();
@@ -82,10 +84,13 @@ namespace Quản_lý_vudaco.Forms
             ((System.ComponentModel.ISupportInitialize)(this.repositoryItemVAT)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.repositoryItemXoa)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.repositoryItemXe)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.cboKH.Properties)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.gridLookUpEdit1View)).BeginInit();
             this.SuspendLayout();
             // 
             // groupControl1
             // 
+            this.groupControl1.Controls.Add(this.cboKH);
             this.groupControl1.Controls.Add(this.cboDoiTuong);
             this.groupControl1.Controls.Add(this.dtpNgayMua);
             this.groupControl1.Controls.Add(this.labelControl13);
@@ -98,7 +103,6 @@ namespace Quản_lý_vudaco.Forms
             this.groupControl1.Controls.Add(this.labelControl9);
             this.groupControl1.Controls.Add(this.labelControl8);
             this.groupControl1.Controls.Add(this.labelControl2);
-            this.groupControl1.Controls.Add(this.cboKH);
             this.groupControl1.Controls.Add(this.cboNhanVien);
             this.groupControl1.Location = new System.Drawing.Point(4, 1);
             this.groupControl1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
@@ -225,23 +229,6 @@ namespace Quản_lý_vudaco.Forms
             this.labelControl2.Size = new System.Drawing.Size(52, 13);
             this.labelControl2.TabIndex = 0;
             this.labelControl2.Text = "Đối tượng:";
-            // 
-            // cboKH
-            // 
-            this.cboKH.Location = new System.Drawing.Point(99, 94);
-            this.cboKH.Name = "cboKH";
-            this.cboKH.Properties.AllowNullInput = DevExpress.Utils.DefaultBoolean.True;
-            this.cboKH.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
-            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
-            this.cboKH.Properties.Columns.AddRange(new DevExpress.XtraEditors.Controls.LookUpColumnInfo[] {
-            new DevExpress.XtraEditors.Controls.LookUpColumnInfo("MaKhachHang", "Name9", 200, DevExpress.Utils.FormatType.None, "", false, DevExpress.Utils.HorzAlignment.Default, DevExpress.Data.ColumnSortOrder.None, DevExpress.Utils.DefaultBoolean.Default),
-            new DevExpress.XtraEditors.Controls.LookUpColumnInfo("TenKhachHang", "Khách hàng", 200, DevExpress.Utils.FormatType.None, "", true, DevExpress.Utils.HorzAlignment.Default, DevExpress.Data.ColumnSortOrder.None, DevExpress.Utils.DefaultBoolean.Default)});
-            this.cboKH.Properties.DisplayMember = "TenKhachHang";
-            this.cboKH.Properties.NullText = "Chọn khách hàng";
-            this.cboKH.Properties.TextEditStyle = DevExpress.XtraEditors.Controls.TextEditStyles.Standard;
-            this.cboKH.Properties.ValueMember = "MaKhachHang";
-            this.cboKH.Size = new System.Drawing.Size(327, 20);
-            this.cboKH.TabIndex = 1;
             // 
             // cboNhanVien
             // 
@@ -509,6 +496,50 @@ namespace Quản_lý_vudaco.Forms
             this.gridColumn9.Visible = true;
             this.gridColumn9.VisibleIndex = 8;
             // 
+            // cboKH
+            // 
+            this.cboKH.EditValue = "Tất cả khách";
+            this.cboKH.Location = new System.Drawing.Point(99, 94);
+            this.cboKH.Name = "cboKH";
+            this.cboKH.Properties.AllowNullInput = DevExpress.Utils.DefaultBoolean.True;
+            this.cboKH.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
+            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
+            this.cboKH.Properties.DisplayMember = "TenVietTat";
+            this.cboKH.Properties.NullText = "Tất cả khách";
+            this.cboKH.Properties.PopupView = this.gridLookUpEdit1View;
+            this.cboKH.Properties.SearchMode = DevExpress.XtraEditors.Repository.GridLookUpSearchMode.AutoSuggest;
+            this.cboKH.Properties.ValueMember = "MaKhachHang";
+            this.cboKH.Size = new System.Drawing.Size(327, 20);
+            this.cboKH.TabIndex = 15;
+            // 
+            // gridLookUpEdit1View
+            // 
+            this.gridLookUpEdit1View.Columns.AddRange(new DevExpress.XtraGrid.Columns.GridColumn[] {
+            this.gridColumn2,
+            this.gridColumn3});
+            this.gridLookUpEdit1View.FocusRectStyle = DevExpress.XtraGrid.Views.Grid.DrawFocusRectStyle.RowFocus;
+            this.gridLookUpEdit1View.Name = "gridLookUpEdit1View";
+            this.gridLookUpEdit1View.OptionsSelection.EnableAppearanceFocusedCell = false;
+            this.gridLookUpEdit1View.OptionsView.ShowGroupPanel = false;
+            // 
+            // gridColumn2
+            // 
+            this.gridColumn2.Caption = "Mã khách hàng";
+            this.gridColumn2.FieldName = "MaKhachHang";
+            this.gridColumn2.Name = "gridColumn2";
+            this.gridColumn2.Visible = true;
+            this.gridColumn2.VisibleIndex = 0;
+            this.gridColumn2.Width = 120;
+            // 
+            // gridColumn3
+            // 
+            this.gridColumn3.Caption = "Tên viết tắt";
+            this.gridColumn3.FieldName = "TenVietTat";
+            this.gridColumn3.Name = "gridColumn3";
+            this.gridColumn3.Visible = true;
+            this.gridColumn3.VisibleIndex = 1;
+            this.gridColumn3.Width = 257;
+            // 
             // frmPhieuBanHang
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -529,7 +560,6 @@ namespace Quản_lý_vudaco.Forms
             ((System.ComponentModel.ISupportInitialize)(this.cboDanhSachThu.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtDienGiai.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtNguoiBan.Properties)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.cboKH.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.cboNhanVien.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridControl1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataSet1BindingSource)).EndInit();
@@ -538,6 +568,8 @@ namespace Quản_lý_vudaco.Forms
             ((System.ComponentModel.ISupportInitialize)(this.repositoryItemVAT)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.repositoryItemXoa)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.repositoryItemXe)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.cboKH.Properties)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.gridLookUpEdit1View)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -578,8 +610,11 @@ namespace Quản_lý_vudaco.Forms
         private DevExpress.XtraEditors.TextEdit txtNguoiBan;
         private DevExpress.XtraEditors.LabelControl labelControl9;
         private DevExpress.XtraGrid.Columns.GridColumn gridColumn1;
-        private DevExpress.XtraEditors.LookUpEdit cboKH;
         private DevExpress.XtraEditors.LookUpEdit cboNhanVien;
         private System.Windows.Forms.ComboBox cboDoiTuong;
+        private DevExpress.XtraEditors.GridLookUpEdit cboKH;
+        private DevExpress.XtraGrid.Views.Grid.GridView gridLookUpEdit1View;
+        private DevExpress.XtraGrid.Columns.GridColumn gridColumn2;
+        private DevExpress.XtraGrid.Columns.GridColumn gridColumn3;
     }
 }
