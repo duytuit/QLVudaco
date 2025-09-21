@@ -1621,7 +1621,8 @@ namespace Quản_lý_vudaco.services
 
             if (TuNgay != DateTime.MinValue && DenNgay.HasValue)
             {
-                sql += $@"and nh.NgayTaoBangKe >= '{TuNgay:yyyy-MM-dd}' and nh.NgayTaoBangKe <= '{DenNgay:yyyy-MM-dd}'";
+                DateTime _DenNgay = DenNgay.Value.AddDays(1);
+                sql += $@"and nh.NgayTaoBangKe >= '{TuNgay:yyyy-MM-dd}' and nh.NgayTaoBangKe <= '{_DenNgay:yyyy-MM-dd}'";
             }
             if (dauky == 1 && TuNgay != DateTime.MinValue) // đầu kỳ
             {
@@ -1670,7 +1671,8 @@ namespace Quản_lý_vudaco.services
              AND fdct.MaNhaCungCap IS NOT NULL AND LTRIM(RTRIM(fdct.MaNhaCungCap)) <> '' AND fd.ThoiGianLap >= '2025-09-01'";
             if (TuNgay != DateTime.MinValue && DenNgay.HasValue)
             {
-                sql += $@" and fd.ThoiGianLap >= '{TuNgay:yyyy-MM-dd}' and fd.ThoiGianLap <= '{DenNgay:yyyy-MM-dd}'";
+                DateTime _DenNgay = DenNgay.Value.AddDays(1);
+                sql += $@" and fd.ThoiGianLap >= '{TuNgay:yyyy-MM-dd}' and fd.ThoiGianLap <= '{_DenNgay:yyyy-MM-dd}'";
             }
             if (dauky == 1 && TuNgay != DateTime.MinValue) // đầu kỳ
             {
@@ -1728,7 +1730,8 @@ namespace Quản_lý_vudaco.services
                           AND LTRIM(RTRIM(fgct.MaNhaCungCap)) <> '' AND fd.SoFile IS NULL AND fg.ThoiGianLap >= '2025-09-01'";
             if (TuNgay != DateTime.MinValue && DenNgay.HasValue)
             {
-                sql += $@" and fg.ThoiGianLap >= '{TuNgay:yyyy-MM-dd}' and fg.ThoiGianLap <= '{DenNgay:yyyy-MM-dd}'";
+                DateTime _DenNgay = DenNgay.Value.AddDays(1);
+                sql += $@" and fg.ThoiGianLap >= '{TuNgay:yyyy-MM-dd}' and fg.ThoiGianLap <= '{_DenNgay:yyyy-MM-dd}'";
             }
             if (dauky == 1 && TuNgay != DateTime.MinValue) // đầu kỳ
             {
@@ -1816,7 +1819,8 @@ namespace Quản_lý_vudaco.services
                           AND LTRIM(RTRIM(a.MaNhaCungCap)) <> '' AND a.Ngay >= '2025-09-01'";
             if (TuNgay != DateTime.MinValue && DenNgay.HasValue)
             {
-                sql += $@" and a.Ngay >= '{TuNgay:yyyy-MM-dd}' and a.Ngay <= '{DenNgay:yyyy-MM-dd}'";
+                DateTime _DenNgay = DenNgay.Value.AddDays(1);
+                sql += $@" and a.Ngay >= '{TuNgay:yyyy-MM-dd}' and a.Ngay <= '{_DenNgay:yyyy-MM-dd}'";
             }
             if (dauky == 1 && TuNgay != DateTime.MinValue) // đầu kỳ
             {
@@ -1900,7 +1904,8 @@ namespace Quản_lý_vudaco.services
                      WHERE fdct.MaNhaCungCap IS NOT NULL AND LTRIM(RTRIM(fdct.MaNhaCungCap)) <> '' AND fd.MaDieuXe IS NOT NULL AND LTRIM(RTRIM(fd.MaDieuXe)) <> '' AND fd.ThoiGianLap >= '2025-09-01'";
             if (TuNgay != DateTime.MinValue && DenNgay.HasValue)
             {
-                sql += $@"and fd.ThoiGianLap >= '{TuNgay:yyyy-MM-dd}' and fd.ThoiGianLap <= '{DenNgay:yyyy-MM-dd}'";
+                DateTime _DenNgay = DenNgay.Value.AddDays(1);
+                sql += $@"and fd.ThoiGianLap >= '{TuNgay:yyyy-MM-dd}' and fd.ThoiGianLap <= '{_DenNgay:yyyy-MM-dd}'";
             }
             if (dauky == 1 && TuNgay != DateTime.MinValue) // đầu kỳ
             {
@@ -1974,7 +1979,8 @@ namespace Quản_lý_vudaco.services
                     where pm.MaNhaCC IS NOT NULL AND LTRIM(RTRIM(pm.MaNhaCC)) <> '' AND pm.NgayMua >= '2025-09-01'";
             if (TuNgay != DateTime.MinValue && DenNgay.HasValue)
             {
-                sql += $@" and pm.NgayMua >= '{TuNgay:yyyy-MM-dd}' and pm.NgayMua <= '{DenNgay:yyyy-MM-dd}'";
+                DateTime _DenNgay = DenNgay.Value.AddDays(1);
+                sql += $@" and pm.NgayMua >= '{TuNgay:yyyy-MM-dd}' and pm.NgayMua <= '{_DenNgay:yyyy-MM-dd}'";
             }
             if (dauky == 1 && TuNgay != DateTime.MinValue) // đầu kỳ
             {
@@ -2021,7 +2027,8 @@ namespace Quản_lý_vudaco.services
             sql = $@"select * from FileDebit_KoHoaDon_KH where MaNhaCungCap IS NOT NULL AND LTRIM(RTRIM(MaNhaCungCap)) <> '' AND NgayTao >= '2025-09-01'";
             if (TuNgay != DateTime.MinValue && DenNgay.HasValue)
             {
-                sql += $@" and NgayTao >= '{TuNgay:yyyy-MM-dd}' and NgayTao <= '{DenNgay:yyyy-MM-dd}'";
+                DateTime _DenNgay = DenNgay.Value.AddDays(1);
+                sql += $@" and NgayTao >= '{TuNgay:yyyy-MM-dd}' and NgayTao <= '{_DenNgay:yyyy-MM-dd}'";
             }
             if (dauky == 1 && TuNgay != DateTime.MinValue) // đầu kỳ
             {
@@ -2071,7 +2078,8 @@ namespace Quản_lý_vudaco.services
                           AND LTRIM(RTRIM(pct.MaDoiTuong)) <> '' AND pc.NgayHachToan >= '2025-09-01'";
             if (TuNgay != DateTime.MinValue && DenNgay.HasValue)
             {
-                sql += $@" and pc.NgayHachToan >= '{TuNgay:yyyy-MM-dd}' and pc.NgayHachToan <= '{DenNgay:yyyy-MM-dd}'";
+                DateTime _DenNgay = DenNgay.Value.AddDays(1);
+                sql += $@" and pc.NgayHachToan >= '{TuNgay:yyyy-MM-dd}' and pc.NgayHachToan <= '{_DenNgay:yyyy-MM-dd}'";
             }
             if (dauky == 1 && TuNgay != DateTime.MinValue) // đầu kỳ
             {
@@ -2114,7 +2122,8 @@ namespace Quản_lý_vudaco.services
                           AND LTRIM(RTRIM(pct.MaDoiTuong)) <> '' AND pc.NgayHachToan >= '2025-09-01'";
             if (TuNgay != DateTime.MinValue && DenNgay.HasValue)
             {
-                sql += $@" and pc.NgayHachToan >= '{TuNgay:yyyy-MM-dd}' and pc.NgayHachToan <= '{DenNgay:yyyy-MM-dd}'";
+                DateTime _DenNgay = DenNgay.Value.AddDays(1);
+                sql += $@" and pc.NgayHachToan >= '{TuNgay:yyyy-MM-dd}' and pc.NgayHachToan <= '{_DenNgay:yyyy-MM-dd}'";
             }
             if (dauky == 1 && TuNgay != DateTime.MinValue) // đầu kỳ
             {

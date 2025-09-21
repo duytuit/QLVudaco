@@ -67,31 +67,31 @@ namespace Quản_lý_vudaco.services
         public List<CongNoChiTietKH> CongNoChiTietKH(DateTime TuNgay, DateTime? DenNgay = null, string makh = null, int dauky = 0)
         {
 
-                   // --1.FileDebitChiTiet: join với FileDebit
-                   // CREATE NONCLUSTERED INDEX IDX_FDCT_IDDeBit
-                   // ON FileDebitChiTiet(IDDeBit);
-                   //
-                   //             --2.FileDebit: join với FDCT + filter SoFile + ThoiGianLap
-                   // CREATE NONCLUSTERED INDEX IDX_FD_IDDeBit_SoFile_ThoiGianLap
-                   // ON FileDebit(IDDeBit)
-                   // INCLUDE(SoFile, ThoiGianLap);
-                   //
-                   //             CREATE NONCLUSTERED INDEX IDX_FD_SoFile_NotNull
-                   // ON FileDebit(SoFile)
-                   // WHERE SoFile IS NOT NULL;
-                   //
-                   //             --3.ThongTinFile: join với FileDebit
-                   //           CREATE NONCLUSTERED INDEX IDX_TTF_IDLoHang
-                   //           ON ThongTinFile(IDLoHang)
-                   // INCLUDE(MaKhachHang, SoToKhai, SoBill, SoCont, TenSales, SoLuong);
-                   //
-                   //             --4.FileGia: join với ThongTinFile + BangDieuXe
-                   // CREATE NONCLUSTERED INDEX IDX_FG_IDLoHang_MaDieuXe_SoFile
-                   // ON FileGia(IDLoHang, MaDieuXe, SoFile);
-                   //
-                   //             CREATE NONCLUSTERED INDEX IDX_BDX_FullCovering
-                   // ON BangDieuXe(MaDieuXe, SoFile)
-                   // INCLUDE(LoaiXe_KH, BienSoXe, LoaiXe_NCC, LuongHangVe, TuyenVC, GhiChu, IDBangPhi);
+            // --1.FileDebitChiTiet: join với FileDebit
+            // CREATE NONCLUSTERED INDEX IDX_FDCT_IDDeBit
+            // ON FileDebitChiTiet(IDDeBit);
+            //
+            //             --2.FileDebit: join với FDCT + filter SoFile + ThoiGianLap
+            // CREATE NONCLUSTERED INDEX IDX_FD_IDDeBit_SoFile_ThoiGianLap
+            // ON FileDebit(IDDeBit)
+            // INCLUDE(SoFile, ThoiGianLap);
+            //
+            //             CREATE NONCLUSTERED INDEX IDX_FD_SoFile_NotNull
+            // ON FileDebit(SoFile)
+            // WHERE SoFile IS NOT NULL;
+            //
+            //             --3.ThongTinFile: join với FileDebit
+            //           CREATE NONCLUSTERED INDEX IDX_TTF_IDLoHang
+            //           ON ThongTinFile(IDLoHang)
+            // INCLUDE(MaKhachHang, SoToKhai, SoBill, SoCont, TenSales, SoLuong);
+            //
+            //             --4.FileGia: join với ThongTinFile + BangDieuXe
+            // CREATE NONCLUSTERED INDEX IDX_FG_IDLoHang_MaDieuXe_SoFile
+            // ON FileGia(IDLoHang, MaDieuXe, SoFile);
+            //
+            //             CREATE NONCLUSTERED INDEX IDX_BDX_FullCovering
+            // ON BangDieuXe(MaDieuXe, SoFile)
+            // INCLUDE(LoaiXe_KH, BienSoXe, LoaiXe_NCC, LuongHangVe, TuyenVC, GhiChu, IDBangPhi);
             List<CongNoChiTietKH> list = new List<CongNoChiTietKH>();
             string sql = $@"
                 SELECT 
@@ -124,7 +124,8 @@ namespace Quản_lý_vudaco.services
 
             if (TuNgay != DateTime.MinValue && DenNgay.HasValue)
             {
-                sql += $@" AND fd.ThoiGianLap >= '{TuNgay:yyyy-MM-dd}' AND fd.ThoiGianLap <= '{DenNgay:yyyy-MM-dd}'";
+                DateTime _DenNgay = DenNgay.Value.AddDays(1);
+                sql += $@" AND fd.ThoiGianLap >= '{TuNgay:yyyy-MM-dd}' AND fd.ThoiGianLap <= '{_DenNgay:yyyy-MM-dd}'";
             }
             if (dauky == 1 && TuNgay != DateTime.MinValue) // đầu kỳ
             {
@@ -229,7 +230,8 @@ namespace Quản_lý_vudaco.services
                      AND fd.MaDieuXe IS NULL";
             if (TuNgay != DateTime.MinValue && DenNgay.HasValue)
             {
-                sql += $@" and a.Ngay >= '{TuNgay:yyyy-MM-dd}' and a.Ngay <= '{DenNgay:yyyy-MM-dd}'";
+                DateTime _DenNgay = DenNgay.Value.AddDays(1);
+                sql += $@" and a.Ngay >= '{TuNgay:yyyy-MM-dd}' and a.Ngay <= '{_DenNgay:yyyy-MM-dd}'";
             }
             if (dauky == 1 && TuNgay != DateTime.MinValue) // đầu kỳ
             {
@@ -300,7 +302,8 @@ namespace Quản_lý_vudaco.services
                      from FileDebit_KoHoaDon_KH fd LEFT JOIN BangDieuXe a ON fd.MaDieuXe = a.MaDieuXe LEFT JOIN ThongTinFile ttf ON ttf.SoFile = a.SoFile where fd.MaKhachHang IS NOT NULL AND LTRIM(RTRIM(fd.MaKhachHang)) <> ''";
             if (TuNgay != DateTime.MinValue && DenNgay.HasValue)
             {
-                sql += $@" and fd.NgayTao >= '{TuNgay:yyyy-MM-dd}' and fd.NgayTao <= '{DenNgay:yyyy-MM-dd}'";
+                DateTime _DenNgay = DenNgay.Value.AddDays(1);
+                sql += $@" and fd.NgayTao >= '{TuNgay:yyyy-MM-dd}' and fd.NgayTao <= '{_DenNgay:yyyy-MM-dd}'";
             }
             if (dauky == 1 && TuNgay != DateTime.MinValue) // đầu kỳ
             {
@@ -356,7 +359,8 @@ namespace Quản_lý_vudaco.services
                           AND LTRIM(RTRIM(pct.MaDoiTuong)) <> ''";
             if (TuNgay != DateTime.MinValue && DenNgay.HasValue)
             {
-                sql += $@" and pc.NgayHachToan >= '{TuNgay:yyyy-MM-dd}' and pc.NgayHachToan <= '{DenNgay:yyyy-MM-dd}'";
+                DateTime _DenNgay = DenNgay.Value.AddDays(1);
+                sql += $@" and pc.NgayHachToan >= '{TuNgay:yyyy-MM-dd}' and pc.NgayHachToan <= '{_DenNgay:yyyy-MM-dd}'";
             }
             if (dauky == 1 && TuNgay != DateTime.MinValue) // đầu kỳ
             {
@@ -397,7 +401,8 @@ namespace Quản_lý_vudaco.services
             sql = $@"select A.*,B.DienGiai,B.LyDoThu,B.NgayHachToan,B.MaThu from PhieuThu_CT A left join PhieuThu B on A.SoChungTu = B.SoChungTu  where B.MaThu='004' and A.DoiTuong ='KH'";
             if (TuNgay != DateTime.MinValue && DenNgay.HasValue)
             {
-                sql += $@" and B.NgayHachToan >= '{TuNgay:yyyy-MM-dd}' and B.NgayHachToan <= '{DenNgay:yyyy-MM-dd}'";
+                DateTime _DenNgay = DenNgay.Value.AddDays(1);
+                sql += $@" and B.NgayHachToan >= '{TuNgay:yyyy-MM-dd}' and B.NgayHachToan <= '{_DenNgay:yyyy-MM-dd}'";
             }
             if (dauky == 1 && TuNgay != DateTime.MinValue) // đầu kỳ
             {
