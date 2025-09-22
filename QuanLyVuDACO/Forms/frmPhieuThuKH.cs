@@ -88,7 +88,7 @@ namespace Quản_lý_vudaco.Forms
                         LyDoThu = "Thu công nợ khách hàng",
                         MaThu = "004",
                         MaQuy = cboLoaiQuy.EditValue == null ? string.Empty : cboLoaiQuy.EditValue.ToString().Trim(),
-                        NgayHachToan = DateTime.Now,
+                        NgayHachToan = Convert.ToDateTime(dtpNgay.Text),
                         NguoiNhan = frmMain._HoTen,
                         NguoiTao = frmMain._TK,
                         SoChungTu = client.TaoSoChungTu_Thu(arr),

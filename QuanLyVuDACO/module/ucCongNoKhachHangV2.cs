@@ -78,7 +78,7 @@ namespace Quản_lý_vudaco.module
                         else
                             makh = (cboKH.EditValue == null) ? "" : cboKH.EditValue.ToString();
                         // phí đầu kỳ
-                        var kh_dk = _khachhang.CongNoChiTietKH(Ngay1, null, makh, 1);
+                        var kh_dk = _khachhang.CongNoTongHopKH(Ngay1, null, makh, 1);
                         var kh_dv_dk = kh_dk.Where(x => x.Type == 0 && x.LaPhiChiHo ==0) //
                                          .GroupBy(x => x.MaKhachHang) // group theo Ma Khach Hang
                                          .Select(g => new
@@ -116,7 +116,7 @@ namespace Quản_lý_vudaco.module
                                      })
                                      .ToList();
                         // phí trong kỳ
-                        var kh_tk = _khachhang.CongNoChiTietKH(Ngay1, Ngay2, makh);
+                        var kh_tk = _khachhang.CongNoTongHopKH(Ngay1, Ngay2, makh);
                         var kh_dv_tk = kh_tk.Where(x => x.Type ==0 && x.LaPhiChiHo == 0) //
                                             .GroupBy(x => x.MaKhachHang) // group theo Ma Khach Hang
                                             .Select(g => new
@@ -274,7 +274,7 @@ namespace Quản_lý_vudaco.module
                         makh = "";
                     else
                         makh = (cboKH.EditValue == null) ? "" : cboKH.EditValue.ToString();
-                        var kh_ct = _khachhang.CongNoChiTietKH(Ngay1,Ngay2,makh)
+                        var kh_ct = _khachhang.CongNoTongHopKH(Ngay1,Ngay2,makh)
                                          .Select(x => new
                                          {
                                              x.NgayHachToan,
