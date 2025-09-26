@@ -413,6 +413,8 @@ namespace Quản_lý_vudaco.module
             this.colThanhtien.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Numeric;
             this.colThanhtien.FieldName = "ThanhTien";
             this.colThanhtien.Name = "colThanhtien";
+            this.colThanhtien.Summary.AddRange(new DevExpress.XtraGrid.GridSummaryItem[] {
+            new DevExpress.XtraGrid.GridColumnSummaryItem(DevExpress.Data.SummaryItemType.Sum, "ThanhTien", "{0:#,##}")});
             this.colThanhtien.Visible = true;
             this.colThanhtien.VisibleIndex = 8;
             // 
@@ -421,6 +423,8 @@ namespace Quản_lý_vudaco.module
             this.ColTongPCH.Caption = "Tổng phí chi hộ";
             this.ColTongPCH.FieldName = "TongPhiChiHo";
             this.ColTongPCH.Name = "ColTongPCH";
+            this.ColTongPCH.Summary.AddRange(new DevExpress.XtraGrid.GridSummaryItem[] {
+            new DevExpress.XtraGrid.GridColumnSummaryItem(DevExpress.Data.SummaryItemType.Sum, "TongPhiChiHo", "{0:0.##}")});
             // 
             // ColTC
             // 
@@ -429,6 +433,8 @@ namespace Quản_lý_vudaco.module
             this.ColTC.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Numeric;
             this.ColTC.FieldName = "TongPhi_VAT";
             this.ColTC.Name = "ColTC";
+            this.ColTC.Summary.AddRange(new DevExpress.XtraGrid.GridSummaryItem[] {
+            new DevExpress.XtraGrid.GridColumnSummaryItem(DevExpress.Data.SummaryItemType.Sum, "TongPhi_VAT", "{0:#,##}")});
             this.ColTC.Visible = true;
             this.ColTC.VisibleIndex = 9;
             // 

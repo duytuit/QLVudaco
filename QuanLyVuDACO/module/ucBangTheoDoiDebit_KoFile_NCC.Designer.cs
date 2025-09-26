@@ -385,6 +385,8 @@ namespace Quản_lý_vudaco.module
             this.ColTongPhi.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Numeric;
             this.ColTongPhi.FieldName = "TongPhi";
             this.ColTongPhi.Name = "ColTongPhi";
+            this.ColTongPhi.Summary.AddRange(new DevExpress.XtraGrid.GridSummaryItem[] {
+            new DevExpress.XtraGrid.GridColumnSummaryItem(DevExpress.Data.SummaryItemType.Sum, "TongPhi", "{0:#,##}")});
             this.ColTongPhi.Visible = true;
             this.ColTongPhi.VisibleIndex = 6;
             // 
@@ -405,6 +407,8 @@ namespace Quản_lý_vudaco.module
             this.colThanhtien.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Numeric;
             this.colThanhtien.FieldName = "ThanhTien";
             this.colThanhtien.Name = "colThanhtien";
+            this.colThanhtien.Summary.AddRange(new DevExpress.XtraGrid.GridSummaryItem[] {
+            new DevExpress.XtraGrid.GridColumnSummaryItem(DevExpress.Data.SummaryItemType.Sum, "ThanhTien", "{0:#,##}")});
             this.colThanhtien.Visible = true;
             this.colThanhtien.VisibleIndex = 8;
             // 
@@ -415,6 +419,8 @@ namespace Quản_lý_vudaco.module
             this.ColTongPCH.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Numeric;
             this.ColTongPCH.FieldName = "TongPhiChiHo";
             this.ColTongPCH.Name = "ColTongPCH";
+            this.ColTongPCH.Summary.AddRange(new DevExpress.XtraGrid.GridSummaryItem[] {
+            new DevExpress.XtraGrid.GridColumnSummaryItem(DevExpress.Data.SummaryItemType.Sum, "TongPhiChiHo", "{0:#,##}")});
             this.ColTongPCH.Visible = true;
             this.ColTongPCH.VisibleIndex = 9;
             // 
@@ -425,6 +431,8 @@ namespace Quản_lý_vudaco.module
             this.ColTC.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Numeric;
             this.ColTC.FieldName = "TongChiPhiLoHang";
             this.ColTC.Name = "ColTC";
+            this.ColTC.Summary.AddRange(new DevExpress.XtraGrid.GridSummaryItem[] {
+            new DevExpress.XtraGrid.GridColumnSummaryItem(DevExpress.Data.SummaryItemType.Sum, "TongChiPhiLoHang", "{0:#,##}")});
             this.ColTC.Visible = true;
             this.ColTC.VisibleIndex = 10;
             // 

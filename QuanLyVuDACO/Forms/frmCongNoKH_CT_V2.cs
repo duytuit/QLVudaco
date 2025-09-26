@@ -157,10 +157,10 @@ namespace Quản_lý_vudaco.Forms
                         MaKhachHang = x.MaKhachHang,
                         BienSoXe = x.BienSoXe,
                         GhiChu = x.GhiChu,
-                        SoTien = (x.Type == 0) ? x.SoTien : 0,
+                        SoTien = (x.LaPhiChiHo == 0) ? x.SoTien : 0,
                         ThanhTienDV = (x.LaPhiChiHo == 0) ? x.ThanhTien : 0,
                         ThanhTienCH = (x.LaPhiChiHo == 1) ? x.ThanhTien : 0,
-                        VAT = (x.Type == 0) ? (x.VAT * x.SoTien) / 100 : 0,
+                        VAT = (x.LaPhiChiHo == 0) ? (x.VAT * x.SoTien) / 100 : 0,
                         LaPhiChiHo = x.LaPhiChiHo,
                         TongTien = x.TongTien,
                         SoLuong=x.SoLuong,
@@ -170,7 +170,7 @@ namespace Quản_lý_vudaco.Forms
                         Chon = false,
                         ID = x.ID,
                         Key = x.Key,
-                        SoFile = x.SoFile + "/"+ x.MaDieuXe,
+                        SoFile = x.SoFile??x.MaDieuXe,
                         ThanhToan = _khachhang_ct.Where(y => y.IDKey == x.ID && y.KeyName == x.Key && y.Type == 5 && y.LaPhiChiHo == 0).Sum(y => y.ThanhTien) + _khachhang_ct.Where(y => y.IDKey == x.ID && y.KeyName == x.Key && y.Type == 5 && y.LaPhiChiHo == 1).Sum(y => y.ThanhTien),
                         ThanhToanDV = _khachhang_ct.Where(y => y.IDKey == x.ID && y.KeyName == x.Key && y.Type == 5 && y.LaPhiChiHo == 0).Sum(y => y.ThanhTien),
                         ThanhToanCH = _khachhang_ct.Where(y => y.IDKey == x.ID && y.KeyName == x.Key && y.Type == 5 && y.LaPhiChiHo == 1).Sum(y => y.ThanhTien),
@@ -343,7 +343,7 @@ namespace Quản_lý_vudaco.Forms
 
                     // Tính tổng và count
                     int soLuong = group.Items.Where(x=>x.Type==0).ToList().Count;
-                    double tongDonGia = group.Items.Where(x => x.Type == 0).Sum(x => x.SoTien);
+                    double tongDonGia = group.Items.Where(x => x.LaPhiChiHo == 0).Sum(x => x.SoTien);
                     // Thuế GTGT = cộng dồn từng dòng (ThanhTien * VAT)/100
                     double tongTienThue = group.Items.Where(x => x.Type == 0).Sum(x => (x.SoTien * x.VAT) / 100);
                     double tongThanhTien = group.Items.Where(x => x.Type == 0).Where(x => x.LaPhiChiHo == 0).Sum(x => x.ThanhTien);
