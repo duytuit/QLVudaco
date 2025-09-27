@@ -528,7 +528,9 @@ namespace Quản_lý_vudaco.module
             this.gridView2.OptionsView.ShowAutoFilterRow = true;
             this.gridView2.OptionsView.ShowFooter = true;
             this.gridView2.OptionsView.ShowGroupPanel = false;
+            this.gridView2.CustomDrawColumnHeader += new DevExpress.XtraGrid.Views.Grid.ColumnHeaderCustomDrawEventHandler(this.gridView2_CustomDrawColumnHeader);
             this.gridView2.CustomRowCellEditForEditing += new DevExpress.XtraGrid.Views.Grid.CustomRowCellEditEventHandler(this.gridView2_CustomRowCellEditForEditing);
+            this.gridView2.MouseDown += new System.Windows.Forms.MouseEventHandler(this.gridView2_MouseDown);
             this.gridView2.Click += new System.EventHandler(this.gridView2_Click);
             // 
             // gridColumn2
@@ -870,6 +872,8 @@ namespace Quản_lý_vudaco.module
             this.gridView1.OptionsView.ColumnAutoWidth = false;
             this.gridView1.OptionsView.ShowAutoFilterRow = true;
             this.gridView1.OptionsView.ShowGroupPanel = false;
+            this.gridView1.CustomDrawColumnHeader += new DevExpress.XtraGrid.Views.Grid.ColumnHeaderCustomDrawEventHandler(this.gridView1_CustomDrawColumnHeader);
+            this.gridView1.MouseDown += new System.Windows.Forms.MouseEventHandler(this.gridView1_MouseDown);
             // 
             // colIDLoHang
             // 

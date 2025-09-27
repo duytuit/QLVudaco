@@ -11,6 +11,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using DevExpress.XtraReports.UI;
+using DevExpress.XtraGrid.Views.Grid.ViewInfo;
 
 namespace Quản_lý_vudaco.module
 {
@@ -269,6 +270,85 @@ namespace Quản_lý_vudaco.module
         private void panelControl1_Paint(object sender, PaintEventArgs e)
         {
 
+        }
+        bool headerCheckBoxState = false;
+        Rectangle headerCheckBoxRect;
+        private void gridView1_CustomDrawColumnHeader(object sender, DevExpress.XtraGrid.Views.Grid.ColumnHeaderCustomDrawEventArgs e)
+        {
+            if (e.Column != null && e.Column.FieldName == "Chon")
+            {
+                e.Info.InnerElements.Clear(); // xóa nội dung mặc định
+                e.Info.Appearance.DrawString(e.Cache, e.Info.Caption, e.Bounds);
+
+                // Vị trí checkbox trong header
+                headerCheckBoxRect = new Rectangle(e.Bounds.X + e.Bounds.Width / 2 + 14, e.Bounds.Y + 4, 16, 16);
+                ControlPaint.DrawCheckBox(e.Graphics, headerCheckBoxRect,
+                headerCheckBoxState ? ButtonState.Checked : ButtonState.Normal);
+
+                e.Handled = true;
+            }
+        }
+
+        private void gridView1_MouseDown(object sender, MouseEventArgs e)
+        {
+            GridHitInfo hitInfo = gridView1.CalcHitInfo(e.Location);
+
+            if (hitInfo.InColumn && hitInfo.Column != null && hitInfo.Column.FieldName == "Chon")
+            {
+                if (headerCheckBoxRect.Contains(e.Location))
+                {
+                    // Toggle trạng thái checkbox header
+                    headerCheckBoxState = !headerCheckBoxState;
+
+                    // Cập nhật toàn bộ dòng
+                    for (int i = 0; i < gridView1.RowCount; i++)
+                    {
+                        gridView1.SetRowCellValue(i, "Chon", headerCheckBoxState);
+                    }
+
+                    // Vẽ lại header
+                    gridView1.InvalidateColumnHeader(gridView1.Columns["Chon"]);
+                }
+            }
+        }
+
+        private void gridView2_CustomDrawColumnHeader(object sender, DevExpress.XtraGrid.Views.Grid.ColumnHeaderCustomDrawEventArgs e)
+        {
+            if (e.Column != null && e.Column.FieldName == "Chon")
+            {
+                e.Info.InnerElements.Clear(); // xóa nội dung mặc định
+                e.Info.Appearance.DrawString(e.Cache, e.Info.Caption, e.Bounds);
+
+                // Vị trí checkbox trong header
+                headerCheckBoxRect = new Rectangle(e.Bounds.X + e.Bounds.Width / 2 + 14, e.Bounds.Y + 4, 16, 16);
+                ControlPaint.DrawCheckBox(e.Graphics, headerCheckBoxRect,
+                headerCheckBoxState ? ButtonState.Checked : ButtonState.Normal);
+
+                e.Handled = true;
+            }
+        }
+
+        private void gridView2_MouseDown(object sender, MouseEventArgs e)
+        {
+            GridHitInfo hitInfo = gridView2.CalcHitInfo(e.Location);
+
+            if (hitInfo.InColumn && hitInfo.Column != null && hitInfo.Column.FieldName == "Chon")
+            {
+                if (headerCheckBoxRect.Contains(e.Location))
+                {
+                    // Toggle trạng thái checkbox header
+                    headerCheckBoxState = !headerCheckBoxState;
+
+                    // Cập nhật toàn bộ dòng
+                    for (int i = 0; i < gridView2.RowCount; i++)
+                    {
+                        gridView2.SetRowCellValue(i, "Chon", headerCheckBoxState);
+                    }
+
+                    // Vẽ lại header
+                    gridView2.InvalidateColumnHeader(gridView2.Columns["Chon"]);
+                }
+            }
         }
     }
 }

@@ -19,7 +19,7 @@ namespace Quản_lý_vudaco.services
         public DataTable dt_BangFileDebitDaTao_KH(DateTime TuNgay, DateTime DenNgay)
         {
             string sql = $@"
-            SELECT kh.*,  0 AS Chon
+            SELECT  CAST(0 AS bit) AS Chon,kh.*
             FROM FileDebit_KoHoaDon_KH kh
             WHERE kh.NgayTao >= '{TuNgay:yyyy-MM-dd}'
               AND kh.NgayTao <= '{DenNgay:yyyy-MM-dd}'";

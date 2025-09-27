@@ -410,7 +410,7 @@ namespace Quản_lý_vudaco.module
         {
             if (MessageBox.Show("Bạn có chắc chắn muốn xoá không (Y/N)", "Thông báo", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
             {
-                int _ID = int.Parse(gridView1.GetFocusedRowCellValue("id").ToString());
+                int _ID = int.Parse(gridView2.GetFocusedRowCellValue("id").ToString());
                 using (var _db = new clsKetNoi())
                 {
                     _db.DeleteById("Roles", _ID, "id");

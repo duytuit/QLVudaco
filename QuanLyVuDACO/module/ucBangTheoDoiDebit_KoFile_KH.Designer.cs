@@ -32,6 +32,7 @@ namespace Quản_lý_vudaco.module
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ucBangTheoDoiDebit_KoFile_KH));
             this.panelControl1 = new DevExpress.XtraEditors.PanelControl();
+            this.btntaoDebit = new DevExpress.XtraEditors.SimpleButton();
             this.btnXuatHoaDon = new DevExpress.XtraEditors.SimpleButton();
             this.dtpDenNgay = new System.Windows.Forms.MaskedTextBox();
             this.dtpTuNgay = new System.Windows.Forms.MaskedTextBox();
@@ -111,14 +112,13 @@ namespace Quản_lý_vudaco.module
             this.repositoryItemHyperThem = new DevExpress.XtraEditors.Repository.RepositoryItemHyperLinkEdit();
             this.gridColumn22 = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colSTT1 = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.gridColumn27 = new DevExpress.XtraGrid.Columns.GridColumn();
             this.repositoryItemHyperLinkEdit9 = new DevExpress.XtraEditors.Repository.RepositoryItemHyperLinkEdit();
             this.repositoryItemHyperLinkEdit10 = new DevExpress.XtraEditors.Repository.RepositoryItemHyperLinkEdit();
             this.repositoryItemHyperLinkEdit8 = new DevExpress.XtraEditors.Repository.RepositoryItemHyperLinkEdit();
             this.repositoryItemHyperLinkEdit7 = new DevExpress.XtraEditors.Repository.RepositoryItemHyperLinkEdit();
             this.repositoryItemHyperLinkEdit11 = new DevExpress.XtraEditors.Repository.RepositoryItemHyperLinkEdit();
             this.repositoryItemChiKhac = new DevExpress.XtraEditors.Repository.RepositoryItemHyperLinkEdit();
-            this.btntaoDebit = new DevExpress.XtraEditors.SimpleButton();
-            this.gridColumn27 = new DevExpress.XtraGrid.Columns.GridColumn();
             ((System.ComponentModel.ISupportInitialize)(this.panelControl1)).BeginInit();
             this.panelControl1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.panelControl4)).BeginInit();
@@ -168,6 +168,17 @@ namespace Quản_lý_vudaco.module
             this.panelControl1.Name = "panelControl1";
             this.panelControl1.Size = new System.Drawing.Size(1277, 47);
             this.panelControl1.TabIndex = 0;
+            // 
+            // btntaoDebit
+            // 
+            this.btntaoDebit.ImageOptions.Image = ((System.Drawing.Image)(resources.GetObject("btntaoDebit.ImageOptions.Image")));
+            this.btntaoDebit.Location = new System.Drawing.Point(550, 9);
+            this.btntaoDebit.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.btntaoDebit.Name = "btntaoDebit";
+            this.btntaoDebit.Size = new System.Drawing.Size(121, 24);
+            this.btntaoDebit.TabIndex = 11;
+            this.btntaoDebit.Text = "Tạo debit hàng loạt";
+            this.btntaoDebit.Click += new System.EventHandler(this.btntaoDebit_Click);
             // 
             // btnXuatHoaDon
             // 
@@ -348,7 +359,9 @@ namespace Quản_lý_vudaco.module
             this.gridView2.OptionsView.ShowAutoFilterRow = true;
             this.gridView2.OptionsView.ShowFooter = true;
             this.gridView2.OptionsView.ShowGroupPanel = false;
+            this.gridView2.CustomDrawColumnHeader += new DevExpress.XtraGrid.Views.Grid.ColumnHeaderCustomDrawEventHandler(this.gridView2_CustomDrawColumnHeader);
             this.gridView2.CustomRowCellEditForEditing += new DevExpress.XtraGrid.Views.Grid.CustomRowCellEditEventHandler(this.gridView2_CustomRowCellEditForEditing);
+            this.gridView2.MouseDown += new System.Windows.Forms.MouseEventHandler(this.gridView2_MouseDown);
             this.gridView2.Click += new System.EventHandler(this.gridView2_Click);
             // 
             // gridColumn2
@@ -758,6 +771,8 @@ namespace Quản_lý_vudaco.module
             this.gridView1.OptionsView.ShowAutoFilterRow = true;
             this.gridView1.OptionsView.ShowFooter = true;
             this.gridView1.OptionsView.ShowGroupPanel = false;
+            this.gridView1.CustomDrawColumnHeader += new DevExpress.XtraGrid.Views.Grid.ColumnHeaderCustomDrawEventHandler(this.gridView1_CustomDrawColumnHeader);
+            this.gridView1.MouseDown += new System.Windows.Forms.MouseEventHandler(this.gridView1_MouseDown);
             // 
             // colIDBangPhi1
             // 
@@ -1072,6 +1087,19 @@ namespace Quản_lý_vudaco.module
             this.colSTT1.VisibleIndex = 0;
             this.colSTT1.Width = 30;
             // 
+            // gridColumn27
+            // 
+            this.gridColumn27.AppearanceCell.Options.UseTextOptions = true;
+            this.gridColumn27.AppearanceCell.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
+            this.gridColumn27.AppearanceHeader.Options.UseTextOptions = true;
+            this.gridColumn27.AppearanceHeader.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
+            this.gridColumn27.Caption = "Chọn";
+            this.gridColumn27.FieldName = "Chon";
+            this.gridColumn27.Fixed = DevExpress.XtraGrid.Columns.FixedStyle.Right;
+            this.gridColumn27.Name = "gridColumn27";
+            this.gridColumn27.Visible = true;
+            this.gridColumn27.VisibleIndex = 17;
+            // 
             // repositoryItemHyperLinkEdit9
             // 
             this.repositoryItemHyperLinkEdit9.AutoHeight = false;
@@ -1113,30 +1141,6 @@ namespace Quản_lý_vudaco.module
             this.repositoryItemChiKhac.Image = ((System.Drawing.Image)(resources.GetObject("repositoryItemChiKhac.Image")));
             this.repositoryItemChiKhac.Name = "repositoryItemChiKhac";
             this.repositoryItemChiKhac.NullText = "Chi khác";
-            // 
-            // btntaoDebit
-            // 
-            this.btntaoDebit.ImageOptions.Image = ((System.Drawing.Image)(resources.GetObject("simpleButton2.ImageOptions.Image")));
-            this.btntaoDebit.Location = new System.Drawing.Point(550, 9);
-            this.btntaoDebit.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.btntaoDebit.Name = "btntaoDebit";
-            this.btntaoDebit.Size = new System.Drawing.Size(121, 24);
-            this.btntaoDebit.TabIndex = 11;
-            this.btntaoDebit.Text = "Tạo debit hàng loạt";
-            this.btntaoDebit.Click += new System.EventHandler(this.btntaoDebit_Click);
-            // 
-            // gridColumn27
-            // 
-            this.gridColumn27.AppearanceCell.Options.UseTextOptions = true;
-            this.gridColumn27.AppearanceCell.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
-            this.gridColumn27.AppearanceHeader.Options.UseTextOptions = true;
-            this.gridColumn27.AppearanceHeader.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
-            this.gridColumn27.Caption = "Chọn";
-            this.gridColumn27.FieldName = "Chon";
-            this.gridColumn27.Fixed = DevExpress.XtraGrid.Columns.FixedStyle.Right;
-            this.gridColumn27.Name = "gridColumn27";
-            this.gridColumn27.Visible = true;
-            this.gridColumn27.VisibleIndex = 17;
             // 
             // ucBangTheoDoiDebit_KoFile_KH
             // 
