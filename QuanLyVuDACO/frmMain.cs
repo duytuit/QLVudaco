@@ -527,6 +527,13 @@ namespace Quản_lý_vudaco
                         tabPage.Controls.Add(frm);
                         break;
                     }
+                case "ucSaoLuuDuLieu":
+                    {
+                        module.ucSaoLuuDuLieu frm = new module.ucSaoLuuDuLieu();
+                        frm.Dock = System.Windows.Forms.DockStyle.Fill;
+                        tabPage.Controls.Add(frm);
+                        break;
+                    }
                 case "ucChiPhiChung":
                     {
                         module.ucChiPhiChung frm = new module.ucChiPhiChung();
@@ -850,6 +857,11 @@ namespace Quản_lý_vudaco
             }
 
             return allItems;
+        }
+
+        private void ucSaoLuuDuLieu_Click(object sender, EventArgs e)
+        {
+            danhSáchTàiKhoảnToolStripMenuItem_Click(sender, e);
         }
 
         private void AddDropDownItems(ToolStripMenuItem parent, List<ToolStripMenuItem> list)
