@@ -63,6 +63,9 @@ namespace Quản_lý_vudaco.module
             this.txtSDDK = new DevExpress.XtraEditors.TextEdit();
             this.panelControl1 = new DevExpress.XtraEditors.PanelControl();
             this.panelControl3 = new DevExpress.XtraEditors.PanelControl();
+            this.labelControl5 = new DevExpress.XtraEditors.LabelControl();
+            this.cbLoaiCongNo = new System.Windows.Forms.ComboBox();
+            this.gridColumn10 = new DevExpress.XtraGrid.Columns.GridColumn();
             ((System.ComponentModel.ISupportInitialize)(this.filteringUIContext1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridView1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.repositoryItemHyperLinkSua)).BeginInit();
@@ -92,7 +95,8 @@ namespace Quản_lý_vudaco.module
             this.gridColumn2.FieldName = "SoTien";
             this.gridColumn2.Name = "gridColumn2";
             this.gridColumn2.Visible = true;
-            this.gridColumn2.VisibleIndex = 3;
+            this.gridColumn2.VisibleIndex = 5;
+            this.gridColumn2.Width = 153;
             // 
             // gridColumn1
             // 
@@ -101,6 +105,7 @@ namespace Quản_lý_vudaco.module
             this.gridColumn1.Name = "gridColumn1";
             this.gridColumn1.Visible = true;
             this.gridColumn1.VisibleIndex = 2;
+            this.gridColumn1.Width = 147;
             // 
             // colNgayHachToan
             // 
@@ -109,6 +114,7 @@ namespace Quản_lý_vudaco.module
             this.colNgayHachToan.Name = "colNgayHachToan";
             this.colNgayHachToan.Visible = true;
             this.colNgayHachToan.VisibleIndex = 1;
+            this.colNgayHachToan.Width = 147;
             // 
             // colSTT
             // 
@@ -117,6 +123,7 @@ namespace Quản_lý_vudaco.module
             this.colSTT.Name = "colSTT";
             this.colSTT.Visible = true;
             this.colSTT.VisibleIndex = 0;
+            this.colSTT.Width = 31;
             // 
             // gridView1
             // 
@@ -129,13 +136,15 @@ namespace Quản_lý_vudaco.module
             this.gridColumn4,
             this.gridColumn5,
             this.gridColumn8,
-            this.gridColumn9});
+            this.gridColumn9,
+            this.gridColumn10});
             this.gridView1.DetailHeight = 284;
             this.gridView1.GridControl = this.gridControl1;
             this.gridView1.Name = "gridView1";
             this.gridView1.OptionsView.ShowAutoFilterRow = true;
             this.gridView1.OptionsView.ShowFooter = true;
             this.gridView1.OptionsView.ShowGroupPanel = false;
+            this.gridView1.CustomUnboundColumnData += new DevExpress.XtraGrid.Views.Base.CustomColumnDataEventHandler(this.gridView1_CustomUnboundColumnData);
             this.gridView1.CustomColumnDisplayText += new DevExpress.XtraGrid.Views.Base.CustomColumnDisplayTextEventHandler(this.gridView1_CustomColumnDisplayText);
             // 
             // gridColumn3
@@ -145,6 +154,7 @@ namespace Quản_lý_vudaco.module
             this.gridColumn3.Name = "gridColumn3";
             this.gridColumn3.Visible = true;
             this.gridColumn3.VisibleIndex = 4;
+            this.gridColumn3.Width = 147;
             // 
             // gridColumn4
             // 
@@ -153,7 +163,7 @@ namespace Quản_lý_vudaco.module
             this.gridColumn4.Fixed = DevExpress.XtraGrid.Columns.FixedStyle.Right;
             this.gridColumn4.Name = "gridColumn4";
             this.gridColumn4.Visible = true;
-            this.gridColumn4.VisibleIndex = 5;
+            this.gridColumn4.VisibleIndex = 6;
             // 
             // repositoryItemHyperLinkSua
             // 
@@ -170,7 +180,7 @@ namespace Quản_lý_vudaco.module
             this.gridColumn5.Fixed = DevExpress.XtraGrid.Columns.FixedStyle.Right;
             this.gridColumn5.Name = "gridColumn5";
             this.gridColumn5.Visible = true;
-            this.gridColumn5.VisibleIndex = 6;
+            this.gridColumn5.VisibleIndex = 7;
             // 
             // repositoryItemHyperLinkXoa
             // 
@@ -203,7 +213,7 @@ namespace Quản_lý_vudaco.module
             this.gridControl1.RepositoryItems.AddRange(new DevExpress.XtraEditors.Repository.RepositoryItem[] {
             this.repositoryItemHyperLinkSua,
             this.repositoryItemHyperLinkXoa});
-            this.gridControl1.Size = new System.Drawing.Size(933, 407);
+            this.gridControl1.Size = new System.Drawing.Size(1091, 407);
             this.gridControl1.TabIndex = 0;
             this.gridControl1.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
             this.gridView1});
@@ -225,7 +235,7 @@ namespace Quản_lý_vudaco.module
             this.panelControl2.Location = new System.Drawing.Point(0, 107);
             this.panelControl2.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.panelControl2.Name = "panelControl2";
-            this.panelControl2.Size = new System.Drawing.Size(937, 411);
+            this.panelControl2.Size = new System.Drawing.Size(1095, 411);
             this.panelControl2.TabIndex = 1;
             // 
             // btnLuu
@@ -287,7 +297,9 @@ namespace Quản_lý_vudaco.module
             // 
             // panelControl4
             // 
+            this.panelControl4.Controls.Add(this.labelControl5);
             this.panelControl4.Controls.Add(this.txtSoHoaDon);
+            this.panelControl4.Controls.Add(this.cbLoaiCongNo);
             this.panelControl4.Controls.Add(this.cboKH);
             this.panelControl4.Controls.Add(this.txtNgayHachToan);
             this.panelControl4.Controls.Add(this.labelControl4);
@@ -299,7 +311,7 @@ namespace Quản_lý_vudaco.module
             this.panelControl4.Location = new System.Drawing.Point(2, 2);
             this.panelControl4.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.panelControl4.Name = "panelControl4";
-            this.panelControl4.Size = new System.Drawing.Size(933, 72);
+            this.panelControl4.Size = new System.Drawing.Size(1091, 72);
             this.panelControl4.TabIndex = 1;
             // 
             // txtSoHoaDon
@@ -373,7 +385,7 @@ namespace Quản_lý_vudaco.module
             this.panelControl1.Location = new System.Drawing.Point(0, 0);
             this.panelControl1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.panelControl1.Name = "panelControl1";
-            this.panelControl1.Size = new System.Drawing.Size(937, 107);
+            this.panelControl1.Size = new System.Drawing.Size(1095, 107);
             this.panelControl1.TabIndex = 2;
             // 
             // panelControl3
@@ -383,8 +395,34 @@ namespace Quản_lý_vudaco.module
             this.panelControl3.Location = new System.Drawing.Point(2, 74);
             this.panelControl3.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.panelControl3.Name = "panelControl3";
-            this.panelControl3.Size = new System.Drawing.Size(933, 31);
+            this.panelControl3.Size = new System.Drawing.Size(1091, 31);
             this.panelControl3.TabIndex = 0;
+            // 
+            // labelControl5
+            // 
+            this.labelControl5.Location = new System.Drawing.Point(774, 47);
+            this.labelControl5.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.labelControl5.Name = "labelControl5";
+            this.labelControl5.Size = new System.Drawing.Size(60, 13);
+            this.labelControl5.TabIndex = 23;
+            this.labelControl5.Text = "Loại công nợ";
+            // 
+            // cbLoaiCongNo
+            // 
+            this.cbLoaiCongNo.FormattingEnabled = true;
+            this.cbLoaiCongNo.Location = new System.Drawing.Point(848, 42);
+            this.cbLoaiCongNo.Name = "cbLoaiCongNo";
+            this.cbLoaiCongNo.Size = new System.Drawing.Size(211, 21);
+            this.cbLoaiCongNo.TabIndex = 22;
+            // 
+            // gridColumn10
+            // 
+            this.gridColumn10.Caption = "Loại Công Nợ";
+            this.gridColumn10.FieldName = "LoaiCongNo";
+            this.gridColumn10.Name = "gridColumn10";
+            this.gridColumn10.Visible = true;
+            this.gridColumn10.VisibleIndex = 3;
+            this.gridColumn10.Width = 147;
             // 
             // ucSoDuDauKyKH
             // 
@@ -394,7 +432,7 @@ namespace Quản_lý_vudaco.module
             this.Controls.Add(this.panelControl1);
             this.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.Name = "ucSoDuDauKyKH";
-            this.Size = new System.Drawing.Size(937, 518);
+            this.Size = new System.Drawing.Size(1095, 518);
             this.Load += new System.EventHandler(this.ucDanhSachTaiKhoan_Load);
             ((System.ComponentModel.ISupportInitialize)(this.filteringUIContext1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridView1)).EndInit();
@@ -454,5 +492,8 @@ namespace Quản_lý_vudaco.module
         private DevExpress.XtraEditors.TextEdit txtSoHoaDon;
         private DevExpress.XtraGrid.Columns.GridColumn gridColumn8;
         private DevExpress.XtraGrid.Columns.GridColumn gridColumn9;
+        private DevExpress.XtraGrid.Columns.GridColumn gridColumn10;
+        private DevExpress.XtraEditors.LabelControl labelControl5;
+        private System.Windows.Forms.ComboBox cbLoaiCongNo;
     }
 }

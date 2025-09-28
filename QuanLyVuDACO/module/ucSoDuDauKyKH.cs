@@ -15,16 +15,25 @@ namespace Quản_lý_vudaco.module
     public partial class ucSoDuDauKyKH : DevExpress.XtraEditors.XtraUserControl
     {
         ServiceReference1.WebService1SoapClient client = new ServiceReference1.WebService1SoapClient();
+        private readonly List<dynamic> LoaiCongNo = new[]
+        {
+            new { Id = 0, Name = "Phí dịch vụ đầu kỳ" },
+            new { Id = 1, Name = "Phí chi hộ đầu kỳ" }
+        }.ToList<dynamic>();
         private int _id = 0;
         public ucSoDuDauKyKH()
         {
             InitializeComponent();
+            colSTT.UnboundType = DevExpress.Data.UnboundColumnType.Integer;
         }
         private void ucDanhSachTaiKhoan_Load(object sender, EventArgs e)
         {
             LoadData();
             cboKH.Properties.DataSource = client.dsKH();
             txtNgayHachToan.Text = DateTime.Now.ToString("dd/MM/yyyy");
+            cbLoaiCongNo.DataSource = LoaiCongNo;
+            cbLoaiCongNo.DisplayMember = "Name";
+            cbLoaiCongNo.ValueMember = "Id";
         }
 
         private void LoadData()
@@ -46,7 +55,7 @@ namespace Quản_lý_vudaco.module
                     cboKH.EditValue = _row["MaDoiTuong"].ToString();   // hoặc "MaNhaCungCap" tùy tên cột
                     txtSoHoaDon.Text = _row["SoHoaDon"].ToString();
                     txtSDDK.Text = _row["SoTien"].ToString();
-
+                    cbLoaiCongNo.SelectedValue = Convert.ToInt32(_row["LoaiCongNo"]);
                     if (_row["NgayHachToan"] != DBNull.Value)
                         txtNgayHachToan.Text = Convert.ToDateTime(_row["NgayHachToan"]).ToString("dd/MM/yyyy");
                 }
@@ -126,6 +135,7 @@ namespace Quản_lý_vudaco.module
                         NgayHachToan = ngayHachToan,
                         SoTien = soDuDauKy,
                         Loai = 2,
+                        LoaiCongNo = cbLoaiCongNo.SelectedValue,
                         NgayTao = DateTime.Now
                     };
 
@@ -150,9 +160,25 @@ namespace Quản_lý_vudaco.module
 
         private void gridView1_CustomColumnDisplayText(object sender, DevExpress.XtraGrid.Views.Base.CustomColumnDisplayTextEventArgs e)
         {
-            if (e.Column.FieldName == "STT") // hoặc kiểm tra theo gridColumn nếu cần
+            if (e.Column.FieldName == "LoaiCongNo" && e.Value != null)
             {
-                e.DisplayText = (e.ListSourceRowIndex + 1).ToString();
+                int id = Convert.ToInt32(e.Value);
+
+                var item = LoaiCongNo.Cast<dynamic>().FirstOrDefault(x => x.Id == id);
+
+                if (item != null)
+                    e.DisplayText = item.Name;
+            }
+        }
+
+        private void gridView1_CustomUnboundColumnData(object sender, DevExpress.XtraGrid.Views.Base.CustomColumnDataEventArgs e)
+        {
+            var view = sender as DevExpress.XtraGrid.Views.Grid.GridView;
+            if (e.IsGetData)
+            {
+                int rowHandle = view.GetRowHandle(e.ListSourceRowIndex);
+                if (rowHandle >= 0)
+                    e.Value = rowHandle + 1;
             }
         }
     }
