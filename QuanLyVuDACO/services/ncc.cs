@@ -2161,64 +2161,79 @@ namespace Quản_lý_vudaco.services
 
                 list.Add(obj);
             }
-            // ghép số dư đầu kỳ
+          
+            // dịch vụ
+            sql = $@"SELECT sddk.*,ncc.TenNhaCungCap FROM SoDuDauKy sddk left join DanhSachNhaCungCap ncc on sddk.MaDoiTuong = ncc.MaNhaCungCap 
+                    where sddk.Loai=1 and LoaiCongNo=0";
+            if (TuNgay != DateTime.MinValue && DenNgay.HasValue)
+            {
+                DateTime _DenNgay = DenNgay.Value.AddDays(1);
+                sql += $@" and sddk.NgayHachToan >= '{TuNgay:yyyy-MM-dd}' and sddk.NgayHachToan <= '{_DenNgay:yyyy-MM-dd}'";
+            }
             if (dauky == 1 && TuNgay != DateTime.MinValue) // đầu kỳ
             {
-                // dịch vụ
-                sql = $@"SELECT sddk.*,ncc.TenNhaCungCap FROM SoDuDauKy sddk left join DanhSachNhaCungCap ncc on sddk.MaDoiTuong = ncc.MaNhaCungCap 
-                      where sddk.Loai=1 and LoaiCongNo=0 and sddk.NgayHachToan < '{TuNgay:yyyy-MM-dd}'";
-                if (!string.IsNullOrEmpty(mancc))
+                sql += $@" and sddk.NgayHachToan < '{TuNgay:yyyy-MM-dd}'";
+            }
+            if (!string.IsNullOrEmpty(mancc))
+            {
+                sql += $@" and sddk.MaDoiTuong = N'{mancc}'";
+            }
+            table = cls.LoadTable(sql);
+            foreach (DataRow item in table.Rows)
+            {
+                var obj = new CongNoChiTietNcc
                 {
-                    sql += $@" and sddk.MaDoiTuong = N'{mancc}'";
-                }
-                table = cls.LoadTable(sql);
-                foreach (DataRow item in table.Rows)
-                {
-                    var obj = new CongNoChiTietNcc
-                    {
-                        NgayHachToan = item["NgayHachToan"] != DBNull.Value ? Convert.ToDateTime(item["NgayHachToan"]) : DateTime.MinValue,
-                        SoHoaDon = item["SoHoaDon"].ToString(),
-                        NoiDung = item["GhiChu"].ToString(),
-                        DienGiai = item["GhiChu"].ToString(),
-                        TenNhaCungCap = item["TenNhaCungCap"].ToString(),
-                        MaNhaCungCap = item["MaDoiTuong"].ToString(),
-                        TongTien = item["SoTien"] != DBNull.Value ? Convert.ToDouble(item["SoTien"]) : 0,
-                        SoTien = item["SoTien"] != DBNull.Value ? Convert.ToDouble(item["SoTien"]) : 0,
-                        ThanhTien = item["SoTien"] != DBNull.Value ? Convert.ToDouble(item["SoTien"]) : 0,
-                        ID = int.Parse(item["ID"].ToString()),
-                        Key = "sodudaukydv"
-                    };
+                    NgayHachToan = item["NgayHachToan"] != DBNull.Value ? Convert.ToDateTime(item["NgayHachToan"]) : DateTime.MinValue,
+                    SoHoaDon = item["SoHoaDon"].ToString(),
+                    NoiDung = item["SoHoaDon"].ToString() + " " + item["GhiChu"].ToString(),
+                    DienGiai = item["SoHoaDon"].ToString() + " " + item["GhiChu"].ToString(),
+                    TenNhaCungCap = item["TenNhaCungCap"].ToString(),
+                    MaNhaCungCap = item["MaDoiTuong"].ToString(),
+                    TongTien = item["SoTien"] != DBNull.Value ? Convert.ToDouble(item["SoTien"]) : 0,
+                    SoTien = item["SoTien"] != DBNull.Value ? Convert.ToDouble(item["SoTien"]) : 0,
+                    ThanhTien = item["SoTien"] != DBNull.Value ? Convert.ToDouble(item["SoTien"]) : 0,
+                    ID = int.Parse(item["ID"].ToString()),
+                    Key = "sodudaukydv"
+                };
 
-                    list.Add(obj);
-                }
-                // nâng hạ
-                sql = $@"SELECT sddk.*,ncc.TenNhaCungCap FROM SoDuDauKy sddk left join DanhSachNhaCungCap ncc on sddk.MaDoiTuong = ncc.MaNhaCungCap 
-                      where sddk.Loai=1 and LoaiCongNo=1 and sddk.NgayHachToan < '{TuNgay:yyyy-MM-dd}'";
-                if (!string.IsNullOrEmpty(mancc))
+                list.Add(obj);
+            }
+            // nâng hạ
+            sql = $@"SELECT sddk.*,ncc.TenNhaCungCap FROM SoDuDauKy sddk left join DanhSachNhaCungCap ncc on sddk.MaDoiTuong = ncc.MaNhaCungCap 
+                    where sddk.Loai=1 and LoaiCongNo=1";
+            if (TuNgay != DateTime.MinValue && DenNgay.HasValue)
+            {
+                DateTime _DenNgay = DenNgay.Value.AddDays(1);
+                sql += $@" and sddk.NgayHachToan >= '{TuNgay:yyyy-MM-dd}' and sddk.NgayHachToan <= '{_DenNgay:yyyy-MM-dd}'";
+            }
+            if (dauky == 1 && TuNgay != DateTime.MinValue) // đầu kỳ
+            {
+                sql += $@" and sddk.NgayHachToan < '{TuNgay:yyyy-MM-dd}'";
+            }
+            if (!string.IsNullOrEmpty(mancc))
+            {
+                sql += $@" and sddk.MaDoiTuong = N'{mancc}'";
+            }
+            table = cls.LoadTable(sql);
+            foreach (DataRow item in table.Rows)
+            {
+                var obj = new CongNoChiTietNcc
                 {
-                    sql += $@" and sddk.MaDoiTuong = N'{mancc}'";
-                }
-                table = cls.LoadTable(sql);
-                foreach (DataRow item in table.Rows)
-                {
-                    var obj = new CongNoChiTietNcc
-                    {
-                        NgayHachToan = item["NgayHachToan"] != DBNull.Value ? Convert.ToDateTime(item["NgayHachToan"]) : DateTime.MinValue,
-                        SoHoaDon = item["SoHoaDon"].ToString(),
-                        NoiDung = item["GhiChu"].ToString(),
-                        DienGiai = item["GhiChu"].ToString(),
-                        TenNhaCungCap = item["TenNhaCungCap"].ToString(),
-                        MaNhaCungCap = item["MaDoiTuong"].ToString(),
-                        TongTien = item["SoTien"] != DBNull.Value ? Convert.ToDouble(item["SoTien"]) : 0,
-                        SoTien = item["SoTien"] != DBNull.Value ? Convert.ToDouble(item["SoTien"]) : 0,
-                        ThanhTien = item["SoTien"] != DBNull.Value ? Convert.ToDouble(item["SoTien"]) : 0,
-                        ID = int.Parse(item["ID"].ToString()),
-                        Key = "sodudaukynh",
-                        Type =3
-                    };
+                    NgayHachToan = item["NgayHachToan"] != DBNull.Value ? Convert.ToDateTime(item["NgayHachToan"]) : DateTime.MinValue,
+                    SoHoaDon = item["SoHoaDon"].ToString(),
+                    NoiDung = item["SoHoaDon"].ToString()+" "+item["GhiChu"].ToString(),
+                    DienGiai = item["SoHoaDon"].ToString() + " " + item["GhiChu"].ToString(),
+                    TenNhaCungCap = item["TenNhaCungCap"].ToString(),
+                    MaNhaCungCap = item["MaDoiTuong"].ToString(),
+                    TongTien = item["SoTien"] != DBNull.Value ? Convert.ToDouble(item["SoTien"]) : 0,
+                    SoTien = item["SoTien"] != DBNull.Value ? Convert.ToDouble(item["SoTien"]) : 0,
+                    ThanhTien = item["SoTien"] != DBNull.Value ? Convert.ToDouble(item["SoTien"]) : 0,
+                    ID = int.Parse(item["ID"].ToString()),
+                    Key = "sodudaukynh",
+                    Type =3
+                };
 
-                    list.Add(obj);
-                }
+                list.Add(obj);
             }
             return list;
         }
