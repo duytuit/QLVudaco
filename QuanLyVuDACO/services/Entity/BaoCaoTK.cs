@@ -14,7 +14,9 @@ namespace Quản_lý_vudaco.services.Entity
         public double Thu { get; set; }
         public double Chi { get; set; }
         public double Ton { get; set; }
+        public string MaDoiTuong { get; set; }
         public string DoiTuong { get; set; }
+        public string LoaiDoiTuong { get; set; }
         public string MaQuy { get; set; }
         public string TenQuy { get; set; }
         public string ChuTK { get; set; }
