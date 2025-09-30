@@ -9,6 +9,8 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using DevExpress.XtraReports.UI;
+using Quản_lý_vudaco.services;
+using Quản_lý_vudaco.services.Entity;
 
 namespace Quản_lý_vudaco.reports
 {
@@ -27,11 +29,18 @@ namespace Quản_lý_vudaco.reports
             {
                 DateTime Ngay1 = new DateTime(int.Parse(arr1[2]), int.Parse(arr1[1]), int.Parse(arr1[0]));
                 DateTime Ngay2 = new DateTime(int.Parse(arr2[2]), int.Parse(arr2[1]), int.Parse(arr2[0]));
+
+                using (var sqtm = new baocaosoquy())
+                {
+                    List<BaoCaoTienMat> rs = sqtm.BaoCaoQuyTM(Ngay1,Ngay2);
+                }
                 DataTable dt = new DataTable();
+
                 if(cboLoaiQuy.EditValue==null)
                  dt = client.BaoCaoQuyTM(Ngay1, Ngay2);
                 else
                     dt = client.BaoCaoQuyTM_TheoQuy(Ngay1, Ngay2,cboLoaiQuy.EditValue.ToString().Trim());
+                var sfg = dt.Rows.Count;
                 gridControl1.DataSource = dt;
 
                
