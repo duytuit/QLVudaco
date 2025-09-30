@@ -50,12 +50,13 @@ namespace Quản_lý_vudaco.Forms
             this.gridView1 = new DevExpress.XtraGrid.Views.Grid.GridView();
             this.colSTT = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colNhaCungCap = new DevExpress.XtraGrid.Columns.GridColumn();
-            this.colType = new DevExpress.XtraGrid.Columns.GridColumn();
-            this.colSoTien = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colSoFile = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.colSoTien = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.colType = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colMaNhaCungCap = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colID = new DevExpress.XtraGrid.Columns.GridColumn();
             this.gridColumn1 = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.gridColumn2 = new DevExpress.XtraGrid.Columns.GridColumn();
             ((System.ComponentModel.ISupportInitialize)(this.radioGroup1.Properties)).BeginInit();
             this.panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.txtDienGiai.Properties)).BeginInit();
@@ -65,7 +66,7 @@ namespace Quản_lý_vudaco.Forms
             // 
             // btnCapNhat
             // 
-            this.btnCapNhat.ImageOptions.Image = ((System.Drawing.Image)(resources.GetObject("btnXem.ImageOptions.Image")));
+            this.btnCapNhat.ImageOptions.Image = ((System.Drawing.Image)(resources.GetObject("btnCapNhat.ImageOptions.Image")));
             this.btnCapNhat.Location = new System.Drawing.Point(12, 540);
             this.btnCapNhat.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.btnCapNhat.Name = "btnCapNhat";
@@ -242,7 +243,8 @@ namespace Quản_lý_vudaco.Forms
             this.colType,
             this.colMaNhaCungCap,
             this.colID,
-            this.gridColumn1});
+            this.gridColumn1,
+            this.gridColumn2});
             this.gridView1.GridControl = this.gridControl1;
             this.gridView1.Name = "gridView1";
             this.gridView1.OptionsView.ShowFooter = true;
@@ -256,7 +258,7 @@ namespace Quản_lý_vudaco.Forms
             this.colSTT.Name = "colSTT";
             this.colSTT.Visible = true;
             this.colSTT.VisibleIndex = 0;
-            this.colSTT.Width = 57;
+            this.colSTT.Width = 43;
             // 
             // colNhaCungCap
             // 
@@ -264,14 +266,17 @@ namespace Quản_lý_vudaco.Forms
             this.colNhaCungCap.FieldName = "TenNhaCungCap";
             this.colNhaCungCap.Name = "colNhaCungCap";
             this.colNhaCungCap.Visible = true;
-            this.colNhaCungCap.VisibleIndex = 1;
-            this.colNhaCungCap.Width = 545;
+            this.colNhaCungCap.VisibleIndex = 2;
+            this.colNhaCungCap.Width = 386;
             // 
-            // colType
+            // colSoFile
             // 
-            this.colType.Caption = "Type";
-            this.colType.FieldName = "Type";
-            this.colType.Name = "colType";
+            this.colSoFile.Caption = "So File";
+            this.colSoFile.FieldName = "SoFile";
+            this.colSoFile.Name = "colSoFile";
+            this.colSoFile.Visible = true;
+            this.colSoFile.VisibleIndex = 3;
+            this.colSoFile.Width = 260;
             // 
             // colSoTien
             // 
@@ -283,17 +288,14 @@ namespace Quản_lý_vudaco.Forms
             this.colSoTien.Summary.AddRange(new DevExpress.XtraGrid.GridSummaryItem[] {
             new DevExpress.XtraGrid.GridColumnSummaryItem(DevExpress.Data.SummaryItemType.Sum, "SoTien", "{0:#,##}")});
             this.colSoTien.Visible = true;
-            this.colSoTien.VisibleIndex = 3;
-            this.colSoTien.Width = 176;
+            this.colSoTien.VisibleIndex = 4;
+            this.colSoTien.Width = 127;
             // 
-            // colSoFile
+            // colType
             // 
-            this.colSoFile.Caption = "So File";
-            this.colSoFile.FieldName = "SoFile";
-            this.colSoFile.Name = "colSoFile";
-            this.colSoFile.Visible = true;
-            this.colSoFile.VisibleIndex = 2;
-            this.colSoFile.Width = 368;
+            this.colType.Caption = "Type";
+            this.colType.FieldName = "Type";
+            this.colType.Name = "colType";
             // 
             // colMaNhaCungCap
             // 
@@ -312,6 +314,15 @@ namespace Quản_lý_vudaco.Forms
             this.gridColumn1.Caption = "Type";
             this.gridColumn1.FieldName = "Type";
             this.gridColumn1.Name = "gridColumn1";
+            // 
+            // gridColumn2
+            // 
+            this.gridColumn2.Caption = "Ngày hạch toán";
+            this.gridColumn2.FieldName = "NgayHachToan";
+            this.gridColumn2.Name = "gridColumn2";
+            this.gridColumn2.Visible = true;
+            this.gridColumn2.VisibleIndex = 1;
+            this.gridColumn2.Width = 108;
             // 
             // frmChiNCC_V2
             // 
@@ -371,5 +382,6 @@ namespace Quản_lý_vudaco.Forms
         private DevExpress.XtraGrid.Columns.GridColumn colMaNhaCungCap;
         private DevExpress.XtraGrid.Columns.GridColumn colID;
         private DevExpress.XtraGrid.Columns.GridColumn gridColumn1;
+        private DevExpress.XtraGrid.Columns.GridColumn gridColumn2;
     }
 }

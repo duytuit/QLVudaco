@@ -115,7 +115,8 @@ namespace Quản_lý_vudaco.Forms
                         IDPhieuChi = _id_pchi,
                         LaVanChuyen = Convert.ToInt32(gridView1.GetRowCellValue(i, "Type").ToString()) == 3 ? 0 : 1,
                         KeyName = gridView1.GetRowCellValue(i, "Key").ToString(),
-                        IDName = gridView1.GetRowCellValue(i, "ID").ToString()
+                        IDName = gridView1.GetRowCellValue(i, "ID").ToString(),
+                        NgayHachToan = Convert.ToDateTime(gridView1.GetRowCellValue(i, "NgayHachToan").ToString())
                     };
                     _db.UpsertFromObject("PhieuChi_NCC_CT", phieuchitiet, "IDCTNCC", true);
                 }

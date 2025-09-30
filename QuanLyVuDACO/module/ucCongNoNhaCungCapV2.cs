@@ -57,7 +57,7 @@ namespace Quản_lý_vudaco.module
                         else
                             makh = (cboNCC.EditValue == null) ? "" : cboNCC.EditValue.ToString();
                         // phí đầu kỳ
-                        var ncc_dk = _ncc.CongNoChiTietNcc(Ngay1, null, makh, null, 1);
+                        var ncc_dk = _ncc.CongNoTongHopNcc(Ngay1, null, makh, null, 1);
                         var ncc_dv_dk = ncc_dk.Where(x => x.Type == 0) // lọc trước
                                          .GroupBy(x => x.MaNhaCungCap) // group theo MaNhaCungCap
                                          .Select(g => new
@@ -94,7 +94,7 @@ namespace Quản_lý_vudaco.module
                                          })
                                          .ToList();
                         // phí trong kỳ
-                        var ncc_tk = _ncc.CongNoChiTietNcc(Ngay1, Ngay2, makh);
+                        var ncc_tk = _ncc.CongNoTongHopNcc(Ngay1, Ngay2, makh);
                         var ncc_dv = ncc_tk.Where(x => x.Type == 0) // lọc trước
                                             .GroupBy(x => x.MaNhaCungCap) // group theo MaNhaCungCap
                                             .Select(g => new
@@ -242,7 +242,7 @@ namespace Quản_lý_vudaco.module
                         makh = "";
                     else
                         makh = (cboNCC.EditValue == null) ? "" : cboNCC.EditValue.ToString();
-                        var ncc_ct = _ncc.CongNoChiTietNcc(Ngay1,Ngay2,makh, cboNCC.Text)
+                        var ncc_ct = _ncc.CongNoTongHopNcc(Ngay1,Ngay2,makh, cboNCC.Text)
                                          .Select(x => new
                                          {
                                              x.NgayHachToan,

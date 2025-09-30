@@ -226,6 +226,7 @@ namespace Quản_lý_vudaco.Forms
             dt_view.Columns.Add("SoFile");
             dt_view.Columns.Add("Type");
             dt_view.Columns.Add("SoTien", typeof(double));
+            dt_view.Columns.Add("NgayHachToan", typeof(DateTime));
             bool check = false;
             using (var _ncc = new ncc())
             {
@@ -249,6 +250,7 @@ namespace Quản_lý_vudaco.Forms
                             row["Type"] = gridView1.GetRowCellValue(i, "Type")?.ToString();
                             row["ID"] = gridView1.GetRowCellValue(i, "ID")?.ToString();
                             row["Key"] = gridView1.GetRowCellValue(i, "Key")?.ToString();
+                            row["NgayHachToan"] = gridView1.GetRowCellValue(i, "NgayHachToan")?.ToString();
                             dt_view.Rows.Add(row);
                         }
                     }

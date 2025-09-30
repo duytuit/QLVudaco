@@ -1605,6 +1605,638 @@ namespace Quản_lý_vudaco.services
                return _db.GetSingleRecord("DanhSachNhaCungCap", mancc, "MaNhaCungCap");
             }
         }
+        public List<CongNoChiTietNcc> CongNoTongHopNcc(DateTime TuNgay, DateTime? DenNgay = null, string mancc = null, string tenncc = null, int dauky = 0)
+        {
+
+            // type 0 : phí dịch vụ
+            // type 3 : nâng hạ
+            // type 1 : chi nâng hạ
+            // type 2 : chi dịch vụ
+            // type 4 : chi tạm ứng
+
+            List<CongNoChiTietNcc> list = new List<CongNoChiTietNcc>();
+
+            string sql = $@"select nhct.IDCPCT,nhct.IDLoHang,nhct.GhiChu_ChiHo,nhct.MaNhaCungCap,nh.NgayTaoBangKe,ttf.SoFile,ttf.SoBill,ttf.SoToKhai,nhct.SoTien_ChiHo as ThanhTien,ttf.SoCont,pch.TenChiHo from BangPhoiNangHa_ChiTiet nhct left join BangPhoiNangHa nh on nh.IDLoHang = nhct.IDLoHang
+            left join ThongTinFile ttf on ttf.IDLoHang = nhct.IDLoHang left join DanhMuc_PhiChiHo pch on pch.MaChiHo = nhct.MaChiHo
+            where nhct.MaNhaCungCap IS NOT NULL AND LTRIM(RTRIM(nhct.MaNhaCungCap)) <> '' AND nh.NgayTaoBangKe >= '2025-09-01'";
+
+            if (TuNgay != DateTime.MinValue && DenNgay.HasValue)
+            {
+                DateTime _DenNgay = DenNgay.Value.AddDays(1);
+                sql += $@"and nh.NgayTaoBangKe >= '{TuNgay:yyyy-MM-dd}' and nh.NgayTaoBangKe <= '{_DenNgay:yyyy-MM-dd}'";
+            }
+            if (dauky == 1 && TuNgay != DateTime.MinValue) // đầu kỳ
+            {
+                sql += $@"and nh.NgayTaoBangKe < '{TuNgay:yyyy-MM-dd}'";
+            }
+            if (!string.IsNullOrEmpty(mancc))
+            {
+                sql += $@"and nhct.MaNhaCungCap = N'{mancc}'";
+            }
+
+            DataTable table = cls.LoadTable(sql);
+
+            foreach (DataRow item in table.Rows)
+            {
+                var obj = new CongNoChiTietNcc
+                {
+                    DienGiai = item["GhiChu_ChiHo"].ToString(),
+                    IDLoHang = item["IDLoHang"] != DBNull.Value ? Convert.ToInt32(item["IDLoHang"]) : 0,
+                    MaDieuXe = item["SoFile"].ToString(),
+                    SoFile = item["SoFile"].ToString(),
+                    NgayHachToan = item["NgayTaoBangKe"] != DBNull.Value ? Convert.ToDateTime(item["NgayTaoBangKe"]) : DateTime.MinValue,
+                    //SoHoaDon = item["SoHoaDon"].ToString(),
+                    // NgayHoaDon = item["NgayHoaDon"] != DBNull.Value ? Convert.ToDateTime(item["NgayHoaDon"]) : DateTime.MinValue,
+                    TenDichVu = "Nâng hạ",
+                    SoTien = item["ThanhTien"] != DBNull.Value ? Convert.ToDouble(item["ThanhTien"]) : 0,
+                    VAT = 0,
+                    ThanhTien = item["ThanhTien"] != DBNull.Value ? Convert.ToDouble(item["ThanhTien"]) : 0,
+                    // PhiDichVu_DoiTru = item["PhiDichVu_DoiTru"] != DBNull.Value ? Convert.ToDouble(item["PhiDichVu_DoiTru"]) : 0,
+                    MaNhaCungCap = item["MaNhaCungCap"].ToString(),
+                    SoToKhai = item["SoToKhai"].ToString(),
+                    SoBill = item["SoBill"].ToString(),
+                    SoCont = item["SoCont"].ToString(),
+                    NoiDung = item["TenChiHo"].ToString(),
+                    Type = 3, // nâng hạ
+                    Key = "nanghachitiet",
+                    ID = int.Parse(item["IDCPCT"].ToString()),
+                };
+
+                list.Add(obj);
+            }
+
+
+            sql = $@"select fd.*,fdct.*,ttf.SoToKhai,ttf.SoBill,ttf.SoCont from FileDebitNccChiTiet fdct left join FileDebitNcc fd on fd.IDDeBit = fdct.IDDeBit
+            left join ThongTinFile ttf on ttf.IDLoHang = fd.IDLoHang 
+            where fd.SoFile is not null
+             AND fdct.MaNhaCungCap IS NOT NULL AND LTRIM(RTRIM(fdct.MaNhaCungCap)) <> '' AND fd.ThoiGianLap >= '2025-09-01'";
+            if (TuNgay != DateTime.MinValue && DenNgay.HasValue)
+            {
+                DateTime _DenNgay = DenNgay.Value.AddDays(1);
+                sql += $@" and fd.ThoiGianLap >= '{TuNgay:yyyy-MM-dd}' and fd.ThoiGianLap <= '{_DenNgay:yyyy-MM-dd}'";
+            }
+            if (dauky == 1 && TuNgay != DateTime.MinValue) // đầu kỳ
+            {
+                sql += $@" and fd.ThoiGianLap < '{TuNgay:yyyy-MM-dd}'";
+            }
+            if (!string.IsNullOrEmpty(mancc))
+            {
+                sql += $@" and fdct.MaNhaCungCap = N'{mancc}'";
+            }
+            table = cls.LoadTable(sql);
+
+            foreach (DataRow item in table.Rows)
+            {
+                var obj = new CongNoChiTietNcc
+                {
+                    IDDeBit = item["IDDeBit"] != DBNull.Value ? Convert.ToInt32(item["IDDeBit"]) : 0,
+                    IDGia = item["IDGia"] != DBNull.Value ? Convert.ToInt32(item["IDGia"]) : 0,
+                    IDLoHang = item["IDLoHang"] != DBNull.Value ? Convert.ToInt32(item["IDLoHang"]) : 0,
+                    SoFile = item["SoFile"].ToString(),
+                    ThoiGianLap = item["ThoiGianLap"] != DBNull.Value ? Convert.ToDateTime(item["ThoiGianLap"]) : DateTime.MinValue,
+                    NgayHachToan = item["ThoiGianLap"] != DBNull.Value ? Convert.ToDateTime(item["ThoiGianLap"]) : DateTime.MinValue,
+                    NguoiLap = item["NguoiLap"].ToString(),
+                    SoHoaDon = item["SoHoaDon"].ToString(),
+                    NgayHoaDon = item["NgayHoaDon"] != DBNull.Value ? Convert.ToDateTime(item["NgayHoaDon"]) : DateTime.MinValue,
+                    MaDieuXe = item["SoFile"].ToString(),
+                    IDDeBitCT = item["IDDeBitCT"] != DBNull.Value ? Convert.ToInt32(item["IDDeBitCT"]) : 0,
+                    TenDichVu = item["TenDichVu"].ToString(),
+                    SoTien = item["SoTien"] != DBNull.Value ? Convert.ToDouble(item["SoTien"]) : 0,
+                    VAT = item["VAT"] != DBNull.Value ? Convert.ToDouble(item["VAT"]) : 0,
+                    ThanhTien = item["ThanhTien"] != DBNull.Value ? Convert.ToDouble(item["ThanhTien"]) : 0,
+                    LaPhiChiHo = item["LaPhiChiHo"] != DBNull.Value ? Convert.ToInt32(item["LaPhiChiHo"]) : 0,
+                    DoiTru = item["DoiTru"].ToString(),
+                    PhiDichVu_DoiTru = item["PhiDichVu_DoiTru"] != DBNull.Value ? Convert.ToDouble(item["PhiDichVu_DoiTru"]) : 0,
+                    MaNhaCungCap = item["MaNhaCungCap"].ToString(),
+                    SoToKhai = item["SoToKhai"].ToString(),
+                    SoBill = item["SoBill"].ToString(),
+                    SoCont = item["SoCont"].ToString(),
+                    NoiDung = item["TenDichVu"].ToString(),
+                    Key = "debitchitiet",
+                    ID = int.Parse(item["IDDeBitCT"].ToString()),
+                };
+
+                list.Add(obj);
+            }
+            sql = $@"SELECT fgct.IDGiaCT, fgct.GiaBan,fgct.GiaMua,fg.SoFile,fgct.MaNhaCungCap,fgct.TenDichVu,ttf.SoBill,ttf.SoToKhai,fg.ThoiGianLap as NgayHachToan,ttf.SoCont
+                        FROM FileGiaChiTiet fgct
+                        LEFT JOIN FileGia fg 
+                            ON fg.IDGia = fgct.IDGia
+                        LEFT JOIN FileDebitNcc fd 
+                            ON fd.SoFile = fg.SoFile
+                        LEFT JOIN ThongTinFile ttf 
+                            ON ttf.IDLoHang = fg.IDLoHang
+                        WHERE fg.SoFile IS NOT NULL
+                          AND fgct.MaNhaCungCap IS NOT NULL
+                          AND LTRIM(RTRIM(fgct.MaNhaCungCap)) <> '' AND fd.SoFile IS NULL AND fg.ThoiGianLap >= '2025-09-01'";
+            if (TuNgay != DateTime.MinValue && DenNgay.HasValue)
+            {
+                DateTime _DenNgay = DenNgay.Value.AddDays(1);
+                sql += $@" and fg.ThoiGianLap >= '{TuNgay:yyyy-MM-dd}' and fg.ThoiGianLap <= '{_DenNgay:yyyy-MM-dd}'";
+            }
+            if (dauky == 1 && TuNgay != DateTime.MinValue) // đầu kỳ
+            {
+                sql += $@" and fg.ThoiGianLap < '{TuNgay:yyyy-MM-dd}'";
+            }
+            if (!string.IsNullOrEmpty(mancc))
+            {
+                sql += $@" and fgct.MaNhaCungCap = N'{mancc}'";
+            }
+            table = cls.LoadTable(sql);
+            foreach (DataRow item in table.Rows)
+            {
+                var obj = new CongNoChiTietNcc
+                {
+                    SoFile = item.Table.Columns.Contains("SoFile") && item["SoFile"] != DBNull.Value ? item["SoFile"].ToString() : "",
+                    ThoiGianLap = item["NgayHachToan"] != DBNull.Value ? Convert.ToDateTime(item["NgayHachToan"]) : DateTime.MinValue,
+                    NgayHachToan = item["NgayHachToan"] != DBNull.Value ? Convert.ToDateTime(item["NgayHachToan"]) : DateTime.MinValue,
+                    SoHoaDon = item.Table.Columns.Contains("SoHoaDon") ? item["SoHoaDon"].ToString() : "",
+                    MaDieuXe = item.Table.Columns.Contains("SoFile") && item["SoFile"] != DBNull.Value ? item["SoFile"].ToString() : "",
+                    TenDichVu = item["TenDichVu"].ToString(),
+                    GiaMua = item["GiaMua"] != DBNull.Value ? Convert.ToDouble(item["GiaMua"]) : 0,
+                    SoTien = item["GiaMua"] != DBNull.Value ? Convert.ToDouble(item["GiaMua"]) : 0,
+                    VAT = 0,
+                    ThanhTien = item["GiaMua"] != DBNull.Value ? Convert.ToDouble(item["GiaMua"]) : 0,
+                    GiaBan = item["GiaBan"] != DBNull.Value ? Convert.ToDouble(item["GiaBan"]) : 0,
+                    MaNhaCungCap = item["MaNhaCungCap"].ToString(),
+                    SoBill = item["SoBill"].ToString(),
+                    SoToKhai = item["SoToKhai"].ToString(),
+                    SoCont = item["SoCont"].ToString(),
+                    NoiDung = item["TenDichVu"].ToString(),
+                    Key = "filegiachitiet",
+                    ID = int.Parse(item["IDGiaCT"].ToString()),
+                };
+
+                list.Add(obj);
+            }
+            sql = $@"SELECT 
+	                 ttf.SoToKhai,
+	                 ttf.SoBill,
+	                 ttf.SoCont,
+                     a.IDBangPhi,
+                     a.LaiXeThuCuoc,
+                     a.LoaiXe_KH,
+                     a.LoaiXe_NCC,
+                     a.LuongHangVe,
+                     a.MaDieuXe,
+                     b.MaKhachHang,
+                     b.TenKhachHang,
+                     c.MaNhaCungCap,
+                     c.TenNhaCungCap,
+                     a.Ngay,
+                     a.NguoiDuyet,
+                     a.NguoiTao,
+                     a.SoFile,
+                     a.ThoiGianDuyet,
+                     a.TienAn,
+                     a.QuaDem,
+                     a.TienLuat,
+                     a.TienVe,
+                     a.TTHQ,
+                     a.TuyenVC,
+                     a.BienSoXe,
+                     a.CuocBan,
+                     a.CuocMua,
+                     a.DiemTraHang,
+                     a.DuyetChi,
+                     a.LaiXe,
+                     ISNULL(b.TenVietTat, '')  AS TenVietTat,
+                     a.GhiChu,
+                     CAST(0 AS bit) AS Chon,
+                     'DieuXe' AS Bang
+                     FROM BangDieuXe a
+                     LEFT JOIN DanhSachKhachHang b ON a.MaKhachHang = b.MaKhachHang
+                     LEFT JOIN DanhSachNhaCungCap c ON a.MaNhaCungCap = c.MaNhaCungCap
+                     LEFT JOIN FileDebitNcc fd ON fd.MaDieuXe = a.MaDieuXe 
+	                 LEFT JOIN ThongTinFile ttf ON ttf.IDLoHang = fd.IDLoHang 
+                     WHERE
+                     (
+                     a.SoFile IS NULL 
+                     OR TRY_CAST(a.SoFile AS NVARCHAR) = '' 
+                     OR TRY_CAST(a.SoFile AS INT) = 0
+                     )
+                     AND ISNULL(a.CuocMua, 0) > 0
+                     AND fd.MaDieuXe IS NULL and a.MaNhaCungCap IS NOT NULL
+                          AND LTRIM(RTRIM(a.MaNhaCungCap)) <> '' AND a.Ngay >= '2025-09-01'";
+            if (TuNgay != DateTime.MinValue && DenNgay.HasValue)
+            {
+                DateTime _DenNgay = DenNgay.Value.AddDays(1);
+                sql += $@" and a.Ngay >= '{TuNgay:yyyy-MM-dd}' and a.Ngay <= '{_DenNgay:yyyy-MM-dd}'";
+            }
+            if (dauky == 1 && TuNgay != DateTime.MinValue) // đầu kỳ
+            {
+                sql += $@" and a.Ngay < '{TuNgay:yyyy-MM-dd}'";
+            }
+            if (!string.IsNullOrEmpty(mancc))
+            {
+                sql += $@" and a.MaNhaCungCap = N'{mancc}'";
+            }
+            table = cls.LoadTable(sql);
+            foreach (DataRow item in table.Rows)
+            {
+                var obj = new CongNoChiTietNcc
+                {
+                    SoToKhai = item["SoToKhai"].ToString(),
+                    SoBill = item["SoBill"].ToString(),
+                    IDBangPhi = item["IDBangPhi"] != DBNull.Value ? Convert.ToInt32(item["IDBangPhi"]) : 0,
+                    LaiXeThuCuoc = item["LaiXeThuCuoc"] != DBNull.Value ? Convert.ToDouble(item["LaiXeThuCuoc"]) : 0,
+                    LoaiXe_KH = item["LoaiXe_KH"].ToString(),
+                    LoaiXe_NCC = item["LoaiXe_NCC"].ToString(),
+                    LuongHangVe = item["LuongHangVe"] != DBNull.Value ? Convert.ToInt32(item["LuongHangVe"]) : 0,
+                    MaDieuXe = item["MaDieuXe"].ToString() + "/" + item["SoFile"].ToString(),
+                    MaKhachHang = item["MaKhachHang"].ToString(),
+                    TenKhachHang = item["TenKhachHang"].ToString(),
+                    MaNhaCungCap = item["MaNhaCungCap"].ToString(),
+                    TenNhaCungCap = item["TenNhaCungCap"].ToString(),
+                    Ngay = item["Ngay"] != DBNull.Value ? Convert.ToDateTime(item["Ngay"]) : DateTime.MinValue,
+                    NgayHachToan = item["Ngay"] != DBNull.Value ? Convert.ToDateTime(item["Ngay"]) : DateTime.MinValue,
+                    NguoiDuyet = item["NguoiDuyet"].ToString(),
+                    NguoiTao = item["NguoiTao"].ToString(),
+                    SoFile = item["SoFile"].ToString(),
+                    ThoiGianDuyet = item["ThoiGianDuyet"] != DBNull.Value ? Convert.ToDateTime(item["ThoiGianDuyet"]) : DateTime.MinValue,
+                    TienAn = item["TienAn"] != DBNull.Value ? Convert.ToDouble(item["TienAn"]) : 0,
+                    QuaDem = item["QuaDem"] != DBNull.Value ? Convert.ToDouble(item["QuaDem"]) : 0,
+                    TienLuat = item["TienLuat"] != DBNull.Value ? Convert.ToDouble(item["TienLuat"]) : 0,
+                    TienVe = item["TienVe"] != DBNull.Value ? Convert.ToDouble(item["TienVe"]) : 0,
+                    TTHQ = item["TTHQ"] != DBNull.Value ? Convert.ToDouble(item["TTHQ"]) : 0,
+                    TuyenVC = item["TuyenVC"].ToString(),
+                    TenDichVu = item["TuyenVC"].ToString(), // Nếu thực tế khác, map đúng cột TenDichVu
+                    BienSoXe = item["BienSoXe"].ToString(),
+                    CuocBan = item["CuocBan"] != DBNull.Value ? Convert.ToDouble(item["CuocBan"]) : 0,
+                    CuocMua = item["CuocMua"] != DBNull.Value ? Convert.ToDouble(item["CuocMua"]) : 0,
+                    SoTien = item["CuocMua"] != DBNull.Value ? Convert.ToDouble(item["CuocMua"]) : 0,
+                    VAT = 0,
+                    ThanhTien = item["CuocMua"] != DBNull.Value ? Convert.ToDouble(item["CuocMua"]) : 0,
+                    DiemTraHang = item["DiemTraHang"].ToString(),
+                    DuyetChi = item["DuyetChi"].ToString(),
+                    LaiXe = item["LaiXe"].ToString(),
+                    TenVietTat = item["TenVietTat"].ToString(),
+                    SoCont = item["SoCont"].ToString(),
+                    GhiChu = item["GhiChu"].ToString(),
+                    Key = "bangdieuxe",
+                    ID = int.Parse(item["IDBangPhi"].ToString()),
+                };
+
+                list.Add(obj);
+            }
+            sql = $@"SELECT 
+	                ttf.SoBill,
+	                ttf.SoToKhai,
+	                ttf.SoCont,
+                     fd.IDDeBit,
+                     fd.IDGia,
+                     fd.SoFile,
+                     fd.IDLoHang,
+                     fd.ThoiGianLap,
+                     fd.NguoiLap,
+                     fd.SoHoaDon,
+                     fd.NgayHoaDon,
+                     fdct.MaNhaCungCap,
+                     fd.MaDieuXe,
+                     fdct.LaPhiChiHo,
+                     dx.LoaiXe_NCC,dx.BienSoXe,dx.TuyenVC,
+                     ISNULL(SUM(fdct.ThanhTien), 0) AS ThanhTien,
+                     ISNULL(SUM(fdct.SoTien), 0) AS SoTien,
+                     ISNULL(SUM((fdct.VAT * fdct.SoTien)/100), 0) AS VAT
+                     FROM FileDebitNcc fd
+                     LEFT JOIN FileDebitNccChiTiet fdct ON fd.IDDeBit = fdct.IDDeBit
+	                 LEFT JOIN ThongTinFile ttf ON ttf.IDLoHang = fd.IDLoHang
+                     LEFT JOIN BangDieuXe dx ON dx.MaDieuXe = fd.MaDieuXe
+                     WHERE fdct.MaNhaCungCap IS NOT NULL AND LTRIM(RTRIM(fdct.MaNhaCungCap)) <> '' AND fd.MaDieuXe IS NOT NULL AND LTRIM(RTRIM(fd.MaDieuXe)) <> '' AND fd.ThoiGianLap >= '2025-09-01'";
+            if (TuNgay != DateTime.MinValue && DenNgay.HasValue)
+            {
+                DateTime _DenNgay = DenNgay.Value.AddDays(1);
+                sql += $@"and fd.ThoiGianLap >= '{TuNgay:yyyy-MM-dd}' and fd.ThoiGianLap <= '{_DenNgay:yyyy-MM-dd}'";
+            }
+            if (dauky == 1 && TuNgay != DateTime.MinValue) // đầu kỳ
+            {
+                sql += $@"and fd.ThoiGianLap < '{TuNgay:yyyy-MM-dd}'";
+            }
+            if (!string.IsNullOrEmpty(mancc))
+            {
+                sql += $@"and fdct.MaNhaCungCap = N'{mancc}'";
+            }
+            sql += $@"GROUP BY 
+                     fd.IDDeBit,
+                     fd.IDGia,
+                     fd.IDLoHang,
+                     fd.ThoiGianLap,
+                     fd.NguoiLap,
+                     fd.SoHoaDon,
+                     fd.NgayHoaDon,
+                     fd.SoFile,
+                     fd.MaDieuXe,
+                     fdct.MaNhaCungCap,
+	                 ttf.SoToKhai,
+	                 ttf.SoBill,
+	                 ttf.SoCont,
+                     dx.LoaiXe_NCC,
+				     dx.BienSoXe,
+				     dx.TuyenVC,fdct.LaPhiChiHo";
+            table = cls.LoadTable(sql);
+            foreach (DataRow item in table.Rows)
+            {
+                var obj = new CongNoChiTietNcc
+                {
+                    SoFile = item["SoFile"].ToString(),
+                    SoBill = item["SoBill"].ToString(),
+                    SoToKhai = item["SoToKhai"].ToString(),
+                    IDDeBit = item["IDDeBit"] != DBNull.Value ? Convert.ToInt32(item["IDDeBit"]) : 0,
+                    IDGia = item["IDGia"] != DBNull.Value ? Convert.ToInt32(item["IDGia"]) : 0,
+                    IDLoHang = item["IDLoHang"] != DBNull.Value ? Convert.ToInt32(item["IDLoHang"]) : 0,
+                    ThoiGianLap = item["ThoiGianLap"] != DBNull.Value ? Convert.ToDateTime(item["ThoiGianLap"]) : DateTime.MinValue,
+                    NgayHachToan = item["ThoiGianLap"] != DBNull.Value ? Convert.ToDateTime(item["ThoiGianLap"]) : DateTime.MinValue,
+                    NguoiLap = item["NguoiLap"].ToString(),
+                    SoHoaDon = item["SoHoaDon"].ToString(),
+                    NgayHoaDon = item["NgayHoaDon"] != DBNull.Value ? Convert.ToDateTime(item["NgayHoaDon"]) : DateTime.MinValue,
+                    MaNhaCungCap = item["MaNhaCungCap"].ToString(),
+                    MaDieuXe = item["MaDieuXe"].ToString(),
+                    LaPhiChiHo = item["LaPhiChiHo"] != DBNull.Value ? Convert.ToInt32(item["LaPhiChiHo"]) : 0,
+                    ThanhTien = item["ThanhTien"] != DBNull.Value ? Convert.ToDouble(item["ThanhTien"]) : 0,
+                    SoTien = item["SoTien"] != DBNull.Value ? Convert.ToDouble(item["SoTien"]) : 0,
+                    VAT = item["VAT"] != DBNull.Value ? Convert.ToDouble(item["VAT"]) : 0,
+                    TuyenVC = item["TuyenVC"].ToString(),
+                    SoCont = item["SoCont"].ToString(),
+                    TenDichVu = item["TuyenVC"].ToString(), // Nếu thực tế khác, map đúng cột TenDichVu
+                    BienSoXe = item["BienSoXe"].ToString(),
+                    Key = "filedebit",
+                    ID = int.Parse(item["IDDeBit"].ToString()),
+                };
+
+                list.Add(obj);
+            }
+            sql = $@"select pm.NgayMua,
+                    pm.IDPhieuMua,
+                    pm.DienGiai,
+                    pm.SoPhieu,
+                    pm.MaNhaCC,
+                    ISNULL(SUM(pmct.ThanhTienVAT), 0) AS ThanhTien,
+                    ISNULL(SUM(pmct.VAT), 0) AS VAT,
+                    ISNULL(SUM(pmct.SoTien), 0) AS SoTien,
+                    pmct.BienSoXe,
+                    pmct.NoiDung
+                    from PhieuMua pm
+                    LEFT JOIN PhieuMuaCT pmct ON pmct.IDPhieuMua = pm.IDPhieuMua
+                    where pm.MaNhaCC IS NOT NULL AND LTRIM(RTRIM(pm.MaNhaCC)) <> '' AND pm.NgayMua >= '2025-09-01'";
+            if (TuNgay != DateTime.MinValue && DenNgay.HasValue)
+            {
+                DateTime _DenNgay = DenNgay.Value.AddDays(1);
+                sql += $@" and pm.NgayMua >= '{TuNgay:yyyy-MM-dd}' and pm.NgayMua <= '{_DenNgay:yyyy-MM-dd}'";
+            }
+            if (dauky == 1 && TuNgay != DateTime.MinValue) // đầu kỳ
+            {
+                sql += $@" and pm.NgayMua < '{TuNgay:yyyy-MM-dd}'";
+            }
+            if (!string.IsNullOrEmpty(mancc))
+            {
+                sql += $@" and pm.MaNhaCC = N'{mancc}'";
+            }
+            sql += $@"GROUP BY 
+                    pmct.BienSoXe,
+                    pmct.NoiDung,
+                    pm.NgayMua,
+                    pm.SoPhieu,
+                    pm.IDPhieuMua,
+                    pm.DienGiai,pm.MaNhaCC";
+            table = cls.LoadTable(sql);
+            foreach (DataRow item in table.Rows)
+            {
+                var obj = new CongNoChiTietNcc
+                {
+                    DienGiai = item["DienGiai"].ToString(),
+                    MaNhaCungCap = item["MaNhaCC"].ToString(),
+                    // SoPhieu = item["SoPhieu"].ToString(),
+                    NgayMua = item["NgayMua"] != DBNull.Value ? Convert.ToDateTime(item["NgayMua"]) : DateTime.MinValue,
+                    NgayHachToan = item["NgayMua"] != DBNull.Value ? Convert.ToDateTime(item["NgayMua"]) : DateTime.MinValue,
+                    ThanhTien = item["ThanhTien"] != DBNull.Value ? Convert.ToDouble(item["ThanhTien"]) : 0,
+                    SoTien = item["SoTien"] != DBNull.Value ? Convert.ToDouble(item["SoTien"]) : 0,
+                    VAT = item["VAT"] != DBNull.Value ? Convert.ToDouble(item["VAT"]) : 0,
+                    // MaNhanVien = item["MaNhanVien"].ToString(),
+                    // NguoiMuaHang = item["NguoiMuaHang"].ToString(),
+                    // MaChi = item["MaChi"].ToString(),
+                    // MaChiCon = item["MaChiCon"].ToString(),
+                    NoiDung = item["SoPhieu"].ToString(),
+                    // NguoiTao = item["NguoiTao"].ToString(),
+                    BienSoXe = item["BienSoXe"].ToString(),
+                    MaDieuXe = item["SoPhieu"].ToString(),
+                    Key = "phieumua",
+                    ID = int.Parse(item["IDPhieuMua"].ToString()),
+                };
+
+                list.Add(obj);
+            }
+            sql = $@"select * from FileDebit_KoHoaDon_KH where MaNhaCungCap IS NOT NULL AND LTRIM(RTRIM(MaNhaCungCap)) <> '' AND NgayTao >= '2025-09-01'";
+            if (TuNgay != DateTime.MinValue && DenNgay.HasValue)
+            {
+                DateTime _DenNgay = DenNgay.Value.AddDays(1);
+                sql += $@" and NgayTao >= '{TuNgay:yyyy-MM-dd}' and NgayTao <= '{_DenNgay:yyyy-MM-dd}'";
+            }
+            if (dauky == 1 && TuNgay != DateTime.MinValue) // đầu kỳ
+            {
+                sql += $@" and NgayTao < '{TuNgay:yyyy-MM-dd}'";
+            }
+            if (!string.IsNullOrEmpty(mancc))
+            {
+                sql += $@" and MaNhaCungCap = N'{mancc}'";
+            }
+            table = cls.LoadTable(sql);
+            foreach (DataRow item in table.Rows)
+            {
+                var obj = new CongNoChiTietNcc
+                {
+                    IDDeBit = item["IDDeBit"] != DBNull.Value ? Convert.ToInt32(item["IDDeBit"]) : 0,
+                    MaDieuXe = item["MaDieuXe"].ToString(),
+                    MaKhachHang = item["MaKhachHang"].ToString(),
+                    LoaiXe_KH = item["LoaiXe_KH"].ToString(),
+                    TuyenVC = item["TuyenVC"].ToString(),
+                    CuocMua = item["CuocMua"] != DBNull.Value ? Convert.ToDouble(item["CuocMua"]) : 0,
+                    CuocBan = item["CuocBan"] != DBNull.Value ? Convert.ToDouble(item["CuocBan"]) : 0,
+                    LaiXeThuCuoc = item["LaiXeThuCuoc"] != DBNull.Value ? Convert.ToDouble(item["LaiXeThuCuoc"]) : 0,
+                    NguoiTao = item["NguoiTao"].ToString(),
+                    NgayTao = item["NgayTao"] != DBNull.Value ? Convert.ToDateTime(item["NgayTao"]) : DateTime.MinValue,
+                    NgayHachToan = item["NgayTao"] != DBNull.Value ? Convert.ToDateTime(item["NgayTao"]) : DateTime.MinValue,
+                    TenDichVu = item["TenDichVu"].ToString(),
+                    SoTien = item["PhiCom"] != DBNull.Value ? Convert.ToDouble(item["PhiCom"]) : 0,
+                    VAT = 0,
+                    ThanhTien = item["PhiCom"] != DBNull.Value ? Convert.ToDouble(item["PhiCom"]) : 0,
+                    GhiChu = item["GhiChu"].ToString(),
+                    PhiCom = item["PhiCom"] != DBNull.Value ? Convert.ToDouble(item["PhiCom"]) : 0,
+                    DoanhThuThuan = item["DoanhThuThuan"] != DBNull.Value ? Convert.ToDouble(item["DoanhThuThuan"]) : 0,
+                    MaNhaCungCap = item["MaNhaCungCap"].ToString(),
+                    SoHoaDon = item["SoHoaDon"].ToString(),
+                    DoiTru = item["DoiTru"].ToString(),
+                    PhiDichVu_DoiTru = item["PhiDichVu_DoiTru"] != DBNull.Value ? Convert.ToDouble(item["PhiDichVu_DoiTru"]) : 0,
+                    // PhiChiHo_DoiTru = item["PhiChiHo_DoiTru"] != DBNull.Value ? Convert.ToDouble(item["PhiChiHo_DoiTru"]) : 0,
+                    NgayHoaDon = item["NgayHoaDon"] != DBNull.Value ? Convert.ToDateTime(item["NgayHoaDon"]) : DateTime.MinValue,
+                    NoiDung = "Phí com",
+                    Key = "FileDebit_KoHoaDon_KH",
+                    ID = int.Parse(item["IDDeBit"].ToString()),
+                };
+
+                list.Add(obj);
+            }
+            sql = $@"select pc.NgayHachToan,pct.IDCTNCC,pct.IDName,pct.KeyName,pc.MaChi,pc.SoChungTu,pct.SoFile,pct.MaDieuXe,pct.SoTien,pct.ThanhTien,pct.VAT,pct.LaVanChuyen,pct.MaDoiTuong,pct.TenDoiTuong,pc.DienGiai,pc.HinhThucTT,pc.ChuTaiKhoan from PhieuChi_NCC_CT pct left join PhieuChi_NCC pc on pct.SoChungTu = pc.SoChungTu where pc.MaChi = N'006' and pc.LyDoChi = N'Chi trả tiền nhà cung cấp' and pct.MaDoiTuong IS NOT NULL
+                          AND LTRIM(RTRIM(pct.MaDoiTuong)) <> '' AND pc.NgayHachToan >= '2025-09-01'";
+            if (TuNgay != DateTime.MinValue && DenNgay.HasValue)
+            {
+                DateTime _DenNgay = DenNgay.Value.AddDays(1);
+                sql += $@" and pc.NgayHachToan >= '{TuNgay:yyyy-MM-dd}' and pc.NgayHachToan <= '{_DenNgay:yyyy-MM-dd}'";
+            }
+            if (dauky == 1 && TuNgay != DateTime.MinValue) // đầu kỳ
+            {
+                sql += $@" and pc.NgayHachToan < '{TuNgay:yyyy-MM-dd}'";
+            }
+            if (!string.IsNullOrEmpty(mancc))
+            {
+                sql += $@" and pct.MaDoiTuong = N'{mancc}'";
+            }
+            table = cls.LoadTable(sql);
+            foreach (DataRow item in table.Rows)
+            {
+                var obj = new CongNoChiTietNcc
+                {
+                    SoChungTu = item["SoChungTu"].ToString(),
+                    NgayHachToan = item["NgayHachToan"] != DBNull.Value ? Convert.ToDateTime(item["NgayHachToan"]) : DateTime.MinValue,
+                    MaChi = item["MaChi"].ToString(),
+                    SoFile = item["SoFile"].ToString(),
+                    NoiDung = item["DienGiai"].ToString(),
+                    MaDieuXe = item["SoFile"].ToString(),
+                    DienGiai = item["DienGiai"].ToString(),
+                    HinhThucTT = item["HinhThucTT"].ToString(),
+                    ChuTaiKhoan = item["ChuTaiKhoan"].ToString(),
+                    TenNhaCungCap = item["TenDoiTuong"].ToString(),
+                    MaNhaCungCap = item["MaDoiTuong"].ToString(),
+                    TongTien = item["ThanhTien"] != DBNull.Value ? Convert.ToDouble(item["ThanhTien"]) : 0,
+                    SoTien = item["SoTien"] != DBNull.Value ? Convert.ToDouble(item["SoTien"]) : 0,
+                    ThanhTien = item["ThanhTien"] != DBNull.Value ? Convert.ToDouble(item["ThanhTien"]) : 0,
+                    VAT = item["VAT"] != DBNull.Value ? Convert.ToDouble(item["VAT"]) : 0,
+                    Type = Convert.ToDouble(item["LaVanChuyen"]) == 0 ? 1 : 2, //1: chi nâng hạ 2: là chi dịch vụ
+                    ID = int.Parse(item["IDCTNCC"].ToString()),
+                    Key = "phieuchitietncc",
+                    KeyName = item["KeyName"].ToString(),
+                    IDName = item["IDName"] == DBNull.Value ? 0 : Convert.ToInt32(item["IDName"])
+                };
+
+                list.Add(obj);
+            }
+            sql = $@"select pc.NgayHachToan,pct.IDCT,pc.MaChi,pc.SoChungTu,pct.SoFile,pct.MaDieuXe,pct.SoTien,pct.ThanhTien,pct.VAT,pct.MaDoiTuong,pct.TenDoiTuong,pc.DienGiai,pc.HinhThucTT,pc.ChuTaiKhoan,pc.LyDoChi from PhieuChi_CT pct left join PhieuChi pc on pct.SoChungTu = pc.SoChungTu where pc.MaChi = N'006' and pc.LyDoChi = N'Chi tạm ứng tiền cho nhà cung cấp' and pct.MaDoiTuong IS NOT NULL
+                          AND LTRIM(RTRIM(pct.MaDoiTuong)) <> '' AND pc.NgayHachToan >= '2025-09-01'";
+            if (TuNgay != DateTime.MinValue && DenNgay.HasValue)
+            {
+                DateTime _DenNgay = DenNgay.Value.AddDays(1);
+                sql += $@" and pc.NgayHachToan >= '{TuNgay:yyyy-MM-dd}' and pc.NgayHachToan <= '{_DenNgay:yyyy-MM-dd}'";
+            }
+            if (dauky == 1 && TuNgay != DateTime.MinValue) // đầu kỳ
+            {
+                sql += $@" and pc.NgayHachToan < '{TuNgay:yyyy-MM-dd}'";
+            }
+            if (!string.IsNullOrEmpty(mancc))
+            {
+                sql += $@" and pct.MaDoiTuong = N'{mancc}'";
+            }
+            table = cls.LoadTable(sql);
+            foreach (DataRow item in table.Rows)
+            {
+                var obj = new CongNoChiTietNcc
+                {
+                    SoChungTu = item["SoChungTu"].ToString(),
+                    NgayHachToan = item["NgayHachToan"] != DBNull.Value ? Convert.ToDateTime(item["NgayHachToan"]) : DateTime.MinValue,
+                    MaChi = item["MaChi"].ToString(),
+                    SoFile = item["SoFile"].ToString(),
+                    NoiDung = item["DienGiai"].ToString(),
+                    MaDieuXe = item["SoFile"].ToString(),
+                    DienGiai = item["DienGiai"].ToString(),
+                    HinhThucTT = item["HinhThucTT"].ToString(),
+                    ChuTaiKhoan = item["ChuTaiKhoan"].ToString(),
+                    TenNhaCungCap = item["TenDoiTuong"].ToString(),
+                    MaNhaCungCap = item["MaDoiTuong"].ToString(),
+                    TongTien = item["ThanhTien"] != DBNull.Value ? Convert.ToDouble(item["ThanhTien"]) : 0,
+                    SoTien = item["SoTien"] != DBNull.Value ? Convert.ToDouble(item["SoTien"]) : 0,
+                    ThanhTien = item["ThanhTien"] != DBNull.Value ? Convert.ToDouble(item["ThanhTien"]) : 0,
+                    VAT = item["VAT"] != DBNull.Value ? Convert.ToDouble(item["VAT"]) : 0,
+                    Type = 4, // 4: Chi tạm ứng tiền cho nhà cung cấp
+                    ID = int.Parse(item["IDCT"].ToString()),
+                    Key = "phieuchi"
+                };
+
+                list.Add(obj);
+            }
+
+            // dịch vụ
+            sql = $@"SELECT sddk.*,ncc.TenNhaCungCap FROM SoDuDauKy sddk left join DanhSachNhaCungCap ncc on sddk.MaDoiTuong = ncc.MaNhaCungCap 
+                    where sddk.Loai=1 and LoaiCongNo=0";
+            if (TuNgay != DateTime.MinValue && DenNgay.HasValue)
+            {
+                DateTime _DenNgay = DenNgay.Value.AddDays(1);
+                sql += $@" and sddk.NgayHachToan >= '{TuNgay:yyyy-MM-dd}' and sddk.NgayHachToan <= '{_DenNgay:yyyy-MM-dd}'";
+            }
+            if (dauky == 1 && TuNgay != DateTime.MinValue) // đầu kỳ
+            {
+                sql += $@" and sddk.NgayHachToan < '{TuNgay:yyyy-MM-dd}'";
+            }
+            if (!string.IsNullOrEmpty(mancc))
+            {
+                sql += $@" and sddk.MaDoiTuong = N'{mancc}'";
+            }
+            table = cls.LoadTable(sql);
+            foreach (DataRow item in table.Rows)
+            {
+                var obj = new CongNoChiTietNcc
+                {
+                    NgayHachToan = item["NgayHachToan"] != DBNull.Value ? Convert.ToDateTime(item["NgayHachToan"]) : DateTime.MinValue,
+                    SoHoaDon = item["SoHoaDon"].ToString(),
+                    NoiDung = item["SoHoaDon"].ToString() + " " + item["GhiChu"].ToString(),
+                    DienGiai = item["SoHoaDon"].ToString() + " " + item["GhiChu"].ToString(),
+                    TenNhaCungCap = item["TenNhaCungCap"].ToString(),
+                    MaNhaCungCap = item["MaDoiTuong"].ToString(),
+                    TongTien = item["SoTien"] != DBNull.Value ? Convert.ToDouble(item["SoTien"]) : 0,
+                    SoTien = item["SoTien"] != DBNull.Value ? Convert.ToDouble(item["SoTien"]) : 0,
+                    ThanhTien = item["SoTien"] != DBNull.Value ? Convert.ToDouble(item["SoTien"]) : 0,
+                    ID = int.Parse(item["ID"].ToString()),
+                    Key = "sodudaukydv"
+                };
+
+                list.Add(obj);
+            }
+            // nâng hạ
+            sql = $@"SELECT sddk.*,ncc.TenNhaCungCap FROM SoDuDauKy sddk left join DanhSachNhaCungCap ncc on sddk.MaDoiTuong = ncc.MaNhaCungCap 
+                    where sddk.Loai=1 and LoaiCongNo=1";
+            if (TuNgay != DateTime.MinValue && DenNgay.HasValue)
+            {
+                DateTime _DenNgay = DenNgay.Value.AddDays(1);
+                sql += $@" and sddk.NgayHachToan >= '{TuNgay:yyyy-MM-dd}' and sddk.NgayHachToan <= '{_DenNgay:yyyy-MM-dd}'";
+            }
+            if (dauky == 1 && TuNgay != DateTime.MinValue) // đầu kỳ
+            {
+                sql += $@" and sddk.NgayHachToan < '{TuNgay:yyyy-MM-dd}'";
+            }
+            if (!string.IsNullOrEmpty(mancc))
+            {
+                sql += $@" and sddk.MaDoiTuong = N'{mancc}'";
+            }
+            table = cls.LoadTable(sql);
+            foreach (DataRow item in table.Rows)
+            {
+                var obj = new CongNoChiTietNcc
+                {
+                    NgayHachToan = item["NgayHachToan"] != DBNull.Value ? Convert.ToDateTime(item["NgayHachToan"]) : DateTime.MinValue,
+                    SoHoaDon = item["SoHoaDon"].ToString(),
+                    NoiDung = item["SoHoaDon"].ToString() + " " + item["GhiChu"].ToString(),
+                    DienGiai = item["SoHoaDon"].ToString() + " " + item["GhiChu"].ToString(),
+                    TenNhaCungCap = item["TenNhaCungCap"].ToString(),
+                    MaNhaCungCap = item["MaDoiTuong"].ToString(),
+                    TongTien = item["SoTien"] != DBNull.Value ? Convert.ToDouble(item["SoTien"]) : 0,
+                    SoTien = item["SoTien"] != DBNull.Value ? Convert.ToDouble(item["SoTien"]) : 0,
+                    ThanhTien = item["SoTien"] != DBNull.Value ? Convert.ToDouble(item["SoTien"]) : 0,
+                    ID = int.Parse(item["ID"].ToString()),
+                    Key = "sodudaukynh",
+                    Type = 3
+                };
+
+                list.Add(obj);
+            }
+            return list;
+        }
         public List<CongNoChiTietNcc> CongNoChiTietNcc( DateTime TuNgay,  DateTime? DenNgay = null, string mancc = null, string tenncc = null, int dauky = 0)
         {
 
@@ -2075,16 +2707,16 @@ namespace Quản_lý_vudaco.services
 
                 list.Add(obj);
             }
-            sql = $@"select pct.IDCTNCC,pct.IDName,pct.KeyName,pc.MaChi,pc.SoChungTu,pct.SoFile,pct.MaDieuXe,pct.SoTien,pct.ThanhTien,pct.VAT,pct.LaVanChuyen,pct.MaDoiTuong,pct.TenDoiTuong,pc.NgayHachToan,pc.DienGiai,pc.HinhThucTT,pc.ChuTaiKhoan from PhieuChi_NCC_CT pct left join PhieuChi_NCC pc on pct.SoChungTu = pc.SoChungTu where pc.MaChi = N'006' and pc.LyDoChi = N'Chi trả tiền nhà cung cấp' and pct.MaDoiTuong IS NOT NULL
+            sql = $@"select pct.IDCTNCC,pct.IDName,c.KeyName,pc.MaChi,pc.SoChungTu,pct.SoFile,pct.MaDieuXe,pct.SoTien,pct.ThanhTien,pct.VAT,pct.LaVanChuyen,pct.MaDoiTuong,pct.TenDoiTuong,pc.DienGiai,pc.NgayHachToan,pc.HinhThucTT,pc.ChuTaiKhoan from PhieuChi_NCC_CT pct left join PhieuChi_NCC pc on pct.SoChungTu = pc.SoChungTu where pc.MaChi = N'006' and pc.LyDoChi = N'Chi trả tiền nhà cung cấp' and pct.MaDoiTuong IS NOT NULL
                           AND LTRIM(RTRIM(pct.MaDoiTuong)) <> '' AND pc.NgayHachToan >= '2025-09-01'";
             if (TuNgay != DateTime.MinValue && DenNgay.HasValue)
             {
                 DateTime _DenNgay = DenNgay.Value.AddDays(1);
-                sql += $@" and pc.NgayHachToan >= '{TuNgay:yyyy-MM-dd}' and pc.NgayHachToan <= '{_DenNgay:yyyy-MM-dd}'";
+                sql += $@" and pct.NgayHachToan >= '{TuNgay:yyyy-MM-dd}' and pct.NgayHachToan <= '{_DenNgay:yyyy-MM-dd}'";
             }
             if (dauky == 1 && TuNgay != DateTime.MinValue) // đầu kỳ
             {
-                sql += $@" and pc.NgayHachToan < '{TuNgay:yyyy-MM-dd}'";
+                sql += $@" and pct.NgayHachToan < '{TuNgay:yyyy-MM-dd}'";
             }
             if (!string.IsNullOrEmpty(mancc))
             {
@@ -2119,7 +2751,7 @@ namespace Quản_lý_vudaco.services
 
                 list.Add(obj);
             }
-            sql = $@"select pct.IDCT,pc.MaChi,pc.SoChungTu,pct.SoFile,pct.MaDieuXe,pct.SoTien,pct.ThanhTien,pct.VAT,pct.MaDoiTuong,pct.TenDoiTuong,pc.NgayHachToan,pc.DienGiai,pc.HinhThucTT,pc.ChuTaiKhoan,pc.LyDoChi from PhieuChi_CT pct left join PhieuChi pc on pct.SoChungTu = pc.SoChungTu where pc.MaChi = N'006' and pc.LyDoChi = N'Chi tạm ứng tiền cho nhà cung cấp' and pct.MaDoiTuong IS NOT NULL
+            sql = $@"select pc.NgayHachToan,pct.IDCT,pc.MaChi,pc.SoChungTu,pct.SoFile,pct.MaDieuXe,pct.SoTien,pct.ThanhTien,pct.VAT,pct.MaDoiTuong,pct.TenDoiTuong,pc.DienGiai,pc.HinhThucTT,pc.ChuTaiKhoan,pc.LyDoChi from PhieuChi_CT pct left join PhieuChi pc on pct.SoChungTu = pc.SoChungTu where pc.MaChi = N'006' and pc.LyDoChi = N'Chi tạm ứng tiền cho nhà cung cấp' and pct.MaDoiTuong IS NOT NULL
                           AND LTRIM(RTRIM(pct.MaDoiTuong)) <> '' AND pc.NgayHachToan >= '2025-09-01'";
             if (TuNgay != DateTime.MinValue && DenNgay.HasValue)
             {
