@@ -6,6 +6,7 @@ using Google.Apis.Upload;
 using Google.Apis.Util.Store;
 using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
@@ -131,11 +132,14 @@ namespace Quản_lý_vudaco.module
         private async Task BackupAndUploadAsync()
         {
             string sqlPackagePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "sqlpackage/SqlPackage.exe");
-
-            string server = @"103.226.249.227\sqlexpress";
-            string database = "vua45987_vudaco";
-            string user = "vua45987_vudaco";
-            string password = "0l7w7fJ*7"; 
+            // Lấy connection string từ App.config
+            string connStr = ConfigurationManager.ConnectionStrings["project"].ConnectionString;
+            // Parse chuỗi kết nối để lấy các thông tin cần thiết
+            var builder = new System.Data.SqlClient.SqlConnectionStringBuilder(connStr);
+            string server = builder.DataSource;
+            string database = builder.InitialCatalog;
+            string user = builder.UserID;
+            string password = builder.Password;
 
             string backupFolder = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Backup");
             Directory.CreateDirectory(backupFolder);
