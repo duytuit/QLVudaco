@@ -485,8 +485,8 @@ namespace Quản_lý_vudaco.Forms
                   
                     if (_Chon)
                     {
-                        int NoCuoiKi_DichVu = int.Parse(bandedGridView1.GetRowCellValue(i, "NoCuoiKi_DichVu")?.ToString());
-                        int NoCuoiKi_ChiHo = int.Parse(bandedGridView1.GetRowCellValue(i, "NoCuoiKi_ChiHo")?.ToString());
+                        int NoCuoiKi_DichVu = int.Parse(bandedGridView1.GetRowCellValue(i, "SoThu_DichVu")?.ToString());
+                        int NoCuoiKi_ChiHo = int.Parse(bandedGridView1.GetRowCellValue(i, "SoThu_ChiHo")?.ToString());
                         if (NoCuoiKi_DichVu > 0 || NoCuoiKi_ChiHo > 0)
                         {
                             check = true;
@@ -496,8 +496,8 @@ namespace Quản_lý_vudaco.Forms
                             row["SoFile"] = bandedGridView1.GetRowCellValue(i, "SoFile").ToString();
                             row["MaDieuXe"] = bandedGridView1.GetRowCellValue(i, "MaDieuXe")?.ToString();
                             row["GhiChu"] = bandedGridView1.GetRowCellValue(i, "DienGiai")?.ToString();
-                            row["ThuDichVu"] = bandedGridView1.GetRowCellValue(i, "NoCuoiKi_DichVu")?.ToString();
-                            row["ThuChiHo"] = bandedGridView1.GetRowCellValue(i, "NoCuoiKi_ChiHo")?.ToString();
+                            row["ThuDichVu"] = NoCuoiKi_DichVu;
+                            row["ThuChiHo"] = NoCuoiKi_ChiHo;
                             row["LaPhiChiHo"] = bandedGridView1.GetRowCellValue(i, "LaPhiChiHo")?.ToString();
                             row["DiaChi"] = kh["DiaChi"].ToString();
                             row["Tong"] = bandedGridView1.GetRowCellValue(i, "NoCuoiKi")?.ToString();
@@ -605,6 +605,19 @@ namespace Quản_lý_vudaco.Forms
                     for (int i = 0; i < bandedGridView1.RowCount; i++)
                     {
                         bandedGridView1.SetRowCellValue(i, "Chon", headerCheckBoxState);
+                        bool isCheck = bool.Parse(bandedGridView1.GetRowCellValue(i, "Chon").ToString());
+                        if (isCheck)
+                        {
+                            bandedGridView1.SetRowCellValue(i, "SoThu_DichVu",
+                                bandedGridView1.GetRowCellValue(i, "NoCuoiKi_DichVu"));
+                            bandedGridView1.SetRowCellValue(i, "SoThu_ChiHo",
+                                bandedGridView1.GetRowCellValue(i, "NoCuoiKi_ChiHo"));
+                        }
+                        else
+                        {
+                            bandedGridView1.SetRowCellValue(i, "SoThu_DichVu", 0);
+                            bandedGridView1.SetRowCellValue(i, "SoThu_ChiHo", 0);
+                        }
                     }
 
                     // Vẽ lại header
