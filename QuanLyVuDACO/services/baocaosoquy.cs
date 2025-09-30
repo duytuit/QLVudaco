@@ -18,19 +18,27 @@ namespace Quản_lý_vudaco.services
         public List<BaoCaoTienMat> BaoCaoQuyTM(DateTime TuNgay, DateTime? DenNgay = null, string madoituong = null, int dauky = 0)
         {
             List<BaoCaoTienMat> list = new List<BaoCaoTienMat>();
-            string sql = $@"";
+
+            string sql = $@"select MaNhanVien,TenNhanVien from NhanVien";
+            DataTable table_NhanVien = cls.LoadTable(sql);
+            sql = $@"select MaKhachHang,TenKhachHang,TenVietTat from DanhSachKhachHang";
+            DataTable table_DanhSachKhachHang = cls.LoadTable(sql);
+            sql = $@"select MaNhaCungCap,TenNhaCungCap,TenVietTat from DanhSachNhaCungCap";
+            DataTable table_DanhSachNhaCungCap = cls.LoadTable(sql);
+
+            sql = $@"Select B.DienGiai,B.LyDoThu,B.NgayHachToan,B.MaThu,A.* from PhieuThu_CT A left join PhieuThu B on A.SoChungTu = B.SoChungTu";
             if (TuNgay != DateTime.MinValue && DenNgay.HasValue)
             {
                 DateTime _DenNgay = DenNgay.Value.AddDays(1);
-                sql += $@" and fd.NgayHachToan >= '{TuNgay:yyyy-MM-dd}' and fd.NgayHachToan <= '{_DenNgay:yyyy-MM-dd}'";
+                sql += $@" and B.NgayHachToan >= '{TuNgay:yyyy-MM-dd}' and B.NgayHachToan <= '{_DenNgay:yyyy-MM-dd}'";
             }
             if (dauky == 1 && TuNgay != DateTime.MinValue) // đầu kỳ
             {
-                sql += $@" and fd.NgayHachToan < '{TuNgay:yyyy-MM-dd}'";
+                sql += $@" and B.NgayHachToan < '{TuNgay:yyyy-MM-dd}'";
             }
             if (!string.IsNullOrEmpty(madoituong))
             {
-                sql += $@" and fd.MaDoiTuong = N'{madoituong}'";
+                sql += $@" and A.MaDoiTuong = N'{madoituong}'";
             }
             DataTable table = cls.LoadTable(sql);
             foreach (DataRow item in table.Rows)
@@ -40,8 +48,8 @@ namespace Quản_lý_vudaco.services
                     NgayHachToan = item["NgayHachToan"] == DBNull.Value ? DateTime.MinValue : Convert.ToDateTime(item["NgayHachToan"]),
                     SoPhieu = item["SoPhieu"]?.ToString(),
                     DienGiai = item["DienGiai"]?.ToString(),
-                    Thu = item["Thu"] == DBNull.Value ? 0 : Convert.ToDouble(item["Thu"]),
-                    Chi = item["Chi"] == DBNull.Value ? 0 : Convert.ToDouble(item["Chi"]),
+                    Thu = item["ThanhTien"] == DBNull.Value ? 0 : Convert.ToDouble(item["ThanhTien"]),
+                    Chi = 0,
                     Ton = 0,
                     DoiTuong = item["DoiTuong"]?.ToString(),
                     MaDoiTuong = item["MaDoiTuong"]?.ToString(),
