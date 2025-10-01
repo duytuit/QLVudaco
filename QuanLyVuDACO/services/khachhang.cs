@@ -58,6 +58,24 @@ namespace Quản_lý_vudaco.services
 
             return cls.LoadTable(sql);
         }
+        public DataTable BangFileDebitDaTao_ChiTiet(int IDDeBit)
+        {
+            string sql = $@"
+                SELECT fdct.*,
+                    dx.LoaiXe_KH,
+                    dx.BienSoXe,
+                    dx.LoaiXe_NCC,
+                    dx.LuongHangVe,
+                    dx.MaDieuXe,
+                    dx.TuyenVC,
+                    dx.GhiChu AS GhiChu_dx
+                FROM FileDebitChiTiet fdct
+                LEFT JOIN FileDebit fd ON fd.IDDeBit = fdct.IDDeBit   
+                LEFT JOIN BangDieuXe dx ON dx.SoFile = fd.SoFile    
+                WHERE fdct.IDDeBit = {IDDeBit}";
+
+            return cls.LoadTable(sql);
+        }
         public DataTable dt_BangFileDebitDaTao_KH(DateTime TuNgay, DateTime DenNgay)
         {
             string sql = $@"

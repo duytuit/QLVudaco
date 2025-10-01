@@ -110,6 +110,7 @@ namespace Quản_lý_vudaco.module
             this.gridColumn18 = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colSTT1 = new DevExpress.XtraGrid.Columns.GridColumn();
             this.gridColumn20 = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.gridColumn39 = new DevExpress.XtraGrid.Columns.GridColumn();
             ((System.ComponentModel.ISupportInitialize)(this.panelControl1)).BeginInit();
             this.panelControl1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.panelControl4)).BeginInit();
@@ -318,7 +319,8 @@ namespace Quản_lý_vudaco.module
             this.gridColumn16,
             this.colSTT3,
             this.gridColumn30,
-            this.gridColumn35});
+            this.gridColumn35,
+            this.gridColumn39});
             this.gridView3.DetailHeight = 284;
             this.gridView3.GridControl = this.gridControl3;
             this.gridView3.Name = "gridView3";
@@ -363,7 +365,7 @@ namespace Quản_lý_vudaco.module
             this.gridColumn10.Name = "gridColumn10";
             this.gridColumn10.Visible = true;
             this.gridColumn10.VisibleIndex = 2;
-            this.gridColumn10.Width = 159;
+            this.gridColumn10.Width = 76;
             // 
             // gridColumn11
             // 
@@ -375,7 +377,7 @@ namespace Quản_lý_vudaco.module
             this.gridColumn11.Name = "gridColumn11";
             this.gridColumn11.Visible = true;
             this.gridColumn11.VisibleIndex = 3;
-            this.gridColumn11.Width = 144;
+            this.gridColumn11.Width = 70;
             // 
             // gridColumn17
             // 
@@ -389,7 +391,7 @@ namespace Quản_lý_vudaco.module
             new DevExpress.XtraGrid.GridColumnSummaryItem(DevExpress.Data.SummaryItemType.Sum, "ThanhTien", "{0:#,##}")});
             this.gridColumn17.Visible = true;
             this.gridColumn17.VisibleIndex = 4;
-            this.gridColumn17.Width = 129;
+            this.gridColumn17.Width = 87;
             // 
             // gridColumn16
             // 
@@ -398,7 +400,7 @@ namespace Quản_lý_vudaco.module
             this.gridColumn16.MinWidth = 21;
             this.gridColumn16.Name = "gridColumn16";
             this.gridColumn16.Visible = true;
-            this.gridColumn16.VisibleIndex = 5;
+            this.gridColumn16.VisibleIndex = 6;
             this.gridColumn16.Width = 209;
             // 
             // colSTT3
@@ -408,7 +410,7 @@ namespace Quản_lý_vudaco.module
             this.colSTT3.Name = "colSTT3";
             this.colSTT3.Visible = true;
             this.colSTT3.VisibleIndex = 0;
-            this.colSTT3.Width = 30;
+            this.colSTT3.Width = 71;
             // 
             // gridColumn30
             // 
@@ -417,7 +419,7 @@ namespace Quản_lý_vudaco.module
             this.gridColumn30.MinWidth = 21;
             this.gridColumn30.Name = "gridColumn30";
             this.gridColumn30.Visible = true;
-            this.gridColumn30.VisibleIndex = 6;
+            this.gridColumn30.VisibleIndex = 7;
             this.gridColumn30.Width = 81;
             // 
             // gridColumn35
@@ -426,7 +428,7 @@ namespace Quản_lý_vudaco.module
             this.gridColumn35.FieldNameSortGroup = "SoHoaDon";
             this.gridColumn35.Name = "gridColumn35";
             this.gridColumn35.Visible = true;
-            this.gridColumn35.VisibleIndex = 7;
+            this.gridColumn35.VisibleIndex = 8;
             // 
             // repositoryItemHyperLinkEdit6
             // 
@@ -999,6 +1001,14 @@ namespace Quản_lý_vudaco.module
             this.gridColumn20.VisibleIndex = 6;
             this.gridColumn20.Width = 81;
             // 
+            // gridColumn39
+            // 
+            this.gridColumn39.Caption = "Biển số xe";
+            this.gridColumn39.FieldName = "BienSoXe";
+            this.gridColumn39.Name = "gridColumn39";
+            this.gridColumn39.Visible = true;
+            this.gridColumn39.VisibleIndex = 5;
+            // 
             // ucBangTheoDoiDebit_File
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1127,5 +1137,6 @@ namespace Quản_lý_vudaco.module
         private DevExpress.XtraGrid.Columns.GridColumn gridColumn37;
         private DevExpress.XtraGrid.Columns.GridColumn gridColumn38;
         private DevExpress.XtraEditors.SimpleButton simpleButton1;
+        private DevExpress.XtraGrid.Columns.GridColumn gridColumn39;
     }
 }

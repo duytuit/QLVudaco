@@ -171,7 +171,11 @@ namespace Quản_lý_vudaco.module
                 {
                     ServiceReference1.WebService1SoapClient client = new ServiceReference1.WebService1SoapClient();
                     _IDDeBit = int.Parse(gridView2.GetFocusedRowCellValue("IDDeBit").ToString());
-                    gridControl3.DataSource = client.BangFileDebitDaTao_ChiTiet(_IDDeBit);
+                    using (var kh= new khachhang())
+                    {
+                        gridControl3.DataSource = kh.BangFileDebitDaTao_ChiTiet(_IDDeBit);
+                    }
+                   // gridControl3.DataSource = client.BangFileDebitDaTao_ChiTiet(_IDDeBit);
                 }
             }
             catch (Exception)
@@ -185,7 +189,11 @@ namespace Quản_lý_vudaco.module
             {
                 ServiceReference1.WebService1SoapClient client = new ServiceReference1.WebService1SoapClient();
                 _IDDeBit = int.Parse(gridView2.GetFocusedRowCellValue("IDDeBit").ToString());
-                gridControl3.DataSource = client.BangFileDebitDaTao_ChiTiet(_IDDeBit);
+                //gridControl3.DataSource = client.BangFileDebitDaTao_ChiTiet(_IDDeBit);
+                using (var kh = new khachhang())
+                {
+                    gridControl3.DataSource = kh.BangFileDebitDaTao_ChiTiet(_IDDeBit);
+                }
             }    
            
         }
