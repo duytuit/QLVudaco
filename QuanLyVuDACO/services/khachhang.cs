@@ -16,6 +16,48 @@ namespace Quản_lý_vudaco.services
         {
             cls = new clsKetNoi();
         }
+        public DataTable dt_BangFileDebitDaTao(DateTime TuNgay, DateTime DenNgay)
+        {
+            DateTime _DenNgay = DenNgay.AddDays(1);
+            string sql = $@"
+            SELECT 
+                a.IDDeBit,
+                a.IDGia,
+                a.IDLoHang,
+                a.SoFile,
+                a.ThoiGianLap,
+                a.NguoiLap,
+                c.TenKhachHang,
+                c.TenVietTat,
+                b.SoBill,
+                b.SoToKhai,
+                b.TenSales,
+                a.SoHoaDon,
+                a.NgayHoaDon,
+                dx.BienSoXe,
+                SUM(ct.ThanhTien) AS ThanhTien,
+                SUM(CASE WHEN ct.LaPhiChiHo = 1 THEN ct.ThanhTien ELSE 0 END) AS TongPhiChiHo,
+                SUM(CASE WHEN ct.LaPhiChiHo = 0 THEN ct.SoTien ELSE 0 END) AS TongPhi,
+                SUM((ct.VAT * ct.SoTien) / 100) AS VAT,
+                SUM(CASE WHEN ct.LaPhiChiHo = 0 THEN ct.SoTien ELSE 0 END) 
+                  + SUM((ct.VAT * ct.SoTien) / 100) AS TongPhi_VAT,
+                SUM(ct.ThanhTien) AS TongChiPhiLoHang,
+                CAST(0 AS bit) AS Chon
+            FROM FileDebit a
+            INNER JOIN ThongTinFile b ON a.IDLoHang = b.IDLoHang
+            INNER JOIN DanhSachKhachHang c ON b.MaKhachHang = c.MaKhachHang
+            LEFT JOIN FileDebitChiTiet ct ON a.IDDeBit = ct.IDDeBit
+            LEFT JOIN FileGia fg ON fg.IDLoHang = a.IDLoHang
+            LEFT JOIN BangDieuXe dx ON dx.SoFile = fg.SoFile
+            WHERE a.ThoiGianLap >= '{TuNgay:yyyy-MM-dd}'
+              AND a.ThoiGianLap <= '{_DenNgay:yyyy-MM-dd}'
+            GROUP BY 
+                a.IDDeBit, a.IDGia, a.IDLoHang, a.SoFile, a.ThoiGianLap, a.NguoiLap,
+                c.TenKhachHang, c.TenVietTat, b.SoBill, b.SoToKhai, b.TenSales,
+                a.SoHoaDon, a.NgayHoaDon, dx.BienSoXe";
+
+            return cls.LoadTable(sql);
+        }
         public DataTable dt_BangFileDebitDaTao_KH(DateTime TuNgay, DateTime DenNgay)
         {
             string sql = $@"

@@ -18,6 +18,7 @@ namespace Quản_lý_vudaco.module
         public ucBaoCaoSoQuyTM()
         {
             InitializeComponent();
+            colSTT.UnboundType = DevExpress.Data.UnboundColumnType.Integer;
         }
         ServiceReference1.WebService1SoapClient client = new ServiceReference1.WebService1SoapClient();
         private void ucBaoCaoSoQuyTM_Load(object sender, EventArgs e)
@@ -39,9 +40,17 @@ namespace Quản_lý_vudaco.module
 
                 using (var sqtm = new baocaosoquy())
                 {
-                    List<BaoCaoSoQuy> rs_ton = sqtm.BaoCaoQuy(Ngay1, null, null, "TM",1);
-                    double ton = rs_ton.Sum(y => y.Thu) - rs_ton.Sum(y => y.Chi);
-                    List<BaoCaoSoQuy> rs = sqtm.BaoCaoQuy(Ngay1, Ngay2, null, "TM");
+                    string makh = "";
+                    if (cboKH.Text == "")
+                        makh = "";
+                    else
+                        makh = (cboKH.EditValue == null) ? "" : cboKH.EditValue.ToString();
+                    List<BaoCaoSoQuy> rs_ton = sqtm.BaoCaoQuy(Ngay1, null, makh, "TM",1);
+                    double ton_thu = rs_ton.Sum(y => y.Thu);
+                    double ton_chi =  rs_ton.Sum(y => y.Chi);
+                    double ton = ton_thu - ton_chi;
+                    lbSoDuDK.Text = ton.ToString("#,##");
+                    List<BaoCaoSoQuy> rs = sqtm.BaoCaoQuy(Ngay1, Ngay2, makh, "TM");
                     var rs_baocao_tienmat = rs.OrderBy(x=>x.NgayHachToan).ToList();
                     foreach (var item in rs_baocao_tienmat)
                     {
@@ -81,6 +90,17 @@ namespace Quản_lý_vudaco.module
             }
 
             return dataTable;
+        }
+
+        private void gridView1_CustomUnboundColumnData(object sender, DevExpress.XtraGrid.Views.Base.CustomColumnDataEventArgs e)
+        {
+            var view = sender as DevExpress.XtraGrid.Views.Grid.GridView;
+            if (e.IsGetData)
+            {
+                int rowHandle = view.GetRowHandle(e.ListSourceRowIndex);
+                if (rowHandle >= 0)
+                    e.Value = rowHandle + 1;
+            }
         }
     }
 }

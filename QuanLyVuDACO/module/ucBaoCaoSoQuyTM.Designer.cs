@@ -47,7 +47,7 @@ namespace Quản_lý_vudaco.module
             this.panelControl2 = new DevExpress.XtraEditors.PanelControl();
             this.gridControl1 = new DevExpress.XtraGrid.GridControl();
             this.gridView1 = new DevExpress.XtraGrid.Views.Grid.GridView();
-            this.gridColumn3 = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.colSTT = new DevExpress.XtraGrid.Columns.GridColumn();
             this.gridColumn4 = new DevExpress.XtraGrid.Columns.GridColumn();
             this.gridColumn5 = new DevExpress.XtraGrid.Columns.GridColumn();
             this.gridColumn6 = new DevExpress.XtraGrid.Columns.GridColumn();
@@ -239,7 +239,7 @@ namespace Quản_lý_vudaco.module
             // gridView1
             // 
             this.gridView1.Columns.AddRange(new DevExpress.XtraGrid.Columns.GridColumn[] {
-            this.gridColumn3,
+            this.colSTT,
             this.gridColumn4,
             this.gridColumn5,
             this.gridColumn6,
@@ -252,16 +252,19 @@ namespace Quản_lý_vudaco.module
             this.gridColumn13});
             this.gridView1.GridControl = this.gridControl1;
             this.gridView1.Name = "gridView1";
+            this.gridView1.OptionsView.ShowAutoFilterRow = true;
+            this.gridView1.OptionsView.ShowFooter = true;
             this.gridView1.OptionsView.ShowGroupPanel = false;
+            this.gridView1.CustomUnboundColumnData += new DevExpress.XtraGrid.Views.Base.CustomColumnDataEventHandler(this.gridView1_CustomUnboundColumnData);
             // 
-            // gridColumn3
+            // colSTT
             // 
-            this.gridColumn3.Caption = "STT";
-            this.gridColumn3.FieldName = "STT";
-            this.gridColumn3.Name = "gridColumn3";
-            this.gridColumn3.Visible = true;
-            this.gridColumn3.VisibleIndex = 0;
-            this.gridColumn3.Width = 32;
+            this.colSTT.Caption = "STT";
+            this.colSTT.FieldName = "STT";
+            this.colSTT.Name = "colSTT";
+            this.colSTT.Visible = true;
+            this.colSTT.VisibleIndex = 0;
+            this.colSTT.Width = 32;
             // 
             // gridColumn4
             // 
@@ -293,8 +296,12 @@ namespace Quản_lý_vudaco.module
             // gridColumn7
             // 
             this.gridColumn7.Caption = "Thu";
+            this.gridColumn7.DisplayFormat.FormatString = "{0:#,##}";
+            this.gridColumn7.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Numeric;
             this.gridColumn7.FieldName = "Thu";
             this.gridColumn7.Name = "gridColumn7";
+            this.gridColumn7.Summary.AddRange(new DevExpress.XtraGrid.GridSummaryItem[] {
+            new DevExpress.XtraGrid.GridColumnSummaryItem(DevExpress.Data.SummaryItemType.Sum, "Thu", "{0:#,##}")});
             this.gridColumn7.Visible = true;
             this.gridColumn7.VisibleIndex = 8;
             this.gridColumn7.Width = 70;
@@ -302,8 +309,12 @@ namespace Quản_lý_vudaco.module
             // gridColumn8
             // 
             this.gridColumn8.Caption = "Chi";
+            this.gridColumn8.DisplayFormat.FormatString = "{0:#,##}";
+            this.gridColumn8.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Numeric;
             this.gridColumn8.FieldName = "Chi";
             this.gridColumn8.Name = "gridColumn8";
+            this.gridColumn8.Summary.AddRange(new DevExpress.XtraGrid.GridSummaryItem[] {
+            new DevExpress.XtraGrid.GridColumnSummaryItem(DevExpress.Data.SummaryItemType.Sum, "Chi", "{0:#,##}")});
             this.gridColumn8.Visible = true;
             this.gridColumn8.VisibleIndex = 9;
             this.gridColumn8.Width = 65;
@@ -347,6 +358,8 @@ namespace Quản_lý_vudaco.module
             // gridColumn13
             // 
             this.gridColumn13.Caption = "Tồn";
+            this.gridColumn13.DisplayFormat.FormatString = "{0:#,##}";
+            this.gridColumn13.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Numeric;
             this.gridColumn13.FieldName = "Ton";
             this.gridColumn13.Name = "gridColumn13";
             this.gridColumn13.Visible = true;
@@ -394,7 +407,7 @@ namespace Quản_lý_vudaco.module
         private DevExpress.XtraEditors.PanelControl panelControl2;
         private DevExpress.XtraGrid.GridControl gridControl1;
         private DevExpress.XtraGrid.Views.Grid.GridView gridView1;
-        private DevExpress.XtraGrid.Columns.GridColumn gridColumn3;
+        private DevExpress.XtraGrid.Columns.GridColumn colSTT;
         private DevExpress.XtraGrid.Columns.GridColumn gridColumn4;
         private DevExpress.XtraGrid.Columns.GridColumn gridColumn5;
         private DevExpress.XtraGrid.Columns.GridColumn gridColumn6;

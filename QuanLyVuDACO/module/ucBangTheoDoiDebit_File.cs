@@ -12,6 +12,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using DevExpress.XtraReports.UI;
 using DevExpress.XtraGrid.Views.Grid.ViewInfo;
+using Quản_lý_vudaco.services;
 
 namespace Quản_lý_vudaco.module
 {
@@ -79,6 +80,10 @@ namespace Quản_lý_vudaco.module
                 DataView view = client.dt_BangFileDebitDaTao(Ngay1, Ngay2).Copy().DefaultView;
                 view.RowFilter = "SoFile is not null";
                 gridControl2.DataSource = view.ToTable();
+                //using (var kh= new khachhang())
+                //{
+                //    gridControl2.DataSource = kh.dt_BangFileDebitDaTao(Ngay1, Ngay2);
+                //}
             }
             else
             {
