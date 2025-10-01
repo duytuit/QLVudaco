@@ -93,7 +93,10 @@ namespace Quản_lý_vudaco.services
                     LoaiDoiTuong = doiTuong,
                     MaQuy = item["MaQuy"]?.ToString(),
                     TenQuy = tenQuy,
-                    LyDo = item["LyDoThu"]?.ToString()
+                    LyDo = item["LyDoThu"]?.ToString(),
+                    SoTK = item["SoTK"]?.ToString(),
+                    ChuTK = item["ChuTaiKhoan"]?.ToString(),
+                    NganHang = item["TenNganHang"]?.ToString(),
                 };
 
                 list.Add(obj);
@@ -163,12 +166,15 @@ namespace Quản_lý_vudaco.services
                     LoaiDoiTuong = doiTuong,
                     MaQuy = item["MaQuy"]?.ToString(),
                     TenQuy = tenQuy,
-                    LyDo = item["LyDoThu"]?.ToString()
+                    LyDo = item["LyDoThu"]?.ToString(),
+                    SoTK = item["SoTK"]?.ToString(),
+                    ChuTK = item["ChuTaiKhoan"]?.ToString(),
+                    NganHang = item["TenNganHang"]?.ToString(),
                 };
 
                 list.Add(obj);
             }
-            sql = $@"Select B.HinhThucTT,B.DienGiai,B.SoTK,B.TenNganHang,B.ChuTaiKhoan,B.NgayHachToan, B.MaQuy, A.* from PhieuChi_LaiXe_CT A left join PhieuChi_LaiXe B on B.SoChungTu=A.SoChungTu where B.SoChungTu is not null";
+            sql = $@"Select B.HinhThucTT,B.DienGiai,B.SoTK,B.TenNganHang,B.ChuTaiKhoan,B.NgayHachToan, B.MaQuy,B.LyDoThu, A.* from PhieuThu_LaiXe_CT A left join PhieuThu_LaiXe B on B.SoChungTu=A.SoChungTu where B.SoChungTu is not null";
             if (TuNgay != DateTime.MinValue && DenNgay.HasValue)
             {
                 DateTime _DenNgay = DenNgay.Value.AddDays(1);
@@ -233,12 +239,15 @@ namespace Quản_lý_vudaco.services
                     LoaiDoiTuong = doiTuong,
                     MaQuy = item["MaQuy"]?.ToString(),
                     TenQuy = tenQuy,
-                    LyDo = item["LyDoThu"]?.ToString()
+                    LyDo = item["LyDoThu"]?.ToString(),
+                    SoTK = item["SoTK"]?.ToString(),
+                    ChuTK = item["ChuTaiKhoan"]?.ToString(),
+                    NganHang = item["TenNganHang"]?.ToString(),
                 };
 
                 list.Add(obj);
             }
-            sql = $@"Select B.HinhThucTT,B.DienGiai,B.SoTK,B.TenNganHang,B.ChuTaiKhoan,B.NgayHachToan, B.MaQuy, A.* from PhieuChi_LaiXe_CT A left join PhieuChi_LaiXe B on B.SoChungTu=A.SoChungTu where B.SoChungTu is not null";
+            sql = $@"Select B.HinhThucTT,B.DienGiai,B.SoTK,B.TenNganHang,B.ChuTaiKhoan,B.NgayHachToan, B.MaQuy,B.LyDoThu, A.* from PhieuThu_NoiBo_CT A left join PhieuThu_NoiBo B on B.SoChungTu=A.SoChungTu where B.SoChungTu is not null";
             if (TuNgay != DateTime.MinValue && DenNgay.HasValue)
             {
                 DateTime _DenNgay = DenNgay.Value.AddDays(1);
@@ -303,12 +312,15 @@ namespace Quản_lý_vudaco.services
                     LoaiDoiTuong = doiTuong,
                     MaQuy = item["MaQuy"]?.ToString(),
                     TenQuy = tenQuy,
-                    LyDo = item["LyDoThu"]?.ToString()
+                    LyDo = item["LyDoThu"]?.ToString(),
+                    SoTK = item["SoTK"]?.ToString(),
+                    ChuTK = item["ChuTaiKhoan"]?.ToString(),
+                    NganHang = item["TenNganHang"]?.ToString(),
                 };
 
                 list.Add(obj);
             }
-            sql = $@"Select B.HinhThucTT,B.DienGiai,B.SoTK,B.TenNganHang,B.ChuTaiKhoan,B.NgayHachToan, B.MaQuy, A.* from PhieuChi_CT A left join PhieuChi B on B.SoChungTu=A.SoChungTu where B.SoChungTu is not null";
+            sql = $@"Select B.HinhThucTT,B.DienGiai,B.SoTK,B.TenNganHang,B.ChuTaiKhoan,B.NgayHachToan, B.MaQuy,B.LyDoChi, A.* from PhieuChi_CT A left join PhieuChi B on B.SoChungTu=A.SoChungTu where B.SoChungTu is not null";
             if (TuNgay != DateTime.MinValue && DenNgay.HasValue)
             {
                 DateTime _DenNgay = DenNgay.Value.AddDays(1);
@@ -373,12 +385,15 @@ namespace Quản_lý_vudaco.services
                     LoaiDoiTuong = doiTuong,
                     MaQuy = item["MaQuy"]?.ToString(),
                     TenQuy = tenQuy,
-                    LyDo = item["LyDoThu"]?.ToString()
+                    LyDo = item["LyDoChi"]?.ToString(),
+                    SoTK = item["SoTK"]?.ToString(),
+                    ChuTK = item["ChuTaiKhoan"]?.ToString(),
+                    NganHang = item["TenNganHang"]?.ToString(),
                 };
 
                 list.Add(obj);
             }
-            sql = $@"Select B.HinhThucTT,B.DienGiai,B.SoTK,B.TenNganHang,B.ChuTaiKhoan,B.NgayHachToan, B.MaQuy, A.* from PhieuChi_LaiXe_CT A left join PhieuChi_LaiXe B on B.SoChungTu=A.SoChungTu where B.SoChungTu is not null";
+            sql = $@"Select B.HinhThucTT,B.DienGiai,B.SoTK,B.TenNganHang,B.ChuTaiKhoan,B.NgayHachToan, B.MaQuy,B.LyDoChi, A.* from PhieuChi_LaiXe_CT A left join PhieuChi_LaiXe B on B.SoChungTu=A.SoChungTu where B.SoChungTu is not null";
             if (TuNgay != DateTime.MinValue && DenNgay.HasValue)
             {
                 DateTime _DenNgay = DenNgay.Value.AddDays(1);
@@ -443,7 +458,10 @@ namespace Quản_lý_vudaco.services
                     LoaiDoiTuong = doiTuong,
                     MaQuy = item["MaQuy"]?.ToString(),
                     TenQuy = tenQuy,
-                    LyDo = item["LyDoThu"]?.ToString()
+                    LyDo = item["LyDoChi"]?.ToString(),
+                    SoTK = item["SoTK"]?.ToString(),
+                    ChuTK = item["ChuTaiKhoan"]?.ToString(),
+                    NganHang = item["TenNganHang"]?.ToString(),
                 };
 
                 list.Add(obj);
@@ -513,7 +531,10 @@ namespace Quản_lý_vudaco.services
                     LoaiDoiTuong = doiTuong,
                     MaQuy = item["MaQuy"]?.ToString(),
                     TenQuy = tenQuy,
-                    LyDo = item["LyDoChi"]?.ToString()
+                    LyDo = item["LyDoChi"]?.ToString(),
+                    SoTK = item["SoTK"]?.ToString(),
+                    ChuTK = item["ChuTaiKhoan"]?.ToString(),
+                    NganHang = item["TenNganHang"]?.ToString(),
                 };
 
                 list.Add(obj);
@@ -583,7 +604,10 @@ namespace Quản_lý_vudaco.services
                     LoaiDoiTuong = doiTuong,
                     MaQuy = item["MaQuy"]?.ToString(),
                     TenQuy = tenQuy,
-                    LyDo = item["LyDoChi"]?.ToString()
+                    LyDo = item["LyDoChi"]?.ToString(),
+                    SoTK = item["SoTK"]?.ToString(),
+                    ChuTK = item["ChuTaiKhoan"]?.ToString(),
+                    NganHang = item["TenNganHang"]?.ToString(),
                 };
 
                 list.Add(obj);
@@ -653,7 +677,10 @@ namespace Quản_lý_vudaco.services
                     LoaiDoiTuong = doiTuong,
                     MaQuy = item["MaQuy"]?.ToString(),
                     TenQuy = tenQuy,
-                    LyDo = item["LyDoChi"]?.ToString()
+                    LyDo = item["LyDoChi"]?.ToString(),
+                    SoTK = item["SoTK"]?.ToString(),
+                    ChuTK = item["ChuTaiKhoan"]?.ToString(),
+                    NganHang = item["TenNganHang"]?.ToString(),
                 };
 
                 list.Add(obj);
