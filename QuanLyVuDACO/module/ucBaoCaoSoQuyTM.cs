@@ -39,28 +39,48 @@ namespace Quản_lý_vudaco.module
 
                 using (var sqtm = new baocaosoquy())
                 {
+                    List<BaoCaoSoQuy> rs_ton = sqtm.BaoCaoQuy(Ngay1, null, null, "TM",1);
+                    double ton = rs_ton.Sum(y => y.Thu) - rs_ton.Sum(y => y.Chi);
                     List<BaoCaoSoQuy> rs = sqtm.BaoCaoQuy(Ngay1, Ngay2, null, "TM");
-                    DataTable dt = new DataTable();
-                    dt.Columns.Add("NgayHachToan", typeof(DateTime));
-                    dt.Columns.Add("SoPhieu", typeof(string));
-                    dt.Columns.Add("DienGiai", typeof(string));
-                    dt.Columns.Add("Thu", typeof(double));
-                    dt.Columns.Add("Chi", typeof(double));
-                    dt.Columns.Add("Ton", typeof(double));
-                    dt.Columns.Add("MaDoiTuong", typeof(string));
-                    dt.Columns.Add("DoiTuong", typeof(string));
-                    dt.Columns.Add("LoaiDoiTuong", typeof(string));
-                    dt.Columns.Add("MaQuy", typeof(string));
-                    dt.Columns.Add("TenQuy", typeof(string));
-                    dt.Columns.Add("LyDo", typeof(string));
-                    dt.Columns.Add("SoTK", typeof(string));
-                    dt.Columns.Add("ChuTK", typeof(string));
-                    dt.Columns.Add("NganHang", typeof(string));
+                    var rs_baocao_tienmat = rs.OrderBy(x=>x.NgayHachToan).ToList();
+                    foreach (var item in rs_baocao_tienmat)
+                    {
+                        ton += item.Thu;
+                        ton -= item.Chi;
+                        item.Ton = ton;    // <-- gán trực tiếp
+                    }
+                    var kq_bao_cao_tienmat = rs_baocao_tienmat.OrderByDescending(x => x.NgayHachToan).ToList();
+                    gridControl1.DataSource = ToDataTable(kq_bao_cao_tienmat);
                 }
-               
-                //gridControl1.DataSource = dt;
-
             }
+        }
+        public static DataTable ToDataTable<T>(List<T> items)
+        {
+            DataTable dataTable = new DataTable(typeof(T).Name);
+
+            // Lấy các property của class
+            var Props = typeof(T).GetProperties(System.Reflection.BindingFlags.Public | System.Reflection.BindingFlags.Instance);
+            foreach (var prop in Props)
+            {
+                // Thiết lập kiểu dữ liệu Nullable nếu có
+                var type = (prop.PropertyType.IsGenericType && prop.PropertyType.GetGenericTypeDefinition() == typeof(Nullable<>))
+                            ? Nullable.GetUnderlyingType(prop.PropertyType)
+                            : prop.PropertyType;
+
+                dataTable.Columns.Add(prop.Name, type);
+            }
+
+            foreach (var item in items)
+            {
+                var values = new object[Props.Length];
+                for (int i = 0; i < Props.Length; i++)
+                {
+                    values[i] = Props[i].GetValue(item, null);
+                }
+                dataTable.Rows.Add(values);
+            }
+
+            return dataTable;
         }
     }
 }
