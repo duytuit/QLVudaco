@@ -15,7 +15,7 @@ namespace Quản_lý_vudaco.services
         {
             cls = new clsKetNoi();
         }
-        public List<BaoCaoSoQuy> BaoCaoQuy(DateTime TuNgay, DateTime? DenNgay = null, string madoituong = null, string hinhthucTT = null, int dauky = 0)
+        public List<BaoCaoSoQuy> BaoCaoQuy(DateTime TuNgay, DateTime? DenNgay = null, string madoituong = null, string hinhthucTT =null, int dauky = 0)
         {
             List<BaoCaoSoQuy> list = new List<BaoCaoSoQuy>();
 
@@ -27,8 +27,6 @@ namespace Quản_lý_vudaco.services
             DataTable table_DanhSachNhaCungCap = cls.LoadTable(sql);
             sql = $@"select * from DanhMucQuy";
             DataTable table_Quy = cls.LoadTable(sql);
-           // sql = $@"select * from DanhMucNganHang";
-           // DataTable table_NganHang = cls.LoadTable(sql);
 
             sql = $@"Select B.MaQuy,B.HinhThucTT,B.SoTK,B.ChuTaiKhoan,B.TenNganHang,B.DienGiai,B.LyDoThu,B.NgayHachToan,B.MaThu,A.* from PhieuThu_CT A left join PhieuThu B on A.SoChungTu = B.SoChungTu where B.SoChungTu is not null";
             if (TuNgay != DateTime.MinValue && DenNgay.HasValue)
@@ -75,13 +73,12 @@ namespace Quản_lý_vudaco.services
                     if (rows.Length > 0)
                         tenDT = rows[0]["TenNhanVien"].ToString();
                 }
-                if(maQuy !="")
+                if (maQuy != "")
                 {
                     DataRow[] rows = table_Quy.Select($"MaQuy = '{maQuy}'");
                     if (rows.Length > 0)
                         tenQuy = rows[0]["TenQuy"].ToString();
                 }
-              
 
                 var obj = new BaoCaoSoQuy
                 {
@@ -96,10 +93,7 @@ namespace Quản_lý_vudaco.services
                     LoaiDoiTuong = doiTuong,
                     MaQuy = item["MaQuy"]?.ToString(),
                     TenQuy = tenQuy,
-                    LyDo = item["LyDoThu"]?.ToString(),
-                    SoTK = item["SoTK"]?.ToString(),
-                    ChuTK = item["ChuTaiKhoan"]?.ToString(),
-                    NganHang = item["TenNganHang"]?.ToString(),
+                    LyDo = item["LyDoThu"]?.ToString()
                 };
 
                 list.Add(obj);
@@ -169,10 +163,7 @@ namespace Quản_lý_vudaco.services
                     LoaiDoiTuong = doiTuong,
                     MaQuy = item["MaQuy"]?.ToString(),
                     TenQuy = tenQuy,
-                    LyDo = item["LyDoThu"]?.ToString(),
-                    SoTK = item["SoTK"]?.ToString(),
-                    ChuTK = item["ChuTaiKhoan"]?.ToString(),
-                    NganHang = item["TenNganHang"]?.ToString(),
+                    LyDo = item["LyDoThu"]?.ToString()
                 };
 
                 list.Add(obj);
@@ -242,10 +233,7 @@ namespace Quản_lý_vudaco.services
                     LoaiDoiTuong = doiTuong,
                     MaQuy = item["MaQuy"]?.ToString(),
                     TenQuy = tenQuy,
-                    LyDo = item["LyDoThu"]?.ToString(),
-                    SoTK = item["SoTK"]?.ToString(),
-                    ChuTK = item["ChuTaiKhoan"]?.ToString(),
-                    NganHang = item["TenNganHang"]?.ToString()
+                    LyDo = item["LyDoThu"]?.ToString()
                 };
 
                 list.Add(obj);
@@ -315,10 +303,7 @@ namespace Quản_lý_vudaco.services
                     LoaiDoiTuong = doiTuong,
                     MaQuy = item["MaQuy"]?.ToString(),
                     TenQuy = tenQuy,
-                    LyDo = item["LyDoThu"]?.ToString(),
-                    SoTK = item["SoTK"]?.ToString(),
-                    ChuTK = item["ChuTaiKhoan"]?.ToString(),
-                    NganHang = item["TenNganHang"]?.ToString()
+                    LyDo = item["LyDoThu"]?.ToString()
                 };
 
                 list.Add(obj);
@@ -388,10 +373,7 @@ namespace Quản_lý_vudaco.services
                     LoaiDoiTuong = doiTuong,
                     MaQuy = item["MaQuy"]?.ToString(),
                     TenQuy = tenQuy,
-                    LyDo = item["LyDoThu"]?.ToString(),
-                    SoTK = item["SoTK"]?.ToString(),
-                    ChuTK = item["ChuTaiKhoan"]?.ToString(),
-                    NganHang = item["TenNganHang"]?.ToString()
+                    LyDo = item["LyDoThu"]?.ToString()
                 };
 
                 list.Add(obj);
@@ -461,10 +443,7 @@ namespace Quản_lý_vudaco.services
                     LoaiDoiTuong = doiTuong,
                     MaQuy = item["MaQuy"]?.ToString(),
                     TenQuy = tenQuy,
-                    LyDo = item["LyDoThu"]?.ToString(),
-                    SoTK = item["SoTK"]?.ToString(),
-                    ChuTK = item["ChuTaiKhoan"]?.ToString(),
-                    NganHang = item["TenNganHang"]?.ToString()
+                    LyDo = item["LyDoThu"]?.ToString()
                 };
 
                 list.Add(obj);
@@ -534,10 +513,7 @@ namespace Quản_lý_vudaco.services
                     LoaiDoiTuong = doiTuong,
                     MaQuy = item["MaQuy"]?.ToString(),
                     TenQuy = tenQuy,
-                    LyDo = item["LyDoChi"]?.ToString(),
-                    SoTK = item["SoTK"]?.ToString(),
-                    ChuTK = item["ChuTaiKhoan"]?.ToString(),
-                    NganHang = item["TenNganHang"]?.ToString()
+                    LyDo = item["LyDoChi"]?.ToString()
                 };
 
                 list.Add(obj);
@@ -607,10 +583,7 @@ namespace Quản_lý_vudaco.services
                     LoaiDoiTuong = doiTuong,
                     MaQuy = item["MaQuy"]?.ToString(),
                     TenQuy = tenQuy,
-                    LyDo = item["LyDoChi"]?.ToString(),
-                    SoTK = item["SoTK"]?.ToString(),
-                    ChuTK = item["ChuTaiKhoan"]?.ToString(),
-                    NganHang = item["TenNganHang"]?.ToString()
+                    LyDo = item["LyDoChi"]?.ToString()
                 };
 
                 list.Add(obj);
@@ -680,10 +653,7 @@ namespace Quản_lý_vudaco.services
                     LoaiDoiTuong = doiTuong,
                     MaQuy = item["MaQuy"]?.ToString(),
                     TenQuy = tenQuy,
-                    LyDo = item["LyDoChi"]?.ToString(),
-                    SoTK = item["SoTK"]?.ToString(),
-                    ChuTK = item["ChuTaiKhoan"]?.ToString(),
-                    NganHang = item["TenNganHang"]?.ToString()
+                    LyDo = item["LyDoChi"]?.ToString()
                 };
 
                 list.Add(obj);
