@@ -36,6 +36,7 @@ namespace Quản_lý_vudaco
             this.ucNhomQuyen = new System.Windows.Forms.ToolStripMenuItem();
             this.ucNhanVien = new System.Windows.Forms.ToolStripMenuItem();
             this.thoátPhiênĐăngNhậpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.ucSaoLuuDuLieu = new System.Windows.Forms.ToolStripMenuItem();
             this.ucXoa = new System.Windows.Forms.ToolStripMenuItem();
             this.thoátToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.danhMụcToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -100,6 +101,8 @@ namespace Quản_lý_vudaco
             this.chiPhíQuảnLýToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.chiPhíHảiQuanToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.báoCáoDoanhThuToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.ucBaoCaoSoQuyTM_V2 = new System.Windows.Forms.ToolStripMenuItem();
+            this.báoCáoSổQuỹTKNgânHàngMớiToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.báoCáoTàiChínhToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.lợiNhuậnTheoLôHàngToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.ucLoiNhuanTheoXe = new System.Windows.Forms.ToolStripMenuItem();
@@ -131,7 +134,6 @@ namespace Quản_lý_vudaco
             this.lblTK = new System.Windows.Forms.ToolStripStatusLabel();
             this.toolStripStatusLabel2 = new System.Windows.Forms.ToolStripStatusLabel();
             this.lblThoiGian = new System.Windows.Forms.ToolStripStatusLabel();
-            this.ucSaoLuuDuLieu = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.panelCha)).BeginInit();
             this.panelCha.SuspendLayout();
@@ -185,14 +187,14 @@ namespace Quản_lý_vudaco
             // 
             this.ucDanhSachTaiKhoan.Image = ((System.Drawing.Image)(resources.GetObject("ucDanhSachTaiKhoan.Image")));
             this.ucDanhSachTaiKhoan.Name = "ucDanhSachTaiKhoan";
-            this.ucDanhSachTaiKhoan.Size = new System.Drawing.Size(201, 26);
+            this.ucDanhSachTaiKhoan.Size = new System.Drawing.Size(197, 22);
             this.ucDanhSachTaiKhoan.Text = "Danh sách tài khoản";
             this.ucDanhSachTaiKhoan.Click += new System.EventHandler(this.danhSáchTàiKhoảnToolStripMenuItem_Click);
             // 
             // ucNhomQuyen
             // 
             this.ucNhomQuyen.Name = "ucNhomQuyen";
-            this.ucNhomQuyen.Size = new System.Drawing.Size(201, 26);
+            this.ucNhomQuyen.Size = new System.Drawing.Size(197, 22);
             this.ucNhomQuyen.Text = "Nhóm Quyền";
             this.ucNhomQuyen.Click += new System.EventHandler(this.ucNhomQuyen_Click);
             // 
@@ -200,7 +202,7 @@ namespace Quản_lý_vudaco
             // 
             this.ucNhanVien.Image = ((System.Drawing.Image)(resources.GetObject("ucNhanVien.Image")));
             this.ucNhanVien.Name = "ucNhanVien";
-            this.ucNhanVien.Size = new System.Drawing.Size(201, 26);
+            this.ucNhanVien.Size = new System.Drawing.Size(197, 22);
             this.ucNhanVien.Text = "Nhân viên";
             this.ucNhanVien.Click += new System.EventHandler(this.ucNhanVien_Click);
             // 
@@ -208,15 +210,22 @@ namespace Quản_lý_vudaco
             // 
             this.thoátPhiênĐăngNhậpToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("thoátPhiênĐăngNhậpToolStripMenuItem.Image")));
             this.thoátPhiênĐăngNhậpToolStripMenuItem.Name = "thoátPhiênĐăngNhậpToolStripMenuItem";
-            this.thoátPhiênĐăngNhậpToolStripMenuItem.Size = new System.Drawing.Size(201, 26);
+            this.thoátPhiênĐăngNhậpToolStripMenuItem.Size = new System.Drawing.Size(197, 22);
             this.thoátPhiênĐăngNhậpToolStripMenuItem.Text = "Thoát phiên đăng nhập";
             this.thoátPhiênĐăngNhậpToolStripMenuItem.Click += new System.EventHandler(this.thoátPhiênĐăngNhậpToolStripMenuItem_Click);
+            // 
+            // ucSaoLuuDuLieu
+            // 
+            this.ucSaoLuuDuLieu.Name = "ucSaoLuuDuLieu";
+            this.ucSaoLuuDuLieu.Size = new System.Drawing.Size(197, 22);
+            this.ucSaoLuuDuLieu.Text = "Sao lưu dữ liệu";
+            this.ucSaoLuuDuLieu.Click += new System.EventHandler(this.ucSaoLuuDuLieu_Click);
             // 
             // ucXoa
             // 
             this.ucXoa.Image = ((System.Drawing.Image)(resources.GetObject("ucXoa.Image")));
             this.ucXoa.Name = "ucXoa";
-            this.ucXoa.Size = new System.Drawing.Size(201, 26);
+            this.ucXoa.Size = new System.Drawing.Size(197, 22);
             this.ucXoa.Text = "Xoá dữ liệu";
             this.ucXoa.Click += new System.EventHandler(this.ucXoa_Click);
             // 
@@ -224,7 +233,7 @@ namespace Quản_lý_vudaco
             // 
             this.thoátToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("thoátToolStripMenuItem.Image")));
             this.thoátToolStripMenuItem.Name = "thoátToolStripMenuItem";
-            this.thoátToolStripMenuItem.Size = new System.Drawing.Size(201, 26);
+            this.thoátToolStripMenuItem.Size = new System.Drawing.Size(197, 22);
             this.thoátToolStripMenuItem.Text = "Thoát";
             this.thoátToolStripMenuItem.Click += new System.EventHandler(this.thoátToolStripMenuItem_Click);
             // 
@@ -686,7 +695,9 @@ namespace Quản_lý_vudaco
             this.ucBaoCaoSoQuyTM,
             this.ucBaoCaoSoTK,
             this.báoCáoChiPhíToolStripMenuItem,
-            this.báoCáoDoanhThuToolStripMenuItem});
+            this.báoCáoDoanhThuToolStripMenuItem,
+            this.ucBaoCaoSoQuyTM_V2,
+            this.báoCáoSổQuỹTKNgânHàngMớiToolStripMenuItem});
             this.báoCáoToolStripMenuItem1.Name = "báoCáoToolStripMenuItem1";
             this.báoCáoToolStripMenuItem1.Size = new System.Drawing.Size(63, 20);
             this.báoCáoToolStripMenuItem1.Text = "Báo Cáo";
@@ -694,14 +705,14 @@ namespace Quản_lý_vudaco
             // ucBaoCaoSoQuyTM
             // 
             this.ucBaoCaoSoQuyTM.Name = "ucBaoCaoSoQuyTM";
-            this.ucBaoCaoSoQuyTM.Size = new System.Drawing.Size(208, 22);
+            this.ucBaoCaoSoQuyTM.Size = new System.Drawing.Size(254, 22);
             this.ucBaoCaoSoQuyTM.Text = "Báo cáo Sổ quỹ tiền mặt";
             this.ucBaoCaoSoQuyTM.Click += new System.EventHandler(this.ucBaoCaoSoQuyTM_Click);
             // 
             // ucBaoCaoSoTK
             // 
             this.ucBaoCaoSoTK.Name = "ucBaoCaoSoTK";
-            this.ucBaoCaoSoTK.Size = new System.Drawing.Size(208, 22);
+            this.ucBaoCaoSoTK.Size = new System.Drawing.Size(254, 22);
             this.ucBaoCaoSoTK.Text = "Báo cáo Sổ TK ngân hàng";
             this.ucBaoCaoSoTK.Click += new System.EventHandler(this.ucBaoCaoSoTK_Click);
             // 
@@ -711,7 +722,7 @@ namespace Quản_lý_vudaco
             this.chiPhíQuảnLýToolStripMenuItem,
             this.chiPhíHảiQuanToolStripMenuItem});
             this.báoCáoChiPhíToolStripMenuItem.Name = "báoCáoChiPhíToolStripMenuItem";
-            this.báoCáoChiPhíToolStripMenuItem.Size = new System.Drawing.Size(208, 22);
+            this.báoCáoChiPhíToolStripMenuItem.Size = new System.Drawing.Size(254, 22);
             this.báoCáoChiPhíToolStripMenuItem.Text = "Báo cáo chi phí";
             // 
             // chiPhíQuảnLýToolStripMenuItem
@@ -730,8 +741,22 @@ namespace Quản_lý_vudaco
             // báoCáoDoanhThuToolStripMenuItem
             // 
             this.báoCáoDoanhThuToolStripMenuItem.Name = "báoCáoDoanhThuToolStripMenuItem";
-            this.báoCáoDoanhThuToolStripMenuItem.Size = new System.Drawing.Size(208, 22);
+            this.báoCáoDoanhThuToolStripMenuItem.Size = new System.Drawing.Size(254, 22);
             this.báoCáoDoanhThuToolStripMenuItem.Text = "Báo cáo doanh thu";
+            // 
+            // ucBaoCaoSoQuyTM_V2
+            // 
+            this.ucBaoCaoSoQuyTM_V2.Name = "ucBaoCaoSoQuyTM_V2";
+            this.ucBaoCaoSoQuyTM_V2.Size = new System.Drawing.Size(254, 22);
+            this.ucBaoCaoSoQuyTM_V2.Text = "Báo cáo sổ quỹ tiền mặt mới";
+            this.ucBaoCaoSoQuyTM_V2.Click += new System.EventHandler(this.ucBaoCaoSoQuyTM_V2_Click);
+            // 
+            // báoCáoSổQuỹTKNgânHàngMớiToolStripMenuItem
+            // 
+            this.báoCáoSổQuỹTKNgânHàngMớiToolStripMenuItem.Name = "báoCáoSổQuỹTKNgânHàngMớiToolStripMenuItem";
+            this.báoCáoSổQuỹTKNgânHàngMớiToolStripMenuItem.Size = new System.Drawing.Size(254, 22);
+            this.báoCáoSổQuỹTKNgânHàngMớiToolStripMenuItem.Text = "Báo cáo sổ quỹ TK ngân hàng mới";
+            this.báoCáoSổQuỹTKNgânHàngMớiToolStripMenuItem.Click += new System.EventHandler(this.báoCáoSổQuỹTKNgânHàngMớiToolStripMenuItem_Click);
             // 
             // báoCáoTàiChínhToolStripMenuItem
             // 
@@ -995,13 +1020,6 @@ namespace Quản_lý_vudaco
             this.lblThoiGian.Size = new System.Drawing.Size(16, 17);
             this.lblThoiGian.Text = "...";
             // 
-            // ucSaoLuuDuLieu
-            // 
-            this.ucSaoLuuDuLieu.Name = "ucSaoLuuDuLieu";
-            this.ucSaoLuuDuLieu.Size = new System.Drawing.Size(201, 26);
-            this.ucSaoLuuDuLieu.Text = "Sao lưu dữ liệu";
-            this.ucSaoLuuDuLieu.Click += new System.EventHandler(this.ucSaoLuuDuLieu_Click);
-            // 
             // frmMain
             // 
             this.ClientSize = new System.Drawing.Size(1616, 783);
@@ -1132,6 +1150,8 @@ namespace Quản_lý_vudaco
         private System.Windows.Forms.ToolStripMenuItem ucCongNoKhachHangV2;
         private System.Windows.Forms.ToolStripMenuItem ucNhomQuyen;
         private System.Windows.Forms.ToolStripMenuItem ucSaoLuuDuLieu;
+        private System.Windows.Forms.ToolStripMenuItem ucBaoCaoSoQuyTM_V2;
+        private System.Windows.Forms.ToolStripMenuItem báoCáoSổQuỹTKNgânHàngMớiToolStripMenuItem;
     }
 }
 

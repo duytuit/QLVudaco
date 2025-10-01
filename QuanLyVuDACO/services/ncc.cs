@@ -2707,7 +2707,7 @@ namespace Quản_lý_vudaco.services
 
                 list.Add(obj);
             }
-            sql = $@"select pct.IDCTNCC,pct.IDName,c.KeyName,pc.MaChi,pc.SoChungTu,pct.SoFile,pct.MaDieuXe,pct.SoTien,pct.ThanhTien,pct.VAT,pct.LaVanChuyen,pct.MaDoiTuong,pct.TenDoiTuong,pc.DienGiai,pc.NgayHachToan,pc.HinhThucTT,pc.ChuTaiKhoan from PhieuChi_NCC_CT pct left join PhieuChi_NCC pc on pct.SoChungTu = pc.SoChungTu where pc.MaChi = N'006' and pc.LyDoChi = N'Chi trả tiền nhà cung cấp' and pct.MaDoiTuong IS NOT NULL
+            sql = $@"select pct.IDCTNCC,pct.IDName,pct.KeyName,pc.MaChi,pc.SoChungTu,pct.SoFile,pct.MaDieuXe,pct.SoTien,pct.ThanhTien,pct.VAT,pct.LaVanChuyen,pct.MaDoiTuong,pct.TenDoiTuong,pc.DienGiai,pc.NgayHachToan,pc.HinhThucTT,pc.ChuTaiKhoan from PhieuChi_NCC_CT pct left join PhieuChi_NCC pc on pct.SoChungTu = pc.SoChungTu where pc.MaChi = N'006' and pc.LyDoChi = N'Chi trả tiền nhà cung cấp' and pct.MaDoiTuong IS NOT NULL
                           AND LTRIM(RTRIM(pct.MaDoiTuong)) <> '' AND pc.NgayHachToan >= '2025-09-01'";
             if (TuNgay != DateTime.MinValue && DenNgay.HasValue)
             {

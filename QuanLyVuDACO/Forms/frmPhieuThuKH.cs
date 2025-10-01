@@ -95,10 +95,10 @@ namespace Quản_lý_vudaco.Forms
                         SoHoaDon = "",
                         ThoiGianTao = DateTime.Now,
                         HinhThucTT = radioGroup1.SelectedIndex == 1 ? "CK" : "TM",
-                        SoTK = lblSoTK.Text,
-                        TenNganHang = cboNganHang.Text,
-                        ChiNhanh = lblChiNhanh.Text,
-                        ChuTaiKhoan = lblChuTK.Text
+                        SoTK = radioGroup1.SelectedIndex == 1? lblSoTK.Text : null,
+                        TenNganHang = radioGroup1.SelectedIndex == 1 ? cboNganHang.Text : null,
+                        ChiNhanh = radioGroup1.SelectedIndex == 1 ? lblChiNhanh.Text : null,
+                        ChuTaiKhoan = radioGroup1.SelectedIndex == 1 ? lblChuTK.Text : null
                     };
                     int _id_pthu = _appDB.UpsertFromObject("PhieuThu", p, "IDPhieuThu", true);
                     for (int i = 0; i < gridView1.RowCount; i++)

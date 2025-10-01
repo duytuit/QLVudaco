@@ -394,6 +394,13 @@ namespace Quản_lý_vudaco
                         tabPage.Controls.Add(frm);
                         break;
                     }
+                case "ucBaoCaoSoQuyTM_V2":
+                    {
+                        module.ucBaoCaoSoQuyTM frm = new module.ucBaoCaoSoQuyTM();
+                        frm.Dock = System.Windows.Forms.DockStyle.Fill;
+                        tabPage.Controls.Add(frm);
+                        break;
+                    }
                 case "ucBaoCaoSoTK":
                     {
                         reports.ucBaoCaoSoTK frm = new reports.ucBaoCaoSoTK();
@@ -860,6 +867,16 @@ namespace Quản_lý_vudaco
         }
 
         private void ucSaoLuuDuLieu_Click(object sender, EventArgs e)
+        {
+            danhSáchTàiKhoảnToolStripMenuItem_Click(sender, e);
+        }
+
+        private void báoCáoSổQuỹTKNgânHàngMớiToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            danhSáchTàiKhoảnToolStripMenuItem_Click(sender, e);
+        }
+
+        private void ucBaoCaoSoQuyTM_V2_Click(object sender, EventArgs e)
         {
             danhSáchTàiKhoảnToolStripMenuItem_Click(sender, e);
         }

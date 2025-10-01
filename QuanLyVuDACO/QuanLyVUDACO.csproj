@@ -575,6 +575,12 @@
     <Compile Include="module\ucBangTheoDoiDebit_CoFile_NCC.Designer.cs">
       <DependentUpon>ucBangTheoDoiDebit_CoFile_NCC.cs</DependentUpon>
     </Compile>
+    <Compile Include="module\ucBaoCaoSoQuyTM.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="module\ucBaoCaoSoQuyTM.Designer.cs">
+      <DependentUpon>ucBaoCaoSoQuyTM.cs</DependentUpon>
+    </Compile>
     <Compile Include="module\ucCongNoDoiTru.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -1319,6 +1325,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="module\ucBangTheoDoiDebit_CoFile_NCC.resx">
       <DependentUpon>ucBangTheoDoiDebit_CoFile_NCC.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="module\ucBaoCaoSoQuyTM.resx">
+      <DependentUpon>ucBaoCaoSoQuyTM.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="module\ucCongNoDoiTru.resx">
       <DependentUpon>ucCongNoDoiTru.cs</DependentUpon>
