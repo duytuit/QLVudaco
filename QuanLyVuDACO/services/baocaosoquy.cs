@@ -15,9 +15,9 @@ namespace Quản_lý_vudaco.services
         {
             cls = new clsKetNoi();
         }
-        public List<BaoCaoTienMat> BaoCaoQuyTM(DateTime TuNgay, DateTime? DenNgay = null, string madoituong = null, int dauky = 0)
+        public List<BaoCaoSoQuy> BaoCaoQuy(DateTime TuNgay, DateTime? DenNgay = null, string madoituong = null, string hinhthucTT = null, int dauky = 0)
         {
-            List<BaoCaoTienMat> list = new List<BaoCaoTienMat>();
+            List<BaoCaoSoQuy> list = new List<BaoCaoSoQuy>();
 
             string sql = $@"select MaNhanVien,TenNhanVien from NhanVien";
             DataTable table_NhanVien = cls.LoadTable(sql);
@@ -27,8 +27,10 @@ namespace Quản_lý_vudaco.services
             DataTable table_DanhSachNhaCungCap = cls.LoadTable(sql);
             sql = $@"select * from DanhMucQuy";
             DataTable table_Quy = cls.LoadTable(sql);
+           // sql = $@"select * from DanhMucNganHang";
+           // DataTable table_NganHang = cls.LoadTable(sql);
 
-            sql = $@"Select B.MaQuy,B.HinhThucTT,B.SoTK,B.ChuTaiKhoan,B.TenNganHang,B.DienGiai,B.LyDoThu,B.NgayHachToan,B.MaThu,A.* from PhieuThu_CT A left join PhieuThu B on A.SoChungTu = B.SoChungTu where B.HinhThucTT = N'TM'";
+            sql = $@"Select B.MaQuy,B.HinhThucTT,B.SoTK,B.ChuTaiKhoan,B.TenNganHang,B.DienGiai,B.LyDoThu,B.NgayHachToan,B.MaThu,A.* from PhieuThu_CT A left join PhieuThu B on A.SoChungTu = B.SoChungTu where B.SoChungTu is not null";
             if (TuNgay != DateTime.MinValue && DenNgay.HasValue)
             {
                 DateTime _DenNgay = DenNgay.Value.AddDays(1);
@@ -41,6 +43,10 @@ namespace Quản_lý_vudaco.services
             if (!string.IsNullOrEmpty(madoituong))
             {
                 sql += $@" and A.MaDoiTuong = N'{madoituong}'";
+            }
+            if (!string.IsNullOrEmpty(hinhthucTT))
+            {
+                sql += $@" and B.HinhThucTT = N'{hinhthucTT}'";
             }
             DataTable table = cls.LoadTable(sql);
             foreach (DataRow item in table.Rows)
@@ -75,8 +81,9 @@ namespace Quản_lý_vudaco.services
                     if (rows.Length > 0)
                         tenQuy = rows[0]["TenQuy"].ToString();
                 }
-               
-                var obj = new BaoCaoTienMat
+              
+
+                var obj = new BaoCaoSoQuy
                 {
                     NgayHachToan = item["NgayHachToan"] == DBNull.Value ? DateTime.MinValue : Convert.ToDateTime(item["NgayHachToan"]),
                     SoPhieu = item["SoChungTu"]?.ToString(),
@@ -89,12 +96,15 @@ namespace Quản_lý_vudaco.services
                     LoaiDoiTuong = doiTuong,
                     MaQuy = item["MaQuy"]?.ToString(),
                     TenQuy = tenQuy,
-                    LyDo = item["LyDoThu"]?.ToString()
+                    LyDo = item["LyDoThu"]?.ToString(),
+                    SoTK = item["SoTK"]?.ToString(),
+                    ChuTK = item["ChuTaiKhoan"]?.ToString(),
+                    NganHang = item["TenNganHang"]?.ToString(),
                 };
 
                 list.Add(obj);
             }
-            sql = $@"Select B.HinhThucTT,B.SoTK,B.ChuTaiKhoan,B.TenNganHang,B.DienGiai, B.LyDoThu,B.NgayHachToan, B.MaQuy, A.* from PhieuThu_GiaoNhan_CT A left join PhieuThu_GiaoNhan B on B.SoChungTu=A.SoChungTu where B.HinhThucTT = N'TM'";
+            sql = $@"Select B.HinhThucTT,B.SoTK,B.ChuTaiKhoan,B.TenNganHang,B.DienGiai, B.LyDoThu,B.NgayHachToan, B.MaQuy, A.* from PhieuThu_GiaoNhan_CT A left join PhieuThu_GiaoNhan B on B.SoChungTu=A.SoChungTu where B.SoChungTu is not null";
             if (TuNgay != DateTime.MinValue && DenNgay.HasValue)
             {
                 DateTime _DenNgay = DenNgay.Value.AddDays(1);
@@ -107,6 +117,10 @@ namespace Quản_lý_vudaco.services
             if (!string.IsNullOrEmpty(madoituong))
             {
                 sql += $@" and A.MaDoiTuong = N'{madoituong}'";
+            }
+            if (!string.IsNullOrEmpty(hinhthucTT))
+            {
+                sql += $@" and B.HinhThucTT = N'{hinhthucTT}'";
             }
             table = cls.LoadTable(sql);
             foreach (DataRow item in table.Rows)
@@ -142,7 +156,7 @@ namespace Quản_lý_vudaco.services
                         tenQuy = rows[0]["TenQuy"].ToString();
                 }
 
-                var obj = new BaoCaoTienMat
+                var obj = new BaoCaoSoQuy
                 {
                     NgayHachToan = item["NgayHachToan"] == DBNull.Value ? DateTime.MinValue : Convert.ToDateTime(item["NgayHachToan"]),
                     SoPhieu = item["SoChungTu"]?.ToString(),
@@ -155,12 +169,15 @@ namespace Quản_lý_vudaco.services
                     LoaiDoiTuong = doiTuong,
                     MaQuy = item["MaQuy"]?.ToString(),
                     TenQuy = tenQuy,
-                    LyDo = item["LyDoThu"]?.ToString()
+                    LyDo = item["LyDoThu"]?.ToString(),
+                    SoTK = item["SoTK"]?.ToString(),
+                    ChuTK = item["ChuTaiKhoan"]?.ToString(),
+                    NganHang = item["TenNganHang"]?.ToString(),
                 };
 
                 list.Add(obj);
             }
-            sql = $@"Select B.HinhThucTT,B.DienGiai,B.SoTK,B.TenNganHang,B.ChuTaiKhoan,B.NgayHachToan, B.MaQuy, A.* from PhieuChi_LaiXe_CT A left join PhieuChi_LaiXe B on B.SoChungTu=A.SoChungTu where B.HinhThucTT = N'TM'";
+            sql = $@"Select B.HinhThucTT,B.DienGiai,B.SoTK,B.TenNganHang,B.ChuTaiKhoan,B.NgayHachToan, B.MaQuy, A.* from PhieuChi_LaiXe_CT A left join PhieuChi_LaiXe B on B.SoChungTu=A.SoChungTu where B.SoChungTu is not null";
             if (TuNgay != DateTime.MinValue && DenNgay.HasValue)
             {
                 DateTime _DenNgay = DenNgay.Value.AddDays(1);
@@ -173,6 +190,10 @@ namespace Quản_lý_vudaco.services
             if (!string.IsNullOrEmpty(madoituong))
             {
                 sql += $@" and A.MaDoiTuong = N'{madoituong}'";
+            }
+            if (!string.IsNullOrEmpty(hinhthucTT))
+            {
+                sql += $@" and B.HinhThucTT = N'{hinhthucTT}'";
             }
             table = cls.LoadTable(sql);
             foreach (DataRow item in table.Rows)
@@ -208,7 +229,7 @@ namespace Quản_lý_vudaco.services
                         tenQuy = rows[0]["TenQuy"].ToString();
                 }
 
-                var obj = new BaoCaoTienMat
+                var obj = new BaoCaoSoQuy
                 {
                     NgayHachToan = item["NgayHachToan"] == DBNull.Value ? DateTime.MinValue : Convert.ToDateTime(item["NgayHachToan"]),
                     SoPhieu = item["SoChungTu"]?.ToString(),
@@ -221,12 +242,15 @@ namespace Quản_lý_vudaco.services
                     LoaiDoiTuong = doiTuong,
                     MaQuy = item["MaQuy"]?.ToString(),
                     TenQuy = tenQuy,
-                    LyDo = item["LyDoThu"]?.ToString()
+                    LyDo = item["LyDoThu"]?.ToString(),
+                    SoTK = item["SoTK"]?.ToString(),
+                    ChuTK = item["ChuTaiKhoan"]?.ToString(),
+                    NganHang = item["TenNganHang"]?.ToString()
                 };
 
                 list.Add(obj);
             }
-            sql = $@"Select B.HinhThucTT,B.DienGiai,B.SoTK,B.TenNganHang,B.ChuTaiKhoan,B.NgayHachToan, B.MaQuy, A.* from PhieuChi_LaiXe_CT A left join PhieuChi_LaiXe B on B.SoChungTu=A.SoChungTu where B.HinhThucTT = N'TM'";
+            sql = $@"Select B.HinhThucTT,B.DienGiai,B.SoTK,B.TenNganHang,B.ChuTaiKhoan,B.NgayHachToan, B.MaQuy, A.* from PhieuChi_LaiXe_CT A left join PhieuChi_LaiXe B on B.SoChungTu=A.SoChungTu where B.SoChungTu is not null";
             if (TuNgay != DateTime.MinValue && DenNgay.HasValue)
             {
                 DateTime _DenNgay = DenNgay.Value.AddDays(1);
@@ -239,6 +263,10 @@ namespace Quản_lý_vudaco.services
             if (!string.IsNullOrEmpty(madoituong))
             {
                 sql += $@" and A.MaDoiTuong = N'{madoituong}'";
+            }
+            if (!string.IsNullOrEmpty(hinhthucTT))
+            {
+                sql += $@" and B.HinhThucTT = N'{hinhthucTT}'";
             }
             table = cls.LoadTable(sql);
             foreach (DataRow item in table.Rows)
@@ -274,7 +302,7 @@ namespace Quản_lý_vudaco.services
                         tenQuy = rows[0]["TenQuy"].ToString();
                 }
 
-                var obj = new BaoCaoTienMat
+                var obj = new BaoCaoSoQuy
                 {
                     NgayHachToan = item["NgayHachToan"] == DBNull.Value ? DateTime.MinValue : Convert.ToDateTime(item["NgayHachToan"]),
                     SoPhieu = item["SoChungTu"]?.ToString(),
@@ -287,12 +315,15 @@ namespace Quản_lý_vudaco.services
                     LoaiDoiTuong = doiTuong,
                     MaQuy = item["MaQuy"]?.ToString(),
                     TenQuy = tenQuy,
-                    LyDo = item["LyDoThu"]?.ToString()
+                    LyDo = item["LyDoThu"]?.ToString(),
+                    SoTK = item["SoTK"]?.ToString(),
+                    ChuTK = item["ChuTaiKhoan"]?.ToString(),
+                    NganHang = item["TenNganHang"]?.ToString()
                 };
 
                 list.Add(obj);
             }
-            sql = $@"Select B.HinhThucTT,B.DienGiai,B.SoTK,B.TenNganHang,B.ChuTaiKhoan,B.NgayHachToan, B.MaQuy, A.* from PhieuChi_CT A left join PhieuChi B on B.SoChungTu=A.SoChungTu where B.HinhThucTT = N'TM'";
+            sql = $@"Select B.HinhThucTT,B.DienGiai,B.SoTK,B.TenNganHang,B.ChuTaiKhoan,B.NgayHachToan, B.MaQuy, A.* from PhieuChi_CT A left join PhieuChi B on B.SoChungTu=A.SoChungTu where B.SoChungTu is not null";
             if (TuNgay != DateTime.MinValue && DenNgay.HasValue)
             {
                 DateTime _DenNgay = DenNgay.Value.AddDays(1);
@@ -305,6 +336,10 @@ namespace Quản_lý_vudaco.services
             if (!string.IsNullOrEmpty(madoituong))
             {
                 sql += $@" and A.MaDoiTuong = N'{madoituong}'";
+            }
+            if (!string.IsNullOrEmpty(hinhthucTT))
+            {
+                sql += $@" and B.HinhThucTT = N'{hinhthucTT}'";
             }
             table = cls.LoadTable(sql);
             foreach (DataRow item in table.Rows)
@@ -340,7 +375,7 @@ namespace Quản_lý_vudaco.services
                         tenQuy = rows[0]["TenQuy"].ToString();
                 }
 
-                var obj = new BaoCaoTienMat
+                var obj = new BaoCaoSoQuy
                 {
                     NgayHachToan = item["NgayHachToan"] == DBNull.Value ? DateTime.MinValue : Convert.ToDateTime(item["NgayHachToan"]),
                     SoPhieu = item["SoChungTu"]?.ToString(),
@@ -353,12 +388,15 @@ namespace Quản_lý_vudaco.services
                     LoaiDoiTuong = doiTuong,
                     MaQuy = item["MaQuy"]?.ToString(),
                     TenQuy = tenQuy,
-                    LyDo = item["LyDoThu"]?.ToString()
+                    LyDo = item["LyDoThu"]?.ToString(),
+                    SoTK = item["SoTK"]?.ToString(),
+                    ChuTK = item["ChuTaiKhoan"]?.ToString(),
+                    NganHang = item["TenNganHang"]?.ToString()
                 };
 
                 list.Add(obj);
             }
-            sql = $@"Select B.HinhThucTT,B.DienGiai,B.SoTK,B.TenNganHang,B.ChuTaiKhoan,B.NgayHachToan, B.MaQuy, A.* from PhieuChi_LaiXe_CT A left join PhieuChi_LaiXe B on B.SoChungTu=A.SoChungTu where B.HinhThucTT = N'TM'";
+            sql = $@"Select B.HinhThucTT,B.DienGiai,B.SoTK,B.TenNganHang,B.ChuTaiKhoan,B.NgayHachToan, B.MaQuy, A.* from PhieuChi_LaiXe_CT A left join PhieuChi_LaiXe B on B.SoChungTu=A.SoChungTu where B.SoChungTu is not null";
             if (TuNgay != DateTime.MinValue && DenNgay.HasValue)
             {
                 DateTime _DenNgay = DenNgay.Value.AddDays(1);
@@ -371,6 +409,10 @@ namespace Quản_lý_vudaco.services
             if (!string.IsNullOrEmpty(madoituong))
             {
                 sql += $@" and A.MaDoiTuong = N'{madoituong}'";
+            }
+            if (!string.IsNullOrEmpty(hinhthucTT))
+            {
+                sql += $@" and B.HinhThucTT = N'{hinhthucTT}'";
             }
             table = cls.LoadTable(sql);
             foreach (DataRow item in table.Rows)
@@ -406,7 +448,7 @@ namespace Quản_lý_vudaco.services
                         tenQuy = rows[0]["TenQuy"].ToString();
                 }
 
-                var obj = new BaoCaoTienMat
+                var obj = new BaoCaoSoQuy
                 {
                     NgayHachToan = item["NgayHachToan"] == DBNull.Value ? DateTime.MinValue : Convert.ToDateTime(item["NgayHachToan"]),
                     SoPhieu = item["SoChungTu"]?.ToString(),
@@ -419,12 +461,15 @@ namespace Quản_lý_vudaco.services
                     LoaiDoiTuong = doiTuong,
                     MaQuy = item["MaQuy"]?.ToString(),
                     TenQuy = tenQuy,
-                    LyDo = item["LyDoThu"]?.ToString()
+                    LyDo = item["LyDoThu"]?.ToString(),
+                    SoTK = item["SoTK"]?.ToString(),
+                    ChuTK = item["ChuTaiKhoan"]?.ToString(),
+                    NganHang = item["TenNganHang"]?.ToString()
                 };
 
                 list.Add(obj);
             }
-            sql = $@"Select B.HinhThucTT,B.DienGiai,B.SoTK,B.TenNganHang,B.ChuTaiKhoan,B.NgayHachToan, B.MaQuy,B.LyDoChi, A.* from PhieuChi_NCC_CT A left join PhieuChi_NCC B on B.SoChungTu=A.SoChungTu where B.HinhThucTT = N'TM'";
+            sql = $@"Select B.HinhThucTT,B.DienGiai,B.SoTK,B.TenNganHang,B.ChuTaiKhoan,B.NgayHachToan, B.MaQuy,B.LyDoChi, A.* from PhieuChi_NCC_CT A left join PhieuChi_NCC B on B.SoChungTu=A.SoChungTu where B.SoChungTu is not null";
             if (TuNgay != DateTime.MinValue && DenNgay.HasValue)
             {
                 DateTime _DenNgay = DenNgay.Value.AddDays(1);
@@ -437,6 +482,10 @@ namespace Quản_lý_vudaco.services
             if (!string.IsNullOrEmpty(madoituong))
             {
                 sql += $@" and A.MaDoiTuong = N'{madoituong}'";
+            }
+            if (!string.IsNullOrEmpty(hinhthucTT))
+            {
+                sql += $@" and B.HinhThucTT = N'{hinhthucTT}'";
             }
             table = cls.LoadTable(sql);
             foreach (DataRow item in table.Rows)
@@ -472,7 +521,7 @@ namespace Quản_lý_vudaco.services
                         tenQuy = rows[0]["TenQuy"].ToString();
                 }
 
-                var obj = new BaoCaoTienMat
+                var obj = new BaoCaoSoQuy
                 {
                     NgayHachToan = item["NgayHachToan"] == DBNull.Value ? DateTime.MinValue : Convert.ToDateTime(item["NgayHachToan"]),
                     SoPhieu = item["SoChungTu"]?.ToString(),
@@ -485,12 +534,15 @@ namespace Quản_lý_vudaco.services
                     LoaiDoiTuong = doiTuong,
                     MaQuy = item["MaQuy"]?.ToString(),
                     TenQuy = tenQuy,
-                    LyDo = item["LyDoChi"]?.ToString()
+                    LyDo = item["LyDoChi"]?.ToString(),
+                    SoTK = item["SoTK"]?.ToString(),
+                    ChuTK = item["ChuTaiKhoan"]?.ToString(),
+                    NganHang = item["TenNganHang"]?.ToString()
                 };
 
                 list.Add(obj);
             }
-            sql = $@"Select B.HinhThucTT,B.DienGiai,B.SoTK,B.TenNganHang,B.ChuTaiKhoan,B.NgayHachToan, B.MaQuy,B.LyDoChi, A.* from PhieuChi_NoiBo_CT A left join PhieuChi_NoiBo B on B.SoChungTu=A.SoChungTu where B.HinhThucTT = N'TM'";
+            sql = $@"Select B.HinhThucTT,B.DienGiai,B.SoTK,B.TenNganHang,B.ChuTaiKhoan,B.NgayHachToan, B.MaQuy,B.LyDoChi, A.* from PhieuChi_NoiBo_CT A left join PhieuChi_NoiBo B on B.SoChungTu=A.SoChungTu where B.SoChungTu is not null";
             if (TuNgay != DateTime.MinValue && DenNgay.HasValue)
             {
                 DateTime _DenNgay = DenNgay.Value.AddDays(1);
@@ -503,6 +555,10 @@ namespace Quản_lý_vudaco.services
             if (!string.IsNullOrEmpty(madoituong))
             {
                 sql += $@" and A.MaDoiTuong = N'{madoituong}'";
+            }
+            if (!string.IsNullOrEmpty(hinhthucTT))
+            {
+                sql += $@" and B.HinhThucTT = N'{hinhthucTT}'";
             }
             table = cls.LoadTable(sql);
             foreach (DataRow item in table.Rows)
@@ -538,7 +594,7 @@ namespace Quản_lý_vudaco.services
                         tenQuy = rows[0]["TenQuy"].ToString();
                 }
 
-                var obj = new BaoCaoTienMat
+                var obj = new BaoCaoSoQuy
                 {
                     NgayHachToan = item["NgayHachToan"] == DBNull.Value ? DateTime.MinValue : Convert.ToDateTime(item["NgayHachToan"]),
                     SoPhieu = item["SoChungTu"]?.ToString(),
@@ -551,12 +607,15 @@ namespace Quản_lý_vudaco.services
                     LoaiDoiTuong = doiTuong,
                     MaQuy = item["MaQuy"]?.ToString(),
                     TenQuy = tenQuy,
-                    LyDo = item["LyDoChi"]?.ToString()
+                    LyDo = item["LyDoChi"]?.ToString(),
+                    SoTK = item["SoTK"]?.ToString(),
+                    ChuTK = item["ChuTaiKhoan"]?.ToString(),
+                    NganHang = item["TenNganHang"]?.ToString()
                 };
 
                 list.Add(obj);
             }
-            sql = $@"Select B.HinhThucTT,B.DienGiai,B.SoTK,B.TenNganHang,B.ChuTaiKhoan,B.NgayHachToan, B.MaQuy,B.LyDoChi, A.* from PhieuChi_Con_CT A left join PhieuChi_Con B on B.SoChungTu=A.SoChungTu where B.HinhThucTT = N'TM'";
+            sql = $@"Select B.HinhThucTT,B.DienGiai,B.SoTK,B.TenNganHang,B.ChuTaiKhoan,B.NgayHachToan, B.MaQuy,B.LyDoChi, A.* from PhieuChi_Con_CT A left join PhieuChi_Con B on B.SoChungTu=A.SoChungTu where B.SoChungTu is not null";
             if (TuNgay != DateTime.MinValue && DenNgay.HasValue)
             {
                 DateTime _DenNgay = DenNgay.Value.AddDays(1);
@@ -569,6 +628,10 @@ namespace Quản_lý_vudaco.services
             if (!string.IsNullOrEmpty(madoituong))
             {
                 sql += $@" and A.MaDoiTuong = N'{madoituong}'";
+            }
+            if (!string.IsNullOrEmpty(hinhthucTT))
+            {
+                sql += $@" and B.HinhThucTT = N'{hinhthucTT}'";
             }
             table = cls.LoadTable(sql);
             foreach (DataRow item in table.Rows)
@@ -604,7 +667,7 @@ namespace Quản_lý_vudaco.services
                         tenQuy = rows[0]["TenQuy"].ToString();
                 }
 
-                var obj = new BaoCaoTienMat
+                var obj = new BaoCaoSoQuy
                 {
                     NgayHachToan = item["NgayHachToan"] == DBNull.Value ? DateTime.MinValue : Convert.ToDateTime(item["NgayHachToan"]),
                     SoPhieu = item["SoChungTu"]?.ToString(),
@@ -617,7 +680,10 @@ namespace Quản_lý_vudaco.services
                     LoaiDoiTuong = doiTuong,
                     MaQuy = item["MaQuy"]?.ToString(),
                     TenQuy = tenQuy,
-                    LyDo = item["LyDoChi"]?.ToString()
+                    LyDo = item["LyDoChi"]?.ToString(),
+                    SoTK = item["SoTK"]?.ToString(),
+                    ChuTK = item["ChuTaiKhoan"]?.ToString(),
+                    NganHang = item["TenNganHang"]?.ToString()
                 };
 
                 list.Add(obj);

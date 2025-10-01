@@ -30,10 +30,10 @@ namespace Quản_lý_vudaco.reports
                 DateTime Ngay1 = new DateTime(int.Parse(arr1[2]), int.Parse(arr1[1]), int.Parse(arr1[0]));
                 DateTime Ngay2 = new DateTime(int.Parse(arr2[2]), int.Parse(arr2[1]), int.Parse(arr2[0]));
 
-                using (var sqtm = new baocaosoquy())
-                {
-                    List<BaoCaoTienMat> rs = sqtm.BaoCaoQuyTM(Ngay1,Ngay2);
-                }
+               //using (var sqtm = new baocaosoquy())
+               //{
+               //    List<BaoCaoTienMat> rs = sqtm.BaoCaoQuyTM(Ngay1,Ngay2);
+               //}
                 DataTable dt = new DataTable();
 
                 if(cboLoaiQuy.EditValue==null)

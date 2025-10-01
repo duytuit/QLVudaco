@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Quản_lý_vudaco.services.Entity
 {
-    public class BaoCaoTienMat
+    public class BaoCaoSoQuy
     {
         public DateTime NgayHachToan { get; set; }
         public string SoPhieu { get; set; }
@@ -20,5 +20,8 @@ namespace Quản_lý_vudaco.services.Entity
         public string MaQuy { get; set; }
         public string TenQuy { get; set; }
         public string LyDo { get; set; }
+        public string SoTK { get; set; }
+        public string ChuTK { get; set; }
+        public string NganHang { get; set; }
     }
 }
