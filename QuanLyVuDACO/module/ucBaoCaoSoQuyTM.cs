@@ -40,6 +40,22 @@ namespace Quản_lý_vudaco.module
                 using (var sqtm = new baocaosoquy())
                 {
                     List<BaoCaoSoQuy> rs = sqtm.BaoCaoQuy(Ngay1, Ngay2, null, "TM");
+                    DataTable dt = new DataTable();
+                    dt.Columns.Add("NgayHachToan", typeof(DateTime));
+                    dt.Columns.Add("SoPhieu", typeof(string));
+                    dt.Columns.Add("DienGiai", typeof(string));
+                    dt.Columns.Add("Thu", typeof(double));
+                    dt.Columns.Add("Chi", typeof(double));
+                    dt.Columns.Add("Ton", typeof(double));
+                    dt.Columns.Add("MaDoiTuong", typeof(string));
+                    dt.Columns.Add("DoiTuong", typeof(string));
+                    dt.Columns.Add("LoaiDoiTuong", typeof(string));
+                    dt.Columns.Add("MaQuy", typeof(string));
+                    dt.Columns.Add("TenQuy", typeof(string));
+                    dt.Columns.Add("LyDo", typeof(string));
+                    dt.Columns.Add("SoTK", typeof(string));
+                    dt.Columns.Add("ChuTK", typeof(string));
+                    dt.Columns.Add("NganHang", typeof(string));
                 }
                
                 //gridControl1.DataSource = dt;
