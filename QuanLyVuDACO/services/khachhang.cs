@@ -147,13 +147,7 @@ namespace Quản_lý_vudaco.services
                 FROM FileDebitChiTiet fdct
                 LEFT JOIN FileDebit fd ON fd.IDDeBit = fdct.IDDeBit
                 LEFT JOIN ThongTinFile ttf ON ttf.IDLoHang = fd.IDLoHang
-                LEFT JOIN FileGia fg ON fg.IDLoHang = ttf.IDLoHang
-                OUTER APPLY (
-                    SELECT TOP 1 *
-                    FROM BangDieuXe bdx
-                    WHERE bdx.MaDieuXe = fg.MaDieuXe OR bdx.SoFile = fg.SoFile
-                    ORDER BY CASE WHEN bdx.MaDieuXe = fg.MaDieuXe THEN 1 ELSE 2 END
-                ) bx
+                LEFT JOIN BangDieuXe bx ON bx.SoFile = fd.SoFile
                 WHERE fd.SoFile IS NOT NULL";
 
             if (TuNgay != DateTime.MinValue && DenNgay.HasValue)
@@ -640,13 +634,7 @@ namespace Quản_lý_vudaco.services
                 FROM FileDebitChiTiet fdct
                 LEFT JOIN FileDebit fd ON fd.IDDeBit = fdct.IDDeBit
                 LEFT JOIN ThongTinFile ttf ON ttf.IDLoHang = fd.IDLoHang
-                LEFT JOIN FileGia fg ON fg.IDLoHang = ttf.IDLoHang
-                OUTER APPLY (
-                    SELECT TOP 1 *
-                    FROM BangDieuXe bdx
-                    WHERE bdx.MaDieuXe = fg.MaDieuXe OR bdx.SoFile = fg.SoFile
-                    ORDER BY CASE WHEN bdx.MaDieuXe = fg.MaDieuXe THEN 1 ELSE 2 END
-                ) bx
+                LEFT JOIN BangDieuXe bx ON bx.SoFile = fd.SoFile
                 WHERE fd.SoFile IS NOT NULL";
 
             if (TuNgay != DateTime.MinValue && DenNgay.HasValue)
