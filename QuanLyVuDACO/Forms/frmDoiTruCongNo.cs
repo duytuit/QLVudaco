@@ -15,6 +15,8 @@ namespace Quản_lý_vudaco.Forms
 {
     public partial class frmDoiTruCongNo : DevExpress.XtraEditors.XtraForm
     {
+
+        private static double _TongTienThu = 0;
         public frmDoiTruCongNo()
         {
             InitializeComponent();
@@ -169,13 +171,15 @@ namespace Quản_lý_vudaco.Forms
                     if (e.Column.FieldName == "Chon")
                     {
                         bool isCheck = bool.Parse(e.Value.ToString());
+                        double TongThu = Convert.ToDouble(gridView1.GetFocusedRowCellValue("TongThu").ToString());
                         if (isCheck)
                         {
-                            gridView1.SetFocusedRowCellValue("SoTien_BuTru", gridView1.GetFocusedRowCellValue("TongThu").ToString());
-
+                            _TongTienThu += TongThu;
+                            gridView1.SetFocusedRowCellValue("SoTien_BuTru", TongThu);
                         }
                         else
                         {
+                            _TongTienThu -= TongThu;
                             gridView1.SetFocusedRowCellValue("SoTien_BuTru", 0);
                         }
                     }
@@ -196,13 +200,25 @@ namespace Quản_lý_vudaco.Forms
                     if (e.Column.FieldName == "Chon")
                     {
                         bool isCheck = bool.Parse(e.Value.ToString());
+                        double TongThu = Convert.ToDouble(gridView2.GetFocusedRowCellValue("TongThu").ToString());
                         if (isCheck)
                         {
-                            gridView2.SetFocusedRowCellValue("SoTien_BuTru", gridView2.GetFocusedRowCellValue("TongThu").ToString());
-
+                            if (_TongTienThu >= TongThu)
+                            {
+                                _TongTienThu -= TongThu;
+                                gridView2.SetFocusedRowCellValue("SoTien_BuTru", TongThu);
+                            }
+                            else
+                            {
+                                _TongTienThu -= _TongTienThu;
+                                gridView2.SetFocusedRowCellValue("SoTien_BuTru", _TongTienThu);
+                            }
+                           
                         }
                         else
                         {
+                            double  SoTien_BuTru = Convert.ToDouble(gridView2.GetFocusedRowCellValue("SoTien_BuTru").ToString());
+                            _TongTienThu += SoTien_BuTru;
                             gridView2.SetFocusedRowCellValue("SoTien_BuTru", 0);
                         }
                     }
