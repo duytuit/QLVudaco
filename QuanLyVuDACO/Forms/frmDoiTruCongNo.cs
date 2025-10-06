@@ -136,20 +136,7 @@ namespace Quản_lý_vudaco.Forms
         {
             LoadData();
         }
-        private void LoadDataDoiTru()
-        {
-            using (var dt = new doitru())
-            {
-                string[] arr1 = dtTuNgay.Text.Split('/');
-                string[] arr2 = dtpDenNgay.Text.Split('/');
-                if (arr1.Length >= 3 && arr2.Length >= 3 && arr1[0].Trim() != "" && arr2[0].Trim() != "")
-                {
-                    DateTime Ngay1 = new DateTime(int.Parse(arr1[2]), int.Parse(arr1[1]), int.Parse(arr1[0]));
-                    DateTime Ngay2 = new DateTime(int.Parse(arr2[2]), int.Parse(arr2[1]), int.Parse(arr2[0]));
-
-                }
-            }
-        }
+      
         private void gridView1_CustomUnboundColumnData(object sender, DevExpress.XtraGrid.Views.Base.CustomColumnDataEventArgs e)
         {
             var view = sender as DevExpress.XtraGrid.Views.Grid.GridView;
@@ -327,7 +314,8 @@ namespace Quản_lý_vudaco.Forms
                         NgayHachToan = Convert.ToDateTime(dtNgay.Text),
                         NoiDung = "Bù trừ công nợ phải thu, phải trả " + kh["TenKhachHang"].ToString(),
                         NguoiTao = frmMain._TK,
-                        NgayCapNhat = DateTime.Now
+                        NgayCapNhat = DateTime.Now,
+                        SoTien = tong_SoTien_BuTru
                     };
                     int _id_doitru = _appDB.UpsertFromObject("DoiTruCongNo", p_doitru, "ID", true);
                     // tạo công nợ nhà cung cấp
@@ -402,7 +390,7 @@ namespace Quản_lý_vudaco.Forms
                             var phieuchitiet = new
                             {
                                 IDCT = 0,
-                                SoChungTu = p.SoChungTu,
+                                SoChungTu = p_kh.SoChungTu,
                                 DiaChi = kh["DiaChi"].ToString(),
                                 DoiTuong = "KH",
                                 GhiChu = "",

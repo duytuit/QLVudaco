@@ -16,7 +16,7 @@ namespace Quản_lý_vudaco.services
         }
         public DataTable GetData(DateTime TuNgay, DateTime? DenNgay = null)
         {
-            string sql = "SELECT dt.*,ncc.SoChungTu,kh.SoChungTu FROM DoiTruCongNo dt left join PhieuChi_NCC ncc on ncc.IDDoiTru = dt.ID left join PhieuThu kh on kh.IDDoiTru = dt.ID where dt.ID is not null";
+            string sql = "SELECT dt.*,ncc.SoChungTu as ncc,kh.SoChungTu as kh FROM DoiTruCongNo dt left join PhieuChi_NCC ncc on ncc.IDDoiTru = dt.ID left join PhieuThu kh on kh.IDDoiTru = dt.ID where dt.ID is not null";
             if (TuNgay != DateTime.MinValue && DenNgay.HasValue)
             {
                 DateTime _DenNgay = DenNgay.Value.AddDays(1);

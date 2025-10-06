@@ -45,11 +45,14 @@ namespace Quản_lý_vudaco.module
             this.colSTT = new DevExpress.XtraGrid.Columns.GridColumn();
             this.gridColumn12 = new DevExpress.XtraGrid.Columns.GridColumn();
             this.gridColumn15 = new DevExpress.XtraGrid.Columns.GridColumn();
-            this.gridColumn2 = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.gridColumn1 = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.gridColumn3 = new DevExpress.XtraGrid.Columns.GridColumn();
             this.gridColumn14 = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.gridColumn2 = new DevExpress.XtraGrid.Columns.GridColumn();
             this.gridColumn5 = new DevExpress.XtraGrid.Columns.GridColumn();
-            this.repositoryItemTaoDoiTru = new DevExpress.XtraEditors.Repository.RepositoryItemHyperLinkEdit();
+            this.gridColumn4 = new DevExpress.XtraGrid.Columns.GridColumn();
             this.splashScreenManager1 = new DevExpress.XtraSplashScreen.SplashScreenManager(this, typeof(global::Quản_lý_vudaco.frmWait), true, true, typeof(System.Windows.Forms.UserControl));
+            this.repositoryItemHyperLinkXoa = new DevExpress.XtraEditors.Repository.RepositoryItemHyperLinkEdit();
             ((System.ComponentModel.ISupportInitialize)(this.panelControl1)).BeginInit();
             this.panelControl1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.panelControl2)).BeginInit();
@@ -59,7 +62,7 @@ namespace Quản_lý_vudaco.module
             this.groupControl1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.gridControl1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridView1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.repositoryItemTaoDoiTru)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.repositoryItemHyperLinkXoa)).BeginInit();
             this.SuspendLayout();
             // 
             // panelControl1
@@ -174,7 +177,7 @@ namespace Quản_lý_vudaco.module
             this.gridControl1.MainView = this.gridView1;
             this.gridControl1.Name = "gridControl1";
             this.gridControl1.RepositoryItems.AddRange(new DevExpress.XtraEditors.Repository.RepositoryItem[] {
-            this.repositoryItemTaoDoiTru});
+            this.repositoryItemHyperLinkXoa});
             this.gridControl1.Size = new System.Drawing.Size(1460, 775);
             this.gridControl1.TabIndex = 0;
             this.gridControl1.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
@@ -186,11 +189,15 @@ namespace Quản_lý_vudaco.module
             this.colSTT,
             this.gridColumn12,
             this.gridColumn15,
+            this.gridColumn1,
+            this.gridColumn3,
             this.gridColumn14,
             this.gridColumn2,
-            this.gridColumn5});
+            this.gridColumn5,
+            this.gridColumn4});
             this.gridView1.GridControl = this.gridControl1;
             this.gridView1.Name = "gridView1";
+            this.gridView1.OptionsView.ShowAutoFilterRow = true;
             this.gridView1.OptionsView.ShowFooter = true;
             this.gridView1.OptionsView.ShowGroupPanel = false;
             // 
@@ -205,6 +212,7 @@ namespace Quản_lý_vudaco.module
             // gridColumn12
             // 
             this.gridColumn12.Caption = "Ngày chứng từ";
+            this.gridColumn12.FieldName = "NgayHachToan";
             this.gridColumn12.Name = "gridColumn12";
             this.gridColumn12.Visible = true;
             this.gridColumn12.VisibleIndex = 1;
@@ -213,48 +221,76 @@ namespace Quản_lý_vudaco.module
             // gridColumn15
             // 
             this.gridColumn15.Caption = "Nội dung";
+            this.gridColumn15.FieldName = "NoiDung";
             this.gridColumn15.Name = "gridColumn15";
             this.gridColumn15.Visible = true;
             this.gridColumn15.VisibleIndex = 2;
             this.gridColumn15.Width = 280;
             // 
-            // gridColumn2
+            // gridColumn1
             // 
-            this.gridColumn2.Caption = "Người tạo";
-            this.gridColumn2.FieldName = "Ten";
-            this.gridColumn2.Name = "gridColumn2";
-            this.gridColumn2.Visible = true;
-            this.gridColumn2.VisibleIndex = 4;
-            this.gridColumn2.Width = 93;
+            this.gridColumn1.Caption = "Phiếu chi NCC";
+            this.gridColumn1.FieldName = "ncc";
+            this.gridColumn1.Name = "gridColumn1";
+            this.gridColumn1.Visible = true;
+            this.gridColumn1.VisibleIndex = 3;
+            // 
+            // gridColumn3
+            // 
+            this.gridColumn3.Caption = "Phiếu thu KH";
+            this.gridColumn3.FieldName = "kh";
+            this.gridColumn3.Name = "gridColumn3";
+            this.gridColumn3.Visible = true;
+            this.gridColumn3.VisibleIndex = 4;
             // 
             // gridColumn14
             // 
             this.gridColumn14.Caption = "Số tiền";
+            this.gridColumn14.DisplayFormat.FormatString = "{0:#,##}";
+            this.gridColumn14.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Numeric;
+            this.gridColumn14.FieldName = "SoTien";
             this.gridColumn14.Name = "gridColumn14";
+            this.gridColumn14.Summary.AddRange(new DevExpress.XtraGrid.GridSummaryItem[] {
+            new DevExpress.XtraGrid.GridColumnSummaryItem(DevExpress.Data.SummaryItemType.Sum, "SoTien", "{0:#,##}")});
             this.gridColumn14.Visible = true;
-            this.gridColumn14.VisibleIndex = 3;
+            this.gridColumn14.VisibleIndex = 5;
             this.gridColumn14.Width = 89;
+            // 
+            // gridColumn2
+            // 
+            this.gridColumn2.Caption = "Người tạo";
+            this.gridColumn2.FieldName = "NguoiTao";
+            this.gridColumn2.Name = "gridColumn2";
+            this.gridColumn2.Visible = true;
+            this.gridColumn2.VisibleIndex = 6;
+            this.gridColumn2.Width = 93;
             // 
             // gridColumn5
             // 
             this.gridColumn5.Caption = "Xóa";
-            this.gridColumn5.FieldName = "Chon";
+            this.gridColumn5.ColumnEdit = this.repositoryItemHyperLinkXoa;
             this.gridColumn5.Name = "gridColumn5";
             this.gridColumn5.Visible = true;
-            this.gridColumn5.VisibleIndex = 5;
+            this.gridColumn5.VisibleIndex = 7;
             this.gridColumn5.Width = 42;
             // 
-            // repositoryItemTaoDoiTru
+            // gridColumn4
             // 
-            this.repositoryItemTaoDoiTru.AutoHeight = false;
-            this.repositoryItemTaoDoiTru.Caption = "Đối trừ";
-            this.repositoryItemTaoDoiTru.Image = ((System.Drawing.Image)(resources.GetObject("repositoryItemTaoDoiTru.Image")));
-            this.repositoryItemTaoDoiTru.Name = "repositoryItemTaoDoiTru";
-            this.repositoryItemTaoDoiTru.NullText = "Đối trừ";
+            this.gridColumn4.Caption = "ID";
+            this.gridColumn4.FieldName = "ID";
+            this.gridColumn4.Name = "gridColumn4";
             // 
             // splashScreenManager1
             // 
             this.splashScreenManager1.ClosingDelay = 500;
+            // 
+            // repositoryItemHyperLinkXoa
+            // 
+            this.repositoryItemHyperLinkXoa.AutoHeight = false;
+            this.repositoryItemHyperLinkXoa.Image = ((System.Drawing.Image)(resources.GetObject("repositoryItemHyperLinkXoa.Image")));
+            this.repositoryItemHyperLinkXoa.Name = "repositoryItemHyperLinkXoa";
+            this.repositoryItemHyperLinkXoa.NullText = "Xóa";
+            this.repositoryItemHyperLinkXoa.Click += new System.EventHandler(this.repositoryItemHyperLinkXoa_Click);
             // 
             // ucCongNoDoiTru
             // 
@@ -275,7 +311,7 @@ namespace Quản_lý_vudaco.module
             this.groupControl1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.gridControl1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridView1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.repositoryItemTaoDoiTru)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.repositoryItemHyperLinkXoa)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -299,7 +335,10 @@ namespace Quản_lý_vudaco.module
         private DevExpress.XtraGrid.Columns.GridColumn gridColumn2;
         private DevExpress.XtraGrid.Columns.GridColumn gridColumn14;
         private DevExpress.XtraGrid.Columns.GridColumn gridColumn5;
-        private DevExpress.XtraEditors.Repository.RepositoryItemHyperLinkEdit repositoryItemTaoDoiTru;
         private DevExpress.XtraEditors.SimpleButton btnTaoDoiTru;
+        private DevExpress.XtraGrid.Columns.GridColumn gridColumn1;
+        private DevExpress.XtraGrid.Columns.GridColumn gridColumn3;
+        private DevExpress.XtraGrid.Columns.GridColumn gridColumn4;
+        private DevExpress.XtraEditors.Repository.RepositoryItemHyperLinkEdit repositoryItemHyperLinkXoa;
     }
 }
