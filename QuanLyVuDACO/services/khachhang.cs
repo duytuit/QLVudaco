@@ -61,17 +61,9 @@ namespace Quản_lý_vudaco.services
         public DataTable BangFileDebitDaTao_ChiTiet(int IDDeBit)
         {
             string sql = $@"
-                SELECT fdct.*,
-                    dx.LoaiXe_KH,
-                    dx.BienSoXe,
-                    dx.LoaiXe_NCC,
-                    dx.LuongHangVe,
-                    dx.MaDieuXe,
-                    dx.TuyenVC,
-                    dx.GhiChu AS GhiChu_dx
+                SELECT fdct.*
                 FROM FileDebitChiTiet fdct
-                LEFT JOIN FileDebit fd ON fd.IDDeBit = fdct.IDDeBit   
-                LEFT JOIN BangDieuXe dx ON dx.SoFile = fd.SoFile    
+                LEFT JOIN FileDebit fd ON fd.IDDeBit = fdct.IDDeBit      
                 WHERE fdct.IDDeBit = {IDDeBit}";
 
             return cls.LoadTable(sql);
@@ -136,18 +128,10 @@ namespace Quản_lý_vudaco.services
                     ttf.SoBill,
                     ttf.SoCont,
                     ttf.TenSales,
-                    bx.LoaiXe_KH,
-                    bx.BienSoXe,
-                    ttf.SoLuong,
-                    bx.LoaiXe_NCC,
-                    bx.LuongHangVe,
-                    bx.MaDieuXe,
-                    bx.TuyenVC,
-                    bx.GhiChu AS GhiChu_dx
+                    ttf.SoLuong
                 FROM FileDebitChiTiet fdct
                 LEFT JOIN FileDebit fd ON fd.IDDeBit = fdct.IDDeBit
                 LEFT JOIN ThongTinFile ttf ON ttf.IDLoHang = fd.IDLoHang
-                LEFT JOIN BangDieuXe bx ON bx.SoFile = fd.SoFile
                 WHERE fd.SoFile IS NOT NULL";
 
             if (TuNgay != DateTime.MinValue && DenNgay.HasValue)
@@ -179,7 +163,6 @@ namespace Quản_lý_vudaco.services
                     NguoiLap = item["NguoiLap"].ToString(),
                     SoHoaDon = item["SoHoaDon"].ToString(),
                     NgayHoaDon = item["NgayHoaDon"] != DBNull.Value ? Convert.ToDateTime(item["NgayHoaDon"]) : DateTime.MinValue,
-                    MaDieuXe = item["MaDieuXe"].ToString(),
                     IDDeBitCT = item["IDDeBitCT"] != DBNull.Value ? Convert.ToInt32(item["IDDeBitCT"]) : 0,
                     TenDichVu = item["TenDichVu"].ToString(),
                     SoTien = item["SoTien"] != DBNull.Value ? Convert.ToDouble(item["SoTien"]) : 0,
@@ -194,12 +177,13 @@ namespace Quản_lý_vudaco.services
                     SoCont = item["SoCont"].ToString(),
                     NoiDung = item["TenDichVu"].ToString(),
                     TenSales = item["TenSales"].ToString(),
-                    GhiChu = item["GhiChu"].ToString() + item["GhiChu_dx"].ToString(),
-                    LoaiXe_KH = item["LoaiXe_KH"].ToString(),
-                    LoaiXe_NCC = item["LoaiXe_NCC"].ToString(),
-                    SoLuong = item["SoLuong"].ToString(),
-                    TuyenVC = item["TuyenVC"].ToString(),
-                    BienSoXe = item["BienSoXe"].ToString(),
+                    GhiChu = item["GhiChu"].ToString(), //+ item["GhiChu_dx"].ToString(),
+                    //LoaiXe_KH = item["LoaiXe_KH"].ToString(),
+                    //LoaiXe_NCC = item["LoaiXe_NCC"].ToString(),
+                    //SoLuong = item["SoLuong"].ToString(),
+                    //TuyenVC = item["TuyenVC"].ToString(),
+                    //BienSoXe = item["BienSoXe"].ToString(),
+                    //MaDieuXe = item["MaDieuXe"].ToString(),
                     Key = "debitchitietkh",
                     ID = int.Parse(item["IDDeBitCT"].ToString()),
                 };
@@ -623,18 +607,10 @@ namespace Quản_lý_vudaco.services
                     ttf.SoBill,
                     ttf.SoCont,
                     ttf.TenSales,
-                    bx.LoaiXe_KH,
-                    bx.BienSoXe,
-                    ttf.SoLuong,
-                    bx.LoaiXe_NCC,
-                    bx.LuongHangVe,
-                    bx.MaDieuXe,
-                    bx.TuyenVC,
-                    bx.GhiChu AS GhiChu_dx
+                    ttf.SoLuong
                 FROM FileDebitChiTiet fdct
                 LEFT JOIN FileDebit fd ON fd.IDDeBit = fdct.IDDeBit
                 LEFT JOIN ThongTinFile ttf ON ttf.IDLoHang = fd.IDLoHang
-                LEFT JOIN BangDieuXe bx ON bx.SoFile = fd.SoFile
                 WHERE fd.SoFile IS NOT NULL";
 
             if (TuNgay != DateTime.MinValue && DenNgay.HasValue)
@@ -666,7 +642,7 @@ namespace Quản_lý_vudaco.services
                     NguoiLap = item["NguoiLap"].ToString(),
                     SoHoaDon = item["SoHoaDon"].ToString(),
                     NgayHoaDon = item["NgayHoaDon"] != DBNull.Value ? Convert.ToDateTime(item["NgayHoaDon"]) : DateTime.MinValue,
-                    MaDieuXe = item["MaDieuXe"].ToString(),
+                  
                     IDDeBitCT = item["IDDeBitCT"] != DBNull.Value ? Convert.ToInt32(item["IDDeBitCT"]) : 0,
                     TenDichVu = item["TenDichVu"].ToString(),
                     SoTien = item["SoTien"] != DBNull.Value ? Convert.ToDouble(item["SoTien"]) : 0,
@@ -681,12 +657,13 @@ namespace Quản_lý_vudaco.services
                     SoCont = item["SoCont"].ToString(),
                     NoiDung = item["TenDichVu"].ToString(),
                     TenSales = item["TenSales"].ToString(),
-                    GhiChu = item["GhiChu"].ToString() + item["GhiChu_dx"].ToString(),
-                    LoaiXe_KH = item["LoaiXe_KH"].ToString(),
-                    LoaiXe_NCC = item["LoaiXe_NCC"].ToString(),
-                    SoLuong = item["SoLuong"].ToString(),
-                    TuyenVC = item["TuyenVC"].ToString(),
-                    BienSoXe = item["BienSoXe"].ToString(),
+                    GhiChu = item["GhiChu"].ToString(), //+ item["GhiChu_dx"].ToString(),
+                   //LoaiXe_KH = item["LoaiXe_KH"].ToString(),
+                   //LoaiXe_NCC = item["LoaiXe_NCC"].ToString(),
+                   //SoLuong = item["SoLuong"].ToString(),
+                   //TuyenVC = item["TuyenVC"].ToString(),
+                   //BienSoXe = item["BienSoXe"].ToString(),
+                   //MaDieuXe = item["MaDieuXe"].ToString(),
                     Key = "debitchitietkh",
                     ID = int.Parse(item["IDDeBitCT"].ToString()),
                 };

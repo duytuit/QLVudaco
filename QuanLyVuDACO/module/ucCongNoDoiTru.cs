@@ -1,4 +1,5 @@
 ﻿using DevExpress.XtraEditors;
+using Quản_lý_vudaco.Forms;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -26,10 +27,9 @@ namespace Quản_lý_vudaco.module
         }
         private void ucCongNoDoiTru_Load(object sender, EventArgs e)
         {
-            groupControl1.Width = this.Width / 2;
             dtpTuNgay.Text = DateTime.Now.AddDays(-7).ToString("dd/MM/yyyy");
             dtpDenNgay.Text = DateTime.Now.ToString("dd/MM/yyyy");
-          
+           // cboKH.Properties.DataSource = client.dsKH();
         }
         ServiceReference1.WebService1SoapClient client = new ServiceReference1.WebService1SoapClient();
         private void btnXem_Click(object sender, EventArgs e)
@@ -45,7 +45,6 @@ namespace Quản_lý_vudaco.module
                     DateTime Ngay1 = new DateTime(int.Parse(arr1[2]), int.Parse(arr1[1]), int.Parse(arr1[0]));
                     DateTime Ngay2 = new DateTime(int.Parse(arr2[2]), int.Parse(arr2[1]), int.Parse(arr2[0]));
                     gridControl1.DataSource = client.CongNoDoiTru(Ngay1, Ngay2);
-                    gridControl2.DataSource= client.CongNoDaDoiTru(Ngay1, Ngay2);
                     splashScreenManager1.CloseWaitForm();
                 }
             }
@@ -58,6 +57,12 @@ namespace Quản_lý_vudaco.module
         private void repositoryItemTaoDoiTru_Click(object sender, EventArgs e)
         {
 
+        }
+
+        private void btnTaoDoiTru_Click(object sender, EventArgs e)
+        {
+            frmDoiTruCongNo frm = new frmDoiTruCongNo();
+            frm.ShowDialog();
         }
     }
 }

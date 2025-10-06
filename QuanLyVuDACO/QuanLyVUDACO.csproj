@@ -287,6 +287,12 @@
     <Compile Include="Forms\frmChiKhac.Designer.cs">
       <DependentUpon>frmChiKhac.cs</DependentUpon>
     </Compile>
+    <Compile Include="Forms\frmDoiTruCongNo.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\frmDoiTruCongNo.Designer.cs">
+      <DependentUpon>frmDoiTruCongNo.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\frmDuyet_BangKe.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -1094,6 +1100,7 @@
     </Compile>
     <Compile Include="services\baocaosoquy.cs" />
     <Compile Include="services\common\ControlHelper.cs" />
+    <Compile Include="services\common\Utility.cs" />
     <Compile Include="services\common\LoggingMiddleware.cs" />
     <Compile Include="services\common\MiddlewarePipeline.cs" />
     <Compile Include="services\Entity\BaoCaoSoQuy.cs" />
@@ -1184,6 +1191,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\frmChiKhac.resx">
       <DependentUpon>frmChiKhac.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\frmDoiTruCongNo.resx">
+      <DependentUpon>frmDoiTruCongNo.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\frmDuyet_BangKe.resx">
       <DependentUpon>frmDuyet_BangKe.cs</DependentUpon>
