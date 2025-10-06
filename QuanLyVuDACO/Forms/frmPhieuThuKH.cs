@@ -118,6 +118,7 @@ namespace Quản_lý_vudaco.Forms
                             ThanhTien = LaPhiChiHo == 0 ? double.Parse(gridView1.GetRowCellValue(i, "ThuDichVu").ToString()) : double.Parse(gridView1.GetRowCellValue(i, "ThuChiHo").ToString()),
                             TenDoiTuong = gridView1.GetRowCellValue(i, "TenKhachHang").ToString(),
                             IDCP = 0,
+                            IDPhieuThu = _id_pthu,
                             MaNhanVien = "",
                             LaPhieuChiHo = LaPhiChiHo,
                             MaDieuXe = gridView1.GetRowCellValue(i, "MaDieuXe").ToString(),

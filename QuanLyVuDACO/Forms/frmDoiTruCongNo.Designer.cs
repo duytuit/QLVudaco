@@ -31,6 +31,8 @@ namespace Quản_lý_vudaco.Forms
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmDoiTruCongNo));
             this.panelControl1 = new DevExpress.XtraEditors.PanelControl();
+            this.lbTienHachToan = new DevExpress.XtraEditors.LabelControl();
+            this.labelControl3 = new DevExpress.XtraEditors.LabelControl();
             this.labelControl2 = new DevExpress.XtraEditors.LabelControl();
             this.dtNgay = new System.Windows.Forms.MaskedTextBox();
             this.labelControl1 = new DevExpress.XtraEditors.LabelControl();
@@ -55,6 +57,9 @@ namespace Quản_lý_vudaco.Forms
             this.gridColumn23 = new DevExpress.XtraGrid.Columns.GridColumn();
             this.gridColumn24 = new DevExpress.XtraGrid.Columns.GridColumn();
             this.gridColumn25 = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.gridColumn14 = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.gridColumn26 = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.gridColumn27 = new DevExpress.XtraGrid.Columns.GridColumn();
             this.groupControl1 = new DevExpress.XtraEditors.GroupControl();
             this.gridControl1 = new DevExpress.XtraGrid.GridControl();
             this.gridView1 = new DevExpress.XtraGrid.Views.Grid.GridView();
@@ -72,8 +77,10 @@ namespace Quản_lý_vudaco.Forms
             this.gridColumn13 = new DevExpress.XtraGrid.Columns.GridColumn();
             this.panelControl2 = new DevExpress.XtraEditors.PanelControl();
             this.btnBuTru = new DevExpress.XtraEditors.SimpleButton();
-            this.labelControl3 = new DevExpress.XtraEditors.LabelControl();
-            this.lbTienHachToan = new DevExpress.XtraEditors.LabelControl();
+            this.LaPhiChiHo = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.gridColumn28 = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.gridColumn29 = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.gridColumn30 = new DevExpress.XtraGrid.Columns.GridColumn();
             ((System.ComponentModel.ISupportInitialize)(this.panelControl1)).BeginInit();
             this.panelControl1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.cboKH.Properties)).BeginInit();
@@ -105,6 +112,21 @@ namespace Quản_lý_vudaco.Forms
             this.panelControl1.Name = "panelControl1";
             this.panelControl1.Size = new System.Drawing.Size(1198, 47);
             this.panelControl1.TabIndex = 0;
+            // 
+            // lbTienHachToan
+            // 
+            this.lbTienHachToan.Location = new System.Drawing.Point(720, 17);
+            this.lbTienHachToan.Name = "lbTienHachToan";
+            this.lbTienHachToan.Size = new System.Drawing.Size(0, 13);
+            this.lbTienHachToan.TabIndex = 24;
+            // 
+            // labelControl3
+            // 
+            this.labelControl3.Location = new System.Drawing.Point(616, 17);
+            this.labelControl3.Name = "labelControl3";
+            this.labelControl3.Size = new System.Drawing.Size(103, 13);
+            this.labelControl3.TabIndex = 23;
+            this.labelControl3.Text = "Tổng tiền hạch toán: ";
             // 
             // labelControl2
             // 
@@ -238,7 +260,10 @@ namespace Quản_lý_vudaco.Forms
             this.gridColumn22,
             this.gridColumn23,
             this.gridColumn24,
-            this.gridColumn25});
+            this.gridColumn25,
+            this.gridColumn14,
+            this.gridColumn26,
+            this.gridColumn27});
             this.gridView2.GridControl = this.gridControl2;
             this.gridView2.Name = "gridView2";
             this.gridView2.OptionsView.ShowAutoFilterRow = true;
@@ -371,6 +396,24 @@ namespace Quản_lý_vudaco.Forms
             this.gridColumn25.FieldName = "TongThu";
             this.gridColumn25.Name = "gridColumn25";
             // 
+            // gridColumn14
+            // 
+            this.gridColumn14.Caption = "Type";
+            this.gridColumn14.FieldName = "Type";
+            this.gridColumn14.Name = "gridColumn14";
+            // 
+            // gridColumn26
+            // 
+            this.gridColumn26.Caption = "Key";
+            this.gridColumn26.FieldName = "Key";
+            this.gridColumn26.Name = "gridColumn26";
+            // 
+            // gridColumn27
+            // 
+            this.gridColumn27.Caption = "ID";
+            this.gridColumn27.FieldName = "ID";
+            this.gridColumn27.Name = "gridColumn27";
+            // 
             // groupControl1
             // 
             this.groupControl1.Controls.Add(this.gridControl1);
@@ -406,7 +449,11 @@ namespace Quản_lý_vudaco.Forms
             this.gridColumn8,
             this.gridColumn12,
             this.gridColumn9,
-            this.gridColumn13});
+            this.gridColumn13,
+            this.LaPhiChiHo,
+            this.gridColumn28,
+            this.gridColumn29,
+            this.gridColumn30});
             this.gridView1.GridControl = this.gridControl1;
             this.gridView1.Name = "gridView1";
             this.gridView1.OptionsView.ShowAutoFilterRow = true;
@@ -558,20 +605,28 @@ namespace Quản_lý_vudaco.Forms
             this.btnBuTru.Text = "Bù trừ công nợ";
             this.btnBuTru.Click += new System.EventHandler(this.btnBuTru_Click);
             // 
-            // labelControl3
+            // LaPhiChiHo
             // 
-            this.labelControl3.Location = new System.Drawing.Point(616, 17);
-            this.labelControl3.Name = "labelControl3";
-            this.labelControl3.Size = new System.Drawing.Size(103, 13);
-            this.labelControl3.TabIndex = 23;
-            this.labelControl3.Text = "Tổng tiền hạch toán: ";
+            this.LaPhiChiHo.Caption = "LaPhiChiHo";
+            this.LaPhiChiHo.Name = "LaPhiChiHo";
             // 
-            // lbTienHachToan
+            // gridColumn28
             // 
-            this.lbTienHachToan.Location = new System.Drawing.Point(720, 17);
-            this.lbTienHachToan.Name = "lbTienHachToan";
-            this.lbTienHachToan.Size = new System.Drawing.Size(0, 13);
-            this.lbTienHachToan.TabIndex = 24;
+            this.gridColumn28.Caption = "MaDieuXe";
+            this.gridColumn28.FieldName = "MaDieuXe";
+            this.gridColumn28.Name = "gridColumn28";
+            // 
+            // gridColumn29
+            // 
+            this.gridColumn29.Caption = "ID";
+            this.gridColumn29.FieldName = "ID";
+            this.gridColumn29.Name = "gridColumn29";
+            // 
+            // gridColumn30
+            // 
+            this.gridColumn30.Caption = "Key";
+            this.gridColumn30.FieldName = "Key";
+            this.gridColumn30.Name = "gridColumn30";
             // 
             // frmDoiTruCongNo
             // 
@@ -649,5 +704,12 @@ namespace Quản_lý_vudaco.Forms
         private DevExpress.XtraEditors.SimpleButton btnBuTru;
         private DevExpress.XtraEditors.LabelControl lbTienHachToan;
         private DevExpress.XtraEditors.LabelControl labelControl3;
+        private DevExpress.XtraGrid.Columns.GridColumn gridColumn14;
+        private DevExpress.XtraGrid.Columns.GridColumn gridColumn26;
+        private DevExpress.XtraGrid.Columns.GridColumn gridColumn27;
+        private DevExpress.XtraGrid.Columns.GridColumn LaPhiChiHo;
+        private DevExpress.XtraGrid.Columns.GridColumn gridColumn28;
+        private DevExpress.XtraGrid.Columns.GridColumn gridColumn29;
+        private DevExpress.XtraGrid.Columns.GridColumn gridColumn30;
     }
 }

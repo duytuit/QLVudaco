@@ -72,7 +72,7 @@ namespace Quản_lý_vudaco.Forms
             this.btnCapNhat.Name = "btnCapNhat";
             this.btnCapNhat.Size = new System.Drawing.Size(135, 33);
             this.btnCapNhat.TabIndex = 10;
-            this.btnCapNhat.Text = "Tạo phiếu thu";
+            this.btnCapNhat.Text = "Tạo phiếu chi";
             this.btnCapNhat.Click += new System.EventHandler(this.btnCapNhat_Click);
             // 
             // labelControl2
