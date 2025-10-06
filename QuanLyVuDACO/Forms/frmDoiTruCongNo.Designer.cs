@@ -72,6 +72,8 @@ namespace Quản_lý_vudaco.Forms
             this.gridColumn13 = new DevExpress.XtraGrid.Columns.GridColumn();
             this.panelControl2 = new DevExpress.XtraEditors.PanelControl();
             this.btnBuTru = new DevExpress.XtraEditors.SimpleButton();
+            this.labelControl3 = new DevExpress.XtraEditors.LabelControl();
+            this.lbTienHachToan = new DevExpress.XtraEditors.LabelControl();
             ((System.ComponentModel.ISupportInitialize)(this.panelControl1)).BeginInit();
             this.panelControl1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.cboKH.Properties)).BeginInit();
@@ -91,6 +93,8 @@ namespace Quản_lý_vudaco.Forms
             // 
             // panelControl1
             // 
+            this.panelControl1.Controls.Add(this.lbTienHachToan);
+            this.panelControl1.Controls.Add(this.labelControl3);
             this.panelControl1.Controls.Add(this.labelControl2);
             this.panelControl1.Controls.Add(this.dtNgay);
             this.panelControl1.Controls.Add(this.labelControl1);
@@ -104,7 +108,7 @@ namespace Quản_lý_vudaco.Forms
             // 
             // labelControl2
             // 
-            this.labelControl2.Location = new System.Drawing.Point(465, 17);
+            this.labelControl2.Location = new System.Drawing.Point(393, 18);
             this.labelControl2.Name = "labelControl2";
             this.labelControl2.Size = new System.Drawing.Size(58, 13);
             this.labelControl2.TabIndex = 22;
@@ -112,7 +116,7 @@ namespace Quản_lý_vudaco.Forms
             // 
             // dtNgay
             // 
-            this.dtNgay.Location = new System.Drawing.Point(551, 13);
+            this.dtNgay.Location = new System.Drawing.Point(457, 14);
             this.dtNgay.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.dtNgay.Mask = "00/00/0000";
             this.dtNgay.Name = "dtNgay";
@@ -140,7 +144,7 @@ namespace Quản_lý_vudaco.Forms
             // cboKH
             // 
             this.cboKH.EditValue = "Tất cả khách";
-            this.cboKH.Location = new System.Drawing.Point(94, 14);
+            this.cboKH.Location = new System.Drawing.Point(66, 15);
             this.cboKH.Name = "cboKH";
             this.cboKH.Properties.AllowNullInput = DevExpress.Utils.DefaultBoolean.True;
             this.cboKH.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
@@ -552,6 +556,22 @@ namespace Quản_lý_vudaco.Forms
             this.btnBuTru.Size = new System.Drawing.Size(288, 23);
             this.btnBuTru.TabIndex = 0;
             this.btnBuTru.Text = "Bù trừ công nợ";
+            this.btnBuTru.Click += new System.EventHandler(this.btnBuTru_Click);
+            // 
+            // labelControl3
+            // 
+            this.labelControl3.Location = new System.Drawing.Point(616, 17);
+            this.labelControl3.Name = "labelControl3";
+            this.labelControl3.Size = new System.Drawing.Size(103, 13);
+            this.labelControl3.TabIndex = 23;
+            this.labelControl3.Text = "Tổng tiền hạch toán: ";
+            // 
+            // lbTienHachToan
+            // 
+            this.lbTienHachToan.Location = new System.Drawing.Point(720, 17);
+            this.lbTienHachToan.Name = "lbTienHachToan";
+            this.lbTienHachToan.Size = new System.Drawing.Size(0, 13);
+            this.lbTienHachToan.TabIndex = 24;
             // 
             // frmDoiTruCongNo
             // 
@@ -627,5 +647,7 @@ namespace Quản_lý_vudaco.Forms
         private DevExpress.XtraGrid.Columns.GridColumn gridColumn24;
         private DevExpress.XtraGrid.Columns.GridColumn gridColumn25;
         private DevExpress.XtraEditors.SimpleButton btnBuTru;
+        private DevExpress.XtraEditors.LabelControl lbTienHachToan;
+        private DevExpress.XtraEditors.LabelControl labelControl3;
     }
 }

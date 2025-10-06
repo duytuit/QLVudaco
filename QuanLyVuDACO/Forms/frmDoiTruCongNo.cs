@@ -39,10 +39,10 @@ namespace Quản_lý_vudaco.Forms
             {
                 cboKH.Properties.DataSource = kh.GetAllkh().Where(x=>x.LaNhaCungCap);
             }
-               
-        }
+            lbTienHachToan.Text = _TongTienThu.ToString("#,##");
 
-        private void btnLayData_Click(object sender, EventArgs e)
+        }
+        private void LoadData()
         {
             string makh = "";
             if (cboKH.Text == "")
@@ -81,17 +81,17 @@ namespace Quản_lý_vudaco.Forms
                     SoCont = x.SoCont,
                     ID = x.ID,
                     Key = x.Key,
-                    SoFile = x.SoFile +"/"+ x.MaDieuXe,
+                    SoFile = x.SoFile + "/" + x.MaDieuXe,
                     ThanhToanDV = _khachhang_ct.Where(y => y.IDKey == x.ID && y.KeyName == x.Key && y.Type == 5 && y.LaPhiChiHo == 0).Sum(y => y.ThanhTien),
                     ThanhToanCH = _khachhang_ct.Where(y => y.IDKey == x.ID && y.KeyName == x.Key && y.Type == 5 && y.LaPhiChiHo == 1).Sum(y => y.ThanhTien),
-                    SoTien_BuTru=0,
-                    Chon=false
+                    SoTien_BuTru = 0,
+                    Chon = false
                 })
                   .ToList() // chuyển sang bộ nhớ để có thể so sánh giá trị đã tính
                   .Where(x => (x.ThanhTienDV + x.ThanhTienCH) > (x.ThanhToanDV + x.ThanhToanCH))
                   .OrderBy(x => x.NgayHachToan)
                   .ToList();
-                  gridControl1.DataSource = Utility.ToDataTable(kh_dv_ch);
+                gridControl1.DataSource = Utility.ToDataTable(kh_dv_ch);
             }
             using (var ncc = new ncc())
             {
@@ -100,7 +100,7 @@ namespace Quản_lý_vudaco.Forms
                 {
                     NgayHachToan = x.NgayHachToan,
                     LoaiXe_NCC = x.LoaiXe_NCC,
-                    MaDieuXe = x.MaDieuXe??x.SoFile,
+                    MaDieuXe = x.MaDieuXe ?? x.SoFile,
                     SoToKhai = x.SoToKhai,
                     SoBill = x.SoBill,
                     NoiDung = x.NoiDung,
@@ -116,7 +116,7 @@ namespace Quản_lý_vudaco.Forms
                     Chon = x.Chon,
                     ID = x.ID,
                     Key = x.Key,
-                    SoFile = x.SoFile +"/" + x.MaDieuXe,
+                    SoFile = x.SoFile + "/" + x.MaDieuXe,
                     ThanhTienDV = (x.Type == 0) ? x.ThanhTien : 0,
                     ThanhTienNH = (x.Type == 3) ? x.ThanhTien : 0,
                     ThanhToanDV = ncc_ct.Where(y => y.IDName == x.ID && y.KeyName == x.Key && y.Type == 2).Sum(y => y.ThanhTien),
@@ -129,6 +129,10 @@ namespace Quản_lý_vudaco.Forms
                   .ToList();
                 gridControl2.DataSource = Utility.ToDataTable(ncc_dv_nh);
             }
+        }
+        private void btnLayData_Click(object sender, EventArgs e)
+        {
+            LoadData();
         }
 
         private void gridView1_CustomUnboundColumnData(object sender, DevExpress.XtraGrid.Views.Base.CustomColumnDataEventArgs e)
@@ -180,8 +184,15 @@ namespace Quản_lý_vudaco.Forms
                         else
                         {
                             _TongTienThu -= TongThu;
+                            if (_TongTienThu < 0)
+                            {
+                                XtraMessageBox.Show("Có lỗi xảy ra. Hãy làm lại!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                                _TongTienThu = 0;
+                                LoadData();
+                            }
                             gridView1.SetFocusedRowCellValue("SoTien_BuTru", 0);
                         }
+                        lbTienHachToan.Text = _TongTienThu.ToString("#,##");
                     }
                 }
             }
@@ -210,10 +221,10 @@ namespace Quản_lý_vudaco.Forms
                             }
                             else
                             {
-                                _TongTienThu -= _TongTienThu;
                                 gridView2.SetFocusedRowCellValue("SoTien_BuTru", _TongTienThu);
+                                _TongTienThu -= _TongTienThu;
                             }
-                           
+                         
                         }
                         else
                         {
@@ -221,6 +232,7 @@ namespace Quản_lý_vudaco.Forms
                             _TongTienThu += SoTien_BuTru;
                             gridView2.SetFocusedRowCellValue("SoTien_BuTru", 0);
                         }
+                        lbTienHachToan.Text = _TongTienThu.ToString("#,##");
                     }
                 }
             }
@@ -259,6 +271,11 @@ namespace Quản_lý_vudaco.Forms
                 double ThanhToanCH = Convert.ToDouble(gridView2.GetListSourceRowCellValue(e.ListSourceRowIndex, "ThanhToanNH"));
                 e.Value = (ThanhTienDV - ThanhToanDV) + (ThanhTienCH - ThanhToanCH);
             }
+        }
+
+        private void btnBuTru_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }
