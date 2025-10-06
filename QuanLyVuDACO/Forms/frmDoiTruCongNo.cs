@@ -136,7 +136,20 @@ namespace Quản_lý_vudaco.Forms
         {
             LoadData();
         }
+        private void LoadDataDoiTru()
+        {
+            using (var dt = new doitru())
+            {
+                string[] arr1 = dtTuNgay.Text.Split('/');
+                string[] arr2 = dtpDenNgay.Text.Split('/');
+                if (arr1.Length >= 3 && arr2.Length >= 3 && arr1[0].Trim() != "" && arr2[0].Trim() != "")
+                {
+                    DateTime Ngay1 = new DateTime(int.Parse(arr1[2]), int.Parse(arr1[1]), int.Parse(arr1[0]));
+                    DateTime Ngay2 = new DateTime(int.Parse(arr2[2]), int.Parse(arr2[1]), int.Parse(arr2[0]));
 
+                }
+            }
+        }
         private void gridView1_CustomUnboundColumnData(object sender, DevExpress.XtraGrid.Views.Base.CustomColumnDataEventArgs e)
         {
             var view = sender as DevExpress.XtraGrid.Views.Grid.GridView;
@@ -312,11 +325,11 @@ namespace Quản_lý_vudaco.Forms
                     {
                         ID = 0,
                         NgayHachToan = Convert.ToDateTime(dtNgay.Text),
-                        NoiDung = "",
+                        NoiDung = "Bù trừ công nợ phải thu, phải trả " + kh["TenKhachHang"].ToString(),
                         NguoiTao = frmMain._TK,
-                        NgayCapNhat = da
+                        NgayCapNhat = DateTime.Now
                     };
-                    int _id_doitru = _appDB.UpsertFromObject("PhieuChi_NCC", p_doitru, "IDPhieuChiNCC", true);
+                    int _id_doitru = _appDB.UpsertFromObject("DoiTruCongNo", p_doitru, "ID", true);
                     // tạo công nợ nhà cung cấp
                     string[] arr = dtNgay.Text.Trim().Split('/');
                     var p = new
@@ -331,7 +344,7 @@ namespace Quản_lý_vudaco.Forms
                         ThoiGianTao = DateTime.Now,
                         NguoiNhan = frmMain._HoTen,
                         HinhThucTT = "TM",
-                        IDDoiTru = ""
+                        IDDoiTru = _id_doitru
                     };
                     int _id_pchi = _appDB.UpsertFromObject("PhieuChi_NCC", p, "IDPhieuChiNCC", true);
                     for (int i = 0; i < gridView2.RowCount; i++)
@@ -376,7 +389,8 @@ namespace Quản_lý_vudaco.Forms
                         SoChungTu = client.TaoSoChungTu_Thu(arr),
                         SoHoaDon = "",
                         ThoiGianTao = DateTime.Now,
-                        HinhThucTT = "TM"
+                        HinhThucTT = "TM",
+                        IDDoiTru = _id_doitru
                     };
                     int _id_pthu = _appDB.UpsertFromObject("PhieuThu", p_kh, "IDPhieuThu", true);
                     for (int i = 0; i < gridView1.RowCount; i++)
@@ -410,6 +424,13 @@ namespace Quản_lý_vudaco.Forms
                             _appDB.UpsertFromObject("PhieuThu_CT", phieuchitiet, "IDCT", true);
                         }
                     }
+                    var p_doitru_update = new
+                    {
+                        ID = _id_doitru,
+                        PhieuThuNCC_ID = _id_pchi,
+                        PhieuThuKH_ID = _id_pthu
+                    };
+                    _appDB.UpsertFromObject("DoiTruCongNo", p_doitru_update, "ID", true);
                     _appDB.CommitTransaction();
                     XtraMessageBox.Show("Tạo thành công!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }

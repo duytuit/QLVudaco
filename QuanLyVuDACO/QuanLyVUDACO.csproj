@@ -1103,6 +1103,7 @@
     <Compile Include="services\common\Utility.cs" />
     <Compile Include="services\common\LoggingMiddleware.cs" />
     <Compile Include="services\common\MiddlewarePipeline.cs" />
+    <Compile Include="services\doitru.cs" />
     <Compile Include="services\Entity\BaoCaoSoQuy.cs" />
     <Compile Include="services\Entity\BaoCaoTK.cs" />
     <Compile Include="services\Entity\CongNoChiTietKH.cs" />
