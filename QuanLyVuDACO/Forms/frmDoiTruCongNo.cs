@@ -421,6 +421,7 @@ namespace Quản_lý_vudaco.Forms
                     _appDB.UpsertFromObject("DoiTruCongNo", p_doitru_update, "ID", true);
                     _appDB.CommitTransaction();
                     XtraMessageBox.Show("Tạo thành công!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    this.Close();
                 }
                 catch (Exception ex)
                 {

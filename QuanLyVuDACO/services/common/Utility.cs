@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
@@ -7,8 +8,25 @@ using System.Threading.Tasks;
 
 namespace Quản_lý_vudaco.services.common
 {
-    public class Utility
+    public static class Utility
     {
+        /// <summary>
+        /// Convert một DataRow sang JSON string.
+        /// </summary>
+        public static string ToJson(DataRow row)
+        {
+            if (row == null)
+                return "{}";
+
+            var dict = row.Table.Columns
+                .Cast<DataColumn>()
+                .ToDictionary(
+                    col => col.ColumnName,
+                    col => row[col] == DBNull.Value ? null : row[col]
+                );
+
+            return JsonConvert.SerializeObject(dict, Formatting.Indented);
+        }
         public static DataTable ToDataTable<T>(List<T> items)
         {
             DataTable dataTable = new DataTable(typeof(T).Name);

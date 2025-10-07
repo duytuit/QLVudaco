@@ -52,7 +52,12 @@ namespace Quản_lý_vudaco.module
 
         private void repositoryItemSua_Click(object sender, EventArgs e)
         {
-            
+            string IDDoiTru = gridView2.GetFocusedRowCellDisplayText("IDDoiTru");
+            if (!string.IsNullOrWhiteSpace(IDDoiTru))
+            {
+                XtraMessageBox.Show("Không thể sửa phiếu này. Hãy vào đối trừ công nợ tìm theo mã phiếu này!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
             string _maThu = gridView2.GetFocusedRowCellDisplayText("MaThu").Trim();
             if (_maThu != "001")
             {
@@ -71,16 +76,14 @@ namespace Quản_lý_vudaco.module
 
         private void repositoryItemXoa_Click(object sender, EventArgs e)
         {
-           // string _soFile = gridView2.GetFocusedRowCellDisplayText("SoFile");
+            string IDDoiTru = gridView2.GetFocusedRowCellDisplayText("IDDoiTru");
+            if (!string.IsNullOrWhiteSpace(IDDoiTru))
+            {
+                XtraMessageBox.Show("Để xóa phiếu này. Hãy vào đối trừ công nợ tìm theo mã phiếu này!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
             string _soChungTu = gridView2.GetFocusedRowCellDisplayText("SoChungTu");
-            // string _MaNhanVien = gridView2.GetFocusedRowCellDisplayText("MaNhanVien");
-            //  int _IDPhieuChi = int.Parse(gridView2.GetFocusedRowCellDisplayText("IDPhieuThu"));
-            //  bool isCheck = client.KiemTraPhieuChi_XacNhanHoanUng_Admin_TheoSoFile(_soFile);
-            //  string _MaChi = gridView2.GetFocusedRowCellDisplayText("MaChi");
-            //if (isCheck)
-            //    MessageBox.Show("Lô hàng này đã xác nhận hoàn ứng- không được sửa xoá!");
-            //else
-            //{
             ServiceReference1.PhieuThu p = new ServiceReference1.PhieuThu();
             p.IDPhieuThu= int.Parse(gridView2.GetFocusedRowCellDisplayText("IDPhieuThu"));
             DataTable dt = client.DanhSachPhieuThu_CT_TheoSoChungTu(_soChungTu);

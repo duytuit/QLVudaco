@@ -30,7 +30,7 @@ namespace Quản_lý_vudaco.module
         {
             dtpTuNgay.Text = DateTime.Now.AddDays(-7).ToString("dd/MM/yyyy");
             dtpDenNgay.Text = DateTime.Now.ToString("dd/MM/yyyy");
-           // cboKH.Properties.DataSource = client.dsKH();
+            LoadDataDoiTru();
         }
         ServiceReference1.WebService1SoapClient client = new ServiceReference1.WebService1SoapClient();
         private void btnXem_Click(object sender, EventArgs e)
@@ -70,27 +70,27 @@ namespace Quản_lý_vudaco.module
 
         private void repositoryItemHyperLinkXoa_Click(object sender, EventArgs e)
         {
-            //if (MessageBox.Show("Bạn có chắc chắn muốn xoá không (Y/N)", "Thông báo", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
-            //{
-            //    int _ID = int.Parse(gridView1.GetFocusedRowCellValue("ID").ToString());
-            //    using (var _db = new clsKetNoi())
-            //    {
-            //        _db.DeleteById("DoiTruCongNo", _ID, "ID");
-            //        DataRow PhieuChi_NCC = _db.GetSingleRecord("PhieuChi_NCC", _ID, "IDDoiTru", true);
-            //        if (PhieuChi_NCC != null)
-            //        {
-            //            _db.DeleteById("PhieuChi_NCC", int.Parse(PhieuChi_NCC["IDPhieuChiNCC"].ToString()), "IDPhieuChiNCC");
-            //            _db.DeleteById("PhieuChi_NCC_CT", int.Parse(PhieuChi_NCC["IDPhieuChiNCC"].ToString()), "IDPhieuChi");
-            //        }
-            //        DataRow PhieuThu = _db.GetSingleRecord("PhieuThu", _ID, "IDDoiTru", true);
-            //        if (PhieuThu != null)
-            //        {
-            //            _db.DeleteById("PhieuThu", int.Parse(PhieuThu["IDPhieuThu"].ToString()), "IDPhieuThu");
-            //            _db.DeleteById("PhieuThu_CT", int.Parse(PhieuThu["IDPhieuThu"].ToString()), "IDPhieuThu");
-            //        }
-            //    }
-            //    LoadDataDoiTru();
-            //}
+            if (MessageBox.Show("Bạn có chắc chắn muốn xoá không (Y/N)", "Thông báo", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+            {
+                int _ID = int.Parse(gridView1.GetFocusedRowCellValue("ID").ToString());
+                using (var _db = new clsKetNoi())
+                {
+                    _db.DeleteById("DoiTruCongNo", _ID, "ID");
+                    DataRow PhieuChi_NCC = _db.GetSingleRecord("PhieuChi_NCC", _ID, "IDDoiTru", true);
+                    if (PhieuChi_NCC != null)
+                    {
+                        _db.DeleteById("PhieuChi_NCC", int.Parse(PhieuChi_NCC["IDPhieuChiNCC"].ToString()), "IDPhieuChiNCC");
+                        _db.DeleteById("PhieuChi_NCC_CT", int.Parse(PhieuChi_NCC["IDPhieuChiNCC"].ToString()), "IDPhieuChi");
+                    }
+                    DataRow PhieuThu = _db.GetSingleRecord("PhieuThu", _ID, "IDDoiTru", true);
+                    if (PhieuThu != null)
+                    {
+                        _db.DeleteById("PhieuThu", int.Parse(PhieuThu["IDPhieuThu"].ToString()), "IDPhieuThu");
+                        _db.DeleteById("PhieuThu_CT", int.Parse(PhieuThu["IDPhieuThu"].ToString()), "IDPhieuThu");
+                    }
+                }
+                LoadDataDoiTru();
+            }
         }
     }
 }

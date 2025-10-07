@@ -57,7 +57,12 @@ namespace Quản_lý_vudaco.module
 
         private void repositoryItemSua_Click(object sender, EventArgs e)
         {
-          
+            string IDDoiTru = gridView2.GetFocusedRowCellDisplayText("IDDoiTru");
+            if (!string.IsNullOrWhiteSpace(IDDoiTru))
+            {
+                XtraMessageBox.Show("Không thể sửa phiếu này. Hãy vào đối trừ công nợ tìm theo mã phiếu này!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
             string _maChi = gridView2.GetFocusedRowCellDisplayText("MaChi").Trim();
             if (_maChi != "001")
             {
@@ -70,15 +75,17 @@ namespace Quản_lý_vudaco.module
 
         private void repositoryItemXoa_Click(object sender, EventArgs e)
         {
-         
+            string IDDoiTru = gridView2.GetFocusedRowCellDisplayText("IDDoiTru");
+            if (!string.IsNullOrWhiteSpace(IDDoiTru))
+            {
+                XtraMessageBox.Show("Để xóa phiếu này. Hãy vào đối trừ công nợ tìm theo mã phiếu này!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
             string _soChungTu = gridView2.GetFocusedRowCellDisplayText("SoChungTu");
             DataTable dt = client.DanhSachPhieuChi_CT_TheoSoChungTu(_soChungTu);
             client.DanhSachPhieuChiNCC_Xoa(_soChungTu);
             client.PhieuChi_NCC_CT_Xoa(_soChungTu);
-            
-          
             btnXem_Click(sender, e);
-            //}
         }
 
         private void gridView2_CustomRowCellEditForEditing(object sender, DevExpress.XtraGrid.Views.Grid.CustomRowCellEditEventArgs e)

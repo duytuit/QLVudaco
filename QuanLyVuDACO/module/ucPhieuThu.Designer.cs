@@ -94,6 +94,7 @@ namespace Quản_lý_vudaco.module
             this.gridColumn23 = new DevExpress.XtraGrid.Columns.GridColumn();
             this.gridColumn24 = new DevExpress.XtraGrid.Columns.GridColumn();
             this.gridColumn30 = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.gridColumn32 = new DevExpress.XtraGrid.Columns.GridColumn();
             ((System.ComponentModel.ISupportInitialize)(this.panelControl1)).BeginInit();
             this.panelControl1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.txtSoFile.Properties)).BeginInit();
@@ -284,7 +285,8 @@ namespace Quản_lý_vudaco.module
             this.gridColumn25,
             this.gridColumn27,
             this.gridColumn28,
-            this.gridColumn31});
+            this.gridColumn31,
+            this.gridColumn32});
             this.gridView2.DetailHeight = 284;
             this.gridView2.GridControl = this.gridControl2;
             this.gridView2.Name = "gridView2";
@@ -757,6 +759,12 @@ namespace Quản_lý_vudaco.module
             this.gridColumn30.Name = "gridColumn30";
             this.gridColumn30.Width = 64;
             // 
+            // gridColumn32
+            // 
+            this.gridColumn32.Caption = "IDDoiTru";
+            this.gridColumn32.FieldName = "IDDoiTru";
+            this.gridColumn32.Name = "gridColumn32";
+            // 
             // ucPhieuThu
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -855,5 +863,6 @@ namespace Quản_lý_vudaco.module
         private DevExpress.XtraGrid.Columns.GridColumn gridColumn28;
         private DevExpress.XtraGrid.Columns.GridColumn gridColumn31;
         private DevExpress.XtraEditors.PanelControl panelControl3;
+        private DevExpress.XtraGrid.Columns.GridColumn gridColumn32;
     }
 }
