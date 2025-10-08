@@ -16,7 +16,7 @@ namespace Quản_lý_vudaco.Forms
     public partial class frmDoiTruCongNo : DevExpress.XtraEditors.XtraForm
     {
 
-        private static double _TongTienThu = 0;
+        private double _TongTienThu = 0;
         public frmDoiTruCongNo()
         {
             InitializeComponent();
@@ -331,7 +331,7 @@ namespace Quản_lý_vudaco.Forms
                         NguoiTao = frmMain._TK,
                         ThoiGianTao = DateTime.Now,
                         NguoiNhan = frmMain._HoTen,
-                        HinhThucTT = "TM",
+                        HinhThucTT = "DT",
                         IDDoiTru = _id_doitru
                     };
                     int _id_pchi = _appDB.UpsertFromObject("PhieuChi_NCC", p, "IDPhieuChiNCC", true);
@@ -377,7 +377,7 @@ namespace Quản_lý_vudaco.Forms
                         SoChungTu = client.TaoSoChungTu_Thu(arr),
                         SoHoaDon = "",
                         ThoiGianTao = DateTime.Now,
-                        HinhThucTT = "TM",
+                        HinhThucTT = "DT",
                         IDDoiTru = _id_doitru
                     };
                     int _id_pthu = _appDB.UpsertFromObject("PhieuThu", p_kh, "IDPhieuThu", true);
