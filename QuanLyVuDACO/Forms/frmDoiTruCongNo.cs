@@ -175,6 +175,10 @@ namespace Quản_lý_vudaco.Forms
             {
                 if (e.RowHandle >= 0 && e.Column.FieldName == "Chon")
                 {
+                    // ✅ Cập nhật tạm giá trị mới vì CellValueChanging xảy ra trước khi commit
+                    bool newValue = Convert.ToBoolean(e.Value);
+                    gridView1.SetRowCellValue(e.RowHandle, "Chon", newValue);
+
                     _TongTienThu = 0;
 
                     // 🔹 Reset & tính tổng ở gridView1
@@ -191,10 +195,15 @@ namespace Quản_lý_vudaco.Forms
                         }
                     }
 
-                    // 🔹 Phân bổ sang gridView2
+                    // 🔹 Reset trước khi tính ở gridView2
                     for (int i = 0; i < gridView2.RowCount; i++)
                     {
                         gridView2.SetRowCellValue(i, "SoTien_BuTru", 0);
+                    }
+
+                    // 🔹 Phân bổ sang gridView2
+                    for (int i = 0; i < gridView2.RowCount; i++)
+                    {
                         bool chon2 = Convert.ToBoolean(gridView2.GetRowCellValue(i, "Chon"));
                         if (chon2)
                         {
@@ -226,9 +235,13 @@ namespace Quản_lý_vudaco.Forms
             {
                 if (e.RowHandle >= 0 && e.Column.FieldName == "Chon")
                 {
+                    // ✅ Vì CellValueChanging xảy ra TRƯỚC khi commit, cần cập nhật tạm giá trị mới
+                    bool newValue = Convert.ToBoolean(e.Value);
+                    gridView2.SetRowCellValue(e.RowHandle, "Chon", newValue);
+
                     _TongTienChi = 0;
 
-                    // 🔹 Reset & tính tổng ở gridView1
+                    // 🔹 Reset & tính tổng ở gridView2
                     for (int i = 0; i < gridView2.RowCount; i++)
                     {
                         gridView2.SetRowCellValue(i, "SoTien_BuTru", 0);
@@ -242,24 +255,29 @@ namespace Quản_lý_vudaco.Forms
                         }
                     }
 
-                    // 🔹 Phân bổ sang gridView2
+                    // 🔹 Reset trước khi phân bổ sang gridView1
                     for (int i = 0; i < gridView1.RowCount; i++)
                     {
                         gridView1.SetRowCellValue(i, "SoTien_BuTru", 0);
-                        bool chon2 = Convert.ToBoolean(gridView1.GetRowCellValue(i, "Chon"));
-                        if (chon2)
+                    }
+
+                    // 🔹 Phân bổ sang gridView1
+                    for (int i = 0; i < gridView1.RowCount; i++)
+                    {
+                        bool chon1 = Convert.ToBoolean(gridView1.GetRowCellValue(i, "Chon"));
+                        if (chon1)
                         {
-                            double TongThu2 = Convert.ToDouble(gridView1.GetRowCellValue(i, "TongThu"));
-                            if (_TongTienChi > TongThu2)
+                            double TongThu1 = Convert.ToDouble(gridView1.GetRowCellValue(i, "TongThu"));
+                            if (_TongTienChi > TongThu1)
                             {
-                                _TongTienChi -= TongThu2;
-                                gridView1.SetRowCellValue(i, "SoTien_BuTru", TongThu2);
+                                _TongTienChi -= TongThu1;
+                                gridView1.SetRowCellValue(i, "SoTien_BuTru", TongThu1);
                             }
                             else
                             {
                                 gridView1.SetRowCellValue(i, "SoTien_BuTru", _TongTienChi);
                                 _TongTienChi = 0;
-                                break; // Không cần duyệt thêm nếu đã hết tiền
+                                break; // ✅ Dừng nếu đã hết tiền
                             }
                         }
                     }
