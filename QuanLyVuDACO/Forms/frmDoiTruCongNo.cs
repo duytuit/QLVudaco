@@ -1,4 +1,5 @@
 ﻿using DevExpress.XtraEditors;
+using DevExpress.XtraEditors.Repository;
 using Quản_lý_vudaco.services;
 using Quản_lý_vudaco.services.common;
 using System;
@@ -19,6 +20,7 @@ namespace Quản_lý_vudaco.Forms
         private double _TongTienThu = 0;
         private double _TongTienChi = 0;
         private bool _isHandling = false;
+        RepositoryItemCheckEdit repoCheck = new RepositoryItemCheckEdit();
         public frmDoiTruCongNo()
         {
             InitializeComponent();
@@ -34,6 +36,14 @@ namespace Quản_lý_vudaco.Forms
             gridView2.Columns["TongThu"].UnboundType = DevExpress.Data.UnboundColumnType.Decimal;
             gridView1.Columns["SoTien_BuTru"].OptionsColumn.AllowEdit = false;
             gridView2.Columns["SoTien_BuTru"].OptionsColumn.AllowEdit = false;
+            // Gán Repository cho cả hai GridView
+            gridControl1.RepositoryItems.Add(repoCheck);
+            gridControl2.RepositoryItems.Add(repoCheck);
+            gridView1.Columns["Chon"].ColumnEdit = repoCheck;
+            gridView2.Columns["Chon"].ColumnEdit = repoCheck;
+
+            // Gắn sự kiện
+            repoCheck.CheckedChanged += RepoCheck_CheckedChanged;
         }
 
         private void frmDoiTruCongNo_Load(object sender, EventArgs e)
@@ -169,73 +179,89 @@ namespace Quản_lý_vudaco.Forms
                 e.Value = (ThanhTienDV - ThanhToanDV) + (ThanhTienCH - ThanhToanCH);
             }
         }
-        // Hàm chung phân bổ: lấy tổng từ srcView, gán SoTien_BuTru ở src = TongThu (nếu Chon),
-        // rồi phân bổ sang dstView theo thứ tự, mỗi dst nhận tối đa TongThu của nó.
-        private void DistributeFromTo(DevExpress.XtraGrid.Views.Grid.GridView srcView, DevExpress.XtraGrid.Views.Grid.GridView dstView)
+        private void PhanBoTienTuGrid1()
         {
-            var srcGrid = srcView.GridControl;
-            var dstGrid = dstView.GridControl;
+            double tongThu = 0;
 
-            // BeginUpdate để tránh repaint nhiều lần
-            srcGrid?.BeginUpdate();
-            dstGrid?.BeginUpdate();
-
-            try
+            // 🔸 Tính tổng được chọn bên grid1
+            for (int i = 0; i < gridView1.RowCount; i++)
             {
-                // 1. Tính tổng từ src, đồng thời reset SoTien_BuTru cho src
-                double total = 0.0;
-                for (int i = 0; i < srcView.RowCount; i++)
+                bool chon = Convert.ToBoolean(gridView1.GetRowCellValue(i, "Chon"));
+                gridView1.SetRowCellValue(i, "SoTien_BuTru", 0);
+                if (chon)
                 {
-                    srcView.SetRowCellValue(i, "SoTien_BuTru", 0);
-                    bool chon = ToBoolSafe(srcView.GetRowCellValue(i, "Chon"));
-                    if (chon)
-                    {
-                        double tong = ToDoubleSafe(srcView.GetRowCellValue(i, "TongThu"));
-                        total += tong;
-                        srcView.SetRowCellValue(i, "SoTien_BuTru", tong);
-                    }
-                }
-
-                // 2. Reset SoTien_BuTru cho dst trước khi phân bổ
-                for (int i = 0; i < dstView.RowCount; i++)
-                {
-                    dstView.SetRowCellValue(i, "SoTien_BuTru", 0);
-                }
-
-                // 3. Phân bổ từ total sang từng dòng dst (theo thứ tự)
-                for (int i = 0; i < dstView.RowCount; i++)
-                {
-                    if (total <= 0) break;
-
-                    bool chonDst = ToBoolSafe(dstView.GetRowCellValue(i, "Chon"));
-                    if (!chonDst) continue;
-
-                    double need = ToDoubleSafe(dstView.GetRowCellValue(i, "TongThu"));
-                    double give = Math.Min(total, need);
-                    dstView.SetRowCellValue(i, "SoTien_BuTru", give);
-                    total -= give;
+                    tongThu += Convert.ToDouble(gridView1.GetRowCellValue(i, "TongThu"));
+                    gridView1.SetRowCellValue(i, "SoTien_BuTru", gridView1.GetRowCellValue(i, "TongThu"));
                 }
             }
-            finally
+
+            // 🔸 Reset bên grid2
+            for (int i = 0; i < gridView2.RowCount; i++)
+                gridView2.SetRowCellValue(i, "SoTien_BuTru", 0);
+
+            // 🔸 Phân bổ tiền sang grid2
+            for (int i = 0; i < gridView2.RowCount && tongThu > 0; i++)
             {
-                // EndUpdate để cho grid render lại
-                dstGrid?.EndUpdate();
-                srcGrid?.EndUpdate();
+                bool chon = Convert.ToBoolean(gridView2.GetRowCellValue(i, "Chon"));
+                if (!chon) continue;
+
+                double tongChi = Convert.ToDouble(gridView2.GetRowCellValue(i, "TongThu"));
+                double soTienBuTru = Math.Min(tongChi, tongThu);
+                gridView2.SetRowCellValue(i, "SoTien_BuTru", soTienBuTru);
+                tongThu -= soTienBuTru;
             }
         }
+        private void PhanBoTienTuGrid2()
+        {
+            double tongChi = 0;
 
-        // Helper an toàn
-        private bool ToBoolSafe(object val)
-        {
-            if (val == null) return false;
-            try { return Convert.ToBoolean(val); }
-            catch { return false; }
+            // 🔸 Tính tổng được chọn bên grid2
+            for (int i = 0; i < gridView2.RowCount; i++)
+            {
+                bool chon = Convert.ToBoolean(gridView2.GetRowCellValue(i, "Chon"));
+                gridView2.SetRowCellValue(i, "SoTien_BuTru", 0);
+                if (chon)
+                {
+                    tongChi += Convert.ToDouble(gridView2.GetRowCellValue(i, "TongThu"));
+                    gridView2.SetRowCellValue(i, "SoTien_BuTru", gridView2.GetRowCellValue(i, "TongThu"));
+                }
+            }
+
+            // 🔸 Reset bên grid1
+            for (int i = 0; i < gridView1.RowCount; i++)
+                gridView1.SetRowCellValue(i, "SoTien_BuTru", 0);
+
+            // 🔸 Phân bổ ngược sang grid1
+            for (int i = 0; i < gridView1.RowCount && tongChi > 0; i++)
+            {
+                bool chon = Convert.ToBoolean(gridView1.GetRowCellValue(i, "Chon"));
+                if (!chon) continue;
+
+                double tongThu = Convert.ToDouble(gridView1.GetRowCellValue(i, "TongThu"));
+                double soTienBuTru = Math.Min(tongThu, tongChi);
+                gridView1.SetRowCellValue(i, "SoTien_BuTru", soTienBuTru);
+                tongChi -= soTienBuTru;
+            }
         }
-        private double ToDoubleSafe(object val)
+        private void RepoCheck_CheckedChanged(object sender, EventArgs e)
         {
-            if (val == null) return 0;
-            try { return Convert.ToDouble(val); }
-            catch { return 0; }
+            CheckEdit edit = sender as CheckEdit;
+            if (edit == null) return;
+
+            GridControl grid = edit.Parent as GridControl;
+            if (grid == null) return;
+
+            GridView view = grid.FocusedView as GridView;
+            if (view == null) return;
+
+            // Ghi lại giá trị mới của checkbox vào Grid ngay lập tức
+            view.PostEditor();
+
+            // Gọi xử lý tương ứng
+            if (view == gridView1)
+                PhanBoTienTuGrid1();
+            else if (view == gridView2)
+                PhanBoTienTuGrid2();
         }
         private void gridView1_CellValueChanging(object sender, DevExpress.XtraGrid.Views.Base.CellValueChangedEventArgs e)
         {
