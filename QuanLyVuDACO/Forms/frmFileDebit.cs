@@ -303,7 +303,7 @@ namespace Quản_lý_vudaco.Forms
                                 p2.IDDeBit = client.Top1FileDebit();
                                 _Id_debit = p2.IDDeBit ?? 0;
                                 p2.IDKey = int.Parse(gridView1.GetRowCellDisplayText(i, "IDGiaCT").Trim());
-                                p2.KeyName = "filegiachitiet";
+                                p2.KeyName = gridView1.GetRowCellDisplayText(i, "Type").Trim();
                                 p2.GhiChu = gridView1.GetRowCellDisplayText(i, "GhiChu").Trim();
                                 p2.LaPhiChiHo = bool.Parse(gridView1.GetRowCellValue(i, "LaPhiChiHo").ToString().Trim());
                                 if (p2.TenDichVu != "")

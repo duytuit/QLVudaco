@@ -68,6 +68,7 @@ namespace Quản_lý_vudaco.Forms
             this.gridColumn8 = new DevExpress.XtraGrid.Columns.GridColumn();
             this.ColSoHoaDon = new DevExpress.XtraGrid.Columns.GridColumn();
             this.repositoryItemXoa = new DevExpress.XtraEditors.Repository.RepositoryItemHyperLinkEdit();
+            this.gridColumn9 = new DevExpress.XtraGrid.Columns.GridColumn();
             ((System.ComponentModel.ISupportInitialize)(this.groupControl1)).BeginInit();
             this.groupControl1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.panel1)).BeginInit();
@@ -336,7 +337,8 @@ namespace Quản_lý_vudaco.Forms
             this.gridColumn4,
             this.ColNCC,
             this.gridColumn8,
-            this.ColSoHoaDon});
+            this.ColSoHoaDon,
+            this.gridColumn9});
             this.gridView1.DetailHeight = 284;
             this.gridView1.GridControl = this.gridControl1;
             this.gridView1.Name = "gridView1";
@@ -488,6 +490,12 @@ namespace Quản_lý_vudaco.Forms
             this.repositoryItemXoa.Name = "repositoryItemXoa";
             this.repositoryItemXoa.NullText = "Xoá";
             // 
+            // gridColumn9
+            // 
+            this.gridColumn9.Caption = "Type";
+            this.gridColumn9.FieldName = "Type";
+            this.gridColumn9.Name = "gridColumn9";
+            // 
             // frmFileDebit
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -555,5 +563,6 @@ namespace Quản_lý_vudaco.Forms
         private DevExpress.XtraEditors.Repository.RepositoryItemHyperLinkEdit repositoryItemXoa;
         private DevExpress.XtraGrid.Columns.GridColumn ColSoHoaDon;
         private DevExpress.XtraGrid.Columns.GridColumn ColNCC;
+        private DevExpress.XtraGrid.Columns.GridColumn gridColumn9;
     }
 }
