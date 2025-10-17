@@ -953,6 +953,7 @@ namespace Quản_lý_vudaco.services
             dt1.Columns.Add("ThanhTien", typeof(double));
             dt1.Columns.Add("LaPhiChiHo", typeof(bool));
             dt1.Columns.Add("GhiChu");
+            dt1.Columns.Add("Type");
             dt1.Columns.Add("SoHoaDon");
 
             // Lấy dữ liệu từ bảng FileGiaChiTiet theo IDGia
@@ -985,6 +986,7 @@ namespace Quản_lý_vudaco.services
                 row1["LaPhiChiHo"] = dr["LaPhiChiHo"];
                 row1["SoHoaDon"] = dr["SoHoaDon"];
                 row1["IDGiaCT"] = dr["IDGiaCT"];
+                row1["Type"] = "filegiachitiet";
                 dt1.Rows.Add(row1);
             }
             if (type == 0) // là khách hàng thì thêm phí  BangLietKeCP_ChiTiet, chi phi nang ha
@@ -992,6 +994,7 @@ namespace Quản_lý_vudaco.services
                 string sqlChiHo1 = $@"
                     SELECT 
                         b.IDGia,
+                        b.IDGia AS IDGiaCT,
                         c.TenChiHo,
                         a.SoTien_ChiHo,
                         a.MaChiHo
@@ -1012,12 +1015,15 @@ namespace Quản_lý_vudaco.services
                         row1["LaPhiChiHo"] = true;
                         row1["TenDichVu"] = tenChiHo;
                         row1["SoTien"] = Convert.ToDecimal(item["SoTien_ChiHo"]);
+                        row1["IDGiaCT"] = item["IDGiaCT"];
+                        row1["Type"] = "bangkechiphi";
                         dt1.Rows.Add(row1);
                     }
                 }
                 string sqlChiHo2 = $@"
                     SELECT 
                         b.IDGia,
+                        b.IDGia AS IDGiaCT,
                         c.TenChiHo,
                         a.SoTien_ChiHo,
                         a.MaChiHo
@@ -1038,6 +1044,8 @@ namespace Quản_lý_vudaco.services
                         row1["LaPhiChiHo"] = true;
                         row1["TenDichVu"] = tenChiHo;
                         row1["SoTien"] = Convert.ToDecimal(item["SoTien_ChiHo"]);
+                        row1["IDGiaCT"] = item["IDGiaCT"];
+                        row1["Type"] = "nangha";
                         dt1.Rows.Add(row1);
                     }
                 }
