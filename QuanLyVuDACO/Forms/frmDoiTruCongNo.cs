@@ -16,7 +16,6 @@ namespace Quản_lý_vudaco.Forms
     public partial class frmDoiTruCongNo : DevExpress.XtraEditors.XtraForm
     {
 
-        private double _TongTienThu = 0;
         public frmDoiTruCongNo()
         {
             InitializeComponent();
@@ -41,7 +40,6 @@ namespace Quản_lý_vudaco.Forms
             {
                 cboKH.Properties.DataSource = kh.GetAllkh().Where(x => x.LaNhaCungCap);
             }
-            lbTienHachToan.Text = _TongTienThu.ToString("#,##");
 
         }
         private void LoadData()
@@ -170,78 +168,13 @@ namespace Quản_lý_vudaco.Forms
 
         private void gridView1_CellValueChanging(object sender, DevExpress.XtraGrid.Views.Base.CellValueChangedEventArgs e)
         {
-            try
-            {
-                if (e.RowHandle >= 0)
-                {
-                    if (e.Column.FieldName == "Chon")
-                    {
-                        bool isCheck = bool.Parse(e.Value.ToString());
-                        double TongThu = Convert.ToDouble(gridView1.GetFocusedRowCellValue("TongThu").ToString());
-                        if (isCheck)
-                        {
-                            _TongTienThu += TongThu;
-                            gridView1.SetFocusedRowCellValue("SoTien_BuTru", TongThu);
-                        }
-                        else
-                        {
-                            _TongTienThu -= TongThu;
-                            if (_TongTienThu < 0)
-                            {
-                                XtraMessageBox.Show("Có lỗi xảy ra. Hãy làm lại!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                                _TongTienThu = 0;
-                                LoadData();
-                            }
-                            gridView1.SetFocusedRowCellValue("SoTien_BuTru", 0);
-                        }
-                        lbTienHachToan.Text = _TongTienThu.ToString("#,##");
-                    }
-                }
-            }
-            catch (Exception)
-            {
-
-            }
+          
+           
         }
 
         private void gridView2_CellValueChanging(object sender, DevExpress.XtraGrid.Views.Base.CellValueChangedEventArgs e)
         {
-            try
-            {
-                if (e.RowHandle >= 0)
-                {
-                    if (e.Column.FieldName == "Chon")
-                    {
-                        bool isCheck = bool.Parse(e.Value.ToString());
-                        double TongThu = Convert.ToDouble(gridView2.GetFocusedRowCellValue("TongThu").ToString());
-                        if (isCheck)
-                        {
-                            if (_TongTienThu >= TongThu)
-                            {
-                                _TongTienThu -= TongThu;
-                                gridView2.SetFocusedRowCellValue("SoTien_BuTru", TongThu);
-                            }
-                            else
-                            {
-                                gridView2.SetFocusedRowCellValue("SoTien_BuTru", _TongTienThu);
-                                _TongTienThu -= _TongTienThu;
-                            }
-
-                        }
-                        else
-                        {
-                            double SoTien_BuTru = Convert.ToDouble(gridView2.GetFocusedRowCellValue("SoTien_BuTru").ToString());
-                            _TongTienThu += SoTien_BuTru;
-                            gridView2.SetFocusedRowCellValue("SoTien_BuTru", 0);
-                        }
-                        lbTienHachToan.Text = _TongTienThu.ToString("#,##");
-                    }
-                }
-            }
-            catch (Exception)
-            {
-
-            }
+          
         }
 
         private void gridView2_CustomUnboundColumnData(object sender, DevExpress.XtraGrid.Views.Base.CustomColumnDataEventArgs e)
@@ -279,7 +212,8 @@ namespace Quản_lý_vudaco.Forms
         {
             // điều kiện số tiền phải được hạch toán hết
             // phải có chọn khách hàng
-            decimal tong_SoTien_BuTru = Convert.ToDecimal(gridView2.Columns["SoTien_BuTru"].SummaryItem.SummaryValue);
+            decimal tong_SoTien_BuTru_1 = Convert.ToDecimal(gridView1.Columns["SoTien_BuTru"].SummaryItem.SummaryValue);
+            decimal tong_SoTien_BuTru_2 = Convert.ToDecimal(gridView2.Columns["SoTien_BuTru"].SummaryItem.SummaryValue);
             if (string.IsNullOrWhiteSpace(dtNgay.Text))
             {
                 XtraMessageBox.Show("Vui lòng nhập Ngày bù trừ!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
@@ -290,16 +224,12 @@ namespace Quản_lý_vudaco.Forms
                 XtraMessageBox.Show("Vui lòng chọn khách hàng", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
-            if (tong_SoTien_BuTru == 0)
+            if (tong_SoTien_BuTru_1 != tong_SoTien_BuTru_2)
             {
-                XtraMessageBox.Show("Chưa có công nợ nào được chọn", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                XtraMessageBox.Show("Đối trừ không khớp vui long kiểm tra lại", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
-            if (_TongTienThu != 0)
-            {
-                XtraMessageBox.Show("Số tiền chưa được hạch toán hết", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                return;
-            }
+          
             using (var _appDB = new clsKetNoi())
             {
                 try
@@ -315,7 +245,7 @@ namespace Quản_lý_vudaco.Forms
                         NoiDung = "Bù trừ công nợ phải thu, phải trả " + kh["TenKhachHang"].ToString(),
                         NguoiTao = frmMain._TK,
                         NgayCapNhat = DateTime.Now,
-                        SoTien = tong_SoTien_BuTru
+                        SoTien = tong_SoTien_BuTru_1
                     };
                     int _id_doitru = _appDB.UpsertFromObject("DoiTruCongNo", p_doitru, "ID", true);
                     // tạo công nợ nhà cung cấp
@@ -428,6 +358,103 @@ namespace Quản_lý_vudaco.Forms
                     _appDB.RollbackTransaction();
                     MessageBox.Show("Có lỗi xảy ra: " + ex.Message);
                 }
+            }
+        }
+
+        private void gridView1_CellValueChanged(object sender, DevExpress.XtraGrid.Views.Base.CellValueChangedEventArgs e)
+        {
+            
+             try
+             {
+                 if (e.RowHandle >= 0)
+                 {
+                     if (e.Column.FieldName == "Chon")
+                     {
+                         double tongTien_c = Enumerable.Range(0, gridView2.RowCount)
+                             .Where(i => Convert.ToBoolean(gridView2.GetRowCellValue(i, "Chon")))
+                             .Sum(i => Convert.ToDouble(gridView2.GetRowCellValue(i, "TongThu")));
+                        for (int i = 0; i < gridView1.RowCount; i++)
+                        {
+                            bool chon = Convert.ToBoolean(gridView1.GetRowCellValue(i, "Chon"));
+                            if (chon)
+                            {
+                                double tongThu = Convert.ToDouble(gridView1.GetRowCellValue(i, "TongThu"));
+                            
+                                    if (tongTien_c > tongThu)
+                                    {
+                                        tongTien_c -= tongThu;
+                                        gridView1.SetRowCellValue(i, "SoTien_BuTru", tongThu);
+                                    }
+                                    else
+                                    {
+                                        gridView1.SetRowCellValue(i, "SoTien_BuTru", tongTien_c);
+                                        tongTien_c -= tongTien_c;
+                                    }
+
+                            }
+                            else
+                            {
+                                gridView1.SetRowCellValue(i, "SoTien_BuTru", 0);
+                            }
+                        }
+                       
+                     }
+                 }
+             }
+             catch (Exception)
+             {
+            
+             }
+        }
+
+        private void gridView2_CellValueChanged(object sender, DevExpress.XtraGrid.Views.Base.CellValueChangedEventArgs e)
+        {
+            try
+            {
+                if (e.RowHandle >= 0)
+                {
+                    if (e.Column.FieldName == "Chon")
+                    {
+                        double tongTien_t = Enumerable.Range(0, gridView1.RowCount)
+                        .Where(i => Convert.ToBoolean(gridView1.GetRowCellValue(i, "Chon")))
+                        .Sum(i => Convert.ToDouble(gridView1.GetRowCellValue(i, "TongThu")));
+                        for (int i = 0; i < gridView2.RowCount; i++)
+                        {
+                            bool chon = Convert.ToBoolean(gridView2.GetRowCellValue(i, "Chon"));
+                            if (chon)
+                            {
+                                double tongThu = Convert.ToDouble(gridView2.GetRowCellValue(i, "TongThu"));
+                                if (tongTien_t > 0)
+                                {
+                                    if (tongTien_t > tongThu)
+                                    {
+                                        tongTien_t -= tongThu;
+                                        gridView2.SetRowCellValue(i, "SoTien_BuTru", tongThu);
+                                    }
+                                    else
+                                    {
+                                        gridView2.SetRowCellValue(i, "SoTien_BuTru", tongTien_t);
+                                        tongTien_t -= tongTien_t;
+                                    }
+                                }
+                                else
+                                {
+                                    gridView2.SetRowCellValue(i, "SoTien_BuTru", tongThu);
+                                }
+                            }
+                            else
+                            {
+                                gridView2.SetRowCellValue(i, "SoTien_BuTru", 0);
+                            }
+
+                        }
+
+                    }
+                }
+            }
+            catch (Exception)
+            {
+
             }
         }
     }

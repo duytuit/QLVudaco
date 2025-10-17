@@ -75,12 +75,12 @@ namespace Quản_lý_vudaco.Forms
             this.gridColumn12 = new DevExpress.XtraGrid.Columns.GridColumn();
             this.gridColumn9 = new DevExpress.XtraGrid.Columns.GridColumn();
             this.gridColumn13 = new DevExpress.XtraGrid.Columns.GridColumn();
-            this.panelControl2 = new DevExpress.XtraEditors.PanelControl();
-            this.btnBuTru = new DevExpress.XtraEditors.SimpleButton();
             this.LaPhiChiHo = new DevExpress.XtraGrid.Columns.GridColumn();
             this.gridColumn28 = new DevExpress.XtraGrid.Columns.GridColumn();
             this.gridColumn29 = new DevExpress.XtraGrid.Columns.GridColumn();
             this.gridColumn30 = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.panelControl2 = new DevExpress.XtraEditors.PanelControl();
+            this.btnBuTru = new DevExpress.XtraEditors.SimpleButton();
             ((System.ComponentModel.ISupportInitialize)(this.panelControl1)).BeginInit();
             this.panelControl1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.cboKH.Properties)).BeginInit();
@@ -269,6 +269,7 @@ namespace Quản_lý_vudaco.Forms
             this.gridView2.OptionsView.ShowAutoFilterRow = true;
             this.gridView2.OptionsView.ShowFooter = true;
             this.gridView2.OptionsView.ShowGroupPanel = false;
+            this.gridView2.CellValueChanged += new DevExpress.XtraGrid.Views.Base.CellValueChangedEventHandler(this.gridView2_CellValueChanged);
             this.gridView2.CellValueChanging += new DevExpress.XtraGrid.Views.Base.CellValueChangedEventHandler(this.gridView2_CellValueChanging);
             this.gridView2.CustomUnboundColumnData += new DevExpress.XtraGrid.Views.Base.CustomColumnDataEventHandler(this.gridView2_CustomUnboundColumnData);
             // 
@@ -459,6 +460,7 @@ namespace Quản_lý_vudaco.Forms
             this.gridView1.OptionsView.ShowAutoFilterRow = true;
             this.gridView1.OptionsView.ShowFooter = true;
             this.gridView1.OptionsView.ShowGroupPanel = false;
+            this.gridView1.CellValueChanged += new DevExpress.XtraGrid.Views.Base.CellValueChangedEventHandler(this.gridView1_CellValueChanged);
             this.gridView1.CellValueChanging += new DevExpress.XtraGrid.Views.Base.CellValueChangedEventHandler(this.gridView1_CellValueChanging);
             this.gridView1.CustomUnboundColumnData += new DevExpress.XtraGrid.Views.Base.CustomColumnDataEventHandler(this.gridView1_CustomUnboundColumnData);
             // 
@@ -586,25 +588,6 @@ namespace Quản_lý_vudaco.Forms
             this.gridColumn13.FieldName = "TongThu";
             this.gridColumn13.Name = "gridColumn13";
             // 
-            // panelControl2
-            // 
-            this.panelControl2.Controls.Add(this.btnBuTru);
-            this.panelControl2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panelControl2.Location = new System.Drawing.Point(3, 643);
-            this.panelControl2.Name = "panelControl2";
-            this.panelControl2.Size = new System.Drawing.Size(1192, 35);
-            this.panelControl2.TabIndex = 7;
-            // 
-            // btnBuTru
-            // 
-            this.btnBuTru.ImageOptions.Image = ((System.Drawing.Image)(resources.GetObject("btnBuTru.ImageOptions.Image")));
-            this.btnBuTru.Location = new System.Drawing.Point(895, 6);
-            this.btnBuTru.Name = "btnBuTru";
-            this.btnBuTru.Size = new System.Drawing.Size(288, 23);
-            this.btnBuTru.TabIndex = 0;
-            this.btnBuTru.Text = "Bù trừ công nợ";
-            this.btnBuTru.Click += new System.EventHandler(this.btnBuTru_Click);
-            // 
             // LaPhiChiHo
             // 
             this.LaPhiChiHo.Caption = "LaPhiChiHo";
@@ -627,6 +610,25 @@ namespace Quản_lý_vudaco.Forms
             this.gridColumn30.Caption = "Key";
             this.gridColumn30.FieldName = "Key";
             this.gridColumn30.Name = "gridColumn30";
+            // 
+            // panelControl2
+            // 
+            this.panelControl2.Controls.Add(this.btnBuTru);
+            this.panelControl2.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panelControl2.Location = new System.Drawing.Point(3, 643);
+            this.panelControl2.Name = "panelControl2";
+            this.panelControl2.Size = new System.Drawing.Size(1192, 35);
+            this.panelControl2.TabIndex = 7;
+            // 
+            // btnBuTru
+            // 
+            this.btnBuTru.ImageOptions.Image = ((System.Drawing.Image)(resources.GetObject("btnBuTru.ImageOptions.Image")));
+            this.btnBuTru.Location = new System.Drawing.Point(895, 6);
+            this.btnBuTru.Name = "btnBuTru";
+            this.btnBuTru.Size = new System.Drawing.Size(288, 23);
+            this.btnBuTru.TabIndex = 0;
+            this.btnBuTru.Text = "Bù trừ công nợ";
+            this.btnBuTru.Click += new System.EventHandler(this.btnBuTru_Click);
             // 
             // frmDoiTruCongNo
             // 
