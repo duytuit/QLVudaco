@@ -1,5 +1,4 @@
 ﻿using DevExpress.XtraEditors;
-using DevExpress.XtraEditors.Repository;
 using Quản_lý_vudaco.services;
 using Quản_lý_vudaco.services.common;
 using System;
@@ -18,9 +17,6 @@ namespace Quản_lý_vudaco.Forms
     {
 
         private double _TongTienThu = 0;
-        private double _TongTienChi = 0;
-        private bool _isHandling = false;
-        RepositoryItemCheckEdit repoCheck = new RepositoryItemCheckEdit();
         public frmDoiTruCongNo()
         {
             InitializeComponent();
@@ -36,14 +32,6 @@ namespace Quản_lý_vudaco.Forms
             gridView2.Columns["TongThu"].UnboundType = DevExpress.Data.UnboundColumnType.Decimal;
             gridView1.Columns["SoTien_BuTru"].OptionsColumn.AllowEdit = false;
             gridView2.Columns["SoTien_BuTru"].OptionsColumn.AllowEdit = false;
-            // Gán Repository cho cả hai GridView
-            gridControl1.RepositoryItems.Add(repoCheck);
-            gridControl2.RepositoryItems.Add(repoCheck);
-            gridView1.Columns["Chon"].ColumnEdit = repoCheck;
-            gridView2.Columns["Chon"].ColumnEdit = repoCheck;
-
-            // Gắn sự kiện
-            repoCheck.CheckedChanged += RepoCheck_CheckedChanged;
         }
 
         private void frmDoiTruCongNo_Load(object sender, EventArgs e)
@@ -51,7 +39,7 @@ namespace Quản_lý_vudaco.Forms
             dtNgay.Text = DateTime.Now.ToString("dd/MM/yyyy");
             using (var kh = new khachhang())
             {
-                cboKH.Properties.DataSource = kh.GetAllkh().Where(x=>x.LaNhaCungCap);
+                cboKH.Properties.DataSource = kh.GetAllkh().Where(x => x.LaNhaCungCap);
             }
             lbTienHachToan.Text = _TongTienThu.ToString("#,##");
 
@@ -148,7 +136,7 @@ namespace Quản_lý_vudaco.Forms
         {
             LoadData();
         }
-      
+
         private void gridView1_CustomUnboundColumnData(object sender, DevExpress.XtraGrid.Views.Base.CustomColumnDataEventArgs e)
         {
             var view = sender as DevExpress.XtraGrid.Views.Grid.GridView;
@@ -179,98 +167,81 @@ namespace Quản_lý_vudaco.Forms
                 e.Value = (ThanhTienDV - ThanhToanDV) + (ThanhTienCH - ThanhToanCH);
             }
         }
-        private void PhanBoTienTuGrid1()
-        {
-            double tongThu = 0;
 
-            // 🔸 Tính tổng được chọn bên grid1
-            for (int i = 0; i < gridView1.RowCount; i++)
-            {
-                bool chon = Convert.ToBoolean(gridView1.GetRowCellValue(i, "Chon"));
-                gridView1.SetRowCellValue(i, "SoTien_BuTru", 0);
-                if (chon)
-                {
-                    tongThu += Convert.ToDouble(gridView1.GetRowCellValue(i, "TongThu"));
-                    gridView1.SetRowCellValue(i, "SoTien_BuTru", gridView1.GetRowCellValue(i, "TongThu"));
-                }
-            }
-
-            // 🔸 Reset bên grid2
-            for (int i = 0; i < gridView2.RowCount; i++)
-                gridView2.SetRowCellValue(i, "SoTien_BuTru", 0);
-
-            // 🔸 Phân bổ tiền sang grid2
-            for (int i = 0; i < gridView2.RowCount && tongThu > 0; i++)
-            {
-                bool chon = Convert.ToBoolean(gridView2.GetRowCellValue(i, "Chon"));
-                if (!chon) continue;
-
-                double tongChi = Convert.ToDouble(gridView2.GetRowCellValue(i, "TongThu"));
-                double soTienBuTru = Math.Min(tongChi, tongThu);
-                gridView2.SetRowCellValue(i, "SoTien_BuTru", soTienBuTru);
-                tongThu -= soTienBuTru;
-            }
-        }
-        private void PhanBoTienTuGrid2()
-        {
-            double tongChi = 0;
-
-            // 🔸 Tính tổng được chọn bên grid2
-            for (int i = 0; i < gridView2.RowCount; i++)
-            {
-                bool chon = Convert.ToBoolean(gridView2.GetRowCellValue(i, "Chon"));
-                gridView2.SetRowCellValue(i, "SoTien_BuTru", 0);
-                if (chon)
-                {
-                    tongChi += Convert.ToDouble(gridView2.GetRowCellValue(i, "TongThu"));
-                    gridView2.SetRowCellValue(i, "SoTien_BuTru", gridView2.GetRowCellValue(i, "TongThu"));
-                }
-            }
-
-            // 🔸 Reset bên grid1
-            for (int i = 0; i < gridView1.RowCount; i++)
-                gridView1.SetRowCellValue(i, "SoTien_BuTru", 0);
-
-            // 🔸 Phân bổ ngược sang grid1
-            for (int i = 0; i < gridView1.RowCount && tongChi > 0; i++)
-            {
-                bool chon = Convert.ToBoolean(gridView1.GetRowCellValue(i, "Chon"));
-                if (!chon) continue;
-
-                double tongThu = Convert.ToDouble(gridView1.GetRowCellValue(i, "TongThu"));
-                double soTienBuTru = Math.Min(tongThu, tongChi);
-                gridView1.SetRowCellValue(i, "SoTien_BuTru", soTienBuTru);
-                tongChi -= soTienBuTru;
-            }
-        }
-        private void RepoCheck_CheckedChanged(object sender, EventArgs e)
-        {
-            CheckEdit edit = sender as CheckEdit;
-            if (edit == null) return;
-
-            GridControl grid = edit.Parent as GridControl;
-            if (grid == null) return;
-
-            GridView view = grid.FocusedView as GridView;
-            if (view == null) return;
-
-            // Ghi lại giá trị mới của checkbox vào Grid ngay lập tức
-            view.PostEditor();
-
-            // Gọi xử lý tương ứng
-            if (view == gridView1)
-                PhanBoTienTuGrid1();
-            else if (view == gridView2)
-                PhanBoTienTuGrid2();
-        }
         private void gridView1_CellValueChanging(object sender, DevExpress.XtraGrid.Views.Base.CellValueChangedEventArgs e)
         {
-            
+            try
+            {
+                if (e.RowHandle >= 0)
+                {
+                    if (e.Column.FieldName == "Chon")
+                    {
+                        bool isCheck = bool.Parse(e.Value.ToString());
+                        double TongThu = Convert.ToDouble(gridView1.GetFocusedRowCellValue("TongThu").ToString());
+                        if (isCheck)
+                        {
+                            _TongTienThu += TongThu;
+                            gridView1.SetFocusedRowCellValue("SoTien_BuTru", TongThu);
+                        }
+                        else
+                        {
+                            _TongTienThu -= TongThu;
+                            if (_TongTienThu < 0)
+                            {
+                                XtraMessageBox.Show("Có lỗi xảy ra. Hãy làm lại!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                                _TongTienThu = 0;
+                                LoadData();
+                            }
+                            gridView1.SetFocusedRowCellValue("SoTien_BuTru", 0);
+                        }
+                        lbTienHachToan.Text = _TongTienThu.ToString("#,##");
+                    }
+                }
+            }
+            catch (Exception)
+            {
+
+            }
         }
 
         private void gridView2_CellValueChanging(object sender, DevExpress.XtraGrid.Views.Base.CellValueChangedEventArgs e)
         {
-           
+            try
+            {
+                if (e.RowHandle >= 0)
+                {
+                    if (e.Column.FieldName == "Chon")
+                    {
+                        bool isCheck = bool.Parse(e.Value.ToString());
+                        double TongThu = Convert.ToDouble(gridView2.GetFocusedRowCellValue("TongThu").ToString());
+                        if (isCheck)
+                        {
+                            if (_TongTienThu >= TongThu)
+                            {
+                                _TongTienThu -= TongThu;
+                                gridView2.SetFocusedRowCellValue("SoTien_BuTru", TongThu);
+                            }
+                            else
+                            {
+                                gridView2.SetFocusedRowCellValue("SoTien_BuTru", _TongTienThu);
+                                _TongTienThu -= _TongTienThu;
+                            }
+
+                        }
+                        else
+                        {
+                            double SoTien_BuTru = Convert.ToDouble(gridView2.GetFocusedRowCellValue("SoTien_BuTru").ToString());
+                            _TongTienThu += SoTien_BuTru;
+                            gridView2.SetFocusedRowCellValue("SoTien_BuTru", 0);
+                        }
+                        lbTienHachToan.Text = _TongTienThu.ToString("#,##");
+                    }
+                }
+            }
+            catch (Exception)
+            {
+
+            }
         }
 
         private void gridView2_CustomUnboundColumnData(object sender, DevExpress.XtraGrid.Views.Base.CustomColumnDataEventArgs e)
@@ -366,7 +337,7 @@ namespace Quản_lý_vudaco.Forms
                     int _id_pchi = _appDB.UpsertFromObject("PhieuChi_NCC", p, "IDPhieuChiNCC", true);
                     for (int i = 0; i < gridView2.RowCount; i++)
                     {
-                        double SoTien_BuTru =Convert.ToDouble(gridView2.GetRowCellValue(i, "SoTien_BuTru").ToString());
+                        double SoTien_BuTru = Convert.ToDouble(gridView2.GetRowCellValue(i, "SoTien_BuTru").ToString());
                         if (SoTien_BuTru > 0)
                         {
                             var phieuchitiet = new
