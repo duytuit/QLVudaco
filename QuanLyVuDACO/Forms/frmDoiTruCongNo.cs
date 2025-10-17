@@ -17,6 +17,7 @@ namespace Quản_lý_vudaco.Forms
     {
 
         private double _TongTienThu = 0;
+        private double _TongTienChi = 0;
         public frmDoiTruCongNo()
         {
             InitializeComponent();
@@ -172,35 +173,50 @@ namespace Quản_lý_vudaco.Forms
         {
             try
             {
-                if (e.RowHandle >= 0)
+                if (e.RowHandle >= 0 && e.Column.FieldName == "Chon")
                 {
-                    if (e.Column.FieldName == "Chon")
+                    _TongTienThu = 0;
+
+                    // 🔹 Reset & tính tổng ở gridView1
+                    for (int i = 0; i < gridView1.RowCount; i++)
                     {
-                        bool isCheck = bool.Parse(e.Value.ToString());
-                        double TongThu = Convert.ToDouble(gridView1.GetFocusedRowCellValue("TongThu").ToString());
-                        if (isCheck)
+                        gridView1.SetRowCellValue(i, "SoTien_BuTru", 0);
+
+                        bool chon = Convert.ToBoolean(gridView1.GetRowCellValue(i, "Chon"));
+                        if (chon)
                         {
+                            double TongThu = Convert.ToDouble(gridView1.GetRowCellValue(i, "TongThu"));
                             _TongTienThu += TongThu;
-                            gridView1.SetFocusedRowCellValue("SoTien_BuTru", TongThu);
+                            gridView1.SetRowCellValue(i, "SoTien_BuTru", TongThu);
                         }
-                        else
+                    }
+
+                    // 🔹 Phân bổ sang gridView2
+                    for (int i = 0; i < gridView2.RowCount; i++)
+                    {
+                        gridView2.SetRowCellValue(i, "SoTien_BuTru", 0);
+                        bool chon2 = Convert.ToBoolean(gridView2.GetRowCellValue(i, "Chon"));
+                        if (chon2)
                         {
-                            _TongTienThu -= TongThu;
-                            if (_TongTienThu < 0)
+                            double TongThu2 = Convert.ToDouble(gridView2.GetRowCellValue(i, "TongThu"));
+                            if (_TongTienThu > TongThu2)
                             {
-                                XtraMessageBox.Show("Có lỗi xảy ra. Hãy làm lại!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                                _TongTienThu = 0;
-                                LoadData();
+                                _TongTienThu -= TongThu2;
+                                gridView2.SetRowCellValue(i, "SoTien_BuTru", TongThu2);
                             }
-                            gridView1.SetFocusedRowCellValue("SoTien_BuTru", 0);
+                            else
+                            {
+                                gridView2.SetRowCellValue(i, "SoTien_BuTru", _TongTienThu);
+                                _TongTienThu = 0;
+                                break; // Không cần duyệt thêm nếu đã hết tiền
+                            }
                         }
-                        lbTienHachToan.Text = _TongTienThu.ToString("#,##");
                     }
                 }
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-
+                Console.WriteLine(ex.Message);
             }
         }
 
@@ -208,39 +224,50 @@ namespace Quản_lý_vudaco.Forms
         {
             try
             {
-                if (e.RowHandle >= 0)
+                if (e.RowHandle >= 0 && e.Column.FieldName == "Chon")
                 {
-                    if (e.Column.FieldName == "Chon")
+                    _TongTienChi = 0;
+
+                    // 🔹 Reset & tính tổng ở gridView1
+                    for (int i = 0; i < gridView2.RowCount; i++)
                     {
-                        bool isCheck = bool.Parse(e.Value.ToString());
-                        double TongThu = Convert.ToDouble(gridView2.GetFocusedRowCellValue("TongThu").ToString());
-                        if (isCheck)
+                        gridView2.SetRowCellValue(i, "SoTien_BuTru", 0);
+
+                        bool chon = Convert.ToBoolean(gridView2.GetRowCellValue(i, "Chon"));
+                        if (chon)
                         {
-                            if (_TongTienThu >= TongThu)
+                            double TongThu = Convert.ToDouble(gridView2.GetRowCellValue(i, "TongThu"));
+                            _TongTienChi += TongThu;
+                            gridView2.SetRowCellValue(i, "SoTien_BuTru", TongThu);
+                        }
+                    }
+
+                    // 🔹 Phân bổ sang gridView2
+                    for (int i = 0; i < gridView1.RowCount; i++)
+                    {
+                        gridView1.SetRowCellValue(i, "SoTien_BuTru", 0);
+                        bool chon2 = Convert.ToBoolean(gridView1.GetRowCellValue(i, "Chon"));
+                        if (chon2)
+                        {
+                            double TongThu2 = Convert.ToDouble(gridView1.GetRowCellValue(i, "TongThu"));
+                            if (_TongTienChi > TongThu2)
                             {
-                                _TongTienThu -= TongThu;
-                                gridView2.SetFocusedRowCellValue("SoTien_BuTru", TongThu);
+                                _TongTienChi -= TongThu2;
+                                gridView1.SetRowCellValue(i, "SoTien_BuTru", TongThu2);
                             }
                             else
                             {
-                                gridView2.SetFocusedRowCellValue("SoTien_BuTru", _TongTienThu);
-                                _TongTienThu -= _TongTienThu;
+                                gridView1.SetRowCellValue(i, "SoTien_BuTru", _TongTienChi);
+                                _TongTienChi = 0;
+                                break; // Không cần duyệt thêm nếu đã hết tiền
                             }
-
                         }
-                        else
-                        {
-                            double SoTien_BuTru = Convert.ToDouble(gridView2.GetFocusedRowCellValue("SoTien_BuTru").ToString());
-                            _TongTienThu += SoTien_BuTru;
-                            gridView2.SetFocusedRowCellValue("SoTien_BuTru", 0);
-                        }
-                        lbTienHachToan.Text = _TongTienThu.ToString("#,##");
                     }
                 }
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-
+                Console.WriteLine(ex.Message);
             }
         }
 
