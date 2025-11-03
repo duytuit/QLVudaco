@@ -629,20 +629,54 @@ namespace Quản_lý_vudaco.services
 
             DataTable  table = cls.LoadTable(sql);
 
+            // Lấy danh sách SoFile (loại bỏ null & trùng lặp)
+            var soFileList = table.AsEnumerable()
+                .Where(r => r["SoFile"] != DBNull.Value)
+                .Select(r => r["SoFile"].ToString())
+                .Distinct()
+                .ToList();
+
+            // Ghép chuỗi để dùng trong WHERE IN
+            string soFileIn = string.Join("','", soFileList.Select(s => s.Replace("'", "''")));
+            sql = $@"
+                SELECT * 
+                FROM BangDieuXe
+                WHERE MaKhachHang = N'{makh}' AND SoFile IN ('{soFileIn}')
+            ";
+            DataTable table1 = cls.LoadTable(sql);
+
+            // 🔹 3. Tạo dictionary để tra cứu nhanh theo (MaKhachHang + SoFile)
+            var dictBangDieuXe = table1.AsEnumerable()
+                .GroupBy(r => new
+                {
+                    MaKH = r["MaKhachHang"]?.ToString(),
+                    SoFile = r["SoFile"]?.ToString()
+                })
+                .ToDictionary(
+                    g => (g.Key.MaKH, g.Key.SoFile),
+                    g => g.First()
+                );
+
+            // 🔹 4. Duyệt qua table gốc và gán thêm thông tin nếu tìm thấy trong table1
             foreach (DataRow item in table.Rows)
             {
+                string maKH = item["MaKhachHang"]?.ToString();
+                string soFile = item["SoFile"]?.ToString();
+
+                DataRow rowDieuXe = null;
+                dictBangDieuXe.TryGetValue((maKH, soFile), out rowDieuXe);
+
                 var obj = new CongNoChiTietKH
                 {
                     IDDeBit = item["IDDeBit"] != DBNull.Value ? Convert.ToInt32(item["IDDeBit"]) : 0,
                     IDGia = item["IDGia"] != DBNull.Value ? Convert.ToInt32(item["IDGia"]) : 0,
                     IDLoHang = item["IDLoHang"] != DBNull.Value ? Convert.ToInt32(item["IDLoHang"]) : 0,
-                    SoFile = item["SoFile"].ToString(),
+                    SoFile = soFile,
                     ThoiGianLap = item["ThoiGianLap"] != DBNull.Value ? Convert.ToDateTime(item["ThoiGianLap"]) : DateTime.MinValue,
                     NgayHachToan = item["ThoiGianLap"] != DBNull.Value ? Convert.ToDateTime(item["ThoiGianLap"]) : DateTime.MinValue,
                     NguoiLap = item["NguoiLap"].ToString(),
                     SoHoaDon = item["SoHoaDon"].ToString(),
                     NgayHoaDon = item["NgayHoaDon"] != DBNull.Value ? Convert.ToDateTime(item["NgayHoaDon"]) : DateTime.MinValue,
-                  
                     IDDeBitCT = item["IDDeBitCT"] != DBNull.Value ? Convert.ToInt32(item["IDDeBitCT"]) : 0,
                     TenDichVu = item["TenDichVu"].ToString(),
                     SoTien = item["SoTien"] != DBNull.Value ? Convert.ToDouble(item["SoTien"]) : 0,
@@ -651,26 +685,29 @@ namespace Quản_lý_vudaco.services
                     LaPhiChiHo = item["LaPhiChiHo"] != DBNull.Value ? Convert.ToInt32(item["LaPhiChiHo"]) : 0,
                     DoiTru = item["DoiTru"].ToString(),
                     PhiDichVu_DoiTru = item["PhiDichVu_DoiTru"] != DBNull.Value ? Convert.ToDouble(item["PhiDichVu_DoiTru"]) : 0,
-                    MaKhachHang = item["MaKhachHang"].ToString(),
+                    MaKhachHang = maKH,
                     SoToKhai = item["SoToKhai"].ToString(),
                     SoBill = item["SoBill"].ToString(),
                     SoCont = item["SoCont"].ToString(),
                     NoiDung = item["TenDichVu"].ToString(),
                     TenSales = item["TenSales"].ToString(),
-                    GhiChu = item["GhiChu"].ToString(), //+ item["GhiChu_dx"].ToString(),
-                   //LoaiXe_KH = item["LoaiXe_KH"].ToString(),
-                   //LoaiXe_NCC = item["LoaiXe_NCC"].ToString(),
-                   //SoLuong = item["SoLuong"].ToString(),
-                   //TuyenVC = item["TuyenVC"].ToString(),
-                   //BienSoXe = item["BienSoXe"].ToString(),
-                   //MaDieuXe = item["MaDieuXe"].ToString(),
+                    GhiChu = item["GhiChu"].ToString(),
+                    SoLuong = item["SoLuong"].ToString(),
                     Key = "debitchitietkh",
                     ID = int.Parse(item["IDDeBitCT"].ToString()),
+
+                    // 🔹 Gán các trường từ BangDieuXe (nếu tìm thấy)
+                    LoaiXe_KH = rowDieuXe?["LoaiXe_KH"]?.ToString() ?? "",
+                    LoaiXe_NCC = rowDieuXe?["LoaiXe_NCC"]?.ToString() ?? "",
+                   // SoLuong = rowDieuXe?["SoLuong"]?.ToString() ?? "",
+                    TuyenVC = rowDieuXe?["TuyenVC"]?.ToString() ?? "",
+                    BienSoXe = rowDieuXe?["BienSoXe"]?.ToString() ?? "",
+                    MaDieuXe = rowDieuXe?["MaDieuXe"]?.ToString() ?? ""
                 };
 
                 list.Add(obj);
             }
-           
+
             sql = $@"SELECT 
                      ttf.SoToKhai,
 	                 ttf.SoBill,
