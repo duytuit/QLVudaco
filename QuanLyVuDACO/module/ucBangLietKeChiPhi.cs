@@ -150,6 +150,9 @@ namespace Quản_lý_vudaco.module
 
         private void btnXoa_Click(object sender, EventArgs e)
         {
+            // check nếu đã lên công nợ thì không cho sửa hoặc xóa
+
+
             if (frmMain._TK != "admin")
                 MessageBox.Show("Chỉ Admin mới có quyền này");
             else
@@ -163,9 +166,14 @@ namespace Quản_lý_vudaco.module
                         if (_check == "True")
                         {
                             int _IDLoHang = int.Parse(gridView1.GetRowCellValue(i, "IDLoHang").ToString().Trim());
+                            int _IDCP = int.Parse(gridView1.GetRowCellValue(i, "IDCP").ToString().Trim());
                             //ThongTinFile table = context.ThongTinFile.Single(p => p.IDLoHang == _IDLoHang);
                             //context.ThongTinFile.Remove(table);
                             //context.SaveChanges();
+                            using (var _db = new clsKetNoi())
+                            {
+                               // dataaTable = _db.LoadTable($@"SELECT count(IDDeBitCT) FROM [vua45987_vudaco].[dbo].[FileDebitChiTiet] where KEYNAME = N'bangkechiphi' and IDKey = '{}'");
+                            }
                             client.XoaThongTinFile(_IDLoHang);
                         }
 

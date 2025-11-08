@@ -408,9 +408,23 @@ namespace Quản_lý_vudaco
                         tabPage.Controls.Add(frm);
                         break;
                     }
+                case "ucBaoCaoSoTK_V2":
+                    {
+                        module.ucBaoCaoSoQuyTK frm = new module.ucBaoCaoSoQuyTK();
+                        frm.Dock = System.Windows.Forms.DockStyle.Fill;
+                        tabPage.Controls.Add(frm);
+                        break;
+                    }
                 case "ucBaoCaoKetQuaKinhDoanh":
                     {
                         reports.ucBaoCaoKetQuaKinhDoanh frm = new reports.ucBaoCaoKetQuaKinhDoanh();
+                        frm.Dock = System.Windows.Forms.DockStyle.Fill;
+                        tabPage.Controls.Add(frm);
+                        break;
+                    }
+                case "ucBaoCaoKetQuaKinhDoanhV2":
+                    {
+                        reports.ucBaoCaoKetQuaKinhDoanhV2 frm = new reports.ucBaoCaoKetQuaKinhDoanhV2();
                         frm.Dock = System.Windows.Forms.DockStyle.Fill;
                         tabPage.Controls.Add(frm);
                         break;
@@ -877,6 +891,16 @@ namespace Quản_lý_vudaco
         }
 
         private void ucBaoCaoSoQuyTM_V2_Click(object sender, EventArgs e)
+        {
+            danhSáchTàiKhoảnToolStripMenuItem_Click(sender, e);
+        }
+
+        private void ucBaoCaoKetQuaKinhDoanhV2_Click(object sender, EventArgs e)
+        {
+            danhSáchTàiKhoảnToolStripMenuItem_Click(sender, e);
+        }
+
+        private void ucBaoCaoSoTK_V2_Click(object sender, EventArgs e)
         {
             danhSáchTàiKhoảnToolStripMenuItem_Click(sender, e);
         }

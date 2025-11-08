@@ -45,10 +45,10 @@ namespace Quản_lý_vudaco.module
             this.dataSet1 = new Quản_lý_vudaco.DataSet1();
             this.gridView2 = new DevExpress.XtraGrid.Views.Grid.GridView();
             this.colSTT1 = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.gridColumn4 = new DevExpress.XtraGrid.Columns.GridColumn();
             this.gridColumn2 = new DevExpress.XtraGrid.Columns.GridColumn();
             this.gridColumn3 = new DevExpress.XtraGrid.Columns.GridColumn();
             this.repositoryItemNhaCC = new DevExpress.XtraEditors.Repository.RepositoryItemLookUpEdit();
-            this.repositoryItemNhanVien = new DevExpress.XtraEditors.Repository.RepositoryItemLookUpEdit();
             this.gridColumn5 = new DevExpress.XtraGrid.Columns.GridColumn();
             this.gridColumn6 = new DevExpress.XtraGrid.Columns.GridColumn();
             this.repositoryItemDSChi = new DevExpress.XtraEditors.Repository.RepositoryItemLookUpEdit();
@@ -57,14 +57,15 @@ namespace Quản_lý_vudaco.module
             this.gridColumn10 = new DevExpress.XtraGrid.Columns.GridColumn();
             this.gridColumn15 = new DevExpress.XtraGrid.Columns.GridColumn();
             this.gridColumn18 = new DevExpress.XtraGrid.Columns.GridColumn();
-            this.gridColumn1 = new DevExpress.XtraGrid.Columns.GridColumn();
-            this.repositoryItemSua = new DevExpress.XtraEditors.Repository.RepositoryItemHyperLinkEdit();
             this.gridColumn19 = new DevExpress.XtraGrid.Columns.GridColumn();
             this.repositoryItemXoa = new DevExpress.XtraEditors.Repository.RepositoryItemHyperLinkEdit();
+            this.gridColumn1 = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.repositoryItemSua = new DevExpress.XtraEditors.Repository.RepositoryItemHyperLinkEdit();
             this.repositoryItemHyperLinkEdit1 = new DevExpress.XtraEditors.Repository.RepositoryItemHyperLinkEdit();
             this.repositoryItemCT = new DevExpress.XtraEditors.Repository.RepositoryItemHyperLinkEdit();
             this.repositoryItemIn = new DevExpress.XtraEditors.Repository.RepositoryItemHyperLinkEdit();
             this.repositoryItemChiKhac = new DevExpress.XtraEditors.Repository.RepositoryItemHyperLinkEdit();
+            this.repositoryItemNhanVien = new DevExpress.XtraEditors.Repository.RepositoryItemLookUpEdit();
             this.panelControl4 = new DevExpress.XtraEditors.PanelControl();
             this.gridControl1 = new DevExpress.XtraGrid.GridControl();
             this.gridView1 = new DevExpress.XtraGrid.Views.Grid.GridView();
@@ -79,7 +80,9 @@ namespace Quản_lý_vudaco.module
             this.gridColumn7 = new DevExpress.XtraGrid.Columns.GridColumn();
             this.repositoryItemLookUpEdit1 = new DevExpress.XtraEditors.Repository.RepositoryItemLookUpEdit();
             this.repositoryItemLookUpEdit2 = new DevExpress.XtraEditors.Repository.RepositoryItemLookUpEdit();
-            this.gridColumn4 = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.gridColumn20 = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.gridColumn21 = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.gridColumn22 = new DevExpress.XtraGrid.Columns.GridColumn();
             ((System.ComponentModel.ISupportInitialize)(this.panelControl1)).BeginInit();
             this.panelControl1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.panelControl2)).BeginInit();
@@ -91,15 +94,15 @@ namespace Quản_lý_vudaco.module
             ((System.ComponentModel.ISupportInitialize)(this.dataSet1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridView2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.repositoryItemNhaCC)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.repositoryItemNhanVien)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.repositoryItemDSChi)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.repositoryItemDSChiCon)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.repositoryItemSua)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.repositoryItemXoa)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.repositoryItemSua)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.repositoryItemHyperLinkEdit1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.repositoryItemCT)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.repositoryItemIn)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.repositoryItemChiKhac)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.repositoryItemNhanVien)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.panelControl4)).BeginInit();
             this.panelControl4.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.gridControl1)).BeginInit();
@@ -244,6 +247,9 @@ namespace Quản_lý_vudaco.module
             this.colSTT1,
             this.gridColumn4,
             this.gridColumn2,
+            this.gridColumn20,
+            this.gridColumn21,
+            this.gridColumn22,
             this.gridColumn3,
             this.gridColumn5,
             this.gridColumn6,
@@ -268,7 +274,16 @@ namespace Quản_lý_vudaco.module
             this.colSTT1.Name = "colSTT1";
             this.colSTT1.Visible = true;
             this.colSTT1.VisibleIndex = 0;
-            this.colSTT1.Width = 42;
+            this.colSTT1.Width = 70;
+            // 
+            // gridColumn4
+            // 
+            this.gridColumn4.Caption = "Số phiếu";
+            this.gridColumn4.FieldName = "SoPhieu";
+            this.gridColumn4.Name = "gridColumn4";
+            this.gridColumn4.Visible = true;
+            this.gridColumn4.VisibleIndex = 1;
+            this.gridColumn4.Width = 168;
             // 
             // gridColumn2
             // 
@@ -305,27 +320,13 @@ namespace Quản_lý_vudaco.module
             this.repositoryItemNhaCC.TextEditStyle = DevExpress.XtraEditors.Controls.TextEditStyles.Standard;
             this.repositoryItemNhaCC.ValueMember = "MaNhaCungCap";
             // 
-            // repositoryItemNhanVien
-            // 
-            this.repositoryItemNhanVien.AutoHeight = false;
-            this.repositoryItemNhanVien.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
-            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
-            this.repositoryItemNhanVien.Columns.AddRange(new DevExpress.XtraEditors.Controls.LookUpColumnInfo[] {
-            new DevExpress.XtraEditors.Controls.LookUpColumnInfo("MaNhanVien", "Name3", 150, DevExpress.Utils.FormatType.None, "", false, DevExpress.Utils.HorzAlignment.Default, DevExpress.Data.ColumnSortOrder.None, DevExpress.Utils.DefaultBoolean.Default),
-            new DevExpress.XtraEditors.Controls.LookUpColumnInfo("TenNhanVien", "Nhân viên", 200, DevExpress.Utils.FormatType.None, "", true, DevExpress.Utils.HorzAlignment.Default, DevExpress.Data.ColumnSortOrder.None, DevExpress.Utils.DefaultBoolean.Default)});
-            this.repositoryItemNhanVien.DisplayMember = "TenNhanVien";
-            this.repositoryItemNhanVien.Name = "repositoryItemNhanVien";
-            this.repositoryItemNhanVien.NullText = "";
-            this.repositoryItemNhanVien.TextEditStyle = DevExpress.XtraEditors.Controls.TextEditStyles.Standard;
-            this.repositoryItemNhanVien.ValueMember = "MaNhanVien";
-            // 
             // gridColumn5
             // 
             this.gridColumn5.Caption = "Người mua hàng";
             this.gridColumn5.FieldName = "NguoiMuaHang";
             this.gridColumn5.Name = "gridColumn5";
             this.gridColumn5.Visible = true;
-            this.gridColumn5.VisibleIndex = 4;
+            this.gridColumn5.VisibleIndex = 7;
             this.gridColumn5.Width = 172;
             // 
             // gridColumn6
@@ -335,7 +336,7 @@ namespace Quản_lý_vudaco.module
             this.gridColumn6.FieldName = "MaChi";
             this.gridColumn6.Name = "gridColumn6";
             this.gridColumn6.Visible = true;
-            this.gridColumn6.VisibleIndex = 5;
+            this.gridColumn6.VisibleIndex = 8;
             this.gridColumn6.Width = 198;
             // 
             // repositoryItemDSChi
@@ -359,7 +360,7 @@ namespace Quản_lý_vudaco.module
             this.gridColumn9.FieldName = "MaChiCon";
             this.gridColumn9.Name = "gridColumn9";
             this.gridColumn9.Visible = true;
-            this.gridColumn9.VisibleIndex = 6;
+            this.gridColumn9.VisibleIndex = 9;
             this.gridColumn9.Width = 142;
             // 
             // repositoryItemDSChiCon
@@ -382,7 +383,7 @@ namespace Quản_lý_vudaco.module
             this.gridColumn10.FieldName = "DienGiai";
             this.gridColumn10.Name = "gridColumn10";
             this.gridColumn10.Visible = true;
-            this.gridColumn10.VisibleIndex = 7;
+            this.gridColumn10.VisibleIndex = 10;
             this.gridColumn10.Width = 193;
             // 
             // gridColumn15
@@ -391,7 +392,7 @@ namespace Quản_lý_vudaco.module
             this.gridColumn15.FieldName = "NguoiTao";
             this.gridColumn15.Name = "gridColumn15";
             this.gridColumn15.Visible = true;
-            this.gridColumn15.VisibleIndex = 8;
+            this.gridColumn15.VisibleIndex = 11;
             this.gridColumn15.Width = 105;
             // 
             // gridColumn18
@@ -400,13 +401,29 @@ namespace Quản_lý_vudaco.module
             this.gridColumn18.FieldName = "IDPhieuMua";
             this.gridColumn18.Name = "gridColumn18";
             // 
+            // gridColumn19
+            // 
+            this.gridColumn19.ColumnEdit = this.repositoryItemXoa;
+            this.gridColumn19.Fixed = DevExpress.XtraGrid.Columns.FixedStyle.Right;
+            this.gridColumn19.Name = "gridColumn19";
+            this.gridColumn19.Visible = true;
+            this.gridColumn19.VisibleIndex = 12;
+            // 
+            // repositoryItemXoa
+            // 
+            this.repositoryItemXoa.AutoHeight = false;
+            this.repositoryItemXoa.Image = ((System.Drawing.Image)(resources.GetObject("repositoryItemXoa.Image")));
+            this.repositoryItemXoa.Name = "repositoryItemXoa";
+            this.repositoryItemXoa.NullText = "Xoá";
+            this.repositoryItemXoa.Click += new System.EventHandler(this.repositoryItemXoa_Click);
+            // 
             // gridColumn1
             // 
             this.gridColumn1.ColumnEdit = this.repositoryItemSua;
             this.gridColumn1.Fixed = DevExpress.XtraGrid.Columns.FixedStyle.Right;
             this.gridColumn1.Name = "gridColumn1";
             this.gridColumn1.Visible = true;
-            this.gridColumn1.VisibleIndex = 10;
+            this.gridColumn1.VisibleIndex = 13;
             // 
             // repositoryItemSua
             // 
@@ -416,22 +433,6 @@ namespace Quản_lý_vudaco.module
             this.repositoryItemSua.NullText = "Sửa";
             this.repositoryItemSua.ButtonClick += new DevExpress.XtraEditors.Controls.ButtonPressedEventHandler(this.repositoryItemSua_ButtonClick);
             this.repositoryItemSua.Click += new System.EventHandler(this.repositoryItemSua_Click);
-            // 
-            // gridColumn19
-            // 
-            this.gridColumn19.ColumnEdit = this.repositoryItemXoa;
-            this.gridColumn19.Fixed = DevExpress.XtraGrid.Columns.FixedStyle.Right;
-            this.gridColumn19.Name = "gridColumn19";
-            this.gridColumn19.Visible = true;
-            this.gridColumn19.VisibleIndex = 9;
-            // 
-            // repositoryItemXoa
-            // 
-            this.repositoryItemXoa.AutoHeight = false;
-            this.repositoryItemXoa.Image = ((System.Drawing.Image)(resources.GetObject("repositoryItemXoa.Image")));
-            this.repositoryItemXoa.Name = "repositoryItemXoa";
-            this.repositoryItemXoa.NullText = "Xoá";
-            this.repositoryItemXoa.Click += new System.EventHandler(this.repositoryItemXoa_Click);
             // 
             // repositoryItemHyperLinkEdit1
             // 
@@ -461,6 +462,20 @@ namespace Quản_lý_vudaco.module
             this.repositoryItemChiKhac.Image = ((System.Drawing.Image)(resources.GetObject("repositoryItemChiKhac.Image")));
             this.repositoryItemChiKhac.Name = "repositoryItemChiKhac";
             this.repositoryItemChiKhac.NullText = "Chi khác";
+            // 
+            // repositoryItemNhanVien
+            // 
+            this.repositoryItemNhanVien.AutoHeight = false;
+            this.repositoryItemNhanVien.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
+            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
+            this.repositoryItemNhanVien.Columns.AddRange(new DevExpress.XtraEditors.Controls.LookUpColumnInfo[] {
+            new DevExpress.XtraEditors.Controls.LookUpColumnInfo("MaNhanVien", "Name3", 150, DevExpress.Utils.FormatType.None, "", false, DevExpress.Utils.HorzAlignment.Default, DevExpress.Data.ColumnSortOrder.None, DevExpress.Utils.DefaultBoolean.Default),
+            new DevExpress.XtraEditors.Controls.LookUpColumnInfo("TenNhanVien", "Nhân viên", 200, DevExpress.Utils.FormatType.None, "", true, DevExpress.Utils.HorzAlignment.Default, DevExpress.Data.ColumnSortOrder.None, DevExpress.Utils.DefaultBoolean.Default)});
+            this.repositoryItemNhanVien.DisplayMember = "TenNhanVien";
+            this.repositoryItemNhanVien.Name = "repositoryItemNhanVien";
+            this.repositoryItemNhanVien.NullText = "";
+            this.repositoryItemNhanVien.TextEditStyle = DevExpress.XtraEditors.Controls.TextEditStyles.Standard;
+            this.repositoryItemNhanVien.ValueMember = "MaNhanVien";
             // 
             // panelControl4
             // 
@@ -614,14 +629,37 @@ namespace Quản_lý_vudaco.module
             new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
             this.repositoryItemLookUpEdit2.Name = "repositoryItemLookUpEdit2";
             // 
-            // gridColumn4
+            // gridColumn20
             // 
-            this.gridColumn4.Caption = "Số phiếu";
-            this.gridColumn4.FieldName = "SoPhieu";
-            this.gridColumn4.Name = "gridColumn4";
-            this.gridColumn4.Visible = true;
-            this.gridColumn4.VisibleIndex = 1;
-            this.gridColumn4.Width = 168;
+            this.gridColumn20.Caption = "Số Tiền";
+            this.gridColumn20.DisplayFormat.FormatString = "{0:#,##}";
+            this.gridColumn20.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Numeric;
+            this.gridColumn20.FieldName = "SoTien";
+            this.gridColumn20.Name = "gridColumn20";
+            this.gridColumn20.Summary.AddRange(new DevExpress.XtraGrid.GridSummaryItem[] {
+            new DevExpress.XtraGrid.GridColumnSummaryItem(DevExpress.Data.SummaryItemType.Sum, "SoTien", "{0:#,##}")});
+            this.gridColumn20.Visible = true;
+            this.gridColumn20.VisibleIndex = 4;
+            // 
+            // gridColumn21
+            // 
+            this.gridColumn21.Caption = "VAT";
+            this.gridColumn21.FieldName = "VAT";
+            this.gridColumn21.Name = "gridColumn21";
+            this.gridColumn21.Visible = true;
+            this.gridColumn21.VisibleIndex = 5;
+            // 
+            // gridColumn22
+            // 
+            this.gridColumn22.Caption = "Thành Tiền";
+            this.gridColumn22.DisplayFormat.FormatString = "{0:#,##}";
+            this.gridColumn22.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Numeric;
+            this.gridColumn22.FieldName = "ThanhTien";
+            this.gridColumn22.Name = "gridColumn22";
+            this.gridColumn22.Summary.AddRange(new DevExpress.XtraGrid.GridSummaryItem[] {
+            new DevExpress.XtraGrid.GridColumnSummaryItem(DevExpress.Data.SummaryItemType.Sum, "ThanhTien", "{0:#,##}")});
+            this.gridColumn22.Visible = true;
+            this.gridColumn22.VisibleIndex = 6;
             // 
             // ucMuaHang
             // 
@@ -645,15 +683,15 @@ namespace Quản_lý_vudaco.module
             ((System.ComponentModel.ISupportInitialize)(this.dataSet1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridView2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.repositoryItemNhaCC)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.repositoryItemNhanVien)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.repositoryItemDSChi)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.repositoryItemDSChiCon)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.repositoryItemSua)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.repositoryItemXoa)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.repositoryItemSua)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.repositoryItemHyperLinkEdit1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.repositoryItemCT)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.repositoryItemIn)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.repositoryItemChiKhac)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.repositoryItemNhanVien)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.panelControl4)).EndInit();
             this.panelControl4.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.gridControl1)).EndInit();
@@ -715,5 +753,8 @@ namespace Quản_lý_vudaco.module
         private DevExpress.XtraEditors.Repository.RepositoryItemLookUpEdit repositoryItemDSChi;
         private DevExpress.XtraEditors.Repository.RepositoryItemLookUpEdit repositoryItemDSChiCon;
         private DevExpress.XtraGrid.Columns.GridColumn gridColumn4;
+        private DevExpress.XtraGrid.Columns.GridColumn gridColumn20;
+        private DevExpress.XtraGrid.Columns.GridColumn gridColumn21;
+        private DevExpress.XtraGrid.Columns.GridColumn gridColumn22;
     }
 }

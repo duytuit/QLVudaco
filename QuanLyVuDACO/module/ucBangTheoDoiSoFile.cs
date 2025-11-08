@@ -27,8 +27,6 @@ namespace Quản_lý_vudaco.module
             if (frmMain._TK.ToLower()!="admin"&&frmMain._TK.ToLower()!="phanhuyen")
             {
                 btnXoa.Enabled = false;
-                btnThemMoi.Enabled = false;
-                gridColumn1.Visible = false;
             }
 
 

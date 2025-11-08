@@ -581,6 +581,18 @@
     <Compile Include="module\ucBangTheoDoiDebit_CoFile_NCC.Designer.cs">
       <DependentUpon>ucBangTheoDoiDebit_CoFile_NCC.cs</DependentUpon>
     </Compile>
+    <Compile Include="module\ucBaoCaoKetQuaKinhDoanh.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="module\ucBaoCaoKetQuaKinhDoanh.Designer.cs">
+      <DependentUpon>ucBaoCaoKetQuaKinhDoanh.cs</DependentUpon>
+    </Compile>
+    <Compile Include="module\ucBaoCaoSoQuyTK.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="module\ucBaoCaoSoQuyTK.Designer.cs">
+      <DependentUpon>ucBaoCaoSoQuyTK.cs</DependentUpon>
+    </Compile>
     <Compile Include="module\ucBaoCaoSoQuyTM.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -937,6 +949,12 @@
     <Compile Include="reports\rpt_BangKe.Designer.cs">
       <DependentUpon>rpt_BangKe.cs</DependentUpon>
     </Compile>
+    <Compile Include="reports\rpt_BaoCaoKetQuaKinhDoanhV2.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="reports\rpt_BaoCaoKetQuaKinhDoanhV2.Designer.cs">
+      <DependentUpon>rpt_BaoCaoKetQuaKinhDoanhV2.cs</DependentUpon>
+    </Compile>
     <Compile Include="reports\rpt_BaoCaoKetQuaKinhDoanh.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -1057,6 +1075,12 @@
     <Compile Include="reports\rpt_PhieuThu.Designer.cs">
       <DependentUpon>rpt_PhieuThu.cs</DependentUpon>
     </Compile>
+    <Compile Include="reports\ucBaoCaoKetQuaKinhDoanhV2.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="reports\ucBaoCaoKetQuaKinhDoanhV2.Designer.cs">
+      <DependentUpon>ucBaoCaoKetQuaKinhDoanhV2.cs</DependentUpon>
+    </Compile>
     <Compile Include="reports\ucLoiNhuanTheoTungLinhVuc.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -1122,6 +1146,7 @@
     <Compile Include="services\lietkechiphi.cs" />
     <Compile Include="services\ncc.cs" />
     <Compile Include="services\phanbokhauhao.cs" />
+    <Compile Include="services\phieumuaban.cs" />
     <Compile Include="services\phieuchi.cs" />
     <Compile Include="services\sodudauky.cs" />
     <Compile Include="XtraForm1.cs">
@@ -1337,6 +1362,12 @@
     <EmbeddedResource Include="module\ucBangTheoDoiDebit_CoFile_NCC.resx">
       <DependentUpon>ucBangTheoDoiDebit_CoFile_NCC.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="module\ucBaoCaoKetQuaKinhDoanh.resx">
+      <DependentUpon>ucBaoCaoKetQuaKinhDoanh.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="module\ucBaoCaoSoQuyTK.resx">
+      <DependentUpon>ucBaoCaoSoQuyTK.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="module\ucBaoCaoSoQuyTM.resx">
       <DependentUpon>ucBaoCaoSoQuyTM.cs</DependentUpon>
     </EmbeddedResource>
@@ -1524,6 +1555,9 @@
     <EmbeddedResource Include="reports\rpt_BangKe.resx">
       <DependentUpon>rpt_BangKe.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="reports\rpt_BaoCaoKetQuaKinhDoanhV2.resx">
+      <DependentUpon>rpt_BaoCaoKetQuaKinhDoanhV2.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="reports\rpt_BaoCaoKetQuaKinhDoanh.resx">
       <DependentUpon>rpt_BaoCaoKetQuaKinhDoanh.cs</DependentUpon>
     </EmbeddedResource>
@@ -1583,6 +1617,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="reports\rpt_PhieuThu.resx">
       <DependentUpon>rpt_PhieuThu.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="reports\ucBaoCaoKetQuaKinhDoanhV2.resx">
+      <DependentUpon>ucBaoCaoKetQuaKinhDoanhV2.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="reports\ucLoiNhuanTheoTungLinhVuc.resx">
       <DependentUpon>ucLoiNhuanTheoTungLinhVuc.cs</DependentUpon>

@@ -56,7 +56,6 @@ namespace Quản_lý_vudaco.Forms
             this.txtGhiChu = new DevExpress.XtraEditors.MemoEdit();
             this.btnLuu = new DevExpress.XtraEditors.SimpleButton();
             this.btnXoa = new DevExpress.XtraEditors.SimpleButton();
-            this.btnThemMoi = new DevExpress.XtraEditors.SimpleButton();
             this.btnSua = new DevExpress.XtraEditors.SimpleButton();
             this.groupControl4 = new DevExpress.XtraEditors.GroupControl();
             this.panel1 = new System.Windows.Forms.Panel();
@@ -353,7 +352,7 @@ namespace Quản_lý_vudaco.Forms
             // btnLuu
             // 
             this.btnLuu.ImageOptions.Image = ((System.Drawing.Image)(resources.GetObject("btnLuu.ImageOptions.Image")));
-            this.btnLuu.Location = new System.Drawing.Point(164, 459);
+            this.btnLuu.Location = new System.Drawing.Point(77, 459);
             this.btnLuu.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.btnLuu.Name = "btnLuu";
             this.btnLuu.Size = new System.Drawing.Size(81, 24);
@@ -364,7 +363,7 @@ namespace Quản_lý_vudaco.Forms
             // btnXoa
             // 
             this.btnXoa.ImageOptions.Image = ((System.Drawing.Image)(resources.GetObject("btnXoa.ImageOptions.Image")));
-            this.btnXoa.Location = new System.Drawing.Point(335, 460);
+            this.btnXoa.Location = new System.Drawing.Point(248, 460);
             this.btnXoa.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.btnXoa.Name = "btnXoa";
             this.btnXoa.Size = new System.Drawing.Size(81, 24);
@@ -372,21 +371,10 @@ namespace Quản_lý_vudaco.Forms
             this.btnXoa.Text = "Xóa";
             this.btnXoa.Click += new System.EventHandler(this.btnXoa_Click);
             // 
-            // btnThemMoi
-            // 
-            this.btnThemMoi.ImageOptions.Image = ((System.Drawing.Image)(resources.GetObject("btnThemMoi.ImageOptions.Image")));
-            this.btnThemMoi.Location = new System.Drawing.Point(78, 459);
-            this.btnThemMoi.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.btnThemMoi.Name = "btnThemMoi";
-            this.btnThemMoi.Size = new System.Drawing.Size(81, 24);
-            this.btnThemMoi.TabIndex = 6;
-            this.btnThemMoi.Text = "Thêm mới";
-            this.btnThemMoi.Click += new System.EventHandler(this.btnThemMoi_Click);
-            // 
             // btnSua
             // 
             this.btnSua.ImageOptions.Image = ((System.Drawing.Image)(resources.GetObject("btnSua.ImageOptions.Image")));
-            this.btnSua.Location = new System.Drawing.Point(249, 460);
+            this.btnSua.Location = new System.Drawing.Point(162, 460);
             this.btnSua.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.btnSua.Name = "btnSua";
             this.btnSua.Size = new System.Drawing.Size(81, 24);
@@ -554,7 +542,6 @@ namespace Quản_lý_vudaco.Forms
             this.ClientSize = new System.Drawing.Size(1030, 514);
             this.Controls.Add(this.btnLuu);
             this.Controls.Add(this.btnXoa);
-            this.Controls.Add(this.btnThemMoi);
             this.Controls.Add(this.btnSua);
             this.Controls.Add(this.groupControl3);
             this.Controls.Add(this.groupControl2);
@@ -605,7 +592,6 @@ namespace Quản_lý_vudaco.Forms
         private DevExpress.XtraEditors.LabelControl labelControl13;
         private DevExpress.XtraEditors.SimpleButton btnLuu;
         private DevExpress.XtraEditors.SimpleButton btnXoa;
-        private DevExpress.XtraEditors.SimpleButton btnThemMoi;
         private DevExpress.XtraEditors.SimpleButton btnSua;
         private System.Windows.Forms.MaskedTextBox dtpNgayHachToan;
         private DevExpress.XtraEditors.LabelControl labelControl14;

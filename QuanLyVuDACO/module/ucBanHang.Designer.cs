@@ -45,6 +45,7 @@ namespace Quản_lý_vudaco.module
             this.dataSet1 = new Quản_lý_vudaco.DataSet1();
             this.gridView2 = new DevExpress.XtraGrid.Views.Grid.GridView();
             this.colSTT1 = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.gridColumn9 = new DevExpress.XtraGrid.Columns.GridColumn();
             this.gridColumn2 = new DevExpress.XtraGrid.Columns.GridColumn();
             this.gridColumn20 = new DevExpress.XtraGrid.Columns.GridColumn();
             this.gridColumn3 = new DevExpress.XtraGrid.Columns.GridColumn();
@@ -80,7 +81,9 @@ namespace Quản_lý_vudaco.module
             this.gridColumn7 = new DevExpress.XtraGrid.Columns.GridColumn();
             this.repositoryItemLookUpEdit1 = new DevExpress.XtraEditors.Repository.RepositoryItemLookUpEdit();
             this.repositoryItemLookUpEdit2 = new DevExpress.XtraEditors.Repository.RepositoryItemLookUpEdit();
-            this.gridColumn9 = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.gridColumn21 = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.gridColumn22 = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.gridColumn23 = new DevExpress.XtraGrid.Columns.GridColumn();
             ((System.ComponentModel.ISupportInitialize)(this.panelControl1)).BeginInit();
             this.panelControl1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.panelControl2)).BeginInit();
@@ -254,7 +257,10 @@ namespace Quản_lý_vudaco.module
             this.gridColumn15,
             this.gridColumn18,
             this.gridColumn1,
-            this.gridColumn19});
+            this.gridColumn19,
+            this.gridColumn21,
+            this.gridColumn22,
+            this.gridColumn23});
             this.gridView2.DetailHeight = 284;
             this.gridView2.GridControl = this.gridControl2;
             this.gridView2.Name = "gridView2";
@@ -270,7 +276,16 @@ namespace Quản_lý_vudaco.module
             this.colSTT1.Name = "colSTT1";
             this.colSTT1.Visible = true;
             this.colSTT1.VisibleIndex = 0;
-            this.colSTT1.Width = 42;
+            this.colSTT1.Width = 70;
+            // 
+            // gridColumn9
+            // 
+            this.gridColumn9.Caption = "Số phiếu";
+            this.gridColumn9.FieldName = "SoPhieu";
+            this.gridColumn9.Name = "gridColumn9";
+            this.gridColumn9.Visible = true;
+            this.gridColumn9.VisibleIndex = 1;
+            this.gridColumn9.Width = 123;
             // 
             // gridColumn2
             // 
@@ -322,7 +337,7 @@ namespace Quản_lý_vudaco.module
             this.gridColumn4.FieldName = "MaNhanVien";
             this.gridColumn4.Name = "gridColumn4";
             this.gridColumn4.Visible = true;
-            this.gridColumn4.VisibleIndex = 5;
+            this.gridColumn4.VisibleIndex = 8;
             this.gridColumn4.Width = 146;
             // 
             // repositoryItemNhanVien
@@ -345,7 +360,7 @@ namespace Quản_lý_vudaco.module
             this.gridColumn5.FieldName = "NguoiBanHang";
             this.gridColumn5.Name = "gridColumn5";
             this.gridColumn5.Visible = true;
-            this.gridColumn5.VisibleIndex = 6;
+            this.gridColumn5.VisibleIndex = 9;
             this.gridColumn5.Width = 172;
             // 
             // gridColumn6
@@ -355,7 +370,7 @@ namespace Quản_lý_vudaco.module
             this.gridColumn6.FieldName = "MaThu";
             this.gridColumn6.Name = "gridColumn6";
             this.gridColumn6.Visible = true;
-            this.gridColumn6.VisibleIndex = 7;
+            this.gridColumn6.VisibleIndex = 10;
             this.gridColumn6.Width = 198;
             // 
             // repositoryItemDSThu
@@ -378,7 +393,7 @@ namespace Quản_lý_vudaco.module
             this.gridColumn10.FieldName = "DienGiai";
             this.gridColumn10.Name = "gridColumn10";
             this.gridColumn10.Visible = true;
-            this.gridColumn10.VisibleIndex = 8;
+            this.gridColumn10.VisibleIndex = 11;
             this.gridColumn10.Width = 193;
             // 
             // gridColumn15
@@ -387,7 +402,7 @@ namespace Quản_lý_vudaco.module
             this.gridColumn15.FieldName = "NguoiTao";
             this.gridColumn15.Name = "gridColumn15";
             this.gridColumn15.Visible = true;
-            this.gridColumn15.VisibleIndex = 9;
+            this.gridColumn15.VisibleIndex = 12;
             this.gridColumn15.Width = 105;
             // 
             // gridColumn18
@@ -402,7 +417,7 @@ namespace Quản_lý_vudaco.module
             this.gridColumn1.Fixed = DevExpress.XtraGrid.Columns.FixedStyle.Right;
             this.gridColumn1.Name = "gridColumn1";
             this.gridColumn1.Visible = true;
-            this.gridColumn1.VisibleIndex = 11;
+            this.gridColumn1.VisibleIndex = 14;
             // 
             // repositoryItemSua
             // 
@@ -419,7 +434,7 @@ namespace Quản_lý_vudaco.module
             this.gridColumn19.Fixed = DevExpress.XtraGrid.Columns.FixedStyle.Right;
             this.gridColumn19.Name = "gridColumn19";
             this.gridColumn19.Visible = true;
-            this.gridColumn19.VisibleIndex = 10;
+            this.gridColumn19.VisibleIndex = 13;
             // 
             // repositoryItemXoa
             // 
@@ -624,14 +639,37 @@ namespace Quản_lý_vudaco.module
             new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
             this.repositoryItemLookUpEdit2.Name = "repositoryItemLookUpEdit2";
             // 
-            // gridColumn9
+            // gridColumn21
             // 
-            this.gridColumn9.Caption = "Số phiếu";
-            this.gridColumn9.FieldName = "SoPhieu";
-            this.gridColumn9.Name = "gridColumn9";
-            this.gridColumn9.Visible = true;
-            this.gridColumn9.VisibleIndex = 1;
-            this.gridColumn9.Width = 123;
+            this.gridColumn21.Caption = "Số Tiền";
+            this.gridColumn21.DisplayFormat.FormatString = "{0:#,##}";
+            this.gridColumn21.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Numeric;
+            this.gridColumn21.FieldName = "SoTien";
+            this.gridColumn21.Name = "gridColumn21";
+            this.gridColumn21.Summary.AddRange(new DevExpress.XtraGrid.GridSummaryItem[] {
+            new DevExpress.XtraGrid.GridColumnSummaryItem(DevExpress.Data.SummaryItemType.Sum, "SoTien", "{0:#,##}")});
+            this.gridColumn21.Visible = true;
+            this.gridColumn21.VisibleIndex = 5;
+            // 
+            // gridColumn22
+            // 
+            this.gridColumn22.Caption = "VAT";
+            this.gridColumn22.FieldName = "VAT";
+            this.gridColumn22.Name = "gridColumn22";
+            this.gridColumn22.Visible = true;
+            this.gridColumn22.VisibleIndex = 6;
+            // 
+            // gridColumn23
+            // 
+            this.gridColumn23.Caption = "Thành Tiền";
+            this.gridColumn23.DisplayFormat.FormatString = "{0:#,##}";
+            this.gridColumn23.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Numeric;
+            this.gridColumn23.FieldName = "ThanhTien";
+            this.gridColumn23.Name = "gridColumn23";
+            this.gridColumn23.Summary.AddRange(new DevExpress.XtraGrid.GridSummaryItem[] {
+            new DevExpress.XtraGrid.GridColumnSummaryItem(DevExpress.Data.SummaryItemType.Sum, "ThanhTien", "{0:#,##}")});
+            this.gridColumn23.Visible = true;
+            this.gridColumn23.VisibleIndex = 7;
             // 
             // ucBanHang
             // 
@@ -726,5 +764,8 @@ namespace Quản_lý_vudaco.module
         private DevExpress.XtraEditors.Repository.RepositoryItemLookUpEdit repositoryItemDSChiCon;
         private DevExpress.XtraGrid.Columns.GridColumn gridColumn20;
         private DevExpress.XtraGrid.Columns.GridColumn gridColumn9;
+        private DevExpress.XtraGrid.Columns.GridColumn gridColumn21;
+        private DevExpress.XtraGrid.Columns.GridColumn gridColumn22;
+        private DevExpress.XtraGrid.Columns.GridColumn gridColumn23;
     }
 }

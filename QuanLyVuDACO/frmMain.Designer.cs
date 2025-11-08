@@ -102,11 +102,12 @@ namespace Quản_lý_vudaco
             this.chiPhíHảiQuanToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.báoCáoDoanhThuToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.ucBaoCaoSoQuyTM_V2 = new System.Windows.Forms.ToolStripMenuItem();
-            this.báoCáoSổQuỹTKNgânHàngMớiToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.ucBaoCaoSoTK_V2 = new System.Windows.Forms.ToolStripMenuItem();
             this.báoCáoTàiChínhToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.lợiNhuậnTheoLôHàngToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.ucLoiNhuanTheoXe = new System.Windows.Forms.ToolStripMenuItem();
             this.lợiNhuậnTheoChuyếnToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.ucBaoCaoKetQuaKinhDoanhV2 = new System.Windows.Forms.ToolStripMenuItem();
             this.ucBaoCaoKetQuaKinhDoanh = new System.Windows.Forms.ToolStripMenuItem();
             this.ucLoiNhuanTheoTungLinhVuc = new System.Windows.Forms.ToolStripMenuItem();
             this.quảnLýToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -697,7 +698,7 @@ namespace Quản_lý_vudaco
             this.báoCáoChiPhíToolStripMenuItem,
             this.báoCáoDoanhThuToolStripMenuItem,
             this.ucBaoCaoSoQuyTM_V2,
-            this.báoCáoSổQuỹTKNgânHàngMớiToolStripMenuItem});
+            this.ucBaoCaoSoTK_V2});
             this.báoCáoToolStripMenuItem1.Name = "báoCáoToolStripMenuItem1";
             this.báoCáoToolStripMenuItem1.Size = new System.Drawing.Size(63, 20);
             this.báoCáoToolStripMenuItem1.Text = "Báo Cáo";
@@ -751,12 +752,12 @@ namespace Quản_lý_vudaco
             this.ucBaoCaoSoQuyTM_V2.Text = "Báo cáo sổ quỹ tiền mặt mới";
             this.ucBaoCaoSoQuyTM_V2.Click += new System.EventHandler(this.ucBaoCaoSoQuyTM_V2_Click);
             // 
-            // báoCáoSổQuỹTKNgânHàngMớiToolStripMenuItem
+            // ucBaoCaoSoTK_V2
             // 
-            this.báoCáoSổQuỹTKNgânHàngMớiToolStripMenuItem.Name = "báoCáoSổQuỹTKNgânHàngMớiToolStripMenuItem";
-            this.báoCáoSổQuỹTKNgânHàngMớiToolStripMenuItem.Size = new System.Drawing.Size(254, 22);
-            this.báoCáoSổQuỹTKNgânHàngMớiToolStripMenuItem.Text = "Báo cáo sổ quỹ TK ngân hàng mới";
-            this.báoCáoSổQuỹTKNgânHàngMớiToolStripMenuItem.Click += new System.EventHandler(this.báoCáoSổQuỹTKNgânHàngMớiToolStripMenuItem_Click);
+            this.ucBaoCaoSoTK_V2.Name = "ucBaoCaoSoTK_V2";
+            this.ucBaoCaoSoTK_V2.Size = new System.Drawing.Size(254, 22);
+            this.ucBaoCaoSoTK_V2.Text = "Báo cáo sổ quỹ TK ngân hàng mới";
+            this.ucBaoCaoSoTK_V2.Click += new System.EventHandler(this.ucBaoCaoSoTK_V2_Click);
             // 
             // báoCáoTàiChínhToolStripMenuItem
             // 
@@ -764,6 +765,7 @@ namespace Quản_lý_vudaco
             this.lợiNhuậnTheoLôHàngToolStripMenuItem,
             this.ucLoiNhuanTheoXe,
             this.lợiNhuậnTheoChuyếnToolStripMenuItem,
+            this.ucBaoCaoKetQuaKinhDoanhV2,
             this.ucBaoCaoKetQuaKinhDoanh,
             this.ucLoiNhuanTheoTungLinhVuc});
             this.báoCáoTàiChínhToolStripMenuItem.Name = "báoCáoTàiChínhToolStripMenuItem";
@@ -789,6 +791,13 @@ namespace Quản_lý_vudaco
             this.lợiNhuậnTheoChuyếnToolStripMenuItem.Name = "lợiNhuậnTheoChuyếnToolStripMenuItem";
             this.lợiNhuậnTheoChuyếnToolStripMenuItem.Size = new System.Drawing.Size(290, 22);
             this.lợiNhuậnTheoChuyếnToolStripMenuItem.Text = "Lợi nhuận theo chuyến";
+            // 
+            // ucBaoCaoKetQuaKinhDoanhV2
+            // 
+            this.ucBaoCaoKetQuaKinhDoanhV2.Name = "ucBaoCaoKetQuaKinhDoanhV2";
+            this.ucBaoCaoKetQuaKinhDoanhV2.Size = new System.Drawing.Size(290, 22);
+            this.ucBaoCaoKetQuaKinhDoanhV2.Text = "Báo cáo kết quả kinh doanh mới";
+            this.ucBaoCaoKetQuaKinhDoanhV2.Click += new System.EventHandler(this.ucBaoCaoKetQuaKinhDoanhV2_Click);
             // 
             // ucBaoCaoKetQuaKinhDoanh
             // 
@@ -1151,7 +1160,8 @@ namespace Quản_lý_vudaco
         private System.Windows.Forms.ToolStripMenuItem ucNhomQuyen;
         private System.Windows.Forms.ToolStripMenuItem ucSaoLuuDuLieu;
         private System.Windows.Forms.ToolStripMenuItem ucBaoCaoSoQuyTM_V2;
-        private System.Windows.Forms.ToolStripMenuItem báoCáoSổQuỹTKNgânHàngMớiToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem ucBaoCaoSoTK_V2;
+        private System.Windows.Forms.ToolStripMenuItem ucBaoCaoKetQuaKinhDoanhV2;
     }
 }
 

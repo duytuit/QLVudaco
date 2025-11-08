@@ -1,5 +1,6 @@
 ﻿using DevExpress.XtraEditors;
 using DevExpress.XtraReports.UI;
+using Quản_lý_vudaco.services;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -47,7 +48,10 @@ namespace Quản_lý_vudaco.module
             {
                 DateTime Ngay1 = new DateTime(int.Parse(arr1[2]), int.Parse(arr1[1]), int.Parse(arr1[0]));
                 DateTime Ngay2 = new DateTime(int.Parse(arr2[2]), int.Parse(arr2[1]), int.Parse(arr2[0]));
-                gridControl2.DataSource = client.DanhSachBanHang_TheoNgay(Ngay1, Ngay2);
+                using (var mb = new phieumuaban())
+                {
+                    gridControl2.DataSource = mb.DanhSachBanHang_TheoNgay(Ngay1, Ngay2);
+                }
             }
         }
 

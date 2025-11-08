@@ -116,6 +116,123 @@ namespace Quản_lý_vudaco.services
                 return list;
             }
         }
+        public DataTable BaoCaoKetQuaKinhDoanh(DateTime TuNgay, DateTime DenNgay)
+        {
+            string sql = $@"
+            DECLARE @TuNgay DATE = '{TuNgay:yyyy-MM-dd}';
+            DECLARE @DenNgay DATE = '{DenNgay:yyyy-MM-dd}';
+
+            -----------------------------------------------------
+            -- DoanhThu_File
+            -----------------------------------------------------
+            DECLARE @DoanhThu_File FLOAT = (
+                SELECT ISNULL(SUM(a.GiaBan), 0)
+                FROM FileGiaChiTiet a
+                INNER JOIN FileGia b ON a.IDGia = b.IDGia
+                WHERE b.ThoiGianLap >= @TuNgay AND b.ThoiGianLap < DATEADD(DAY,1,@DenNgay)
+            );
+
+            -----------------------------------------------------
+            -- DoanhThu_KoFile
+            -----------------------------------------------------
+            DECLARE @DoanhThu_KoFile_1 FLOAT = (
+                SELECT ISNULL(SUM(ISNULL(x.CuocBan,0) + ISNULL(x.LaiXeThuCuoc,0)), 0)
+                FROM BangDieuXe x
+                LEFT JOIN FileDebit_KoHoaDon_KH d ON d.MaDieuXe = x.MaDieuXe
+                WHERE LEN(LTRIM(RTRIM(x.SoFile))) < 5 
+                  AND d.MaDieuXe IS NULL
+                  AND x.Ngay >= @TuNgay AND x.Ngay < DATEADD(DAY,1,@DenNgay)
+            );
+
+            DECLARE @DoanhThu_KoFile_2 FLOAT = (
+                SELECT ISNULL(SUM(d.DoanhThuThuan), 0)
+                FROM FileDebit_KoHoaDon_KH d
+                WHERE d.NgayTao >= @TuNgay AND d.NgayTao < DATEADD(DAY,1,@DenNgay)
+            );
+
+            DECLARE @DoanhThu_KoFile_3 FLOAT = (
+                SELECT ISNULL(SUM(a.SoTien), 0)
+                FROM PhieuBanCT a
+                LEFT JOIN PhieuBan b ON a.IDPhieuBan = b.IDPhieuBan
+                WHERE b.MaNhaCC IS NOT NULL 
+                  AND LTRIM(RTRIM(b.MaNhaCC)) <> '' 
+                  AND b.DoiTuong = N'KH'
+                  AND b.NgayBan >= @TuNgay AND b.NgayBan < DATEADD(DAY,1,@DenNgay)
+            );
+
+            DECLARE @DoanhThu_KoFile FLOAT = @DoanhThu_KoFile_1 + @DoanhThu_KoFile_2 + @DoanhThu_KoFile_3;
+
+            -----------------------------------------------------
+            -- ChiPhi_File
+            -----------------------------------------------------
+            DECLARE @ChiPhi_File FLOAT = (
+                SELECT ISNULL(SUM(a.GiaMua), 0)
+                FROM FileGiaChiTiet a
+                INNER JOIN FileGia b ON a.IDGia = b.IDGia
+                WHERE b.ThoiGianLap >= @TuNgay AND b.ThoiGianLap < DATEADD(DAY,1,@DenNgay)
+            );
+
+            -----------------------------------------------------
+            -- PhiVanChuyen_KoFile
+            -----------------------------------------------------
+            DECLARE @PhiVanChuyen_KoFile_1 FLOAT = (
+                SELECT ISNULL(SUM(x.CuocMua), 0)
+                FROM BangDieuXe x
+                WHERE LEN(LTRIM(RTRIM(x.SoFile))) < 5 
+                  AND x.Ngay >= @TuNgay AND x.Ngay < DATEADD(DAY,1,@DenNgay)
+            );
+
+            DECLARE @PhiKinhDoanh1 FLOAT = (
+                SELECT ISNULL(SUM(a.SoTien), 0)
+                FROM PhieuMuaCT a
+                LEFT JOIN PhieuMua b ON a.IDPhieuMua = b.IDPhieuMua
+                WHERE b.IDPhieuMua IS NOT NULL
+                  AND b.NgayMua >= @TuNgay AND b.NgayMua < DATEADD(DAY,1,@DenNgay)
+            );
+
+            DECLARE @PhiVanChuyen_KoFile FLOAT = @PhiVanChuyen_KoFile_1;
+
+            -----------------------------------------------------
+            -- PhiKinhDoanh (bổ sung đầy đủ điều kiện)
+            -----------------------------------------------------
+            DECLARE @PhiKinhDoanh2 FLOAT = (
+                SELECT ISNULL(SUM(a.SoTien), 0)
+                FROM PhieuChi_Con_CT a
+                INNER JOIN PhieuChi_Con b ON a.SoChungTu = b.SoChungTu
+                WHERE b.LyDoChi = N'Chi phí kinh doanh'
+                  AND b.NgayHachToan >= @TuNgay 
+                  AND b.NgayHachToan < DATEADD(DAY,1,@DenNgay)
+            );
+
+            DECLARE @PhiKinhDoanh FLOAT = @PhiKinhDoanh1 + @PhiKinhDoanh2;
+            -----------------------------------------------------
+            -- Tính toán lợi nhuận
+            -----------------------------------------------------
+            DECLARE @LoiNhuan_TruocThue FLOAT = 
+                @DoanhThu_File + @DoanhThu_KoFile 
+                - @ChiPhi_File - @PhiVanChuyen_KoFile - @PhiKinhDoanh;
+
+            DECLARE @Thue_TNDN FLOAT = @LoiNhuan_TruocThue / 5;
+            DECLARE @LoiNhuan_SauThue FLOAT = @LoiNhuan_TruocThue - @Thue_TNDN;
+
+            -----------------------------------------------------
+            -- Xuất kết quả
+            -----------------------------------------------------
+            SELECT 
+                @DoanhThu_File AS DoanhThu_File,
+                @DoanhThu_KoFile AS DoanhThu_KoFile,
+                @ChiPhi_File AS ChiPhi_File,
+                @PhiVanChuyen_KoFile AS PhiVanChuyen_KoFile,
+                @PhiKinhDoanh AS PhiKinhDoanh,
+                @LoiNhuan_TruocThue AS LoiNhuan_TruocThue,
+                @Thue_TNDN AS Thue_TNDN,
+                @LoiNhuan_SauThue AS LoiNhuan_SauThue,
+                N'Từ ngày ' + CONVERT(VARCHAR(10), @TuNgay, 103) + 
+                N' đến ngày ' + CONVERT(VARCHAR(10), @DenNgay, 103) AS ThoiGian;
+            ";
+
+            return cls.LoadTable(sql);
+        }
         public List<CongNoChiTietKH> CongNoTongHopKH(DateTime TuNgay, DateTime? DenNgay = null, string makh = null, int dauky = 0)
         {
             List<CongNoChiTietKH> list = new List<CongNoChiTietKH>();

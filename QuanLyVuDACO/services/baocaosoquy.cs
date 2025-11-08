@@ -15,7 +15,7 @@ namespace Quản_lý_vudaco.services
         {
             cls = new clsKetNoi();
         }
-        public List<BaoCaoSoQuy> BaoCaoQuy(DateTime TuNgay, DateTime? DenNgay = null, string madoituong = null, string hinhthucTT =null, int dauky = 0)
+        public List<BaoCaoSoQuy> BaoCaoQuy(DateTime TuNgay, DateTime? DenNgay = null, string madoituong = null, string hinhthucTT =null, int dauky = 0,string stk = null)
         {
             List<BaoCaoSoQuy> list = new List<BaoCaoSoQuy>();
 
@@ -45,6 +45,10 @@ namespace Quản_lý_vudaco.services
             if (!string.IsNullOrEmpty(hinhthucTT))
             {
                 sql += $@" and B.HinhThucTT = N'{hinhthucTT}'";
+            }
+            if (!string.IsNullOrEmpty(stk))
+            {
+                sql += $@" and B.SoTK = N'{stk}'";
             }
             DataTable table = cls.LoadTable(sql);
             foreach (DataRow item in table.Rows)
@@ -119,6 +123,10 @@ namespace Quản_lý_vudaco.services
             {
                 sql += $@" and B.HinhThucTT = N'{hinhthucTT}'";
             }
+            if (!string.IsNullOrEmpty(stk))
+            {
+                sql += $@" and B.SoTK = N'{stk}'";
+            }
             table = cls.LoadTable(sql);
             foreach (DataRow item in table.Rows)
             {
@@ -191,6 +199,10 @@ namespace Quản_lý_vudaco.services
             if (!string.IsNullOrEmpty(hinhthucTT))
             {
                 sql += $@" and B.HinhThucTT = N'{hinhthucTT}'";
+            }
+            if (!string.IsNullOrEmpty(stk))
+            {
+                sql += $@" and B.SoTK = N'{stk}'";
             }
             table = cls.LoadTable(sql);
             foreach (DataRow item in table.Rows)
@@ -265,6 +277,10 @@ namespace Quản_lý_vudaco.services
             {
                 sql += $@" and B.HinhThucTT = N'{hinhthucTT}'";
             }
+            if (!string.IsNullOrEmpty(stk))
+            {
+                sql += $@" and B.SoTK = N'{stk}'";
+            }
             table = cls.LoadTable(sql);
             foreach (DataRow item in table.Rows)
             {
@@ -337,6 +353,10 @@ namespace Quản_lý_vudaco.services
             if (!string.IsNullOrEmpty(hinhthucTT))
             {
                 sql += $@" and B.HinhThucTT = N'{hinhthucTT}'";
+            }
+            if (!string.IsNullOrEmpty(stk))
+            {
+                sql += $@" and B.SoTK = N'{stk}'";
             }
             table = cls.LoadTable(sql);
             foreach (DataRow item in table.Rows)
@@ -411,6 +431,10 @@ namespace Quản_lý_vudaco.services
             {
                 sql += $@" and B.HinhThucTT = N'{hinhthucTT}'";
             }
+            if (!string.IsNullOrEmpty(stk))
+            {
+                sql += $@" and B.SoTK = N'{stk}'";
+            }
             table = cls.LoadTable(sql);
             foreach (DataRow item in table.Rows)
             {
@@ -483,6 +507,10 @@ namespace Quản_lý_vudaco.services
             if (!string.IsNullOrEmpty(hinhthucTT))
             {
                 sql += $@" and B.HinhThucTT = N'{hinhthucTT}'";
+            }
+            if (!string.IsNullOrEmpty(stk))
+            {
+                sql += $@" and B.SoTK = N'{stk}'";
             }
             table = cls.LoadTable(sql);
             foreach (DataRow item in table.Rows)
@@ -557,6 +585,10 @@ namespace Quản_lý_vudaco.services
             {
                 sql += $@" and B.HinhThucTT = N'{hinhthucTT}'";
             }
+            if (!string.IsNullOrEmpty(stk))
+            {
+                sql += $@" and B.SoTK = N'{stk}'";
+            }
             table = cls.LoadTable(sql);
             foreach (DataRow item in table.Rows)
             {
@@ -629,6 +661,10 @@ namespace Quản_lý_vudaco.services
             if (!string.IsNullOrEmpty(hinhthucTT))
             {
                 sql += $@" and B.HinhThucTT = N'{hinhthucTT}'";
+            }
+            if (!string.IsNullOrEmpty(stk))
+            {
+                sql += $@" and B.SoTK = N'{stk}'";
             }
             table = cls.LoadTable(sql);
             foreach (DataRow item in table.Rows)

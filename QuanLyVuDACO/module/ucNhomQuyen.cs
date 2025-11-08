@@ -129,7 +129,10 @@ namespace Quản_lý_vudaco.module
                     new { TenQuyen = "Truy cập lúc:", Quyen = "toolStripStatusLabel2" },
                     new { TenQuyen = "lblThoiGian", Quyen = "lblThoiGian" },
                     new { TenQuyen = "Nhóm Quyền", Quyen = "ucNhomQuyen" },
-                    new { TenQuyen = "Phần mềm quản lý VUDACO", Quyen = "frmMain" }
+                    new { TenQuyen = "Phần mềm quản lý VUDACO", Quyen = "frmMain" },
+                    new { TenQuyen = "Báo cáo Sổ quỹ tiền mặt", Quyen = "ucBaoCaoSoQuyTM" },
+                    new { TenQuyen = "Báo cáo Sổ quỹ Tài khoản", Quyen = "ucBaoCaoSoQuyTK" },
+                    new { TenQuyen = "Báo cáo kết quả kinh doanh mới", Quyen = "ucBaoCaoKetQuaKinhDoanhV2" }
                 }.ToList();
 
 

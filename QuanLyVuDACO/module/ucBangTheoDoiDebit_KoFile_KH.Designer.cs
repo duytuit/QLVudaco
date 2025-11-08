@@ -533,7 +533,7 @@ namespace Quản_lý_vudaco.module
             // gridColumn21
             // 
             this.gridColumn21.Caption = "Doanh thu thuần";
-            this.gridColumn21.DisplayFormat.FormatString = "#,##";
+            this.gridColumn21.DisplayFormat.FormatString = "{0:#,##}";
             this.gridColumn21.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Numeric;
             this.gridColumn21.FieldName = "DoanhThuThuan";
             this.gridColumn21.Name = "gridColumn21";

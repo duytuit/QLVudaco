@@ -13,18 +13,21 @@ using System.Windows.Forms;
 
 namespace Quản_lý_vudaco.module
 {
-    public partial class ucBaoCaoSoQuyTM : DevExpress.XtraEditors.XtraUserControl
+    public partial class ucBaoCaoSoQuyTK : DevExpress.XtraEditors.XtraUserControl
     {
-        public ucBaoCaoSoQuyTM()
+        public ucBaoCaoSoQuyTK()
         {
             InitializeComponent();
             colSTT.UnboundType = DevExpress.Data.UnboundColumnType.Integer;
         }
         ServiceReference1.WebService1SoapClient client = new ServiceReference1.WebService1SoapClient();
-        private void ucBaoCaoSoQuyTM_Load(object sender, EventArgs e)
+        private void ucBaoCaoSoQuyTK_Load(object sender, EventArgs e)
         {
             dtpTuNgay.Text = DateTime.Now.AddDays(-7).ToString("dd/MM/yyyy");
             dtpDenNgay.Text = DateTime.Now.ToString("dd/MM/yyyy");
+            cboNganHang.DataSource = client.DanhMucNganHang_Load();
+            cboNganHang.DisplayMember = "SoTK";
+            cboNganHang.ValueMember = "SoTK";
             cboKH.Properties.DataSource = client.dsKH();
             btnXem_Click(sender, e);
         }
@@ -45,43 +48,47 @@ namespace Quản_lý_vudaco.module
                         makh = "";
                     else
                         makh = (cboKH.EditValue == null) ? "" : cboKH.EditValue.ToString();
-                    List<BaoCaoSoQuy> rs_ton = sqtm.BaoCaoQuy(Ngay1, null, makh, "TM",1);
+                    string stk = "";
+                    if (cboNganHang.Text == "")
+                        stk = "";
+                    else
+                        stk = (cboNganHang.Text == null) ? "" : cboNganHang.Text.ToString();
+                    List<BaoCaoSoQuy> rs_ton = sqtm.BaoCaoQuy(Ngay1, null, makh, "CK",1, stk);
                     double ton_thu = rs_ton.Sum(y => y.Thu);
                     double ton_chi =  rs_ton.Sum(y => y.Chi);
                     double ton = ton_thu - ton_chi;
                     lbSoDuDK.Text = ton.ToString("#,##");
-                    List<BaoCaoSoQuy> rs = sqtm.BaoCaoQuy(Ngay1, Ngay2, makh, "TM");
+                    List<BaoCaoSoQuy> rs = sqtm.BaoCaoQuy(Ngay1, Ngay2, makh, "CK",0, stk);
                     var rs_baocao_tienmat = rs
-                      .GroupBy(x => new { x.SoPhieu, x.NgayHachToan }) // group theo SoChungTu (và có thể thêm NgayHachToan nếu cần)
-                      .Select(g => new BaoCaoSoQuy
-                      {
-                          SoPhieu = g.Key.SoPhieu,
-                          NgayHachToan = g.Key.NgayHachToan,
-                          Thu = g.Sum(x => x.Thu),
-                          Chi = g.Sum(x => x.Chi),
-                          DienGiai = g.First().DienGiai,      // nếu cần lấy mô tả hoặc trường khác
-                             Ton = g.First().Ton,              // ví dụ
-                             DoiTuong = g.First().DoiTuong,              // ví dụ
-                             MaDoiTuong = g.First().MaDoiTuong,              // ví dụ
-                             LoaiDoiTuong = g.First().LoaiDoiTuong,              // ví dụ
-                             MaQuy = g.First().MaQuy,              // ví dụ
-                             TenQuy = g.First().TenQuy,              // ví dụ
-                             LyDo = g.First().LyDo,              // ví dụ
-                             SoTK = g.First().SoTK,              // ví dụ
-                             ChuTK = g.First().ChuTK,              // ví dụ
-                             NganHang = g.First().NganHang,              // ví dụ
-                                                                         // ... các thuộc tính khác nếu có
-                         })
-                      .OrderBy(x => x.NgayHachToan)
-                      .ToList();
+                     .GroupBy(x => new { x.SoPhieu, x.NgayHachToan }) // group theo SoChungTu (và có thể thêm NgayHachToan nếu cần)
+                     .Select(g => new BaoCaoSoQuy
+                     {
+                         SoPhieu = g.Key.SoPhieu,
+                         NgayHachToan = g.Key.NgayHachToan,
+                         Thu = g.Sum(x => x.Thu),
+                         Chi = g.Sum(x => x.Chi),
+                         DienGiai = g.First().DienGiai,      // nếu cần lấy mô tả hoặc trường khác
+                         Ton = g.First().Ton,              // ví dụ
+                         DoiTuong = g.First().DoiTuong,              // ví dụ
+                         MaDoiTuong = g.First().MaDoiTuong,              // ví dụ
+                         LoaiDoiTuong = g.First().LoaiDoiTuong,              // ví dụ
+                         MaQuy = g.First().MaQuy,              // ví dụ
+                         TenQuy = g.First().TenQuy,              // ví dụ
+                         LyDo = g.First().LyDo,              // ví dụ
+                         SoTK = g.First().SoTK,              // ví dụ
+                         ChuTK = g.First().ChuTK,              // ví dụ
+                         NganHang = g.First().NganHang,              // ví dụ
+                                                            // ... các thuộc tính khác nếu có
+                    })
+                     .OrderBy(x => x.NgayHachToan)
+                     .ToList();
                     foreach (var item in rs_baocao_tienmat)
                     {
                         ton += item.Thu;
                         ton -= item.Chi;
                         item.Ton = ton;    // <-- gán trực tiếp
                     }
-                    var kq_bao_cao_tienmat = rs_baocao_tienmat.OrderByDescending(x => x.NgayHachToan).ToList();
-                    gridControl1.DataSource = ToDataTable(kq_bao_cao_tienmat);
+                    gridControl1.DataSource = ToDataTable(rs_baocao_tienmat);
                 }
             }
         }

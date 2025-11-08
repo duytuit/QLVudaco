@@ -198,7 +198,7 @@ namespace Quản_lý_vudaco.Forms
                 string[] arr = dtpNgayHachToan.Text.Trim().Split('/');
                 if (arr.Length == 3)
                 {
-                    txtSoChungTu.Text = client.TaoSoChungTu(arr);
+                    txtSoChungTu.Text = client.TaoSoChungTu_NoiBo(arr);
 
                 }
                 else

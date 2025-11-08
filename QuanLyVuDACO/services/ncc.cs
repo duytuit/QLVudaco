@@ -1219,15 +1219,15 @@ namespace Quản_lý_vudaco.services
 
             // 1. Chi phí hải quan + chi hộ + phí đăng ký KTCL
             string sql1 = $@"
-        SELECT 
-            cp.IDCP,
-            ISNULL(SUM(CASE WHEN ct.MaChiPhi_HQ IS NOT NULL THEN ct.SoTien_HQ ELSE 0 END), 0) AS TongHQ,
-            ISNULL(SUM(CASE WHEN ct.MaChiHo IS NOT NULL THEN ct.SoTien_ChiHo ELSE 0 END), 0) AS TongCH,
-            ISNULL(cp.PhiDangKy, 0) AS PhiDangKy
-        FROM BangLietKeCP cp
-        LEFT JOIN BangLietKeCP_ChiTiet ct ON cp.IDCP = ct.IDCP
-        WHERE cp.IDLoHang = {IDLoHang} AND cp.IDCP = {IDCP}
-        GROUP BY cp.IDCP, cp.PhiDangKy";
+            SELECT 
+                cp.IDCP,
+                ISNULL(SUM(CASE WHEN ct.MaChiPhi_HQ IS NOT NULL THEN ct.SoTien_HQ ELSE 0 END), 0) AS TongHQ,
+                ISNULL(SUM(CASE WHEN ct.MaChiHo IS NOT NULL THEN ct.SoTien_ChiHo ELSE 0 END), 0) AS TongCH,
+                ISNULL(cp.PhiDangKy, 0) AS PhiDangKy
+            FROM BangLietKeCP cp
+            LEFT JOIN BangLietKeCP_ChiTiet ct ON cp.IDCP = ct.IDCP
+            WHERE cp.IDLoHang = {IDLoHang} AND cp.IDCP = {IDCP}
+            GROUP BY cp.IDCP, cp.PhiDangKy";
 
             var dtCP = cls.LoadTable(sql1);
 
